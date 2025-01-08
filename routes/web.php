@@ -13,6 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/clientes', [App\Http\Controllers\ClienteController::class, 'index'])->name('cliente.index');
