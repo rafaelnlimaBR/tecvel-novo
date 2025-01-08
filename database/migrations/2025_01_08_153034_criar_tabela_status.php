@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('contatos', function (Blueprint $table) {
+        Schema::create('status', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('numero');
-            $table->string('responsavel');//nome da pessoa responsável pelo numero. pode ser nulo
+            $table->string('nome');
+            $table->string('cor_fundo');
+            $table->string('cor_letra');
+            $table->boolean('cobrar');
+            $table->boolean('habilitar_funcoes');
 
-            $table->foreignId('app_id')->constrained('app_contatos','id')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contatos');
+        Schema::dropIfExists('status');
     }
 };

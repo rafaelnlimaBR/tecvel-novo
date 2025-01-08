@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('contatos', function (Blueprint $table) {
+        Schema::create('historico_entrada', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('numero');
-            $table->string('responsavel');//nome da pessoa responsável pelo numero. pode ser nulo
-
-            $table->foreignId('app_id')->constrained('app_contatos','id')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('historico_id')->constrained('historicos','id')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('entrada_id')->constrained('entradas','id')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contatos');
+        Schema::dropIfExists('historico_entrada');
     }
 };

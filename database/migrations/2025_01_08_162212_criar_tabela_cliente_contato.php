@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('clientes_contatos', function (Blueprint $table) {
+        Schema::create('cliente_contato', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->foreignId('cliente_id')->constrained('clientes','id')->onUpdate('cascade')->onDelete('cascade');
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clientes_contatos');
+        Schema::dropIfExists('cliente_contato');
     }
 };
