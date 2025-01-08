@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('formas_pagamentos', function (Blueprint $table) {
+        Schema::create('fornecedor_contato', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nome');
-            $table->decimal('taxa',5,2);
-            $table->foreignId('tipo_pagamento_id')->constrained('tipos_pagamentos','id')->onDelete('cascade')->onUpdate('cascade');
+
+            $table->foreignId('fornecedor_id')->constrained('fornecedores','id')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('contato_id')->constrained('contatos','id')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('formas_pagamentos');
+        Schema::dropIfExists('fornecedor_contato');
     }
 };

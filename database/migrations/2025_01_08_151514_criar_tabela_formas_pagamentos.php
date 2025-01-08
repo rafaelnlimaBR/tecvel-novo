@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('fornecedore_contato', function (Blueprint $table) {
+        Schema::create('formas_pagamentos', function (Blueprint $table) {
             $table->bigIncrements('id');
-
-            $table->foreignId('fornecedor_id')->constrained('fornecedores','id')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('contato_id')->constrained('contatos','id')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('nome');
+            $table->decimal('taxa',5,2);
+            $table->foreignId('tipo_id')->constrained('tipos_pagamentos','id')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -25,10 +25,10 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      *
-     * @return void
+     * @return void;
      */
     public function down()
     {
-        Schema::dropIfExists('fornecedore_contato');
+        Schema::dropIfExists('formas_pagamentos');
     }
 };
