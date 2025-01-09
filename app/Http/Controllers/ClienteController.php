@@ -13,7 +13,7 @@ class ClienteController extends Controller
             'titulo' => "Clientes",
             'titulo_tabela' => "Lista de Clientes"
         ];
-        $clientes   =   Cliente::all();
+        $clientes   =   Cliente::orderBy('created_at', 'desc')->paginate(15);
         return view('admin.clientes.index',$dados)->with('clientes',$clientes);
     }
 }
