@@ -1,6 +1,7 @@
 @extends('admin.index')
 
 @section('conteudo')
+<h1></h1>
 <div class="page-head">
     <h4 class="my-2">{{$titulo}}</h4>
 </div>
@@ -13,15 +14,15 @@
 
                       <div class="form-group col-md-2">
                         <label for="nome">Nome</label>
-                        <input type="text" class="form-control form-control-sm" name="nome" id="nome" placeholder="Nome">
+                        <input type="text" class="form-control form-control-sm" value="{{request()->has('nome')?request()->get('nome'):''}}" name="nome" value="" id="nome" placeholder="Nome">
                       </div>
                       <div class="form-group col-md-2">
                         <label for="email">Email</label>
-                        <input type="text" class="form-control form-control-sm" name="email" id="email" placeholder="Email">
+                        <input type="text" class="form-control form-control-sm" value="{{request()->has('email')?request()->get('email'):''}}" name="email" id="email" placeholder="Email">
                       </div>
                       <div class="form-group col-md-2">
                         <label for="telefone">Telefone</label>
-                        <input type="text" class="form-control form-control-sm" name="telefone" id="telefone" placeholder="Telefone">
+                        <input type="text" class="form-control form-control-sm" value="{{request()->has('telefone')?request()->get('telefone'):''}}" name="telefone" id="telefone" placeholder="Telefone">
                       </div>
                       <div class="form-group col-md-1" style="float: right">
                         <label for="Pesquisar">Pesquisar</label>
@@ -39,7 +40,7 @@
     <div class="col-lg-12 col-sm-12">
         <div class="card m-b-30">
             <div class="card-body">
-                <h5 class="header-title">{{$titulo_tabela}}</h5>
+                <h5 class="header-title">{{$titulo_tabela}}<p style="float: right"><button class="btn btn-primary btn-sm">Novo <i class="fa fa-plus-square"></i></button></p></h5>
 
                 <div class="table-responsive-sm">
                     <table class="table table-bordered">
@@ -49,9 +50,9 @@
                                 <th scope="col">Nome</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Contato</th>
-                                <th style="width: 8%; min-width: 60px;" scope="col">Cadastrado</th>
-                                <th style="width: 3%; min-width: 40px;" scope="col">Editar</th>
-                                <th style="width: 3%; min-width: 40px;" scope="col">Excluir</th>
+                                <th scope="col">Criado</th>
+                                <th style="width: 7%; min-width: 150px;" scope="col">Ações</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -63,9 +64,15 @@
                                     <td>{{$cliente->email}}</td>
                                     <td>{{$cliente->contatos->first()->numero}}</td>
                                     <td>{{\Carbon\Carbon::parse($cliente->created_at)->format('d/m/Y')}}</td>
-                                    <td>@.</td>
 
-                                    <td>@.</td>
+
+                                    <td>
+                                        <button class="btn btn-sm btn-primary" style="padding-top: 0; padding-bottom: 0"><i class="fa   fa-sign-out"></i></button>
+                                        <button class="btn btn-sm btn-warning" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-pencil-square"></i></button>
+                                        <button class="btn btn-sm btn-danger" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-trash-o"></i></button>
+
+
+                                    </td>
                                 </tr>
                             @endforeach
 
