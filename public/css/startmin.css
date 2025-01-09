@@ -7,7 +7,12 @@
 body {
     background-color: #f5f5f5;
 }
-
+.acao {
+    width: 4%;
+}
+.btn-acao{
+    width: 100%;
+}
 #wrapper {
     width: 100%;
 
