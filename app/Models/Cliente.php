@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Contato;
 
 class Cliente extends Model
 {
@@ -19,4 +20,16 @@ class Cliente extends Model
     {
         return $query->where('email','like','%'.$email.'%');
     }
+    public function scopePesquisarPorTelefone($query, $telefone)
+    {
+        return $query->whereHas('contatos', function ($query) use ($telefone) {
+            $query->where('numero', 'like','%'.$telefone.'%');
+        });
+    }
+
+    public function contatos()
+    {
+        return $this->belongsToMany(Contato::class);
+    }
+
 }

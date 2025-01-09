@@ -15,6 +15,7 @@ class ClienteController extends Controller
         ];
         $clientes   =   Cliente::pesquisarPorNome($r->input('nome'))
                                 ->pesquisarPorEmail($r->input('email'))
+                                ->pesquisarPorTelefone($r->input('telefone'))
                                 ->orderBy('created_at', 'desc')
                                 ->paginate(15)->
                                 withQueryString();
