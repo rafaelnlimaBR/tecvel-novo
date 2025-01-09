@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/clientes', [App\Http\Controllers\ClienteController::class, 'index'])->name('cliente.index');
+Route::get('/clientes', [App\Http\Controllers\ClienteController::class, 'index'])->name('cliente.pesquisar');
 Route::get('/', function () {
     return ;
 });

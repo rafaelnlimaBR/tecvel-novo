@@ -11,5 +11,12 @@ class Cliente extends Model
     protected $table = 'clientes';
     protected $fillable = ['nome'];
 
-    
+    public function scopePesquisarPorNome($query, $nome)
+    {
+        return $query->where('nome','like','%'.$nome.'%');
+    }
+    public function scopePesquisarPorEmail($query, $email)
+    {
+        return $query->where('email','like','%'.$email.'%');
+    }
 }

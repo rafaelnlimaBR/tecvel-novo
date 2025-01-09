@@ -7,7 +7,7 @@
         <meta name="author" content="Mannat Themes">
         <meta name="keyword" content="">
 
-        <title>SYNTRA | Responsive Web App Kit</title>
+        <title>TECVEL | {{$titulo}}</title>
 
         <!-- Theme icon -->
         <link rel="shortcut icon" href="{{ URL::asset('/images/favicon.ico') }}">

@@ -8,12 +8,16 @@ use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
-    public function index (){
+    public function index (Request $r){
         $dados = [
             'titulo' => "Clientes",
             'titulo_tabela' => "Lista de Clientes"
         ];
-        $clientes   =   Cliente::orderBy('created_at', 'desc')->paginate(15);
+        $clientes   =   Cliente::pesquisarPorNome($r->input('nome'))
+                                ->pesquisarPorEmail($r->input('email'))
+                                ->orderBy('created_at', 'desc')
+                                ->paginate(15)->
+                                withQueryString();
         return view('admin.clientes.index',$dados)->with('clientes',$clientes);
     }
 }
