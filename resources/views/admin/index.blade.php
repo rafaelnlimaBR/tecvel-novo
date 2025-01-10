@@ -674,6 +674,7 @@
                 {
                     if('erro' in data){
                         alert(data.erro);
+                        console.log(data.erro);
                     }else{
                         $('#tabela-atualizavel').html(data.contatos);
                     }

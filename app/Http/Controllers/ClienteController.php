@@ -71,8 +71,10 @@ class ClienteController extends Controller
                 'contatos'=>view('admin.contatos.tabela',['contatos'=>$cliente->contatos])->render(),
             ]);
 
-        } catch (\Exception $th) {
-            return $th->getMessage();
+        } catch (Exception $th) {
+            return response()->json([
+                'contatos'=>view('admin.contatos.tabela',['erro'=>$th->getMessege()])->render(),
+            ]);
         }
     }
 

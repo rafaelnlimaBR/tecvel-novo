@@ -17,7 +17,7 @@ class ContatoController extends Controller
             if($contato->save()){
                 return $contato->id;
             }
-        } catch (\Exception $th) {
+        } catch (Exception $th) {
             return $th->getMessage();
         }
     }
