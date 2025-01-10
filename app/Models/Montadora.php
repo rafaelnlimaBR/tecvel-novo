@@ -9,3 +9,4 @@ class Montadora extends Model
 {
     use HasFactory;
 }
+

@@ -1,7 +1,7 @@
 @extends('admin.index')
 
 @section('conteudo')
-<h1></h1>
+
 <div class="page-head">
     <h4 class="my-2">{{$titulo}}</h4>
 </div>
@@ -9,7 +9,7 @@
     <div class="col-lg-12">
         <div class="card m-b-30">
             <div class="card-body">
-                <form method="get" action="{{route('cliente.pesquisar')}}">
+                <form method="get" action="{{route('cliente.index')}}">
                     <div class="form-row">
 
                       <div class="form-group col-md-2">
@@ -30,8 +30,6 @@
                       </div>
                     </div>
               </form>
-
-
             </div>
         </div>
     </div>
@@ -40,7 +38,7 @@
     <div class="col-lg-12 col-sm-12">
         <div class="card m-b-30">
             <div class="card-body">
-                <h5 class="header-title">{{$titulo_tabela}}<p style="float: right"><button class="btn btn-primary btn-sm">Novo <i class="fa fa-plus-square"></i></button></p></h5>
+                <h5 class="header-title">{{$titulo_tabela}}<p style="float: right"><a href="{{ route('cliente.novo') }}" style="color: white; font-size: 7; text-transform: none" class="btn btn-primary btn-sm">Novo <i class="fa fa-plus-square"></i></a></p></h5>
 
                 <div class="table-responsive-sm">
                     <table class="table table-bordered">

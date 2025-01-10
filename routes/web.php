@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Cliente;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +16,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/clientes', [App\Http\Controllers\ClienteController::class, 'index'])->name('cliente.index');
-Route::get('/clientes', [App\Http\Controllers\ClienteController::class, 'index'])->name('cliente.pesquisar');
-Route::get('/', function () {
-    return ;
+Route::get('/clientes/novo', [App\Http\Controllers\ClienteController::class, 'novo'])->name('cliente.novo');
+Route::get('/clientes/editar/{id}', [App\Http\Controllers\ClienteController::class, 'editar'])->name('cliente.editar');
+Route::post('/clientes/cadastrar', [App\Http\Controllers\ClienteController::class, 'cadastrar'])->name('cliente.cadastrar');
+Route::get('/',function(){
+    $cliente    =   Cliente::find(100);
+    return $cliente->nome;
+
 });
