@@ -1,0 +1,5 @@
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^tecvelautomotiva.com.br$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^www.tecvelautomotiva.com.br$
+RewriteCond %{REQUEST_URI} !public/
+RewriteRule (.*) /public/$1 [L]
