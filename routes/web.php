@@ -16,9 +16,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/clientes', [App\Http\Controllers\ClienteController::class, 'index'])->name('cliente.index');
-Route::get('/clientes/novo', [App\Http\Controllers\ClienteController::class, 'novo'])->name('cliente.novo');
-Route::get('/clientes/editar/{id}', [App\Http\Controllers\ClienteController::class, 'editar'])->name('cliente.editar');
-Route::post('/clientes/cadastrar', [App\Http\Controllers\ClienteController::class, 'cadastrar'])->name('cliente.cadastrar');
+Route::get('/cliente/novo', [App\Http\Controllers\ClienteController::class, 'novo'])->name('cliente.novo');
+Route::get('/cliente/editar/{id}', [App\Http\Controllers\ClienteController::class, 'editar'])->name('cliente.editar');
+Route::post('/cliente/cadastrar', [App\Http\Controllers\ClienteController::class, 'cadastrar'])->name('cliente.cadastrar');
+Route::post('/cliente/adicionar/contato', [App\Http\Controllers\ClienteController::class, 'adicionarContato'])->name('cliente.adicionar.contato');
 Route::get('/',function(){
     $cliente    =   Cliente::find(100);
     return $cliente->nome;

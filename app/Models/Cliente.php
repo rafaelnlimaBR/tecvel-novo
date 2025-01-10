@@ -29,7 +29,7 @@ class Cliente extends Model
 
     public function contatos()
     {
-        return $this->belongsToMany(Contato::class);
+        return $this->belongsToMany(Contato::class)->withTimestamps();
     }
 
 }

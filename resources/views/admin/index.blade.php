@@ -8,7 +8,7 @@
         <meta name="keyword" content="">
 
         <title>TECVEL | {{$titulo}}</title>
-
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
         <!-- Theme icon -->
         <link rel="shortcut icon" href="{{ URL::asset('/images/favicon.ico') }}">
 
@@ -655,6 +655,38 @@
 
         <!--app js-->
         <script src="{{ URL::asset('/js/jquery.app.js') }}"></script>
+        <script type="text/javascript">
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $("form[name='adicionar-contato']").submit(function () {
+            var dados   = $(this).serialize();
+            var rota    =   this.action;
+
+
+            $.ajax({
+                type: "POST",
+                url: rota,
+                data: dados,
+                success: function( data )
+                {
+                    if('erro' in data){
+                        alert(data.erro);
+                    }else{
+                        $('#tabela-atualizavel').html(data.contatos);
+                    }
+                },
+                error:function (data,e) {
+                    alert(data);
+                }
+            });
+            return false;
+
+
+        });
+        </script>
     </body>
 </html>
 

@@ -45,7 +45,7 @@ class ClienteController extends Controller
 
 
 
-        } catch (\Throwable $th) {
+        } catch (\Exception $th) {
             return $th->getMessage();
         }
     }
@@ -59,6 +59,21 @@ class ClienteController extends Controller
             'contatos'      => $cliente->contatos
         ];
         return view('admin.clientes.formulario',$dados);
+    }
+
+    public function adicionarContato(Request $r){
+        try {
+            $cliente        =   Cliente::find($r->id);
+            $contato        =   new ContatoController();
+            $contato = $contato->cadastrar($r->get('numero'),$r->get('responsavel'),$r->get('app'));
+            $cliente->contatos()->attach($contato);
+            return response()->json([
+                'contatos'=>view('admin.contatos.tabela',['contatos'=>$cliente->contatos])->render(),
+            ]);
+
+        } catch (\Exception $th) {
+            return $th->getMessage();
+        }
     }
 
 }

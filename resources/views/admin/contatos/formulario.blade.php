@@ -1,10 +1,12 @@
 <div class="card ">
     <div class="card-body">
-        <form method="POST" action="">
+        <form method="POST" action="{{ $route_action }}" name="adicionar-contato">
+            {{ csrf_field() }}
+            <input type="hidden" name="id" value="{{$id}}">
             <div class="form-row">
               <div class="form-group col-md-3">
                 <label for="numero">Numero</label>
-                <input type="text" class="form-control" id="Nome" placeholder="Numero de Telefone" name="nome">
+                <input type="text" class="form-control" id="Nome" placeholder="Numero de Telefone" name="numero">
               </div>
               <div class="form-group col-md-3">
                 <label for="responsavel">Responsável</label>
@@ -25,48 +27,10 @@
               </div>
             </div>
         </form>
-
-        <div class="row">
-            <div class="table-responsive-sm">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-
-                            <th scope="col">Numero</th>
-                            <th scope="col">Responsável</th>
-                            <th scope="col">App</th>
-                            <th scope="col">Criado</th>
-                            <th style="width: 7%; min-width: 150px;" scope="col">Ações</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        @foreach ($contatos as $contato)
-                            <tr>
-
-                                <td>{{$contato->numero}}</td>
-                                <td>{{$contato->email}}</td>
-                                <td></td>
-                                <td>{{\Carbon\Carbon::parse($contato->created_at)->format('d/m/Y')}}</td>
-
-
-                                <td>
-                                    <button class="btn btn-sm btn-primary" style="padding-top: 0; padding-bottom: 0"><i class="fa   fa-sign-out"></i></button>
-                                    <button class="btn btn-sm btn-warning" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-pencil-square"></i></button>
-                                    <button class="btn btn-sm btn-danger" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-trash-o"></i></button>
-
-
-                                </td>
-                            </tr>
-                        @endforeach
-
-                    </tbody>
-
-                </table>
-
-            </div>
+        <div class="tabela-atualizavel" id="tabela-atualizavel">
+            @include('admin.contatos.tabela',$contatos)
         </div>
     </div>
 
 </div>
+
