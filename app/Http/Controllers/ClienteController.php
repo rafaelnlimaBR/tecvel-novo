@@ -70,7 +70,7 @@ class ClienteController extends Controller
             $contato = $contato->cadastrar($r->get('numero'),$r->get('responsavel'),$r->get('app'));
             $cliente->contatos()->attach($contato);
             return response()->json([
-                'contatos'=>view('admin.contatos.tabela',['contatos'=>$cliente->contatos])->render(),
+                'contatos'=>view('admin.contatos.tabela',['contatos'=>$cliente->contatos,'id'=>$cliente->id])->render(),
             ]);
 
         } catch (Exception $th) {
@@ -78,6 +78,22 @@ class ClienteController extends Controller
             return response()->json([
                 'contatos'=>view('admin.contatos.tabela',['erro'=>$th->getMessage()])->render(),
             ]);
+        }
+    }
+
+    public function atualizarContato(Request $r){
+        try {
+
+            $contato        = new ContatoController();
+            $cliente        =   Cliente::find($r->get('foreignkey'));
+
+            $contato->atualizar($r->get('id'),$r->get('numero'),$r->get('responsavel'),$r->get('app'));
+            return response()->json([
+                'contatos'=>view('admin.contatos.tabela',['contatos'=>$cliente->contatos,'id'=>$cliente->id])->render(),
+            ]);
+
+        } catch (Exception $e) {
+            return \response()->json(['erro'=>$e->getMessage()]);
         }
     }
 

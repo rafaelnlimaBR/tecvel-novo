@@ -15,13 +15,11 @@
               <div class="form-group col-md-3">
                 <label for="app">Aplicatico de Mensagem</label>
                 <select id="app" class="form-control" name="app">
-                  <option value="0" selected>Não</option>
+
                   @foreach ($aplicativos as $app)
-                    @if ($app == null)
-                        <option value="0" selected>Não tem app</option>
-                    @else
-                    <option value="{{$app->id}}" selected>{{$app->nome}}</option>
-                    @endif
+
+                    <option value="{{$app->id}}" >{{$app->nome}}</option>
+
                   @endforeach
                 </select>
               </div>
@@ -32,9 +30,10 @@
             </div>
         </form>
         <div class="tabela-atualizavel" id="tabela-atualizavel">
-            @include('admin.contatos.tabela',$contatos)
+            @include('admin.contatos.tabela',['id'=>$id,'contatos'=>$contatos])
         </div>
     </div>
 
 </div>
+
 

@@ -663,9 +663,51 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
+            $("#tabela-atualizavel").on('click','.botao-editar',function () {
+                var id          =   $(this).attr("contato");
+                var numero      =   $('#numero-'+id.toString()).val();
+                var responsavel =   $('#responsavel-'+id.toString()).val();
+                var app         =   $('#app-'+id.toString()).val();
+                var foreignkey  =   $(this).attr("foreignkey");
+                var rota        = "{{route('cliente.atualizar.contato')}}";
+
+                $.ajax({
+                    header:{
+                        'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: rota,
+                    type: "post",
+                    data: {
+
+                    'id'                :   id,
+                    'numero'            :   numero,
+                    'responsavel'       :   responsavel,
+                    'app'               :   app,
+                    'foreignkey'        :   foreignkey
+
+                    },
+                    success: function( data )
+                    {
+                        if('erro' in data){
+                            alert(data.erro);
+
+                        }else{
+
+                            $('#tabela-atualizavel').html(data.contatos);
+                        }
+
+                    },
+                    error:function (data) {
+                        console.log(data)
+                    }
+                    });
+            });
+
+            //ADICIONAR CONTATO
             $("form[name='adicionar-contato']").submit(function () {
             var dados   = $(this).serialize();
-            
+         
             var rota    =   this.action;
                 if($('#numero-contato').val().trim().length == 0){
                     alert('campo numero esta vazio')
@@ -680,7 +722,7 @@
                     {
                         if('erro' in data){
                             alert(data.erro);
-                            console.log(data.erro);
+
                         }else{
                             $('#tabela-atualizavel').html(data.contatos);
                         }
@@ -692,8 +734,9 @@
             return false;
 
 
-        });
+            });
 
+        //PESQUISA POR CEP E PREENCHIMENTO AUTOMATICO
         function limpa_formulário_cep() {
                 // Limpa valores do formulário de cep.
                 $("#rua").val("");
@@ -754,6 +797,8 @@
             });
 
         </script>
+
+
     </body>
 </html>
 

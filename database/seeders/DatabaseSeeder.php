@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Cliente;
 use App\Models\Contato;
+use \Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,11 +17,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         \App\Models\AppContato::factory()->create([
-            'nome' => 'Whatsapp',
-            'link' => '..',
-            'img'   =>  '..'
-         ]);
+
+
+         DB::table('app_contatos')->insert([
+            ['nome' => 'Whatsapp','link' => '..','img'   =>  '..'],
+            ['nome' => 'Telegran','link' => '..','img'   =>  '..'],
+            ['nome' => 'Não possui App','link' => '..','img'   =>  '..']
+        ]);
 
 
 

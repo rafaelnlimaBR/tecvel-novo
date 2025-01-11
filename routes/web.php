@@ -22,6 +22,9 @@ Route::get('/cliente/novo', [App\Http\Controllers\ClienteController::class, 'nov
 Route::get('/cliente/editar/{id}', [App\Http\Controllers\ClienteController::class, 'editar'])->name('cliente.editar');
 Route::post('/cliente/cadastrar', [App\Http\Controllers\ClienteController::class, 'cadastrar'])->name('cliente.cadastrar');
 Route::post('/cliente/adicionar/contato', [App\Http\Controllers\ClienteController::class, 'adicionarContato'])->name('cliente.adicionar.contato');
+Route::post('/cliente/atualizar/contato', [App\Http\Controllers\ClienteController::class, 'atualizarContato'])->name('cliente.atualizar.contato');
+
+
 
 View::composer(['admin.contatos.formulario','admin.contatos.tabela'],function($view){
     $view->with(['aplicativos'=>AppContato::all()]);
