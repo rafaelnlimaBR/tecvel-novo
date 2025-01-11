@@ -664,25 +664,28 @@
             $("form[name='adicionar-contato']").submit(function () {
             var dados   = $(this).serialize();
             var rota    =   this.action;
-
-
-            $.ajax({
-                type: "POST",
-                url: rota,
-                data: dados,
-                success: function( data )
-                {
-                    if('erro' in data){
-                        alert(data.erro);
-                        console.log(data.erro);
-                    }else{
-                        $('#tabela-atualizavel').html(data.contatos);
-                    }
-                },
-                error:function (data,e) {
-                    alert(data);
+                if($('#numero-contato').val().trim().length == 0){
+                    alert('campo numero esta vazio')
+                    return false;
                 }
-            });
+
+                $.ajax({
+                    type: "POST",
+                    url: rota,
+                    data: dados,
+                    success: function( data )
+                    {
+                        if('erro' in data){
+                            alert(data.erro);
+                            console.log(data.erro);
+                        }else{
+                            $('#tabela-atualizavel').html(data.contatos);
+                        }
+                    },
+                    error:function (data,e) {
+                        alert(data);
+                    }
+                });
             return false;
 
 
