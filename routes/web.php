@@ -23,7 +23,7 @@ Route::get('/cliente/editar/{id}', [App\Http\Controllers\ClienteController::clas
 Route::post('/cliente/cadastrar', [App\Http\Controllers\ClienteController::class, 'cadastrar'])->name('cliente.cadastrar');
 Route::post('/cliente/adicionar/contato', [App\Http\Controllers\ClienteController::class, 'adicionarContato'])->name('cliente.adicionar.contato');
 
-View::composer(['admin.contatos.formulario'],function($view){
+View::composer(['admin.contatos.formulario','admin.contatos.tabela'],function($view){
     $view->with(['aplicativos'=>AppContato::all()]);
 });
 

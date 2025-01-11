@@ -66,6 +66,7 @@ class ClienteController extends Controller
         try {
             $cliente        =   Cliente::find($r->id);
             $contato        =   new ContatoController();
+
             $contato = $contato->cadastrar($r->get('numero'),$r->get('responsavel'),$r->get('app'));
             $cliente->contatos()->attach($contato);
             return response()->json([
@@ -73,6 +74,7 @@ class ClienteController extends Controller
             ]);
 
         } catch (Exception $th) {
+            return response()->json(['erro'=>$th->getMessage()]);
             return response()->json([
                 'contatos'=>view('admin.contatos.tabela',['erro'=>$th->getMessage()])->render(),
             ]);

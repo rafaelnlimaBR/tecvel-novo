@@ -665,6 +665,7 @@
             });
             $("form[name='adicionar-contato']").submit(function () {
             var dados   = $(this).serialize();
+            
             var rota    =   this.action;
                 if($('#numero-contato').val().trim().length == 0){
                     alert('campo numero esta vazio')
