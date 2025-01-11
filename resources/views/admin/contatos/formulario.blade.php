@@ -13,17 +13,21 @@
                 <input type="text" class="form-control" id="responsavel" placeholder="Responsável do Contato" name="responsavel">
               </div>
               <div class="form-group col-md-3">
-                <label for="app">State</label>
+                <label for="app">Aplicatico de Mensagem</label>
                 <select id="app" class="form-control" name="app">
                   <option value="0" selected>Não</option>
                   @foreach ($aplicativos as $app)
+                    @if ($app == null)
+                        <option value="0" selected>Não tem app</option>
+                    @else
                     <option value="{{$app->id}}" selected>{{$app->nome}}</option>
+                    @endif
                   @endforeach
                 </select>
               </div>
               <div class="form-group col-md-2">
                 <label for="butaoCad">Cadastrar</label>
-                <input type="submit" class="form-control" id="butao-enviar-contato" placeholder="Email">
+                <button type="submit" class="form-control btn btn-success" id="butao-enviar-contato" >Gravar Telefone</button>
               </div>
             </div>
         </form>

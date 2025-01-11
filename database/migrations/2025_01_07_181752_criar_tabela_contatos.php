@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('numero');
             $table->string('responsavel')->nullable();//nome da pessoa responsável pelo numero. pode ser nulo
 
-            $table->foreignId('app_id')->constrained('app_contatos','id')->onUpdate('cascade')->onDelete('set null')->nullable();
+            $table->foreignId('app_id')->nullable()->constrained('app_contatos','id')->onUpdate('cascade')->onDelete('set null');
             $table->timestamps();
         });
     }

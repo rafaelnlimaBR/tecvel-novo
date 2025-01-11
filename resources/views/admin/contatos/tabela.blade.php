@@ -16,10 +16,15 @@
 
                 @foreach ($contatos as $contato)
                     <tr>
-
-                        <td><input  value="{{$contato->numero}}" name="nome" ></td>
-                        <td><input  value="{{$contato->responsavel}}" name="responsavel" ></td>
-                        <td><input  value="{{$contato->responsavel}}" name="responsavel" ></td>
+                            <input class="form-control" type="hidden"  value="{{$contato->id}}" name="id-contato" >
+                        <td><input class="form-control" value="{{$contato->numero}}" name="numero" ></td>
+                        <td><input class="form-control"  value="{{$contato->responsavel}}" name="responsavel" ></td>
+                        <td><select id="app" class="form-control" name="app">
+                            <option value="0" selected>Não</option>
+                            @foreach ($aplicativos as $app)
+                              <option value="{{$app->id}}" selected>{{$app->nome}}</option>
+                            @endforeach
+                          </select></td>
                         <td>{{\Carbon\Carbon::parse($contato->created_at)->format('d/m/Y')}}</td>
 
 

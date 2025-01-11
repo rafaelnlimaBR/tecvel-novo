@@ -14,13 +14,38 @@
                     <div class="form-row">
                       <div class="form-group col-md-6">
                         <label for="inputEmail4">Nome</label>
-                        <input type="Nome" class="form-control" id="Nome" placeholder="Nome" name="nome" value="{{isset($cliente)?$cliente->nome:''}}">
+                        <input type="text" class="form-control" id="Nome" placeholder="Nome" name="nome" value="{{isset($cliente)?$cliente->nome:''}}">
                       </div>
                       <div class="form-group col-md-6">
                         <label for="InputEmail">Email</label>
                         <input type="Email" class="form-control" id="Email" placeholder="Email" name="email" value="{{isset($cliente)?$cliente->email:''}}">
                       </div>
                     </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                          <label for="cep">CEP</label>
+                          <input type="text" class="form-control"  placeholder="Cep" id="cep" name="cep" value="{{isset($cliente)?$cliente->cep:''}}">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="logradouro">Logradoudo</label>
+                          <input type="text" class="form-control"  placeholder="Logradoudo" id="rua" name="logradoudo" value="{{isset($cliente)?$cliente->logradouro:''}}">
+                        </div>
+                        <div class="form-group col-md-2">
+                          <label for="numero">Numero</label>
+                          <input type="text" class="form-control"  placeholder="Numero"  name="numero" value="{{isset($cliente)?$cliente->numero:''}}">
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-md-3">
+                          <label for="cidade">Cidade</label>
+                          <input type="text" class="form-control"  placeholder="Cidade" id="cidade" name="cidade" value="{{isset($cliente)?$cliente->cidade:''}}">
+                        </div>
+                        <div class="form-group col-md-2">
+                          <label for="estado">Estado</label>
+                          <input type="text" class="form-control"  placeholder="Estado" id="uf" name="estado" value="{{isset($cliente)?$cliente->estado:''}}">
+                        </div>
+
+                      </div>
 
                     <button type="submit" class="btn btn-success">Cadastrar</button>
 

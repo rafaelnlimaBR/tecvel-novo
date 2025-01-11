@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cliente;
 use App\Models\AppContato;
 use App\Models\Contato;
+use Exception;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
@@ -40,13 +41,13 @@ class ClienteController extends Controller
             $cliente->email =   $r->get('email');
 
             if($cliente->save()){
-                return redirect()->route('cliente.editar',['id'=>$cliente->id]);
+                return redirect()->route('cliente.editar',['id'=>$cliente->id])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Cliente cadastrado com sucesso."]);
             }
 
 
 
         } catch (\Exception $th) {
-            return $th->getMessage();
+            return redirect()->route('cliente.novo')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);;
         }
     }
 
@@ -54,7 +55,7 @@ class ClienteController extends Controller
         $cliente    =   Cliente::find($id);
         $dados = [
             'titulo' => "Editar Cliente",
-            'aplicativos'   => AppContato::all(),
+
             'cliente'       =>  $cliente,
             'contatos'      => $cliente->contatos
         ];
@@ -73,7 +74,7 @@ class ClienteController extends Controller
 
         } catch (Exception $th) {
             return response()->json([
-                'contatos'=>view('admin.contatos.tabela',['erro'=>$th->getMessege()])->render(),
+                'contatos'=>view('admin.contatos.tabela',['erro'=>$th->getMessage()])->render(),
             ]);
         }
     }
