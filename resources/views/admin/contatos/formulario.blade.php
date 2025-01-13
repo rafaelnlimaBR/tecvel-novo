@@ -30,7 +30,7 @@
             </div>
         </form>
         <div class="tabela-atualizavel" id="tabela-atualizavel">
-            @include('admin.contatos.tabela',['id'=>$id,'contatos'=>$contatos])
+            @include('admin.contatos.tabela',['id'=>$id,'contatos'=>$contatos,'route_update'=>$route_update,"route_delete"=>$route_delete])
         </div>
     </div>
 

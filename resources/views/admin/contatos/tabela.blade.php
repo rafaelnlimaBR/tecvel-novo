@@ -35,8 +35,8 @@
 
                     <td>
 
-                        <button class="btn btn-sm btn-warning botao-editar" contato="{{$contato->id}}" foreignkey="{{$id}}"  style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-pencil-square"></i></button>
-                        <button class="btn btn-sm btn-danger botao-excluir" contato="{{$contato->id}}" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-trash-o"></i></button>
+                        <button class="btn  btn-warning botao-editar" contato="{{$contato->id}}" foreignkey="{{$id}}"  style="padding-top: 0; padding-bottom: 0" route-update="{{$route_update}}"><i class="fa  fa-pencil-square"></i></button>
+                        <button class="btn         V NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN btn-danger botao-excluir" contato="{{$contato->id}}" foreignkey="{{$id}}"  style="padding-top: 0; padding-bottom: 0" route-delete="{{$route_delete}}"><i class="fa  fa-trash-o"></i></button>
 
 
                     </td>

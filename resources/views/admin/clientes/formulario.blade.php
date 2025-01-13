@@ -57,7 +57,7 @@
     </div>
     @if (isset($cliente))
     <div class="col-lg-7 col-sm-12 col-md-12">
-        @include('admin.contatos.formulario',['route_action'=>route('cliente.adicionar.contato'),'id'=>$cliente->id,'contatos'=>$cliente->contatos])
+        @include('admin.contatos.formulario',['route_action'=>route('cliente.adicionar.contato'),'id'=>$cliente->id,'contatos'=>$cliente->contatos,'route_update'=>route('cliente.atualizar.contato'),"route_delete"=>route('cliente.excluir.contato')])
     </div>
     @endif
 

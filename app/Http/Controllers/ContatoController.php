@@ -39,4 +39,6 @@ class ContatoController extends Controller
             }
             return new Exception('Erro ao atualizar Contato');
     }
+
+    
 }

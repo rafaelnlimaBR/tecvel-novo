@@ -665,12 +665,14 @@
             });
 
             $("#tabela-atualizavel").on('click','.botao-editar',function () {
+                
+
                 var id          =   $(this).attr("contato");
                 var numero      =   $('#numero-'+id.toString()).val();
                 var responsavel =   $('#responsavel-'+id.toString()).val();
                 var app         =   $('#app-'+id.toString()).val();
                 var foreignkey  =   $(this).attr("foreignkey");
-                var rota        = "{{route('cliente.atualizar.contato')}}";
+                var rota        =   $(this).attr("route-update");
 
                 $.ajax({
                     header:{
@@ -704,10 +706,49 @@
                     });
             });
 
+            //REMOVER CONTATOS
+            $("#tabela-atualizavel").on('click','.botao-excluir',function () {
+                var id          =   $(this).attr("contato");
+                var foreignkey  =   $(this).attr("foreignkey");
+                var rota        =   $(this).attr("route-delete");
+
+                if(confirm('Deseja remover esse contato')){
+                    $.ajax({
+                    header:{
+                        'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: rota,
+                    type: "post",
+                    data: {
+
+                    'id'                :   id,
+                    'foreignkey'        :   foreignkey
+
+                    },
+                    success: function( data )
+                    {
+                        if('erro' in data){
+                            alert(data.erro);
+
+                        }else{
+
+                            $('#tabela-atualizavel').html(data.contatos);
+                        }
+
+                    },
+                    error:function (data) {
+                        console.log(data)
+                    }
+                    });
+
+                }
+
+            });
+
             //ADICIONAR CONTATO
             $("form[name='adicionar-contato']").submit(function () {
             var dados   = $(this).serialize();
-         
+
             var rota    =   this.action;
                 if($('#numero-contato').val().trim().length == 0){
                     alert('campo numero esta vazio')

@@ -70,14 +70,12 @@ class ClienteController extends Controller
             $contato = $contato->cadastrar($r->get('numero'),$r->get('responsavel'),$r->get('app'));
             $cliente->contatos()->attach($contato);
             return response()->json([
-                'contatos'=>view('admin.contatos.tabela',['contatos'=>$cliente->contatos,'id'=>$cliente->id])->render(),
+                'contatos'=>view('admin.contatos.tabela',['contatos'=>$cliente->contatos,'id'=>$cliente->id,'route_update'=>route('cliente.atualizar.contato'),"route_delete"=>route('cliente.excluir.contato')])->render(),
             ]);
 
         } catch (Exception $th) {
             return response()->json(['erro'=>$th->getMessage()]);
-            return response()->json([
-                'contatos'=>view('admin.contatos.tabela',['erro'=>$th->getMessage()])->render(),
-            ]);
+
         }
     }
 
@@ -89,7 +87,24 @@ class ClienteController extends Controller
 
             $contato->atualizar($r->get('id'),$r->get('numero'),$r->get('responsavel'),$r->get('app'));
             return response()->json([
-                'contatos'=>view('admin.contatos.tabela',['contatos'=>$cliente->contatos,'id'=>$cliente->id])->render(),
+                'contatos'=>view('admin.contatos.tabela',['contatos'=>$cliente->contatos,'id'=>$cliente->id,'route_update'=>route('cliente.atualizar.contato'),"route_delete"=>route('cliente.excluir.contato')])->render(),
+            ]);
+
+        } catch (Exception $e) {
+            return \response()->json(['erro'=>$e->getMessage()]);
+        }
+    }
+
+    public function excluirContato(Request $r){
+        try {
+
+
+            $cliente        =   Cliente::find($r->get('foreignkey'));
+            $cliente->contatos()->detach($r->get('id'));
+
+
+            return response()->json([
+                'contatos'=>view('admin.contatos.tabela',['contatos'=>$cliente->contatos,'id'=>$cliente->id,'route_update'=>route('cliente.atualizar.contato'),"route_delete"=>route('cliente.excluir.contato')])->render(),
             ]);
 
         } catch (Exception $e) {
