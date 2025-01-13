@@ -14,6 +14,7 @@ class ClienteController extends Controller
 {
     public function index (Request $r){
         $dados = [
+
             'titulo' => "Clientes",
             'titulo_tabela' => "Lista de Clientes"
         ];
