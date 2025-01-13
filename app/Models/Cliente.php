@@ -29,7 +29,7 @@ class Cliente extends Model
 
     public function contatos()
     {
-        return $this->belongsToMany(Contato::class)->withTimestamps();
+        return $this->belongsToMany(Contato::class)->withPivot('responsavel')->withTimestamps();
     }
 
 }

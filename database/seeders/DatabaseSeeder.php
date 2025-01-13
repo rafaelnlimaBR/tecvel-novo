@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Cliente;
 use App\Models\Contato;
+use App\Models\Montadoras;
 use \Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
@@ -29,6 +30,20 @@ class DatabaseSeeder extends Seeder
 
         Cliente::factory(100)->has(Contato::factory(100)->count(2))
         ->create();
+
+        DB::table('montadoras')->insert([
+            ['nome'          =>  "Fiat"],
+            ['nome'          =>  "Volkswagem"],
+            ['nome'          =>  "Chevrolet"],
+            ['nome'          =>  "Renault"],
+            ['nome'          =>  "Ford"],
+            ['nome'          =>  "Jeep"],
+            ['nome'          =>  "Mitsubishi"],
+            ['nome'          =>  "Honda"],
+            ['nome'          =>  "Toyota"],
+            ['nome'          =>  "BYD"],
+            ['nome'          =>  "Suzuki"],
+        ]);
 
         \App\Models\User::factory(10)->create();
 

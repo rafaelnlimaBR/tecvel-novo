@@ -8,6 +8,7 @@ use App\Models\AppContato;
 use App\Models\Contato;
 use Exception;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ContatoController;
 
 class ClienteController extends Controller
 {
@@ -37,8 +38,24 @@ class ClienteController extends Controller
 
         try {
             $cliente  = new Cliente();
-            $cliente->nome  =   $r->get('nome');
-            $cliente->email =   $r->get('email');
+            $cliente->nome  =   strtoupper($r->get('nome'));
+            $cliente->email =   strtolower($r->get('email'));
+
+            if($cliente->save()){
+                return redirect()->route('cliente.editar',['id'=>$cliente->id])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Cliente cadastrado com sucesso."]);
+            }
+        } catch (\Exception $th) {
+            return redirect()->route('cliente.novo')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);;
+        }
+    }
+
+    public function atualizar(Request $r){
+
+        try {
+            $cliente        = Cliente::find($r->get('id'));
+
+            $cliente->nome  =   strtoupper($r->get('nome'));
+            $cliente->email =   strtolower($r->get('email'));
 
             if($cliente->save()){
                 return redirect()->route('cliente.editar',['id'=>$cliente->id])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Cliente cadastrado com sucesso."]);
@@ -53,6 +70,9 @@ class ClienteController extends Controller
 
     public function editar($id){
         $cliente    =   Cliente::find($id);
+        if($cliente == null){
+            return redirect()->route('cliente.index')->with('alerta',['tipo'=>'warning','icon'=>'','texto'=>"não existe registro"]);;
+        }
         $dados = [
             'titulo' => "Editar Cliente",
 
@@ -65,10 +85,11 @@ class ClienteController extends Controller
     public function adicionarContato(Request $r){
         try {
             $cliente        =   Cliente::find($r->id);
-            $contato        =   new ContatoController();
 
-            $contato = $contato->cadastrar($r->get('numero'),$r->get('responsavel'),$r->get('app'));
-            $cliente->contatos()->attach($contato);
+
+            $contato = ContatoController::cadastrar($r->get('numero'),$r->get('app'));
+
+            $cliente->contatos()->attach($contato,['responsavel'=>$r->get('responsavel')]);
             return response()->json([
                 'contatos'=>view('admin.contatos.tabela',['contatos'=>$cliente->contatos,'id'=>$cliente->id,'route_update'=>route('cliente.atualizar.contato'),"route_delete"=>route('cliente.excluir.contato')])->render(),
             ]);
@@ -82,10 +103,11 @@ class ClienteController extends Controller
     public function atualizarContato(Request $r){
         try {
 
-            $contato        = new ContatoController();
+            $contato        =   Contato::find($r->get('id'));
             $cliente        =   Cliente::find($r->get('foreignkey'));
 
-            $contato->atualizar($r->get('id'),$r->get('numero'),$r->get('responsavel'),$r->get('app'));
+            ContatoController::atualizar($r->get('id'),$r->get('numero'),$r->get('app'));
+            $cliente->contatos()->updateExistingPivot($contato->id,['responsavel'=>$r->get('responsavel')]);
             return response()->json([
                 'contatos'=>view('admin.contatos.tabela',['contatos'=>$cliente->contatos,'id'=>$cliente->id,'route_update'=>route('cliente.atualizar.contato'),"route_delete"=>route('cliente.excluir.contato')])->render(),
             ]);

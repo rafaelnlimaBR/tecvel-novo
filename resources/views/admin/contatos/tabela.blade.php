@@ -15,9 +15,9 @@
 
             @foreach ($contatos as $contato)
                 <tr>
-
+                
                     <td><input class="form-control" value="{{$contato->numero}}" name="numero" id="numero-{{$contato->id}}"></td>
-                    <td><input class="form-control"  value="{{$contato->responsavel}}" name="responsavel" id="responsavel-{{$contato->id}}"></td>
+                    <td><input class="form-control"  value="{{$contato->pivot->responsavel}}" name="responsavel" id="responsavel-{{$contato->id}}"></td>
                     <td><select  class="form-control" name="app" id="app-{{$contato->id}}">
 
                         @foreach ($aplicativos as $app)
@@ -36,7 +36,7 @@
                     <td>
 
                         <button class="btn  btn-warning botao-editar" contato="{{$contato->id}}" foreignkey="{{$id}}"  style="padding-top: 0; padding-bottom: 0" route-update="{{$route_update}}"><i class="fa  fa-pencil-square"></i></button>
-                        <button class="btn         V NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN btn-danger botao-excluir" contato="{{$contato->id}}" foreignkey="{{$id}}"  style="padding-top: 0; padding-bottom: 0" route-delete="{{$route_delete}}"><i class="fa  fa-trash-o"></i></button>
+                        <button class="btn  btn-danger botao-excluir" contato="{{$contato->id}}" foreignkey="{{$id}}"  style="padding-top: 0; padding-bottom: 0" route-delete="{{$route_delete}}"><i class="fa  fa-trash-o"></i></button>
 
 
                     </td>

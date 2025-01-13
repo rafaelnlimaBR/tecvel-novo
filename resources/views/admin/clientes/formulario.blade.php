@@ -9,8 +9,11 @@
     <div class="col-lg-5 col-sm-12 col-md-12">
         <div class="card ">
             <div class="card-body">
-                <form action="{{ route('cliente.cadastrar') }}" method="POST">
+                <form action="{{ isset($cliente)? route('cliente.atualizar'):route('cliente.cadastrar') }}" method="POST">
                     {{ csrf_field() }}
+                    @if(isset($cliente))
+                        <input hidden type="text" class="form-control" id="id-cliente" placeholder="" name="id" value="{{$cliente->id}}">
+                    @endif
                     <div class="form-row">
                       <div class="form-group col-md-6">
                         <label for="inputEmail4">Nome</label>
@@ -46,8 +49,12 @@
                         </div>
 
                       </div>
-
-                    <button type="submit" class="btn btn-success">Cadastrar</button>
+                    @if(isset($cliente))
+                        <button type="submit" class="btn btn-warning">Editar</button>
+                    @else
+                        <button type="submit" class="btn btn-success">Cadastrar</button>
+                    @endif
+                    <a href="{{route('cliente.index')}}" class="btn btn-secondary">Voltar</a>
 
 
                   </form>

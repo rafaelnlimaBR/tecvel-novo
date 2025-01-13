@@ -42,7 +42,13 @@
                             <h3 class="navigation-title">Navigation</h3>
                         </li>
                         <li>
-                            <a href="index.html"><i class="mdi mdi-gauge"></i> <span>Dashboard</span></a>
+                            <a href="{{route('cliente.index')}}"><i class="fa fa-tachometer"></i> <span>Dashboard</span></a>
+                        </li>
+                        <li>
+                            <a href="{{route('cliente.index')}}"><i class="fa fa-users"></i> <span>Clientes</span></a>
+                        </li>
+                        <li>
+                            <a href="{{route('montadora.index')}}"><i class="fa fa-users"></i> <span>Montadoras</span></a>
                         </li>
                         <li class="menu-list"><a href=""><i class="mdi mdi-buffer"></i> <span>UI Elements</span></a>
                             <ul class="child-list">
@@ -665,7 +671,7 @@
             });
 
             $("#tabela-atualizavel").on('click','.botao-editar',function () {
-                
+
 
                 var id          =   $(this).attr("contato");
                 var numero      =   $('#numero-'+id.toString()).val();
@@ -695,7 +701,7 @@
                             alert(data.erro);
 
                         }else{
-
+                                console.log(data)
                             $('#tabela-atualizavel').html(data.contatos);
                         }
 

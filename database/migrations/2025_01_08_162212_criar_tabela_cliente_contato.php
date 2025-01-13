@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('cliente_contato', function (Blueprint $table) {
             $table->bigIncrements('id');
-
+            $table->string('responsavel')->nullable();//nome da pessoa responsável pelo numero. pode ser nulo
             $table->foreignId('cliente_id')->constrained('clientes','id')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('contato_id')->constrained('contatos','id')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();

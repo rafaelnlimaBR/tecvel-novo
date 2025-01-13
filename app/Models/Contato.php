@@ -10,6 +10,7 @@ class Contato extends Model
 {
     use HasFactory;
     protected $table    =   "contatos";
+    protected $fillable  =  ["numero"];
 
     public function app(){
         return $this->belongsTo(AppContato::class);

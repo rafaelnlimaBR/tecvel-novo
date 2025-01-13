@@ -18,7 +18,6 @@ class ContatoFactory extends Factory
     {
         return [
             'numero'    =>  fake()->phoneNumber,
-            'responsavel'   => fake()->name,
             'app_id'        =>1
         ];
     }
