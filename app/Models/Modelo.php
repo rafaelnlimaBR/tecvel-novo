@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Modelo extends Model
 {
     use HasFactory;
+
+    public function scopePesquisarPorNome($query, $nome){
+        return $query->where('nome','like','%'.$nome.'%');
+    }
+
+    public function montadora()
+    {
+        return $this->belongsTo(Montadora::class);
+    }
 }

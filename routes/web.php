@@ -35,6 +35,13 @@ Route::post('/montadora/cadastrar', [App\Http\Controllers\MontadoraController::c
 Route::post('/montadora/excluir', [App\Http\Controllers\MontadoraController::class, 'excluir'])->name('montadora.excluir');
 
 
+Route::get('/modelo', [App\Http\Controllers\ModeloController::class, 'index'])->name('modelo.index');
+Route::get('/modelo/novo', [App\Http\Controllers\ModeloController::class, 'novo'])->name('modelo.novo');
+Route::get('/modelo/editar/{id}', [App\Http\Controllers\ModeloController::class, 'editar'])->name('modelo.editar');
+Route::post('/modelo/atualizar', [App\Http\Controllers\ModeloController::class, 'atualizar'])->name('modelo.atualizar');
+Route::post('/modelo/cadastrar', [App\Http\Controllers\ModeloController::class, 'cadastrar'])->name('modelo.cadastrar');
+Route::post('/modelo/excluir', [App\Http\Controllers\ModeloController::class, 'excluir'])->name('modelo.excluir');
+
 View::composer(['admin.contatos.formulario','admin.contatos.tabela'],function($view){
     $view->with(['aplicativos'=>AppContato::all()]);
 });

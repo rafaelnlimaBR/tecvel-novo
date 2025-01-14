@@ -31,7 +31,7 @@
     <div class="col-lg-12 col-sm-12">
         <div class="card m-b-30">
             <div class="card-body">
-                <h5 class="header-title">{{$titulo_tabela}}<p style="float: right"><a href="{{ route('modelo.novo') }}" style="color: white; font-size: 7; text-transform: none" class="btn btn-primary btn-sm">Novo <i class="fa fa-plus-square"></i></a></p></h5>
+                <h5 class="header-title">{{$titulo_tabela}}<p style="float: right"><a href="{{ route('modelo.novo') }}" style="color: white; font-size: 7px; text-transform: none" class="btn btn-primary btn-sm">Novo <i class="fa fa-plus-square"></i></a></p></h5>
 
                 <div class="table-responsive-sm">
                     <table class="table table-bordered">
