@@ -59,7 +59,7 @@ class ModeloController extends Controller
 
 
             if($modelo->save()){
-                return redirect()->route('modelo.editar',['id'=>$modelo->id])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Modelo cadastrado com sucesso."]);
+                return redirect()->route('modelo.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Modelo cadastrado com sucesso."]);
             }
 
 
@@ -75,7 +75,7 @@ class ModeloController extends Controller
             $modelo->montadora_id   =   $r->get('montadora');
 
             if($modelo->save()){
-                return redirect()->route('modelo.editar',['id'=>$modelo->id])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Modelo atualizado com sucesso."]);
+                return redirect()->route('modelo.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Modelo atualizado com sucesso."]);
             }
 
 
