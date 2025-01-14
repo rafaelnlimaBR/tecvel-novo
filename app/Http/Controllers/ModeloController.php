@@ -87,4 +87,13 @@ class ModeloController extends Controller
     public function excluir(){
 
     }
+
+    public function Json($id)
+    {
+        $modelo     =   Modelo::find($id);
+        $modeloJson =   ['modelo'=>$modelo->nome,'montadora'=>$modelo->montadora->nome];
+        return response()->json($modeloJson);
+
+        return response()->json($modelo->montadora);
+    }
 }

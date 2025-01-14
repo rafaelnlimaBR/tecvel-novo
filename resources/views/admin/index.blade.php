@@ -790,6 +790,15 @@
 
             });
 
+        //PREENCHIMENTO AUTOMATICO DO CAMPO MONTADORA NA TELA DE VEICULOS
+        $('#select-modelo-veiculo').change(function () {
+            var id  =   $(this).val();
+            var showRoute = "{{route('modelo.Json',['id'=>':id'])}}";
+            $.getJSON(showRoute.replace(':id',id),function (dados) {
+                $('#input-marca-veiculo').val(dados.montadora);
+            })
+        });
+
         //PESQUISA POR CEP E PREENCHIMENTO AUTOMATICO
         function limpa_formulário_cep() {
                 // Limpa valores do formulário de cep.

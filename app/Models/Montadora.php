@@ -13,5 +13,7 @@ class Montadora extends Model
         return $query->where('nome','like','%'.$nome.'%');
     }
 
+
+
 }
 

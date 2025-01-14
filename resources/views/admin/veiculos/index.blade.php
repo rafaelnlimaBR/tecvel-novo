@@ -31,7 +31,7 @@
     <div class="col-lg-12 col-sm-12">
         <div class="card m-b-30">
             <div class="card-body">
-                <h5 class="header-title">{{$titulo_tabela}}<p style="float: right"><a href="{{ route('veiculo.novo') }}" style="color: white; font-size: 7; text-transform: none" class="btn btn-primary btn-sm">Novo <i class="fa fa-plus-square"></i></a></p></h5>
+                <h5 class="header-title">{{$titulo_tabela}}<p style="float: right"><a href="{{ route('veiculo.novo') }}" style="color: white; font-size: 13px; text-transform: none" class="btn btn-primary btn-sm">Novo <i class="fa fa-plus-square"></i></a></p></h5>
 
                 <div class="table-responsive-sm">
                     <table class="table table-bordered">
@@ -40,6 +40,7 @@
                                 <th style="width: 5%; min-width: 40px;" scope="col">#</th>
                                 <th scope="col">Placa</th>
                                 <th scope="col">Modelo</th>
+                                <th scope="col">Cor</th>
                                 <th scope="col">Ano</th>
                                 <th scope="col">Marca</th>
                                 <th style="width: 10%; min-width: 150px;"  scope="col">Criado </th>
@@ -54,6 +55,7 @@
                                     <th scope="row">{{$veiculo->id}}</th>
                                     <td>{{$veiculo->placa}}</td>
                                     <td>{{$veiculo->modelo->nome}}</td>
+                                    <td>{{$veiculo->cor }}</td>
                                     <td>{{$veiculo->ano}}</td>
                                     <td>{{$veiculo->modelo->montadora->nome}}</td>
                                     <td>{{\Carbon\Carbon::parse($veiculo->created_at)->format('d/m/Y')}}</td>

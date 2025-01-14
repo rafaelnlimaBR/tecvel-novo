@@ -2,6 +2,7 @@
 
 use App\Models\AppContato;
 use App\Models\Cliente;
+use App\Models\Modelo;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
@@ -38,6 +39,7 @@ Route::post('/montadora/excluir', [App\Http\Controllers\MontadoraController::cla
 Route::get('/modelo', [App\Http\Controllers\ModeloController::class, 'index'])->name('modelo.index');
 Route::get('/modelo/novo', [App\Http\Controllers\ModeloController::class, 'novo'])->name('modelo.novo');
 Route::get('/modelo/editar/{id}', [App\Http\Controllers\ModeloController::class, 'editar'])->name('modelo.editar');
+Route::get('/{id}/marcaJson', [App\Http\Controllers\ModeloController::class, 'Json'])->name('modelo.Json');
 Route::post('/modelo/atualizar', [App\Http\Controllers\ModeloController::class, 'atualizar'])->name('modelo.atualizar');
 Route::post('/modelo/cadastrar', [App\Http\Controllers\ModeloController::class, 'cadastrar'])->name('modelo.cadastrar');
 Route::post('/modelo/excluir', [App\Http\Controllers\ModeloController::class, 'excluir'])->name('modelo.excluir');
@@ -54,25 +56,11 @@ View::composer(['admin.contatos.formulario','admin.contatos.tabela'],function($v
     $view->with(['aplicativos'=>AppContato::all()]);
 });
 
-Route::get('/{numero}',function($numero){
-
-
-    $contato                =   App\Models\Contato::where('numero',$numero);
-
-
-    if($contato->exists()){
-
-        return $contato->first()->id;
-    }else{
-        $contato                =   new App\Models\Contato();
-        $contato->numero        =   $numero;
-        $contato->app_id        =   '1';
-
-        if($contato->save()){
-            return $contato->id;
-        }
-    }
-
+Route::get('/',function(    ){
+    return \App\Models\Veiculo::$cores;
+    $modelo     =   Modelo::find(1);
+    $modeloJson =   ['modelo'=>$modelo->nome,'montadora'=>$modelo->montadora->nome];
+    return $modeloJson;
 
 
 });

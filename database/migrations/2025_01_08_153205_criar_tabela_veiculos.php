@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('placa');
             $table->string('ano');
             $table->string('cor');
-            $table->foreignId('modelo_id')->constrained('veiculos','id')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('modelo_id')->constrained('modelos','id')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

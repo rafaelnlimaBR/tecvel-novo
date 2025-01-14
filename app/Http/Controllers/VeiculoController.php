@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Modelo;
 use Illuminate\Http\Request;
 use App\Models\Veiculo;
 
 class VeiculoController extends Controller
 {
+
     public function index(Request $r){
         $dados = [
             'titulo' => "Veiculos",
-            'titulo_tabela' => "Lista de Veiculos"
+            'titulo_tabela' => "Lista de Veiculos",
+
         ];
         $veiculos   =   Veiculo::pesquisarPorPlaca($r->get('placa'))
             ->orderBy('created_at', 'desc')
@@ -28,7 +31,9 @@ class VeiculoController extends Controller
 
             $dados = [
                 'titulo' => "Editar Veiculo",
-                'veiculo' =>  $veiculo
+                'veiculo' =>  $veiculo,
+                'modelos'   =>  Modelo::all(),
+                'cores'         =>  Veiculo::$cores
             ];
             return view('admin.veiculos.formulario',$dados);
 
@@ -43,7 +48,8 @@ class VeiculoController extends Controller
     public function novo(){
         $dados = [
             'titulo' => "Nova Veiculo",
-
+            'modelos'   =>  Modelo::all(),
+            'cores'     =>  Veiculo::$cores
         ];
         return view('admin.veiculos.formulario',$dados);
     }
@@ -51,11 +57,13 @@ class VeiculoController extends Controller
     public function cadastrar(Request $r){
         try {
             $veiculo          =   new Veiculo();
-            $veiculo->nome    =   $r->get('nome');
-
+            $veiculo->placa    =   $r->get('placa');
+            $veiculo->ano    =   $r->get('ano');
+            $veiculo->cor    =   $r->get('cor');
+            $veiculo->modelo_id    =   $r->get('modelo');
 
             if($veiculo->save()){
-                return redirect()->route('veiculo.editar',['id'=>$veiculo->id])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Veiculo cadastrado com sucesso."]);
+                return redirect()->route('veiculo.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Veiculo cadastrado com sucesso."]);
             }
 
 
@@ -66,12 +74,16 @@ class VeiculoController extends Controller
 
     public function atualizar(Request $r){
         try {
-            $veiculo          =   Veiculo::find($r->get('id'));
-            $veiculo->nome    =   $r->get('nome');
+            $veiculo                =   Veiculo::find($r->get('id'));
+            $veiculo->placa         =   $r->get('placa');
+            $veiculo->ano           =   $r->get('ano');
+            $veiculo->cor           =   $r->get('cor');
+            $veiculo->modelo_id     =   $r->get('modelo');
+
 
 
             if($veiculo->save()){
-                return redirect()->route('veiculo.editar',['id'=>$veiculo->id])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Veiculo atualizado com sucesso."]);
+                return redirect()->route('veiculo.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Veiculo atualizado com sucesso."]);
             }
 
 
