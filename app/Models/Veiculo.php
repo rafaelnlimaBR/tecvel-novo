@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Veiculo extends Model
 {
     use HasFactory;
+
+    public function scopePesquisarPorPlaca($query,$placa)
+    {
+        return $query->where('placa','like','%'.$placa.'%');
+    }
 }
