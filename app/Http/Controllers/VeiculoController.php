@@ -12,7 +12,7 @@ class VeiculoController extends Controller
             'titulo' => "Veiculos",
             'titulo_tabela' => "Lista de Veiculos"
         ];
-        $veiculos   =   Veiculo::pesquisarPorNome($r->get('nome'))
+        $veiculos   =   Veiculo::pesquisarPorPlaca($r->get('placa'))
             ->orderBy('created_at', 'desc')
             ->paginate(15)->
             withQueryString();

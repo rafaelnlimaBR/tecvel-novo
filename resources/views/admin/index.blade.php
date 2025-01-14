@@ -54,6 +54,9 @@
                         <li>
                             <a href="{{route('modelo.index')}}"><i class="fa fa-users"></i> <span>Modelos</span></a>
                         </li>
+                        <li>
+                            <a href="{{route('veiculo.index')}}"><i class="fa fa-users"></i> <span>Veículos</span></a>
+                        </li>
                         <li class="menu-list"><a href=""><i class="mdi mdi-buffer"></i> <span>UI Elements</span></a>
                             <ul class="child-list">
                                 <li><a href="ui-typography.html"> Typography</a></li>
