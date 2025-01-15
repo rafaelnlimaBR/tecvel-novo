@@ -32,7 +32,8 @@ class ContratoController extends Controller
             $dados = [
                 'titulo'        => "Editar Modelo",
                 'contrato'        =>  $contrato,
-                'contratos'    =>  Montadora::all()
+                'contratos'    =>  Montadora::all(),
+
             ];
             return view('admin.contratos.formulario',$dados);
 
@@ -47,7 +48,8 @@ class ContratoController extends Controller
     public function novo(){
         $dados = [
             'titulo'        => "Nova Contrato",
-            'contratos'    =>  Montadora::all()
+            'contratos'    =>  Montadora::all(),
+            'pagina'        => 'dados'
 
         ];
         return view('admin.contratos.formulario',$dados);

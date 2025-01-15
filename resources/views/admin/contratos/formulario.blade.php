@@ -10,10 +10,10 @@
         <div class="card-title tab-2">
             <ul class="nav nav-tabs nav-justified">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#dados" data-toggle="tab" aria-expanded="false"><i class="ti-user mr-2"></i>Dados</a>
+                    <a class="nav-link {{isset($pagina)?$pagina == "dados"?'active':'':''}}" href="#dados" data-toggle="tab" aria-expanded="false"><i class="ti-user mr-2"></i>Dados</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#photo" data-toggle="tab" aria-expanded="false"><i class="ti-image mr-2"></i>Histórico</a>
+                    <a class="nav-link {{isset($pagina)?$pagina == "historico"?'active':'':''}}" href="#historico" data-toggle="tab" aria-expanded="false"><i class="ti-image mr-2"></i>Histórico</a>
                 </li>
 
                 <li class="nav-item">
@@ -26,7 +26,7 @@
                     <h1>Syntra Admin Template</h1>
                     <h4 class="text-muted">Sociis natoque penatibus et magnis dis parturient montes.</h4>
                 </div>
-                <div class="tab-pane active p-4" id="dados">
+                <div class="tab-pane {{isset($pagina)?$pagina == "dados"?'active':'':''}} p-4" id="dados">
                     <div class="row justify-content-center">
                         <div class="col-lg-12">
                             <form action="{{ isset($montadora)? route('montadora.atualizar'):route('montadora.cadastrar') }}" method="POST">
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane" id="photo">
+                <div class="tab-pane {{isset($pagina)?$pagina == "historico"?'active':'':''}}" id="historico">
                     <p class="py-3 text-muted">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
                     <div class="row container-grid nf-col-3 projects-wrapper">
                         <div class="col-lg-4 col-md-6 p-0 nf-item">
