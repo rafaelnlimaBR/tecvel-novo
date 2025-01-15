@@ -791,13 +791,40 @@
             });
 
         //PREENCHIMENTO AUTOMATICO DO CAMPO MONTADORA NA TELA DE VEICULOS
-        $('#select-modelo-veiculo').change(function () {
-            var id  =   $(this).val();
-            var showRoute = "{{route('modelo.Json',['id'=>':id'])}}";
-            $.getJSON(showRoute.replace(':id',id),function (dados) {
-                $('#input-marca-veiculo').val(dados.montadora);
+
+            $('.formulario-veiculo').on('change','#montadora-veiculos',function () {
+                var id  =   $(this).val();
+                $('#modelos-veiculos').val('');
+                var rota    =   "{{route('montadora.modelos',['id'=>':id'])}}";
+                rota        =   rota.replace(':id',id);
+                var lista   =   "";
+
+                $.ajax({
+                    type: "GET",
+                    url: rota,
+                    success: function( data )
+                    {
+                        console.log(data);
+                        $('#modelos').empty();
+                        for(var i=0; i<data.length;i++){
+                            $("#modelos").append("<option value='" +
+                                data[i].nome + "'></option>");
+
+                        }
+                    },
+                    error:function (data,e) {
+                        alert(data);
+                    }
+                });
             })
-        });
+
+        {{--$('#select-modelo-veiculo').change(function () {--}}
+        {{--    var id  =   $(this).val();--}}
+        {{--    var showRoute = "{{route('modelo.Json',['id'=>':id'])}}";--}}
+        {{--    $.getJSON(showRoute.replace(':id',id),function (dados) {--}}
+        {{--        $('#input-marca-veiculo').val(dados.montadora);--}}
+        {{--    })--}}
+        {{--});--}}
 
         //PESQUISA POR CEP E PREENCHIMENTO AUTOMATICO
         function limpa_formulário_cep() {

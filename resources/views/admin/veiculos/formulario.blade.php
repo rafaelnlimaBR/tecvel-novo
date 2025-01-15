@@ -5,8 +5,8 @@
     <h4 class="my-2">{{$titulo}}</h4>
 </div>
 
-<div class="row">
-    <div class="col-lg-4 col-sm-4 col-md-4">
+<div class="row formulario-veiculo">
+    <div class="col-lg-5 col-sm-5 col-md-6">
         <div class="card ">
             <div class="card-body">
                 <form action="{{ isset($veiculo)? route('veiculo.atualizar'):route('veiculo.cadastrar') }}" method="POST">
@@ -39,26 +39,36 @@
 
                     </div>
                     <div class="form-row">
+
                         <div class="form-group col-md-6">
-                            <label for="modelo" >Modelo</label>
-                            <select  id="select-modelo-veiculo"  class="form-control" required name="modelo" >
-                                @foreach($modelos as $m)
+                            <label for="marca">Montadora</label>
+                            <select name="montadora" id="montadora-veiculos" class="form-control">
+                                @foreach($montadoras as $m)
                                     @if(isset($veiculo))
-                                        @if($m->id == $veiculo->modelo_id)
+                                        @if($m->id == $veiculo->modelo->montadora->id)
                                             <option selected value="{{$m->id}}">{{$m->nome}}</option>
                                         @else
-                                            <option  value="{{$m->id}}">{{$m->nome}}</option>
+                                            <option value="{{$m->id}}">{{$m->nome}}</option>
                                         @endif
                                     @else
-                                        <option  value="{{$m->id}}">{{$m->nome}}</option>
+                                        <option value="{{$m->id}}">{{$m->nome}}</option>
                                     @endif
 
+
                                 @endforeach
+
                             </select>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="marca">Marca</label>
-                            <input readonly type="text" required class="form-control"  placeholder="Marca" name="marca"  id="input-marca-veiculo" value="{{isset($veiculo)?$veiculo->modelo->montadora->nome:''}}">
+                            <label for="modelos" >Modelos</label>
+                            <input list="modelos" class="form-control" id="modelos-veiculos" name="modelo" value="{{isset($veiculo)?$veiculo->modelo->nome:""}}">
+
+                            <datalist id="modelos">
+
+                            </datalist>
+
+
+
                         </div>
                     </div>
                     @if(isset($veiculo))

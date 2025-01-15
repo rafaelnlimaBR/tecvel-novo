@@ -85,5 +85,10 @@ class MontadoraController extends Controller
 
     }
 
+    public function modelos($id)
+    {
+        return response()->json(Montadora::find($id)->modelos);
+    }
+
 
 }

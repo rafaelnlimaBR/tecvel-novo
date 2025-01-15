@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Modelo;
+use App\Models\Montadora;
 use Illuminate\Http\Request;
 use App\Models\Veiculo;
 
@@ -33,6 +34,7 @@ class VeiculoController extends Controller
                 'titulo' => "Editar Veiculo",
                 'veiculo' =>  $veiculo,
                 'modelos'   =>  Modelo::all(),
+                'montadoras'   =>  Montadora::all(),
                 'cores'         =>  Veiculo::$cores
             ];
             return view('admin.veiculos.formulario',$dados);
@@ -49,6 +51,7 @@ class VeiculoController extends Controller
         $dados = [
             'titulo' => "Nova Veiculo",
             'modelos'   =>  Modelo::all(),
+            'montadoras'   =>  Montadora::all(),
             'cores'     =>  Veiculo::$cores
         ];
         return view('admin.veiculos.formulario',$dados);
@@ -56,11 +59,20 @@ class VeiculoController extends Controller
 
     public function cadastrar(Request $r){
         try {
+
             $veiculo          =   new Veiculo();
             $veiculo->placa    =   $r->get('placa');
             $veiculo->ano    =   $r->get('ano');
             $veiculo->cor    =   $r->get('cor');
-            $veiculo->modelo_id    =   $r->get('modelo');
+            $modelo             =   Modelo::PesquisarPorNome($r->get('modelo'))->first();
+            if($modelo == null){
+                $modelo         =   new Modelo();
+                $modelo->nome   =   $r->get('modelo');
+                $modelo->montadora_id   =   $r->get('montadora');
+                $modelo->save();
+            }
+            $veiculo->modelo_id     =   $modelo->id;
+
 
             if($veiculo->save()){
                 return redirect()->route('veiculo.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Veiculo cadastrado com sucesso."]);
@@ -78,7 +90,14 @@ class VeiculoController extends Controller
             $veiculo->placa         =   $r->get('placa');
             $veiculo->ano           =   $r->get('ano');
             $veiculo->cor           =   $r->get('cor');
-            $veiculo->modelo_id     =   $r->get('modelo');
+            $modelo                 =   Modelo::PesquisarPorNome($r->get('modelo'))->first();
+            if($modelo == null){
+                $modelo         =   new Modelo();
+                $modelo->nome   =   $r->get('modelo');
+                $modelo->montadora_id   =   $r->get('montadora');
+                $modelo->save();
+            }
+            $veiculo->modelo_id     =   $modelo->id;
 
 
 
