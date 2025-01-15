@@ -43,6 +43,7 @@ class DatabaseSeeder extends Seeder
             ['nome'          =>  "Toyota"],
             ['nome'          =>  "BYD"],
             ['nome'          =>  "Suzuki"],
+            ['nome'          =>  "Hyundai"],
         ]);
 
         \App\Models\User::factory(10)->create();

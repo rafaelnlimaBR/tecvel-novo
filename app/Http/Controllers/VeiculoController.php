@@ -60,6 +60,8 @@ class VeiculoController extends Controller
     public function cadastrar(Request $r){
         try {
 
+
+
             $veiculo          =   new Veiculo();
             $veiculo->placa    =   $r->get('placa');
             $veiculo->ano    =   $r->get('ano');

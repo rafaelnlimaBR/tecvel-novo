@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('veiculos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('placa');
+            $table->string('placa')->unique();
             $table->string('ano');
             $table->string('cor');
             $table->foreignId('modelo_id')->constrained('modelos','id')->onDelete('cascade')->onUpdate('cascade');
