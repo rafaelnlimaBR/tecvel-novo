@@ -62,6 +62,7 @@ Route::get('/veiculo/editar/{id}', [App\Http\Controllers\VeiculoController::clas
 Route::post('/veiculo/atualizar', [App\Http\Controllers\VeiculoController::class, 'atualizar'])->name('veiculo.atualizar');
 Route::post('/veiculo/cadastrar', [App\Http\Controllers\VeiculoController::class, 'cadastrar'])->name('veiculo.cadastrar');
 Route::post('/veiculo/excluir', [App\Http\Controllers\VeiculoController::class, 'excluir'])->name('veiculo.excluir');
+Route::Post('/veiculo/pesquisa/json', [App\Http\Controllers\VeiculoController::class, 'veiculosJson'])->name('veiculo.pesquisar.json');
 
 View::composer(['admin.contatos.formulario','admin.contatos.tabela'],function($view){
     $view->with(['aplicativos'=>AppContato::all()]);

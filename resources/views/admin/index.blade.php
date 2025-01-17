@@ -733,6 +733,57 @@
 
             });
 
+            $("#pesquisa-veiculo").select2({
+
+                // placeholder: "Selecione um cliente",
+                ajax: {
+                    type: 'POST',
+                    url: "{{route('veiculo.pesquisar.json')}}",
+                    dataType: 'json',
+
+                    beforeSend: function (xhr) {
+                        var token = $("meta[name='csrf-token']" ).val();
+
+                        if (token) {
+                            return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+                        }
+                    },
+                    quietMillis: 400,
+                    delay:400,
+                    data: function (term, page) {
+
+                        return {
+                            q: term.term, //search term
+                            // page size
+                        };
+                    },
+                    processResults: function (data) {
+
+                        return {
+                            results: data
+                        };
+                    },
+                },
+                templateResult: function (data) {
+
+                    var html    =   $('<div class="select2-user-result"><h5>'+data.text+" - "+data.nome+'</h5>' +
+                        '<h6>Montadora: <b>'+data.montadora+'</b></h6>'+
+
+                        '</div>'
+                    );
+                    return html;
+                },
+                templateSelection:function (data) {
+                    var rota    =   "{{route('veiculo.editar',['id'=>':id'])}}";
+                    rota = rota.replace(':id',data.id);
+                    $('#editar-veiculo').html(' <a class="btn btn-sm btn-warning"  href="'+rota+'" target="new">Editar</a>');
+                    var html    =   $('<div class="select2-user-result"><b>Veiculo: </b>'+data.text+ " - "+data.nome+'</div><br>'
+                    );
+                    return html;
+                },
+
+            });
+
             $("#tabela-atualizavel").on('click','.botao-editar',function () {
 
 

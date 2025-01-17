@@ -44,7 +44,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="veiculo">Veiculo <span style=""><span id="cadastrar-veiculo"><a class="btn btn-sm btn-primary" href="">Novo</a></span><span id="editar-veiculo"></span> </span></label>
-                                        <input type="text"  class="form-control" id="pesquisa-veiculo" placeholder="Nome" name="veiculo" value="{{isset($montadora)?$montadora->nome:''}}">
+                                        <select type="text"  class="form-control" id="pesquisa-veiculo"  name="veiculo" ></select>
                                     </div>
 
                                 </div>
