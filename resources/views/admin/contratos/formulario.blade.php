@@ -44,7 +44,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="veiculo">Veiculo <span style=""><span id="cadastrar-veiculo"><a class="btn btn-sm btn-primary" href="">Novo</a></span><span id="editar-veiculo"></span> </span></label>
-                                        <select type="text"  class="form-control" id="pesquisa-veiculo"  name="veiculo" ></select>
+                                        <select type="text" class="form-control select2" ui-select2="{width:'resolve',dropdownAutoWidth:true}" style="width:100%"   id="pesquisa-veiculo"  name="veiculo" ></select>
                                     </div>
 
                                 </div>
