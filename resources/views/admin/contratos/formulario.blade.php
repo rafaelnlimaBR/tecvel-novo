@@ -36,12 +36,12 @@
                                 @endif
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="inputEmail4">Nome</label>
-                                        <input type="text" required class="form-control" id="Nome" placeholder="Nome" name="nome" value="{{isset($montadora)?$montadora->nome:''}}">
+                                        <label for="cliente">Cliente</label>
+                                        <input type="text" required class="form-control select2" ui-select2="{width:'resolve',dropdownAutoWidth:true}" style="width:100%" id="pesquisa-cliente" name="cliente" value="{{isset($montadora)?$montadora->nome:''}}">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="inputEmail4">Nome</label>
-                                        <input type="text" required class="form-control" id="Nome" placeholder="Nome" name="nome" value="{{isset($montadora)?$montadora->nome:''}}">
+                                        <label for="veiculo">Veiculo</label>
+                                        <input type="text"  class="form-control" id="pesquisa-veiculo" placeholder="Nome" name="veiculo" value="{{isset($montadora)?$montadora->nome:''}}">
                                     </div>
 
                                 </div>

@@ -135,4 +135,19 @@ class ClienteController extends Controller
         }
     }
 
+    public function clientesJson(Request $r)
+    {
+        $clientes = Cliente::pesquisarPorNome($r->get('q'));
+        $retorno    =   [];
+
+        foreach ($clientes as $key => $value) {
+            $retorno[$key]['id'] = $value->id;
+            $retorno[$key]['text'] = $value->nome;
+            $retorno[$key]['nome'] = $value->nome;
+            $retorno[$key]['telefone'] = $value->nome;
+
+        }
+        return response()->json($retorno);
+    }
+
 }

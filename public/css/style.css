@@ -49,6 +49,10 @@ td input{
     width: 100%
 }
 
+.select2 {
+    width:100%!important;
+}
+
 body {
     font-family: 'Nunito Sans', sans-serif;
     color: #323232;

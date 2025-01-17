@@ -17,6 +17,7 @@
         <link href="{{ URL::asset('/css/slidebars.min.css') }}" rel="stylesheet">
         <link href="{{ URL::asset('/css/icons.css') }}" rel="stylesheet">
         <link href="{{ URL::asset('/css/menu.css') }}" rel="stylesheet" type="text/css">
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         <link href="{{ URL::asset('/css/style.css') }}" rel="stylesheet">
     </head>
 
@@ -669,6 +670,7 @@
         <script src="{{ URL::asset('/js/modernizr.min.js') }}"></script>
         <script src="{{ URL::asset('/js/jquery.slimscroll.min.js') }}"></script>
         <script src="{{ URL::asset('/js/slidebars.min.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
         <!--app js-->
@@ -678,6 +680,53 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
+            });
+
+            $("#pesquisa-cliente").select2({
+                language: 'es',
+                // placeholder: "Selecione um cliente",
+                ajax: {
+                    type: 'POST',
+                    url: "{{route('cliente.pesquisar.json')}}",
+                    dataType: 'json',
+                    beforeSend: function (xhr) {
+                        var token = $("input[name='_token']" ).val();
+
+                        if (token) {
+                            return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+                        }
+                    },
+                    quietMillis: 400,
+                    delay:400,
+                    data: function (term, page) {
+
+                        return {
+                            q: term.term, //search term
+                            // page size
+                        };
+                    },
+                    processResults: function (data) {
+                        console.log(data)
+                        return {
+                            results: data
+                        };
+                    },
+                },
+                templateResult: function (data) {
+
+                    var html    =   $('<div class="select2-user-result"><h5>'+data.nome+'</h5>' +
+                        '<h6>Telefone: <b>'+data.telefone+'</b></h6>'+
+
+                        '</div>'
+                    );
+                    return html;
+                },
+                templateSelection:function (data) {
+                    var html    =   $('<div class="select2-user-result"><b>Cliente: </b>'+data.text+'</div><br>'
+                    );
+                    return html;
+                },
+
             });
 
             $("#tabela-atualizavel").on('click','.botao-editar',function () {
