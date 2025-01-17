@@ -36,11 +36,14 @@
                                 @endif
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="cliente">Cliente</label>
-                                        <input type="text" required class="form-control select2" ui-select2="{width:'resolve',dropdownAutoWidth:true}" style="width:100%" id="pesquisa-cliente" name="cliente" value="{{isset($montadora)?$montadora->nome:''}}">
+                                        <label for="cliente" id="">Cliente <span style=""><span id="cadastrar-cliente"><a class="btn btn-sm btn-primary" href="">Novo</a></span><span id="editar-cliente"></span> </span></label>
+                                        <select type="text" required class="form-control select2" ui-select2="{width:'resolve',dropdownAutoWidth:true}" style="width:100%" id="pesquisa-cliente" name="cliente" value="{{isset($montadora)?$montadora->nome:''}}">
+
+                                        </select>
+
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="veiculo">Veiculo</label>
+                                        <label for="veiculo">Veiculo <span style=""><span id="cadastrar-veiculo"><a class="btn btn-sm btn-primary" href="">Novo</a></span><span id="editar-veiculo"></span> </span></label>
                                         <input type="text"  class="form-control" id="pesquisa-veiculo" placeholder="Nome" name="veiculo" value="{{isset($montadora)?$montadora->nome:''}}">
                                     </div>
 

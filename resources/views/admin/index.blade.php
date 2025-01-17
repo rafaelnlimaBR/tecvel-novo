@@ -689,8 +689,9 @@
                     type: 'POST',
                     url: "{{route('cliente.pesquisar.json')}}",
                     dataType: 'json',
+
                     beforeSend: function (xhr) {
-                        var token = $("input[name='_token']" ).val();
+                        var token = $("meta[name='csrf-token']" ).val();
 
                         if (token) {
                             return xhr.setRequestHeader('X-CSRF-TOKEN', token);
@@ -706,7 +707,7 @@
                         };
                     },
                     processResults: function (data) {
-                        console.log(data)
+
                         return {
                             results: data
                         };
@@ -722,7 +723,10 @@
                     return html;
                 },
                 templateSelection:function (data) {
-                    var html    =   $('<div class="select2-user-result"><b>Cliente: </b>'+data.text+'</div><br>'
+                    var rota    =   "{{route('cliente.editar',['id'=>':id'])}}";
+                    rota = rota.replace(':id',data.id);
+                   $('#editar-cliente').html(' <a class="btn btn-sm btn-warning"  href="'+rota+'" target="new">Editar</a>');
+                    var html    =   $('<div class="select2-user-result"><b>Cliente: </b>'+data.text+ " - "+data.telefone+'</div><br>'
                     );
                     return html;
                 },

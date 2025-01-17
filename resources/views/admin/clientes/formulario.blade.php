@@ -57,7 +57,7 @@
                     <a href="{{route('cliente.index')}}" class="btn btn-secondary">Voltar</a>
 
 
-                  </form>
+                </form>
             </div>
 
         </div>
