@@ -682,6 +682,37 @@
                 }
             });
 
+            $("#cadastrarClienteModal").submit(function () {
+
+                var dados   = $(this).serialize();
+
+                var rota    =   "{{route('cliente.cadastrar')}}";
+
+                $.ajax({
+                    type: "POST",
+                    url: rota,
+                    data: dados,
+                    success: function( data )
+                    {
+
+                        if('erro' in data){
+                            alert(data.erro);
+
+                        }else{
+                            var html    =   '<option value='+data.id+'>'+data.nome+'</option>'
+                            $("#pesquisa-cliente").html(html);
+                            $(this).modal('hide');
+                            return false
+                        }
+                    },
+                    error:function (data,e) {
+                        alert(data);
+                    }
+                });
+
+                return false;
+            });
+
             $("#pesquisa-cliente").select2({
                 language: 'es',
                 // placeholder: "Selecione um cliente",

@@ -17,8 +17,9 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->foreignId('cliente_id')->constrained('clientes','id')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('veiculo_id')->constrained('veiculos','id')->onUpdate('cascade')->onDelete('cascade')->nullable();
-            $table->text('defeito');
-            $table->text('obs');
+            $table->text('defeito')->nullable();
+            $table->text('obs')->nullable();
+            $table->text('solucao')->nullable();
             $table->date('garantia');
             $table->timestamps();
         });

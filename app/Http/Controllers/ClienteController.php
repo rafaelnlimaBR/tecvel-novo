@@ -36,16 +36,29 @@ class ClienteController extends Controller
     }
 
     public function cadastrar(Request $r){
-
+        $isModal    =   $r->has('modal');
         try {
             $cliente  = new Cliente();
             $cliente->nome  =   strtoupper($r->get('nome'));
             $cliente->email =   strtolower($r->get('email'));
 
+
+
             if($cliente->save()){
+                if($isModal == true){
+
+                    $contato = ContatoController::cadastrar($r->get('contato'),$r->get('app'));
+
+                    $cliente->contatos()->attach($contato);
+                    return response()->json($cliente);
+                }
+
                 return redirect()->route('cliente.editar',['id'=>$cliente->id])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Cliente cadastrado com sucesso."]);
             }
         } catch (\Exception $th) {
+            if($isModal == true){
+                return response()->json(['erro'=>$th->getMessage()]);
+            }
             return redirect()->route('cliente.novo')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);;
         }
     }

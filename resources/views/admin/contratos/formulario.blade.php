@@ -29,15 +29,15 @@
                 <div class="tab-pane {{isset($pagina)?$pagina == "dados"?'active':'':''}} p-4" id="dados">
                     <div class="row justify-content-center">
                         <div class="col-lg-12">
-                            <form action="{{ isset($montadora)? route('montadora.atualizar'):route('montadora.cadastrar') }}" method="POST">
+                            <form action="{{ isset($contrato)? route('contrato.atualizar'):route('contrato.cadastrar') }}" method="POST">
                                 {{ csrf_field() }}
-                                @if(isset($montadora))
-                                    <input hidden type="text" class="form-control" id="id-montadora" placeholder="" name="id" value="{{$montadora->id}}">
+                                @if(isset($contrato))
+                                    <input hidden type="text" class="form-control" id="id-contrato" placeholder="" name="id" value="{{$contrato->id}}">
                                 @endif
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="cliente" id="">Cliente <span style=""><span id="cadastrar-cliente"><a class="btn btn-sm btn-primary" href="">Novo</a></span><span id="editar-cliente"></span> </span></label>
-                                        <select type="text" required class="form-control select2" ui-select2="{width:'resolve',dropdownAutoWidth:true}" style="width:100%" id="pesquisa-cliente" name="cliente" value="{{isset($montadora)?$montadora->nome:''}}">
+                                        <label for="cliente" id="">Cliente <span id="cadastrar-cliente"><button data-toggle="modal" data-target="#formularioClienteModal" class="btn btn-sm btn-primary" href="" >Novo</button></span><span id="editar-cliente"></span> </label>
+                                        <select type="text" required class="form-control select2" ui-select2="{width:'resolve',dropdownAutoWidth:true}" style="width:100%" id="pesquisa-cliente" name="cliente" >
 
                                         </select>
 
@@ -55,12 +55,12 @@
 
 
                                 </div>
-                                @if(isset($montadora))
+                                @if(isset($contrato))
                                     <button type="submit" class="btn btn-warning">Editar</button>
                                 @else
                                     <button type="submit" class="btn btn-success">Cadastrar</button>
                                 @endif
-                                <a href="{{route('montadora.index')}}" class="btn btn-secondary">Voltar</a>
+                                <a href="{{route('contrato.index')}}" class="btn btn-secondary">Voltar</a>
 
 
                             </form>
@@ -211,4 +211,6 @@
 
 </div>
 
+
+@include('admin.clientes.formulario-modal')
 @stop

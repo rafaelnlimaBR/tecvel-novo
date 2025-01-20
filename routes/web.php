@@ -64,7 +64,7 @@ Route::post('/veiculo/cadastrar', [App\Http\Controllers\VeiculoController::class
 Route::post('/veiculo/excluir', [App\Http\Controllers\VeiculoController::class, 'excluir'])->name('veiculo.excluir');
 Route::Post('/veiculo/pesquisa/json', [App\Http\Controllers\VeiculoController::class, 'veiculosJson'])->name('veiculo.pesquisar.json');
 
-View::composer(['admin.contatos.formulario','admin.contatos.tabela'],function($view){
+View::composer(['admin.contatos.formulario','admin.contatos.tabela','admin.clientes.formulario-modal'],function($view){
     $view->with(['aplicativos'=>AppContato::all()]);
 });
 
