@@ -54,13 +54,14 @@
                                         <textarea style="min-height: 150px" class="form-control " name="defeito"></textarea>
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label for="obs">Observação </label>
-                                        <textarea style="min-height: 150px" class="form-control " name="obs"></textarea>
-                                    </div>
-                                    <div class="form-group col-md-4">
                                         <label for="solucao">Solução </label>
                                         <textarea style="min-height: 150px" class="form-control " name="solucao"></textarea>
                                     </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="obs">Observação </label>
+                                        <textarea style="min-height: 150px" class="form-control " name="obs"></textarea>
+                                    </div>
+
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-2">

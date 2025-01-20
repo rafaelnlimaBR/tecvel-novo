@@ -42,7 +42,7 @@
 
                 <div class="table-responsive-sm">
                     <table class="table table-bordered">
-                        <thead>
+                        <thead class="thead-light">
                             <tr>
                                 <th style="width: 5%; min-width: 40px;" scope="col">#</th>
                                 <th scope="col">Nome</th>
