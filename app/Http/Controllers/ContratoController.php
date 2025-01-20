@@ -57,6 +57,7 @@ class ContratoController extends Controller
 
     public function cadastrar(Request $r){
         try {
+            return "";
             $contrato                 =   new Modelo();
             $contrato->nome           =   $r->get('nome');
             $contrato->contrato_id   =   $r->get('contrato');
@@ -74,6 +75,7 @@ class ContratoController extends Controller
 
     public function atualizar(Request $r){
         try {
+            return "";
             $contrato          =   Modelo::find($r->get('id'));
             $contrato->nome    =   $r->get('nome');
             $contrato->contrato_id   =   $r->get('contrato');

@@ -1,4 +1,4 @@
-<div class="modal fade" id="formularioClienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
+<div class="modal fade" id="formularioClienteModal"  aria-labelledby="clienteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <form  method="post" name="cadastrarClienteModal" id="cadastrarClienteModal">
             <div class="modal-content">

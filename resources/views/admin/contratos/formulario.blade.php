@@ -36,7 +36,7 @@
                                 @endif
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="cliente" id="">Cliente <span id="cadastrar-cliente"><button data-toggle="modal" data-target="#formularioClienteModal" class="btn btn-sm btn-primary" href="" >Novo</button></span><span id="editar-cliente"></span> </label>
+                                        <label for="cliente" id="">Cliente <span id="cadastrar-cliente"><a style="color: #ffffff" data-toggle="modal" data-target="#formularioClienteModal" class="btn btn-sm btn-primary" id="botao-cliente-modal" >Novo</a></span><span id="editar-cliente"></span> </label>
                                         <select type="text" required class="form-control select2" ui-select2="{width:'resolve',dropdownAutoWidth:true}" style="width:100%" id="pesquisa-cliente" name="cliente" >
 
                                         </select>
@@ -49,9 +49,24 @@
 
                                 </div>
                                 <div class="form-row">
-
+                                    <div class="form-group col-md-4">
+                                        <label for="defeito">Defeito </label>
+                                        <textarea style="min-height: 150px" class="form-control " name="defeito"></textarea>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="obs">Observação </label>
+                                        <textarea style="min-height: 150px" class="form-control " name="obs"></textarea>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="solucao">Solução </label>
+                                        <textarea style="min-height: 150px" class="form-control " name="solucao"></textarea>
+                                    </div>
                                 </div>
                                 <div class="form-row">
+                                    <div class="form-group col-md-2">
+                                        <label for="garantia">Garantia </label>
+                                        <input class="form-control date-time" name="garantia" value="{{isset($contrato)?$contrato->garantia:\Carbon\Carbon::now()->addDay(90)->format('d/m/Y')}}">
+                                    </div>
 
 
                                 </div>
