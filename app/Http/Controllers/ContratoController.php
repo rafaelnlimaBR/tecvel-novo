@@ -20,7 +20,7 @@ class ContratoController extends Controller
         ];
         $contratos   =   Contrato::
             orderBy('created_at', 'desc')
-            ->paginate(15)->
+            ->paginate(2)->
             withQueryString();
         return view('admin.contratos.index',$dados)->with('contratos',$contratos);
     }
@@ -98,13 +98,7 @@ class ContratoController extends Controller
         }
     }
 
-    public function refresh()
-    {
-//        return "deu";
-        return response()->json([
-            'contratos'=>view('admin.contratos.includes.table',['contratos'=>Contrato::orderBy('created_at', 'desc')->get()])->render()
-        ]);
-    }
+
 
     public function excluir(){
 

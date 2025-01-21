@@ -35,14 +35,14 @@
 
                 <div class="table-responsive-sm " id="tabela-refresh-contratos">
                     @include('admin.contratos.includes.table')
-                    {{$contratos->links()}}
+
                 </div>
 
             </div>
         </div>
     </div>
 </div>
-    <script type="text/javascript">
+    {{--<script type="text/javascript">
         setInterval(function () {
             var rota    =   "{{route('contrato.refresh')}}";
             $.ajax({
@@ -61,5 +61,5 @@
             });
         }, 10000);
 
-    </script>
+    </script>--}}
 @stop
