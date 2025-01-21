@@ -688,6 +688,8 @@
                 }
             });
 
+
+
             $('.cep').mask('00000-000');
             $('.caixa-alta').keyup(function() {
                 this.value = this.value.toLocaleUpperCase();

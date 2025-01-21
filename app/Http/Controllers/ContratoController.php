@@ -98,6 +98,14 @@ class ContratoController extends Controller
         }
     }
 
+    public function refresh()
+    {
+//        return "deu";
+        return response()->json([
+            'contratos'=>view('admin.contratos.includes.table',['contratos'=>Contrato::orderBy('created_at', 'desc')->get()])->render()
+        ]);
+    }
+
     public function excluir(){
 
     }
