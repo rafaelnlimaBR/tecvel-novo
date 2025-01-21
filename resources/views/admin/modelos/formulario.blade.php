@@ -17,7 +17,7 @@
                     <div class="form-row">
                           <div class="form-group col-md-6">
                             <label for="Nome">Nome</label>
-                            <input type="text" required class="form-control" id="Nome" placeholder="Nome" name="nome" value="{{isset($modelo)?$modelo->nome:''}}">
+                            <input type="text" required class="form-control caixa-alta" id="Nome" placeholder="Nome" name="nome" value="{{isset($modelo)?$modelo->nome:''}}">
                           </div>
                             <div class="form-group col-md-6">
                                 <label for="Montadoras">Montadoras</label>

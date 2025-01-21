@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('historicos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('data');
-            $table->text('obs');
+            $table->text('obs')->nullable();
             $table->foreignId('status_id')->constrained('status','id')->onDelete('cascade')->onUpdata('cascade');
             $table->foreignId('contrato_id')->constrained('contratos','id')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

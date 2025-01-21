@@ -34,8 +34,8 @@ class VeiculoController extends Controller
                 'titulo' => "Editar Veiculo",
                 'veiculo' =>  $veiculo,
                 'modelos'   =>  Modelo::all(),
-                'montadoras'   =>  Montadora::all(),
-                'cores'         =>  Veiculo::$cores
+
+
             ];
             return view('admin.veiculos.formulario',$dados);
 
@@ -51,8 +51,6 @@ class VeiculoController extends Controller
         $dados = [
             'titulo' => "Nova Veiculo",
             'modelos'   =>  Modelo::all(),
-            'montadoras'   =>  Montadora::all(),
-            'cores'     =>  Veiculo::$cores
         ];
         return view('admin.veiculos.formulario',$dados);
     }
@@ -77,12 +75,22 @@ class VeiculoController extends Controller
 
 
             if($veiculo->save()){
-                return redirect()->route('veiculo.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Veiculo cadastrado com sucesso."]);
+                if($r->has('modal')){
+                    return response()->json($veiculo);
+                }else{
+                    return redirect()->route('veiculo.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Veiculo cadastrado com sucesso."]);
+                }
+
             }
 
 
         } catch (\Throwable $th) {
-            return redirect()->route('veiculo.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);
+            if($r->has('modal')){
+                return response()->json(['erro'=>$th->getMessage()]);
+            }else{
+                return redirect()->route('veiculo.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);
+            }
+
         }
     }
 
@@ -130,8 +138,9 @@ class VeiculoController extends Controller
             foreach ($veiculos as $key => $value) {
 
                 $retorno[$key]['id'] = $value->id;
-                $retorno[$key]['text'] = $value->placa;
-                $retorno[$key]['nome'] = $value->modelo->nome;
+                $retorno[$key]['placa'] = $value->placa;
+                $retorno[$key]['text'] = $value->placa.' - '.$value->modelo->nome;
+                $retorno[$key]['modelo'] = $value->modelo->nome;
 
                 $retorno[$key]['montadora'] = $value->modelo->montadora->nome;
 

@@ -2,7 +2,10 @@
 
 use App\Models\AppContato;
 use App\Models\Cliente;
+use App\Models\Configuracao;
 use App\Models\Modelo;
+use \App\Models\Veiculo;
+use \App\Models\Montadora;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
@@ -67,12 +70,14 @@ Route::Post('/veiculo/pesquisa/json', [App\Http\Controllers\VeiculoController::c
 View::composer(['admin.contatos.formulario','admin.contatos.tabela','admin.clientes.formulario-modal'],function($view){
     $view->with(['aplicativos'=>AppContato::all()]);
 });
+View::composer(['admin.veiculos.form'],function($view){
+   $view->with(['montadoras'    =>  Montadora::all()]);
+   $view->with(['cores'         =>  Veiculo::$cores]);
+});
 
 Route::get('/',function(    ){
-    return \App\Models\Veiculo::$cores;
-    $modelo     =   Modelo::find(1);
-    $modeloJson =   ['modelo'=>$modelo->nome,'montadora'=>$modelo->montadora->nome];
-    return $modeloJson;
+    return  Configuracao::first()->abertura;
+  return '<h1>EM DESENVOLVIMENTO</h1>';
 
 
 });

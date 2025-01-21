@@ -673,6 +673,10 @@
         <script src="{{ URL::asset('/js/slidebars.min.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+
+
 
 
         <!--app js-->
@@ -684,8 +688,75 @@
                 }
             });
 
+            $('.cep').mask('00000-000');
+            $('.caixa-alta').keyup(function() {
+                this.value = this.value.toLocaleUpperCase();
+            });
+            $('.caixa-baixa').keyup(function() {
+                this.value = this.value.toLocaleLowerCase();
+            });
+            $('.placa').mask('AAA0U00', {
+                translation: {
+                    'A': {
+                        pattern: /[A-Za-z]/
+                    },
+                    'U': {
+                        pattern: /[A-Za-z0-9]/
+                    },
+                },
+                onKeyPress: function (value, e, field, options) {
+                    // Convert to uppercase
+                    e.currentTarget.value = value.toUpperCase();
+
+                    // Get only valid characters
+                    let val = value.replace(/[^\w]/g, '');
+
+                    // Detect plate format
+                    let isNumeric = !isNaN(parseFloat(val[4])) && isFinite(val[4]);
+                    let mask = 'AAA0U00';
+                    if(val.length > 4 && isNumeric) {
+                        mask = 'AAA0000';
+                    }
+                    $(field).mask(mask, options);
+                }
+            });
             $('.date-time').datepicker({
                 dateFormat: "dd/mm/yy"
+            });
+
+            $("#cadastrarVeiculoModal").submit(function () {
+
+                var dados   = $(this).serialize();
+
+                var rota    =   "{{route('veiculo.cadastrar')}}";
+
+                $.ajax({
+                    type: "POST",
+                    url: rota,
+                    data: dados,
+                    success: function( data )
+                    {
+
+                        if('erro' in data){
+                            alert(data.erro);
+
+                        }else{
+
+                            var html    =   '<option value='+data.id+'> '+ data.placa+'</option>';
+                            // $('.select2-user-result').html('teste');
+                            $("#pesquisa-veiculo").html(html);
+                            $('#formularioVeiculoModal').modal('hide');
+
+
+                            return false
+                        }
+                    },
+                    error:function (data,e) {
+                        alert(data);
+                    }
+                });
+
+                return false;
             });
 
             $("#cadastrarClienteModal").submit(function () {
@@ -707,7 +778,7 @@
                         }else{
                             var html    =   '<option value='+data.id+'>'+data.nome+'</option>'
                             $("#pesquisa-cliente").html(html);
-                            $(this).modal('hide');
+                            $('#formularioClienteModal').modal('hide');
                             return false
                         }
                     },
@@ -720,7 +791,7 @@
             });
 
             $("#pesquisa-cliente").select2({
-                language: 'es',
+
                 // placeholder: "Selecione um cliente",
                 ajax: {
                     type: 'POST',
@@ -762,7 +833,7 @@
                 templateSelection:function (data) {
                     var rota    =   "{{route('cliente.editar',['id'=>':id'])}}";
                     rota = rota.replace(':id',data.id);
-                   $('#editar-cliente').html(' <a class="btn btn-sm btn-warning"  href="'+rota+'" target="new">Editar</a>');
+                   $('#editar-cliente').html(' <a class="btn btn-sm btn-warning"  href="'+rota+'" target="_new">Editar</a>');
                     var html    =   $('<div class="select2-user-result"><b>Cliente: </b>'+data.text+'</div><br>'
                     );
                     return html;
@@ -803,7 +874,7 @@
                 },
                 templateResult: function (data) {
 
-                    var html    =   $('<div class="select2-user-result"><h5>'+data.text+" - "+data.nome+'</h5>' +
+                    var html    =   $('<div class="select2-user-result"><h5>'+data.modelo+" - "+data.placa+'</h5>' +
                         '<h6>Montadora: <b>'+data.montadora+'</b></h6>'+
 
                         '</div>'
@@ -813,9 +884,8 @@
                 templateSelection:function (data) {
                     var rota    =   "{{route('veiculo.editar',['id'=>':id'])}}";
                     rota = rota.replace(':id',data.id);
-                    $('#editar-veiculo').html(' <a class="btn btn-sm btn-warning"  href="'+rota+'" target="new">Editar</a>');
-                    var html    =   $('<div class="select2-user-result"><b>Veiculo: </b>'+data.text+ " - "+data.nome+'</div><br>'
-                    );
+                    $('#editar-veiculo').html(' <a class="btn btn-sm btn-warning"  href="'+rota+'" target="_new">Editar</a>');
+                    var html    =   $('<div class="select2-user-result"><b>Veículo: </b>'+data.text+'</div><br>');
                     return html;
                 },
 

@@ -43,8 +43,10 @@
 
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="veiculo">Veiculo <span style=""><span id="cadastrar-veiculo"><a class="btn btn-sm btn-primary" href="">Novo</a></span><span id="editar-veiculo"></span> </span></label>
-                                        <select type="text" class="form-control select2" ui-select2="{width:'resolve',dropdownAutoWidth:true}" style="width:100%"   id="pesquisa-veiculo"  name="veiculo" ></select>
+                                        <label for="veiculo">Veiculo <span style=""><span id="cadastrar-veiculo"><a style="color: #ffffff" data-toggle="modal" data-target="#formularioVeiculoModal"  class="btn btn-sm btn-primary" >Novo</a></span><span id="editar-veiculo"></span> </span></label>
+                                        <select type="text" class="form-control select2" ui-select2="{width:'resolve',dropdownAutoWidth:true}" style="width:100%"   id="pesquisa-veiculo"  name="veiculo" >
+
+                                        </select>
                                     </div>
 
                                 </div>
@@ -66,7 +68,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-2">
                                         <label for="garantia">Garantia </label>
-                                        <input class="form-control date-time" name="garantia" value="{{isset($contrato)?$contrato->garantia:\Carbon\Carbon::now()->addDay(90)->format('d/m/Y')}}">
+                                        <input class="form-control date-time" required name="garantia" value="{{isset($contrato)?$contrato->garantia:\Carbon\Carbon::now()->addDay(90)->format('d/m/Y')}}">
                                     </div>
 
 
@@ -229,4 +231,5 @@
 
 
 @include('admin.clientes.formulario-modal')
+@include('admin.veiculos.formulario-modal',['modal'=>1])
 @stop

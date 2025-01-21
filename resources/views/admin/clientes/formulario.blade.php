@@ -17,17 +17,17 @@
                     <div class="form-row">
                       <div class="form-group col-md-6">
                         <label for="inputEmail4">Nome</label>
-                        <input type="text" class="form-control" id="Nome" placeholder="Nome" name="nome" value="{{isset($cliente)?$cliente->nome:''}}">
+                        <input type="text" class="form-control caixa-alta" id="Nome" placeholder="Nome" name="nome" value="{{isset($cliente)?$cliente->nome:''}}">
                       </div>
                       <div class="form-group col-md-6">
                         <label for="InputEmail">Email</label>
-                        <input type="Email" class="form-control" id="Email" placeholder="Email" name="email" value="{{isset($cliente)?$cliente->email:''}}">
+                        <input type="Email" class="form-control caixa-baixa" id="Email" placeholder="Email" name="email" value="{{isset($cliente)?$cliente->email:''}}">
                       </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
                           <label for="cep">CEP</label>
-                          <input type="text" class="form-control"  placeholder="Cep" id="cep" name="cep" value="{{isset($cliente)?$cliente->cep:''}}">
+                          <input type="text" class="form-control cep"  placeholder="Cep" id="cep" name="cep" value="{{isset($cliente)?$cliente->cep:''}}">
                         </div>
                         <div class="form-group col-md-6">
                           <label for="logradouro">Logradoudo</label>

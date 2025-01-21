@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
              'uf'                   =>  "CE",
              'bairro'               =>  "Centro",
              'cep'                  =>  "60150-000",
-             'orcamento'            =>  DB::table('status')->where('nome','like','Orçamento')->first()->id,
+             'abertura'             =>  DB::table('status')->where('nome','like','Orçamento')->first()->id,
              'aprovado'             =>  DB::table('status')->where('nome','like','Aprovado')->first()->id,
              'recusado'             =>  DB::table('status')->where('nome','like','Recusado')->first()->id,
              'retorno'              =>  DB::table('status')->where('nome','like','Retorno')->first()->id,

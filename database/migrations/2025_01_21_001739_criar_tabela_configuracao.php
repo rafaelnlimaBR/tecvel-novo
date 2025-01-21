@@ -27,7 +27,7 @@ return new class extends Migration
             $tabela->string('uf');
             $tabela->string('bairro');
             $tabela->string('cep');
-            $tabela->bigInteger('orcamento');
+            $tabela->bigInteger('abertura');
             $tabela->bigInteger('aprovado');
             $tabela->bigInteger('recusado');
             $tabela->bigInteger('retorno');

@@ -10,4 +10,13 @@ class Configuracao extends Model
     use HasFactory;
     protected $table    =   "configuracao";
 
+    public function __construct(array $attributes = [])
+    {
+
+
+    }
+
+
+
+
 }

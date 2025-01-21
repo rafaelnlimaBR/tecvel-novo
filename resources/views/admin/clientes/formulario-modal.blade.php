@@ -14,7 +14,7 @@
 
                         <div class="form-group col-md-12">
                             <label for="nome">Nome</label>
-                            <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" required >
+                            <input type="text" class="form-control caixa-alta" id="nome" placeholder="Nome" name="nome" required >
                             <input type="hidden" class="form-control"  name="modal" >
                         </div>
                     </div>
@@ -22,7 +22,7 @@
 
                         <div class="form-group col-md-12">
                             <label for="Email">Email</label>
-                            <input type="Email" class="form-control" id="Email" placeholder="Email" name="email" >
+                            <input type="Email" class="form-control caixa-baixa" id="Email" placeholder="Email" name="email" >
                         </div>
                     </div>
                     <div class="form-row">

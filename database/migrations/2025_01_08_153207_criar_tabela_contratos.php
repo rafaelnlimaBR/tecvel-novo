@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('contratos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('cliente_id')->constrained('clientes','id')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('veiculo_id')->constrained('veiculos','id')->onUpdate('cascade')->onDelete('cascade')->nullable();
+            $table->foreignId('veiculo_id')->nullable()->constrained('veiculos','id')->onUpdate('cascade')->onDelete('cascade');
             $table->text('defeito')->nullable();
             $table->text('obs')->nullable();
             $table->text('solucao')->nullable();

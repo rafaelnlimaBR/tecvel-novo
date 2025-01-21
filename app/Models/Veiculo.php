@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Veiculo extends Model
 {
     use HasFactory;
+    protected $fillable = ['placa'];
     public static $cores =   [
         ['id'=>'branco','nome'=>'Branco'],
         ['id'=>'prata','nome'=>'Prata'],

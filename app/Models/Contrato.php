@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Contrato extends Model
 {
     use HasFactory;
-
+    protected $table    =   'contratos';
     public function cliente()
     {
         return $this->belongsTo(Cliente::class);
@@ -17,6 +17,11 @@ class Contrato extends Model
     public function veiculo()
     {
         return $this->belongsTo(Veiculo::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsToMany(Status::class,'historicos','contrato_id','status_id')->withPivot('obs','data')->withTimestamps();
     }
 
 }

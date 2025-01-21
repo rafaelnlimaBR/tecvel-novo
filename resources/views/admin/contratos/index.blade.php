@@ -40,7 +40,8 @@
                                 <th style="width: 5%; min-width: 40px;" scope="col">#</th>
                                 <th scope="col">Cliente</th>
                                 <th scope="col">Placa</th>
-                                <th scope="col">Modelo</th>
+                                <th scope="col">Status</th>
+
                                 <th style="width: 10%; min-width: 150px;"  scope="col">Criado </th>
                                 <th style="width: 7%; min-width: 150px;" scope="col">Ações</th>
 
@@ -52,8 +53,8 @@
                                 <tr>
                                     <th scope="row">{{$contrato->id}}</th>
                                     <td>{{$contrato->cliente->nome}}</td>
-                                    <td>{{$contrato->veiculo->placa}} - {{$contrato->veiculo->modelo->nome}}</td>
-
+                                    <td>{{isset($contrato->veiculo)?$contrato->veiculo->placa." - ".$contrato->veiculo->modelo->nome:"ND"}}  </td>
+                                    <td>{{$contrato->status()->first()->nome}}</td>
 
                                     <td>{{\Carbon\Carbon::parse($contrato->created_at)->format('d/m/Y')}}</td>
 
