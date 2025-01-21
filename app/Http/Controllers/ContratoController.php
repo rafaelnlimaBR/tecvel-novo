@@ -6,6 +6,7 @@ use App\Models\Modelo;
 use App\Models\Montadora;
 use App\Models\Contrato;
 use App\Models\Historico;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ContratoController extends Controller
@@ -58,10 +59,13 @@ class ContratoController extends Controller
     public function cadastrar(Request $r){
         try {
             return "";
-            $contrato                 =   new Modelo();
-            $contrato->nome           =   $r->get('nome');
-            $contrato->contrato_id   =   $r->get('contrato');
-
+            $contrato                       =   new Contrato();
+            $contrato->cliente_id           =   $r->get('cliente');
+            $contrato->veiculo_id           =   $r->get('veiculo');
+            $contrato->obs                  =   $r->get('obs');
+            $contrato->defeito              =   $r->get('defeito');
+            $contrato->solucao              =   $r->get('solucao');
+            $contrato->garantia             =   $r->get('garantia');
 
             if($contrato->save()){
                 return redirect()->route('contrato.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Modelo cadastrado com sucesso."]);

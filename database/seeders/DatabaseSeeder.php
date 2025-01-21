@@ -26,6 +26,34 @@ class DatabaseSeeder extends Seeder
             ['nome' => 'Não possui App','link' => '..','img'   =>  '..']
         ]);
 
+         DB::table('status')->insert([
+             ["nome"=>"Orçamento","cor_fundo"=>"..","cor_letra"=>"..","cobrar"=>false,"habilitar-funcoes"=>true],
+             ["nome"=>"Aprovado","cor_fundo"=>"..","cor_letra"=>"..","cobrar"=>true,"habilitar-funcoes"=>true],
+             ["nome"=>"Recusado","cor_fundo"=>"..","cor_letra"=>"..","cobrar"=>false,"habilitar-funcoes"=>false],
+             ["nome"=>"Retorno","cor_fundo"=>"..","cor_letra"=>"..","cobrar"=>true,"habilitar-funcoes"=>true],
+             ["nome"=>"concluido","cor_fundo"=>"..","cor_letra"=>"..","cobrar"=>false,"habilitar-funcoes"=>false],
+         ]);
+
+         DB::table('configuracao')->insert([
+            'nome_principal'        =>  "Tecvel",
+             'nome_segundario'      =>  "Eletrônica Automotiva",
+             'descricao'            =>  "especialicada em conserto de painel de instrumentos",
+             'meta'                 =>  "painel de instrumentos",
+             'logo'                 =>  'logo.png',
+             'instagran'            =>  'tecvel',
+             'whatsapp'             =>  "85987067785",
+             'endereco'             =>  "Rua Pinto Madeira, 750",
+             'cidade'               =>  "Fortaleza",
+             'uf'                   =>  "CE",
+             'bairro'               =>  "Centro",
+             'cep'                  =>  "60150-000",
+             'orcamento'            =>  DB::table('status')->where('nome','like','Orçamento')->first()->id,
+             'aprovado'             =>  DB::table('status')->where('nome','like','Aprovado')->first()->id,
+             'recusado'             =>  DB::table('status')->where('nome','like','Recusado')->first()->id,
+             'retorno'              =>  DB::table('status')->where('nome','like','Retorno')->first()->id,
+             'concluido'            =>  DB::table('status')->where('nome','like','Concluido')->first()->id,
+         ]);
+
 
 
         Cliente::factory(100)->has(Contato::factory(100)->count(2))
