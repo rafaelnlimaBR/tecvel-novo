@@ -2,7 +2,15 @@
 
 @section('conteudo')
 <div class="page-head">
-    <h4 class="my-2">{{$titulo}}</h4>
+    @if(isset($contrato))
+        <h4 class="my-2">{{"Status Atual : ".$contrato->historicos->last()->status->nome}}
+            @foreach($contrato->historicos->last()->status->proximosStatus as $proximo)
+                <a  class="btn btn-sm" style="background-color: {{$proximo->cor_fundo}}; color: {{$proximo->cor_letra}}">{{$proximo->nome}}</a>
+            @endforeach
+        </h4>
+    @else
+        <h4 class="my-2">{{$titulo}}</h4>
+    @endif
 </div>
 
 <div class="row">
@@ -27,6 +35,17 @@
                     <h4 class="text-muted">Sociis natoque penatibus et magnis dis parturient montes.</h4>
                 </div>
                 <div class="tab-pane {{request()->exists('pagina')?request()->get('pagina') == "dados"?'active':'':''}} p-4" id="dados">
+                    @if(isset($contrato))
+                    <div class="row justify-content-evenly" style="border-bottom-color: #b4b4b4; border: 1px;">
+                        <div class="col-lg-1">
+                            <h4>ID : <b>{{$contrato->id}}   </b></h4><br>
+                        </div>
+                        <div class="col-lg-2">
+                            <p>  Criado em {{\Carbon\Carbon::parse($contrato->data)->format('d/m/Y')}}</p>
+                        </div>
+                    </div>
+                    @endif
+
                     <div class="row justify-content-center">
                         <div class="col-lg-12">
                             <form action="{{ isset($contrato)? route('contrato.atualizar'):route('contrato.cadastrar') }}" method="POST">
@@ -77,12 +96,20 @@
 
 
                                 </div>
-                                @if(isset($contrato))
-                                    <button type="submit" class="btn btn-warning">Editar</button>
-                                @else
-                                    <button type="submit" class="btn btn-success">Cadastrar</button>
-                                @endif
-                                <a href="{{route('contrato.index')}}" class="btn btn-secondary">Voltar</a>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        @if(isset($contrato))
+                                            <button type="submit" class="btn btn-warning">Editar</button>
+                                        @else
+                                            <button type="submit" class="btn btn-success">Cadastrar</button>
+                                        @endif
+                                        <a href="{{route('contrato.index')}}" class="btn btn-secondary">Voltar</a>
+                                    </div>
+                                    <div class="col-lg-4" style="float: right">
+
+                                    </div>
+                                </div>
+
 
 
                             </form>
@@ -227,6 +254,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 

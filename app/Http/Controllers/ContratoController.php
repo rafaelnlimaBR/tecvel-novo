@@ -16,11 +16,11 @@ class ContratoController extends Controller
     public function index(Request $r){
         $dados = [
             'titulo' => "Contratos",
-            'titulo_tabela' => "Lista de Modelos"
+            'titulo_tabela' => "Lista de Contratos"
         ];
-        $contratos   =   Contrato::
+        $contratos   =   Contrato::pesquisarPorCliente($r->input('nome'))->PesquisarPorTelefone($r->input('telefone'))->PesquisarPorPlaca($r->input('placa'))->
             orderBy('created_at', 'desc')
-            ->paginate(2)->
+            ->paginate(10)->
             withQueryString();
         return view('admin.contratos.index',$dados)->with('contratos',$contratos);
     }
@@ -75,7 +75,7 @@ class ContratoController extends Controller
             if($contrato->save()){
                 $status             =   Status::find(Configuracao::first()->abertura);
                 $contrato->status()->attach($status,['obs'=>$r->get('obs'),'data'=>Carbon::now()->format('Y-m-d')]);
-            return redirect()->route('contrato.editar',['id'=>$contrato->id])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Contrato cadastrado com sucesso."]);
+            return redirect()->route('contrato.editar',['id'=>$contrato->id,'pagina'=>'dados'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Contrato cadastrado com sucesso."]);
             }
 
 

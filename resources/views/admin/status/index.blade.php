@@ -40,7 +40,7 @@
                                 <th style="width: 5%; min-width: 40px;" scope="col">#</th>
                                 <th scope="col">Nome</th>
                                 <th style="width: 10%; min-width: 150px;"  scope="col">Criado </th>
-                                <th style="width: 7%; min-width: 150px;" scope="col">Ações</th>
+                                <th style="width: 3%; min-width: 110px;" scope="col">Ações</th>
 
                             </tr>
                         </thead>
@@ -55,11 +55,8 @@
 
 
                                     <td>
-                                        <button class="btn btn-sm btn-primary" style="padding-top: 0; padding-bottom: 0"><i class="fa   fa-sign-out"></i></button>
                                         <a href="{{route('status.editar',['id'=>$status->id])}}" class="btn btn-sm btn-warning" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-pencil-square"></i></a>
                                         <button class="btn btn-sm btn-danger" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-trash-o"></i></button>
-
-
                                     </td>
                                 </tr>
                             @endforeach

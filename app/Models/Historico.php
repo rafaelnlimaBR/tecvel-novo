@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Historico extends Model
 {
     use HasFactory;
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
 }
