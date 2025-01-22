@@ -27,17 +27,20 @@ class ContratoController extends Controller
 
     public function editar($id){
         try {
-            $contrato          =   Modelo::find($id);
+            $contrato          =   Contrato::find($id);
             if($contrato == null){
-                return redirect()->route('contrato.index')->with('alerta',['tipo'=>'warning','icon'=>'','texto'=>"Modelo não existe."]);
+                return redirect()->route('contrato.index')->with('alerta',['tipo'=>'warning','icon'=>'','texto'=>"Contrato não existe."]);
             }
 
             $dados = [
-                'titulo'        => "Editar Modelo",
+                'titulo'        => "Editar Contrato",
                 'contrato'        =>  $contrato,
-                'contratos'    =>  Montadora::all(),
+
 
             ];
+
+
+
             return view('admin.contratos.formulario',$dados);
 
 
@@ -72,7 +75,7 @@ class ContratoController extends Controller
             if($contrato->save()){
                 $status             =   Status::find(Configuracao::first()->abertura);
                 $contrato->status()->attach($status,['obs'=>$r->get('obs'),'data'=>Carbon::now()->format('Y-m-d')]);
-            return redirect()->route('contrato.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Modelo cadastrado com sucesso."]);
+            return redirect()->route('contrato.editar',['id'=>$contrato->id])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Contrato cadastrado com sucesso."]);
             }
 
 
@@ -83,13 +86,16 @@ class ContratoController extends Controller
 
     public function atualizar(Request $r){
         try {
-            return "";
-            $contrato          =   Modelo::find($r->get('id'));
-            $contrato->nome    =   $r->get('nome');
-            $contrato->contrato_id   =   $r->get('contrato');
+            $contrato                       =   Contrato::find($r->get('id'));
+            $contrato->cliente_id           =   $r->get('cliente');
+            $contrato->veiculo_id           =   $r->get('veiculo');
+            $contrato->obs                  =   $r->get('obs');
+            $contrato->defeito              =   $r->get('defeito');
+            $contrato->solucao              =   $r->get('solucao');
+            $contrato->garantia             =   Carbon::createFromFormat('d/m/Y',$r->get('garantia'));
 
             if($contrato->save()){
-                return redirect()->route('contrato.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Modelo atualizado com sucesso."]);
+                return redirect()->route('contrato.editar',['id'=>$contrato->id,'pagina'=>'dados'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Contrato atualizado com sucesso."]);
             }
 
 
