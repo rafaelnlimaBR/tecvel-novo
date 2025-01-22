@@ -31,7 +31,14 @@ class DatabaseSeeder extends Seeder
              ["nome"=>"Aprovado","cor_fundo"=>"..","cor_letra"=>"..","cobrar"=>true,"habilitar_funcoes"=>true],
              ["nome"=>"Recusado","cor_fundo"=>"..","cor_letra"=>"..","cobrar"=>false,"habilitar_funcoes"=>false],
              ["nome"=>"Retorno","cor_fundo"=>"..","cor_letra"=>"..","cobrar"=>true,"habilitar_funcoes"=>true],
-             ["nome"=>"concluido","cor_fundo"=>"..","cor_letra"=>"..","cobrar"=>false,"habilitar_funcoes"=>false],
+             ["nome"=>"Concluido","cor_fundo"=>"..","cor_letra"=>"..","cobrar"=>false,"habilitar_funcoes"=>false],
+         ]);
+         DB::table('status_status')->insert([
+            ['status_atual_id'=>1,'status_proximo_id'=>2] ,
+            ['status_atual_id'=>1,'status_proximo_id'=>2] ,
+            ['status_atual_id'=>2,'status_proximo_id'=>3] ,
+            ['status_atual_id'=>2,'status_proximo_id'=>4] ,
+            ['status_atual_id'=>2,'status_proximo_id'=>5] ,
          ]);
 
          DB::table('configuracao')->insert([
@@ -56,7 +63,7 @@ class DatabaseSeeder extends Seeder
 
 
 
-        Cliente::factory(100)->has(Contato::factory(100)->count(2))
+        Cliente::factory(20)->has(Contato::factory(100)->count(2))
         ->create();
 
         DB::table('montadoras')->insert([

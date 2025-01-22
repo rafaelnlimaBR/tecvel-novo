@@ -75,6 +75,8 @@ Route::get('/status/novo', [App\Http\Controllers\StatusController::class, 'novo'
 Route::get('/status/editar/{id}', [App\Http\Controllers\StatusController::class, 'editar'])->name('status.editar');
 Route::post('/status/atualizar', [App\Http\Controllers\StatusController::class, 'atualizar'])->name('status.atualizar');
 Route::post('/status/cadastrar', [App\Http\Controllers\StatusController::class, 'cadastrar'])->name('status.cadastrar');
+Route::post('/status/adicionar-proximo-status', [App\Http\Controllers\StatusController::class, 'vincularStatus'])->name('status.vincularStatus');
+Route::post('/status/remover-proximo-status', [App\Http\Controllers\StatusController::class, 'desvincularStatus'])->name('status.desvincularStatus');
 Route::post('/status/excluir', [App\Http\Controllers\StatusController::class, 'excluir'])->name('status.excluir');
 
 View::composer(['admin.contatos.formulario','admin.contatos.tabela','admin.clientes.formulario-modal'],function($view){
@@ -84,13 +86,14 @@ View::composer(['admin.veiculos.form'],function($view){
    $view->with(['montadoras'    =>  Montadora::all()]);
    $view->with(['cores'         =>  Veiculo::$cores]);
 });
+View::composer(['admin.status.formulario'],function($view){
+   $view->with(['todos_status'        =>\App\Models\Status::all()]);
+});
 
 Route::get('/',function(    ){
 
-
-    return response()->json([
-        'contratos'=>view('admin.contratos.includes.table',['contratos'=>Contrato::all()])->render()
-    ]);
+    $status = \App\Models\Status::find(2);
+    return $status->proximosStatus()->get();
 
 
 });

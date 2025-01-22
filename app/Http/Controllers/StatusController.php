@@ -20,21 +20,21 @@ class StatusController extends Controller
 
     public function editar($id){
         try {
-            $montadora          =   Status::find($id);
-            if($montadora == null){
-                return redirect()->route('montadora.index')->with('alerta',['tipo'=>'warning','icon'=>'','texto'=>"Status não existe."]);
+            $status          =   Status::find($id);
+            if($status == null){
+                return redirect()->route('status.index')->with('alerta',['tipo'=>'warning','icon'=>'','texto'=>"Status não existe."]);
             }
 
             $dados = [
                 'titulo' => "Editar Status",
-                'montadora' =>  $montadora
+                'status' =>  $status
             ];
             return view('admin.status.formulario',$dados);
 
 
 
         } catch (\Throwable $th) {
-            return redirect()->route('montadora.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);
+            return redirect()->route('status.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);
 
         }
     }
@@ -71,6 +71,10 @@ class StatusController extends Controller
         try {
             $status          =   Status::find($r->get('id'));
             $status->nome    =   $r->get('nome');
+            $status->cor_fundo  =   $r->get('cor-fundo');
+            $status->cor_letra  =   $r->get('cor-letra');
+            $status->cobrar  =   $r->get('cobrar');
+            $status->habilitar_funcoes  =   $r->get('funcoes');
 
 
             if($status->save()){
@@ -80,6 +84,42 @@ class StatusController extends Controller
 
         } catch (\Throwable $th) {
             return redirect()->route('status.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);
+        }
+    }
+
+    public function vincularStatus(Request $r)
+    {
+        try {
+
+            $status         =   Status::find($r->get('id'));
+
+            $proximo        =   $r->get('status_proximo');
+            $status->proximosStatus()->attach($proximo);
+
+            return response()->json([
+                'status'=>view('admin.status.includes.table',['status'=>$status])->render()
+            ]);
+
+        } catch (Exception $e) {
+            return \response()->json(['erro'=>$e->getMessage()]);
+        }
+    }
+
+    public function desvincularStatus(Request $r)
+    {
+        try {
+
+            $status         =   Status::find($r->get('id'));
+
+            $proximo        =   $r->get('proximo');
+            $status->proximosStatus()->detach($proximo);
+
+            return response()->json([
+                'status'=>view('admin.status.includes.table',['status'=>$status])->render()
+            ]);
+
+        } catch (Exception $e) {
+            return \response()->json(['erro'=>$e->getMessage()]);
         }
     }
 
