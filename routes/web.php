@@ -69,6 +69,14 @@ Route::post('/veiculo/cadastrar', [App\Http\Controllers\VeiculoController::class
 Route::post('/veiculo/excluir', [App\Http\Controllers\VeiculoController::class, 'excluir'])->name('veiculo.excluir');
 Route::Post('/veiculo/pesquisa/json', [App\Http\Controllers\VeiculoController::class, 'veiculosJson'])->name('veiculo.pesquisar.json');
 
+//Status
+Route::get('/status', [App\Http\Controllers\StatusController::class, 'index'])->name('status.index');
+Route::get('/status/novo', [App\Http\Controllers\StatusController::class, 'novo'])->name('status.novo');
+Route::get('/status/editar/{id}', [App\Http\Controllers\StatusController::class, 'editar'])->name('status.editar');
+Route::post('/status/atualizar', [App\Http\Controllers\StatusController::class, 'atualizar'])->name('status.atualizar');
+Route::post('/status/cadastrar', [App\Http\Controllers\StatusController::class, 'cadastrar'])->name('status.cadastrar');
+Route::post('/status/excluir', [App\Http\Controllers\StatusController::class, 'excluir'])->name('status.excluir');
+
 View::composer(['admin.contatos.formulario','admin.contatos.tabela','admin.clientes.formulario-modal'],function($view){
     $view->with(['aplicativos'=>AppContato::all()]);
 });

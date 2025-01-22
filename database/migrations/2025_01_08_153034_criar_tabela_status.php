@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('cor_fundo');
             $table->string('cor_letra');
             $table->boolean('cobrar');
-            $table->boolean('habilitar-funcoes');
+            $table->boolean('habilitar_funcoes');
 
             $table->timestamps();
         });

@@ -70,7 +70,21 @@ a:hover {
     color: #555555;
     text-decoration: none;
 }
-
+input[type="color" i] {
+    appearance: auto;
+    width: 100%;
+    inline-size: 250px;
+    block-size: 38px;
+    cursor: default;
+    box-sizing: border-box;
+    background-color: buttonface;
+    color: buttontext;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #aaaaaa;
+    border-image: initial;
+    padding: 1px 2px;
+}
 p {
     font-size: 14px;
 }
