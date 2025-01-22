@@ -74,7 +74,7 @@
 
 
                         @foreach($contrato->historicos->last()->status->proximosStatus as $proximo)
-                            <a  class="btn btn-sm" style="background-color: {{$proximo->cor_fundo}}; color: {{$proximo->cor_letra}}">{{$proximo->nome}}</a>
+                            <a  class="btn btn-sm botao-mudar-status" style="background-color: {{$proximo->cor_fundo}}; color: {{$proximo->cor_letra}}" status="{{$proximo->id}}">{{$proximo->nome}}</a>
                         @endforeach
 
             </div>
@@ -89,6 +89,9 @@
 
 @include('admin.clientes.formulario-modal')
 @include('admin.veiculos.formulario-modal',['modal'=>1])
+@if(isset($contrato))
+@include("admin.contratos.includes.modal-mudar-status")
+@endif
 @stop
 {{--
 <div class="col-lg-12 col-sm-12 col-md-12">

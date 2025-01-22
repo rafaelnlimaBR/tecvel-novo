@@ -109,4 +109,19 @@ class ContratoController extends Controller
     public function excluir(){
 
     }
+
+    public function mudarStatus(Request $r)
+    {
+        try {
+            $contrato                       =   Contrato::find($r->get('id_contrato'));
+            $contrato->status()->attach($r->get('id_status'),['obs'=>$r->get('obs'),'data'=>Carbon::now()->format('y-m-d')]);
+
+            return redirect()->route('contrato.editar',['id'=>$contrato->id,'pagina'=>'dados'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Contrato atualizado com sucesso."]);
+
+
+
+        } catch (\Throwable $th) {
+            return redirect()->route('contrato.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);
+        }
+    }
 }

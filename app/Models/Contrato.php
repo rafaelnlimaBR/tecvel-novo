@@ -31,9 +31,12 @@ class Contrato extends Model
 
     public function scopePesquisarPorCliente($query, $nome)
     {
-        return $query->whereHas('cliente', function ($query) use ($nome) {
-            $query->where('nome', 'like','%'.$nome.'%');
-        });
+
+
+            return $query->whereHas('cliente', function ($query) use ($nome) {
+                $query->where('nome', 'like','%'.$nome.'%');
+            });
+
     }
 
     public function scopePesquisarPorPlaca($query, $placa)

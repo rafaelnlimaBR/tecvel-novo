@@ -731,7 +731,12 @@
                 dateFormat: "dd/mm/yy"
             });
 
-
+            $('.botao-mudar-status').click(function(){
+                var status      =   $(this).attr('status');
+                console.log(status);
+                $('#id-modal-status').val(status);
+                $('#modal-mudar-status').modal("show")
+            });
             $("#tabela-proximos-status").on('click','.desvincular-status',function () {
 
                 var id          =   $(this).attr("status");

@@ -22,9 +22,14 @@ class Cliente extends Model
     }
     public function scopePesquisarPorTelefone($query, $telefone)
     {
-        return $query->whereHas('contatos', function ($query) use ($telefone) {
-            $query->where('numero', 'like','%'.$telefone.'%');
-        });
+
+            return $query->whereHas('contatos', function ($query) use ($telefone) {
+
+                    $query->where('numero', 'like','%'.$telefone.'%');
+
+
+            });
+
     }
 
     public function contatos()

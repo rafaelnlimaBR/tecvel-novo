@@ -60,7 +60,7 @@
                                     <th scope="row">{{$cliente->id}}</th>
                                     <td>{{$cliente->nome}}</td>
                                     <td>{{$cliente->email}}</td>
-                                    <td>{{$cliente->contatos->first()->numero}}</td>
+                                    <td>{{$cliente->contatos()->count() == 0?"Sem numero":$cliente->contatos->first()->numero}}</td>
                                     <td>{{\Carbon\Carbon::parse($cliente->created_at)->format('d/m/Y')}}</td>
 
 

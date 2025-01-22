@@ -30,7 +30,7 @@
                 <div class="form-group col-md-6">
                     <label for="veiculo">Veiculo <span style=""><span id="cadastrar-veiculo"><a style="color: #ffffff" data-toggle="modal" data-target="#formularioVeiculoModal"  class="btn btn-sm btn-primary" >Novo</a></span><span id="editar-veiculo"></span> </span></label>
                     <select type="text" class="form-control select2" ui-select2="{width:'resolve',dropdownAutoWidth:true}" style="width:100%"   id="pesquisa-veiculo"  name="veiculo" >
-                        @if(isset($contrato))
+                        @if(isset($contrato->veiculo))
                             <option value="{{$contrato->veiculo->id}}">{{$contrato->veiculo->placa}}</option>
                         @endif
                     </select>
