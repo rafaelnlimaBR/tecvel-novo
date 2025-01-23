@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\Controller;
 use App\Models\Cliente;
 use App\Models\AppContato;
 use App\Models\Contato;
 use Exception;
 use Illuminate\Http\Request;
-use App\Http\Controllers\ContatoController;
+
 
 class ClienteController extends Controller
 {
@@ -45,11 +46,9 @@ class ClienteController extends Controller
 
 
             if($cliente->save()){
+                $contato = ContatoController::cadastrar($r->get('contato'),$r->get('app'));
+                $cliente->contatos()->attach($contato);
                 if($isModal == true){
-
-                    $contato = ContatoController::cadastrar($r->get('contato'),$r->get('app'));
-
-                    $cliente->contatos()->attach($contato);
                     return response()->json($cliente);
                 }
 
@@ -136,7 +135,12 @@ class ClienteController extends Controller
 
 
             $cliente        =   Cliente::find($r->get('foreignkey'));
-            $cliente->contatos()->detach($r->get('id'));
+            if($cliente->contatos()->count() == 1){
+                return response()->json(['erro'=>"Não é possível remover o contato, cliente tem que ter ao menos um contato"]);
+            }else{
+                $cliente->contatos()->detach($r->get('id'));
+            }
+
 
 
             return response()->json([

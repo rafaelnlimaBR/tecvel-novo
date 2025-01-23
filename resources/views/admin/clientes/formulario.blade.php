@@ -20,10 +20,26 @@
                         <input type="text" class="form-control caixa-alta" id="Nome" placeholder="Nome" name="nome" value="{{isset($cliente)?$cliente->nome:''}}">
                       </div>
                       <div class="form-group col-md-6">
-                        <label for="InputEmail">Email</label>
+                        <label for="email">Email</label>
                         <input type="Email" class="form-control caixa-baixa" id="Email" placeholder="Email" name="email" value="{{isset($cliente)?$cliente->email:''}}">
                       </div>
                     </div>
+                    @if(!isset($cliente))
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="Telefone">Numero</label>
+                            <input type="text" required class="form-control "  placeholder="Numero" name="contato" >
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="app">Aplicativo de Mensagem</label>
+                            <select name="app" class="form-control">
+                                @foreach($aplicativos as $app)
+                                    <option value="{{$app->id}}">{{$app->nome}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    @endif
                     <div class="form-row">
                         <div class="form-group col-md-4">
                           <label for="cep">CEP</label>
