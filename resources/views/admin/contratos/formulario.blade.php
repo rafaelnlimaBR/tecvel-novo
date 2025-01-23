@@ -3,7 +3,12 @@
 @section('conteudo')
 <div class="page-head">
     @if(isset($contrato))
-        <h4 class="my-2">{{"Status Atual : ".$contrato->historicos->last()->status->nome}}</h4>
+        <h4 class="my-2">Status atual : {{$contrato->historicos->last()->status->nome}}<br>
+        @if($contrato->historicos->last()->status->id != $historico->status->id)
+            <span style="color: #e21920"> Voce está no status {{$historico->status->nome}}</span>
+
+        @endif
+        </h4>
     @else
         <h4 class="my-2">{{$titulo}}</h4>
     @endif
@@ -71,12 +76,9 @@
         @if(isset($contrato))
         <div class="row" >
             <div class="col-lg-12"  style="padding: 20px; background-color: #e2e2e2">
-
-
                         @foreach($contrato->historicos->last()->status->proximosStatus as $proximo)
                             <a  class="btn btn-sm botao-mudar-status" style="background-color: {{$proximo->cor_fundo}}; color: {{$proximo->cor_letra}}" status="{{$proximo->id}}">{{$proximo->nome}}</a>
                         @endforeach
-
             </div>
         </div>
         @endif

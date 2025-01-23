@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Historico extends Model
 {
     use HasFactory;
+    protected $table    =   "historicos";
 
     public function status()
     {

@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Alterar Status</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -16,8 +16,8 @@
 
                            <div class="form-row">
                                <div class="form-group col-md-12">
-                                   <input type="" id="id-modal-status" name="id_status">
-                                   <input type="" name="id_contrato" value="{{$contrato->id}}">
+                                   <input type="hidden" id="id-modal-status" name="id_status">
+                                   <input type="hidden" name="id_contrato" value="{{$contrato->id}}">
                                    <label for="obs">Observações</label>
                                    <textarea type="text" required class="form-control " id="obs-modal-status" name="obs" ></textarea>
                                </div>

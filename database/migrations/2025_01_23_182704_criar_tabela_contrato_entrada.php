@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('historico_entrada', function (Blueprint $table) {
+        Schema::create('contrato_entrada', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('historico_id')->constrained('historicos','id')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('contrato_id')->constrained('contratos','id')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('entrada_id')->constrained('entradas','id')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('historico_entrada');
+        Schema::dropIfExists('contrato_entrada');
     }
 };

@@ -26,7 +26,7 @@ class Contrato extends Model
 
     public function status()
     {
-        return $this->belongsToMany(Status::class,'historicos','contrato_id','status_id')->withPivot('obs','data')->withTimestamps();
+        return $this->belongsToMany(Status::class,'historicos','contrato_id','status_id')->withPivot('obs','data','id')->withTimestamps();
     }
 
     public function scopePesquisarPorCliente($query, $nome)

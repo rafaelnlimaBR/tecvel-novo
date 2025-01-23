@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\View;
 //CONTRATOS
 Route::get('/contratos', [App\Http\Controllers\ContratoController::class, 'index'])->name('contrato.index');
 Route::get('/contrato/novo', [App\Http\Controllers\ContratoController::class, 'novo'])->name('contrato.novo');
-Route::get('/contrato/editar/{id}', [App\Http\Controllers\ContratoController::class, 'editar'])->name('contrato.editar');
+Route::get('/contrato/editar/{id}/historico/{historico_id}', [App\Http\Controllers\ContratoController::class, 'editar'])->name('contrato.editar');
 Route::get('/contrato/{id}/modelos', [App\Http\Controllers\ContratoController::class, 'modelos'])->name('contrato.modelos');
 Route::post('/contrato/atualizar', [App\Http\Controllers\ContratoController::class, 'atualizar'])->name('contrato.atualizar');
 Route::post('/contrato/cadastrar', [App\Http\Controllers\ContratoController::class, 'cadastrar'])->name('contrato.cadastrar');
@@ -93,8 +93,9 @@ View::composer(['admin.status.formulario'],function($view){
 
 Route::get('/',function(    ){
 
-    $status = \App\Models\Status::find(2);
-    return $status->proximosStatus()->get();
+    $contrato   =   Contrato::find(1);
+
+    return dd($contrato->historicos->contains(2));
 
 
 });

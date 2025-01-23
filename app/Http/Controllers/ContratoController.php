@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Configuracao;
-use App\Models\Modelo;
 use App\Models\Montadora;
 use App\Models\Contrato;
 use App\Models\Historico;
@@ -18,23 +17,43 @@ class ContratoController extends Controller
             'titulo' => "Contratos",
             'titulo_tabela' => "Lista de Contratos"
         ];
-        $contratos   =   Contrato::pesquisarPorCliente($r->input('nome'))->PesquisarPorTelefone($r->input('telefone'))->PesquisarPorPlaca($r->input('placa'))->
+        $contratos = "";
+        if($r->get('placa') == null){
+            $contratos   =   Contrato::pesquisarPorCliente($r->input('nome'))->PesquisarPorTelefone($r->input('telefone'))->
             orderBy('created_at', 'desc')
-            ->paginate(10)->
-            withQueryString();
+                ->paginate(10)->
+                withQueryString();
+        }else{
+            $contratos   =   Contrato::pesquisarPorCliente($r->input('nome'))->PesquisarPorTelefone($r->input('telefone'))->PesquisarPorPlaca($r->input('placa'))->
+            orderBy('created_at', 'desc')
+                ->paginate(10)->
+                withQueryString();
+        }
+
         return view('admin.contratos.index',$dados)->with('contratos',$contratos);
     }
 
-    public function editar($id){
+    public function editar($id,$historico_id){
         try {
             $contrato          =   Contrato::find($id);
-            if($contrato == null){
+            $historico          =    Historico::find($historico_id);
+
+            if($contrato == null ){
+
                 return redirect()->route('contrato.index')->with('alerta',['tipo'=>'warning','icon'=>'','texto'=>"Contrato não existe."]);
+            }
+            if($historico == null ){
+
+                return redirect()->route('contrato.index')->with('alerta',['tipo'=>'warning','icon'=>'','texto'=>"Historico não existe."]);
+            }
+            if($contrato->historicos->contains($historico_id) == false){
+                return redirect()->route('contrato.index')->with('alerta',['tipo'=>'warning','icon'=>'','texto'=>"Histórico não é desse contrato."]);
             }
 
             $dados = [
                 'titulo'        => "Editar Contrato",
                 'contrato'        =>  $contrato,
+                'historico'         => $historico
 
 
             ];
@@ -75,7 +94,7 @@ class ContratoController extends Controller
             if($contrato->save()){
                 $status             =   Status::find(Configuracao::first()->abertura);
                 $contrato->status()->attach($status,['obs'=>$r->get('obs'),'data'=>Carbon::now()->format('Y-m-d')]);
-            return redirect()->route('contrato.editar',['id'=>$contrato->id,'pagina'=>'dados'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Contrato cadastrado com sucesso."]);
+            return redirect()->route('contrato.editar',['id'=>$contrato->id,'historico_id'=>$contrato->status->last()->pivot->id,'pagina'=>'dados'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Contrato cadastrado com sucesso."]);
             }
 
 
@@ -95,7 +114,7 @@ class ContratoController extends Controller
             $contrato->garantia             =   Carbon::createFromFormat('d/m/Y',$r->get('garantia'));
 
             if($contrato->save()){
-                return redirect()->route('contrato.editar',['id'=>$contrato->id,'pagina'=>'dados'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Contrato atualizado com sucesso."]);
+                return redirect()->route('contrato.editar',['id'=>$contrato->id,"historico_id"=>$r->get('id_historico'),'pagina'=>'dados'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Contrato atualizado com sucesso."]);
             }
 
 
@@ -116,7 +135,7 @@ class ContratoController extends Controller
             $contrato                       =   Contrato::find($r->get('id_contrato'));
             $contrato->status()->attach($r->get('id_status'),['obs'=>$r->get('obs'),'data'=>Carbon::now()->format('y-m-d')]);
 
-            return redirect()->route('contrato.editar',['id'=>$contrato->id,'pagina'=>'dados'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Contrato atualizado com sucesso."]);
+            return redirect()->route('contrato.editar',['id'=>$contrato->id,"historico_id"=>$contrato->historicos->last()->id,'pagina'=>'dados'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Contrato atualizado com sucesso."]);
 
 
 

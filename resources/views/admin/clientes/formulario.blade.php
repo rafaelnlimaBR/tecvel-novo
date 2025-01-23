@@ -16,8 +16,8 @@
                     @endif
                     <div class="form-row">
                       <div class="form-group col-md-6">
-                        <label for="inputEmail4">Nome</label>
-                        <input type="text" class="form-control caixa-alta" id="Nome" placeholder="Nome" name="nome" value="{{isset($cliente)?$cliente->nome:''}}">
+                        <label for="nome">Nome</label>
+                        <input type="text" required class="form-control caixa-alta" id="Nome" placeholder="Nome" name="nome" value="{{isset($cliente)?$cliente->nome:''}}">
                       </div>
                       <div class="form-group col-md-6">
                         <label for="email">Email</label>

@@ -20,14 +20,14 @@
             <td>{{$contrato->cliente->nome}}</td>
             <td >{{isset($contrato->veiculo)?$contrato->veiculo->placa:"ND"}}  </td>
             <td>{{isset($contrato->veiculo)?$contrato->veiculo->modelo->nome:"ND"}}</td>
-            <td style="width: 7%;"><span style="background-color: {{$contrato->status->last()->cor_fundo}}; color: {{$contrato->status->last()->cor_letra}}; padding: 3px 5px 3px 5px;border-radius: 10px;">{{$contrato->status->last()->nome}}</span></td>
+            <td style="width: 7%;"><span style="background-color: {{$contrato->historicos->last()->status->cor_fundo}}; color: {{$contrato->historicos->last()->status->cor_letra}}; padding: 3px 5px 3px 5px;border-radius: 10px;">{{$contrato->historicos->last()->status->nome}}</span></td>
 
             <td style="width: 7%;">{{\Carbon\Carbon::parse($contrato->created_at)->format('d/m/Y')}}</td>
 
 
             <td>
                 <button class="btn btn-sm btn-primary" style="padding-top: 0; padding-bottom: 0"><i class="fa   fa-sign-out"></i></button>
-                <a href="{{route('contrato.editar',['id'=>$contrato->id,'pagina'=>'dados'])}}" class="btn btn-sm btn-warning" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-pencil-square"></i></a>
+                <a href="{{route('contrato.editar',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'pagina'=>'dados'])}}" class="btn btn-sm btn-warning" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-pencil-square"></i></a>
                 <button class="btn btn-sm btn-danger" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-trash-o"></i></button>
 
 

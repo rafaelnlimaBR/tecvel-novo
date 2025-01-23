@@ -1,7 +1,7 @@
 @if(isset($contrato))
     <div class="row " style="border-bottom-color: #b4b4b4; border: 1px;">
         <div class="col-lg-1">
-            <h4>ID : <b>{{$contrato->id}}   </b></h4><br>
+            <h4>ID : <b>{{$contrato->id}} </b></h4><br>
         </div>
         <div class="col-lg-2">
             <p>  Criado em {{\Carbon\Carbon::parse($contrato->data)->format('d/m/Y')}}</p>
@@ -16,6 +16,7 @@
             {{ csrf_field() }}
             @if(isset($contrato))
                 <input hidden type="text" class="form-control" id="id" placeholder="" name="id" value="{{$contrato->id}}">
+                <input hidden type="text" class="form-control" id="historico" placeholder="" name="id_historico" value="{{$historico->id}}">
             @endif
             <div class="form-row">
                 <div class="form-group col-md-6">
