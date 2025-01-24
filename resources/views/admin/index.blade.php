@@ -51,6 +51,9 @@
                             <a href="{{route('contrato.index')}}"><i class="fa fa-tachometer"></i> <span>Contratos</span></a>
                         </li>
                         <li>
+                            <a href="{{route('servico.index')}}"><i class="fa fa-tachometer"></i> <span>Servicos</span></a>
+                        </li>
+                        <li>
                             <a href="{{route('cliente.index')}}"><i class="fa fa-users"></i> <span>Clientes</span></a>
                         </li>
                         <li>

@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Servico extends Model
 {
     use HasFactory;
+    protected $table    =   "servicos";
+
+    public function scopePesquisarPorNome($query, $nome)
+    {
+        return $query->where('nome','like','%'.$nome.'%');
+    }
 }
