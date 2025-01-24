@@ -10,13 +10,20 @@ class Historico extends Model
     use HasFactory;
     protected $table    =   "historicos";
 
+    public function contrato()
+    {
+        return $this->belongsTo(Contrato::class);
+    }
+
     public function servicos()
     {
-        return $this->belongsToMany(Servico::class)->withPivot('valor','data');
+        return $this->belongsToMany(Servico::class)->withPivot('valor','data')->withTimestamps();
     }
 
     public function status()
     {
         return $this->belongsTo(Status::class);
     }
+
+
 }

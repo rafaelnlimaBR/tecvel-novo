@@ -17,11 +17,11 @@
                     <div class="form-row">
                       <div class="form-group col-md-8">
                         <label for="nome">Nome</label>
-                        <input type="text" required class="form-control" id="Nome" placeholder="Nome" name="nome" value="{{isset($servico)?$servico->nome:''}}">
+                        <input type="text" required class="form-control caixa-alta"  placeholder="Nome" name="servico" value="{{isset($servico)?$servico->nome:''}}">
                       </div>
                         <div class="form-group col-md-4">
                             <label for="valor">Valor</label>
-                            <input type="text" required class="form-control" placeholder="Valor" name="valor" value="{{isset($servico)?$servico->valor:''}}">
+                            <input type="text" required class="form-control" placeholder="Valor" id="valor-servico" name="valor" value="{{isset($servico)?$servico->valor:''}}">
                         </div>
 
                     </div>

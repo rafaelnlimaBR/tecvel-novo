@@ -26,7 +26,7 @@
                     <a class="nav-link {{request()->exists('pagina')?request()->get('pagina') == "historicos"?'active':'':''}}" href="#historicos" data-toggle="tab" aria-expanded="false">Historicos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#about-2" data-toggle="tab" aria-expanded="false">About</a>
+                    <a class="nav-link  {{request()->exists('pagina')?request()->get('pagina') == "servicos"?'active':'':''}}" href="#servicos" data-toggle="tab" aria-expanded="false">Serviços</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#contact-2" data-toggle="tab" aria-expanded="false">Contact</a>
@@ -41,9 +41,8 @@
                 <div class="tab-pane p-4 {{request()->exists('pagina')?request()->get('pagina') == "historicos"?'active':'':''}}" id="historicos">
                     @include("admin.contratos.includes.historicos")
                 </div>
-                <div class="tab-pane p-4" id="about-2">
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
-                    <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
+                <div class="tab-pane p-4  {{request()->exists('pagina')?request()->get('pagina') == "servicos"?'active':'':''}}" id="servicos">
+                    @include("admin.contratos.includes.servicos")
                 </div>
 
                 <div class="tab-pane p-4" id="contact-2">

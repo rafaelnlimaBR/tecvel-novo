@@ -55,4 +55,14 @@ class Contrato extends Model
         });
     }
 
+    public function somaTotalServicos()
+    {
+        $total  =   0;
+        foreach ($this->historicos as $historico){
+            $total  += $historico->servicos->sum('pivot.valor');
+        }
+
+        return $total;
+    }
+
 }

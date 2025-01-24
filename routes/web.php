@@ -30,6 +30,8 @@ Route::post('/contrato/atualizar', [App\Http\Controllers\ContratoController::cla
 Route::post('/contrato/cadastrar', [App\Http\Controllers\ContratoController::class, 'cadastrar'])->name('contrato.cadastrar');
 Route::post('/contrato/excluir', [App\Http\Controllers\ContratoController::class, 'excluir'])->name('contrato.excluir');
 Route::post('/contrato/novo/status', [App\Http\Controllers\ContratoController::class, 'mudarStatus'])->name('contrato.novo.status');
+Route::post('/contrato/adicionar/servico', [App\Http\Controllers\ContratoController::class, 'adicionarServico'])->name('contrato.adicionar.servico');
+Route::post('/contrato/remover/servico', [App\Http\Controllers\ContratoController::class, 'removerServico'])->name('contrato.remover.servico');
 //Route::get('/contratos/refresh', [App\Http\Controllers\ContratoController::class, 'refresh'])->name('contrato.refresh'); atualizar a pagina a cada certos segundos
 
 //CLIENTES
@@ -102,9 +104,9 @@ View::composer(['admin.status.formulario'],function($view){
 
 Route::get('/',function(    ){
 
-    $contrato   =   Contrato::find(1);
+    $contrato   =   Contrato::find(2);
 
-    return dd($contrato->historicos->contains(2));
+
 
 
 });

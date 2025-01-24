@@ -6,6 +6,7 @@ use App\Models\Configuracao;
 use App\Models\Montadora;
 use App\Models\Contrato;
 use App\Models\Historico;
+use App\Models\Servico;
 use App\Models\Status;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -141,6 +142,39 @@ class ContratoController extends Controller
 
         } catch (\Throwable $th) {
             return redirect()->route('contrato.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);
+        }
+    }
+
+    public function adicionarServico(Request $r)
+    {
+
+        try {
+            $historico_atual                =   $r->get('historico_id');
+            $historico                      =   Historico::find($historico_atual);
+            $contrato                       =    $historico->contrato;
+            $historico->servicos()->attach($r->get('servico'),['valor'=>$r->get('valor'),'data'=>Carbon::now()]);
+
+            return response()->json(['servico'=>view("admin.contratos.includes.tabela-servico",['contrato'=>$contrato])->render()]);
+
+        } catch (\Throwable $th) {
+            return response()->json(['erro'=>$th->getMessage()]);
+        }
+    }
+
+    public function removerServico(Request $r)
+    {
+        try {
+            $historico_id                   =   $r->get('historico_id');
+            $servico_id                     =   $r->get('servico_id');
+            $historico                      =   Historico::find($historico_id);
+            $contrato                       =    $historico->contrato;
+            $historico->servicos()->detach($servico_id);
+
+
+            return response()->json(['servico'=>view("admin.contratos.includes.tabela-servico",['contrato'=>$contrato])->render()]);
+
+        } catch (\Throwable $th) {
+            return response()->json(['erro'=>$th->getMessage()]);
         }
     }
 }

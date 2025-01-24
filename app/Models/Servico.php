@@ -14,4 +14,9 @@ class Servico extends Model
     {
         return $query->where('nome','like','%'.$nome.'%');
     }
+
+    public function historicos()
+    {
+        return $this->belongsToMany(Historico::class,'historico_servico','historico_id',"servico_id")->withPivot('id','valor','data')->withTimestamps();
+    }
 }

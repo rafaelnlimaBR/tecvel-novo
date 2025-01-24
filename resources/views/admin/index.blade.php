@@ -839,6 +839,70 @@
                 return false;
             });
 
+            $("#tabela-servicos-atualizavel").on('click','.btn-remover-servico-historico',function () {
+                var servico_id      =   $(this).attr('servico_id');
+                var historico_id    =   $(this).attr('historico_id');
+                var rota            =   $(this).attr('route_delete');
+                console.log(historico_id);
+                $.ajax({
+                    header:{
+                        'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: rota,
+                    type: "post",
+                    data: {
+
+                        'servico_id'                :   servico_id,
+                        'historico_id'              :   historico_id
+
+                    },
+                    success: function( data )
+                    {
+                        if('erro' in data){
+                            alert(data.erro);
+
+                        }else{
+                            $('#tabela-servicos-atualizavel').html(data.servico);
+                            return false
+                        }
+
+                    },
+                    error:function (data) {
+                        console.log(data)
+                    }
+                });
+            })
+
+            $("#form-adicionar-servico-historico").submit(function () {
+                var dados   = $(this).serialize();
+
+                var rota    =   "{{route('contrato.adicionar.servico')}}";
+
+                $.ajax({
+                    type: "POST",
+                    url: rota,
+                    data: dados,
+                    success: function( data )
+                    {
+
+                        if('erro' in data){
+                            alert(data.erro);
+
+                        }else{
+
+                            $('#tabela-servicos-atualizavel').html(data.servico);
+                            return false
+                        }
+                    },
+                    error:function (data,e) {
+                        alert(data);
+                    }
+                });
+
+
+                return false;
+            });
+
             $("#cadastrarClienteModal").submit(function () {
 
                 var dados   = $(this).serialize();
@@ -916,6 +980,49 @@
                    $('#editar-cliente').html(' <a class="btn btn-sm btn-warning"  href="'+rota+'" target="_new">Editar</a>');
                     var html    =   $('<div class="select2-user-result"><b>Cliente: </b>'+data.text+'</div><br>'
                     );
+                    return html;
+                },
+
+            });
+
+            $("#servicos-select2").select2({
+                ajax: {
+                    type: 'get',
+                    url: "{{route('servico.index')}}",
+                    dataType: 'json',
+
+                    beforeSend: function (xhr) {
+                        var token = $("meta[name='csrf-token']" ).val();
+
+                        if (token) {
+                            return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+                        }
+                    },
+                    quietMillis: 400,
+                    delay:400,
+                    data: function (term, page) {
+
+                        return {
+                            q: term.term, //search term
+                            // page size
+                        };
+                    },
+                    processResults: function (data) {
+
+                        return {
+                            results: data
+                        };
+                    },
+                },
+                templateResult: function (data) {
+
+                    var html    =   $('<div class="select2-user-result"><h5>'+data.nome+'</h5>' +
+                        '</div>'
+                    );
+                    return html;
+                },
+                templateSelection:function (data) {
+                    var html    =   $('<div class="select2-user-result">'+data.text+'</div><br>');
                     return html;
                 },
 
@@ -1000,7 +1107,6 @@
                             alert(data.erro);
 
                         }else{
-                                console.log(data)
                             $('#tabela-atualizavel').html(data.contatos);
                         }
 
