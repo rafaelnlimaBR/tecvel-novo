@@ -5,6 +5,7 @@ use App\Models\Cliente;
 use App\Models\Configuracao;
 use App\Models\Contrato;
 use App\Models\Modelo;
+use App\Models\Servico;
 use \App\Models\Veiculo;
 use \App\Models\Montadora;
 use Illuminate\Database\Eloquent\Collection;
@@ -85,6 +86,7 @@ Route::post('/status/excluir', [App\Http\Controllers\StatusController::class, 'e
 
 //SERVICOS
 Route::get('/servicos', [App\Http\Controllers\ServicoController::class, 'index'])->name('servico.index');
+Route::get('/servicos/json', [App\Http\Controllers\ServicoController::class, 'servicoJson'])->name('servico.json');
 Route::get('/servico/novo', [App\Http\Controllers\ServicoController::class, 'novo'])->name('servico.novo');
 Route::get('/servico/editar/{id}', [App\Http\Controllers\ServicoController::class, 'editar'])->name('servico.editar');
 Route::get('/servico/{id}/modelos', [App\Http\Controllers\ServicoController::class, 'modelos'])->name('servico.modelos');
@@ -105,7 +107,7 @@ View::composer(['admin.status.formulario'],function($view){
 
 Route::get('/',function(    ){
 
-    $contrato   =   Contrato::find(2);
+    return Servico::pesquisarPorNome("a")->get();
 
 
 

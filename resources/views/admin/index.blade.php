@@ -1029,7 +1029,38 @@
 
             });
 
-            $("#servicos-select2").select2({
+
+            $("#servicos-nome").keyup(function () {
+                var nome = $(this).val();
+                var rota    =   '{{route('servico.json')}}';
+                // console.log(rota);
+                $.ajax({
+                    header:{
+                        'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: rota,
+                    type: "get",
+                    data: {
+
+                        'nome'                :   nome,
+                    },
+                    success: function( data )
+                    {
+                        $('#servicos-datalista-atualizaval').empty();
+                        for(var i=0; i<data.length;i++){
+                            $("#servicos-datalista-atualizaval").append("<option value='" +
+                                data[i].nome + "'></option>");
+
+                        }
+
+                    },
+                    error:function (data) {
+                        console.log(data)
+                    }
+                });
+            });
+
+            /*$("#servicos-select2").select2({
                 ajax: {
                     type: 'get',
                     url: "{{route('servico.index')}}",
@@ -1045,7 +1076,7 @@
                     quietMillis: 400,
                     delay:400,
                     data: function (term, page) {
-
+                        console.log(term);
                         return {
                             q: term.term, //search term
                             // page size
@@ -1073,7 +1104,7 @@
                     return html;
                 },
 
-            });
+            });*/
 
             $("#pesquisa-veiculo").select2({
                 ajax: {

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class ServicoController extends Controller
 {
     public function index(Request $r){
+
         $dados = [
             'titulo' => "Servicos",
             'titulo_tabela' => "Lista de Servicos"
@@ -17,17 +18,7 @@ class ServicoController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(15)->
             withQueryString();
-        if($r->ajax()){
-            foreach ($servicos as $key => $value) {
 
-                $retorno[$key]['id'] = $value->id;
-                $retorno[$key]['text'] = $value->nome;
-                $retorno[$key]['nome'] = $value->nome;
-                $retorno[$key]['valor'] = $value->valor;
-
-            }
-            return response()->json($retorno);
-        }
         return view('admin.servicos.index',$dados)->with('servicos',$servicos);
     }
 
@@ -96,5 +87,13 @@ class ServicoController extends Controller
 
     public function excluir(){
 
+    }
+
+    public function servicoJson(Request $r)
+    {
+        if($r->ajax()){
+
+            return response()->json(Servico::pesquisarPorNome($r->get('nome'))->get());
+        }
     }
 }
