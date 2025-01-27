@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Configuracao;
+use App\Models\MaoObra;
 use App\Models\Montadora;
 use App\Models\Contrato;
 use App\Models\Historico;
@@ -10,6 +11,7 @@ use App\Models\Servico;
 use App\Models\Status;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use function Symfony\Component\Mime\Header\get;
 
 class ContratoController extends Controller
 {
@@ -152,7 +154,7 @@ class ContratoController extends Controller
             $historico_atual                =   $r->get('historico_id');
             $historico                      =   Historico::find($historico_atual);
             $contrato                       =    $historico->contrato;
-            $historico->servicos()->attach($r->get('servico'),['valor'=>$r->get('valor'),'data'=>Carbon::now()]);
+            $historico->servicos()->attach($r->get('servico'),['valor'=>$r->get('valor'),'data'=>Carbon::now(),'cobrar'=>$r->get('cobrar')]);
 
             return response()->json(['servico'=>view("admin.contratos.includes.tabela-servico",['contrato'=>$contrato])->render()]);
 
@@ -168,13 +170,38 @@ class ContratoController extends Controller
             $servico_id                     =   $r->get('servico_id');
             $historico                      =   Historico::find($historico_id);
             $contrato                       =    $historico->contrato;
-            $historico->servicos()->detach($servico_id);
+            $maoObra                        =   MaoObra::find($servico_id);
+
+            if ($maoObra->delete()){
+                return response()->json(['servico'=>view("admin.contratos.includes.tabela-servico",['contrato'=>$contrato])->render()]);
+            }
 
 
-            return response()->json(['servico'=>view("admin.contratos.includes.tabela-servico",['contrato'=>$contrato])->render()]);
+
 
         } catch (\Throwable $th) {
             return response()->json(['erro'=>$th->getMessage()]);
         }
+    }
+
+    public function atualizarServico(Request $r)
+    {
+        try {
+//            return response()->json($r->all());
+            $servico                =       MaoObra::find($r->get('servico_id'))   ;
+            $servico->valor         =      $r->get('valor');
+            $servico->cobrar        =       ($r->get('cobrar')=="1"?true:false);
+            $servico->data          =   Carbon::now();
+            $contrato       =   Contrato::find($r->get('contrato_id'));
+
+            if($servico->save()){
+                return response()->json(['servico'=>view("admin.contratos.includes.tabela-servico",['contrato'=>$contrato])->render()]);
+            }
+
+
+        } catch (\Throwable $th) {
+            return response()->json(['erro'=>$th->getMessage()]);
+        }
+
     }
 }

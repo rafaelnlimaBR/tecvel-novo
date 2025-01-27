@@ -32,6 +32,7 @@ Route::post('/contrato/excluir', [App\Http\Controllers\ContratoController::class
 Route::post('/contrato/novo/status', [App\Http\Controllers\ContratoController::class, 'mudarStatus'])->name('contrato.novo.status');
 Route::post('/contrato/adicionar/servico', [App\Http\Controllers\ContratoController::class, 'adicionarServico'])->name('contrato.adicionar.servico');
 Route::post('/contrato/remover/servico', [App\Http\Controllers\ContratoController::class, 'removerServico'])->name('contrato.remover.servico');
+Route::post('/contrato/atualizar/servico', [App\Http\Controllers\ContratoController::class, 'atualizarServico'])->name('contrato.atualizar.servico');
 //Route::get('/contratos/refresh', [App\Http\Controllers\ContratoController::class, 'refresh'])->name('contrato.refresh'); atualizar a pagina a cada certos segundos
 
 //CLIENTES

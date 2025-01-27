@@ -840,10 +840,51 @@
             });
 
             $("#tabela-servicos-atualizavel").on('click','.btn-remover-servico-historico',function () {
+
+                if(confirm("Deseja remover esse servico?")){
+                    var servico_id      =   $(this).attr('servico_id');
+                    var historico_id    =   $(this).attr('historico_id');
+                    var rota            =   $(this).attr('route_delete');
+                    console.log(historico_id);
+                    $.ajax({
+                        header:{
+                            'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: rota,
+                        type: "post",
+                        data: {
+
+                            'servico_id'                :   servico_id,
+                            'historico_id'              :   historico_id
+
+                        },
+                        success: function( data )
+                        {
+                            if('erro' in data){
+                                alert(data.erro);
+
+                            }else{
+                                $('#tabela-servicos-atualizavel').html(data.servico);
+                                return false
+                            }
+
+                        },
+                        error:function (data) {
+                            console.log(data)
+                        }
+                    });
+                }
+
+            })
+
+            $("#servicos").on('click','.btn-atualizar-servico-historico',function () {
+
                 var servico_id      =   $(this).attr('servico_id');
-                var historico_id    =   $(this).attr('historico_id');
-                var rota            =   $(this).attr('route_delete');
-                console.log(historico_id);
+                var rota            =   $(this).attr('route_update');
+                var valor           =   $('#valor-servico-'+servico_id).val();
+               var cobrar           =   $('#cobrar-servico-'+servico_id).val();
+               var  contrato_id     =   $(this).attr('contrato_id');
+
                 $.ajax({
                     header:{
                         'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
@@ -853,7 +894,9 @@
                     data: {
 
                         'servico_id'                :   servico_id,
-                        'historico_id'              :   historico_id
+                        'valor'              :   valor,
+                        'cobrar'            :   cobrar,
+                        'contrato_id'       :   contrato_id
 
                     },
                     success: function( data )
@@ -862,6 +905,7 @@
                             alert(data.erro);
 
                         }else{
+                            console.log(data);
                             $('#tabela-servicos-atualizavel').html(data.servico);
                             return false
                         }
@@ -1023,6 +1067,9 @@
                 },
                 templateSelection:function (data) {
                     var html    =   $('<div class="select2-user-result">'+data.text+'</div><br>');
+
+                    $('#valor-servico').val(data.valor);
+
                     return html;
                 },
 

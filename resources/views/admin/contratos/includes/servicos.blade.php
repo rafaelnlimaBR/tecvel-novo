@@ -11,7 +11,19 @@
             </div>
             <div class="form-group col-md-2">
                 <label for="valor">Valor</label>
-                <input required type="text" class="form-control" id="valor" placeholder="valor" name="valor">
+                <input required type="text" class="form-control" id="valor-servico" placeholder="valor" name="valor">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="cobrar">Cobrar</label>
+                <select class="form-control" name="cobrar" id="cobrar-servico">
+                    @if($historico->status->cobrar == true)
+                        <option value="1" selected>Sim</option>
+                        <option value="0" >Não</option>
+                    @else
+                        <option value="1" >Sim</option>
+                        <option value="0" selected>Não</option>
+                    @endif
+                </select>
             </div>
             <div class="form-group col-md-1">
                 <label for="botao-adicionar">Valor</label>

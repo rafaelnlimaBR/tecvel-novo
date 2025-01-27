@@ -4,8 +4,8 @@
         <thead>
         <tr>
             <th scope="col">Nome</th>
-            <th scope="col">Valor</th>
-
+            <th style="width: 10%; " scope="col">Valor</th>
+            <th scope="col" style="width: 10%; " >Cobrar</th>
             <th style="width: 10%; min-width: 150px;"  scope="col">Criado </th>
             <th style="width: 7%; min-width: 150px;" scope="col">Ações</th>
 
@@ -20,13 +20,26 @@
                 <tr>
 
                     <td>{{$servico->nome}}</td>
-                    <td>{{$servico->pivot->valor}}</td>
+                    <td><input class="form-control" name="valor-servico-table" id="valor-servico-{{$servico->pivot->id}}"  value="{{$servico->pivot->valor}}"></td>
+                    <td>
+
+                        <select class="form-control" name="cobrar" id="cobrar-servico-{{$servico->pivot->id}}">
+                            @if($servico->pivot->cobrar == true)
+                                <option value="1" selected>Sim</option>
+                                <option value="0" >Não</option>
+                            @else
+                                <option value="1" >Sim</option>
+                                <option value="0" selected>Não</option>
+                            @endif
+                        </select>
+                    </td>
 
                     <td>{{\Carbon\Carbon::parse($servico->data)->format('d/m/Y')}}</td>
 
 
                     <td>
-                        <a class="btn btn-sm btn-danger btn-remover-servico-historico" route_delete="{{route('contrato.remover.servico')}}" style="padding-top: 0; padding-bottom: 0" historico_id="{{$historico->id}}" servico_id="{{$servico->id}}" ><i class="fa  fa-trash-o"></i></a>
+                        <a class="btn btn-sm btn-danger btn-remover-servico-historico" route_delete="{{route('contrato.remover.servico')}}" style="padding-top: 0; padding-bottom: 0" historico_id="{{$historico->id}}" servico_id="{{$servico->pivot->id}}" ><i class="fa  fa-trash-o"></i></a>
+                        <a class="btn btn-sm btn-warning btn-atualizar-servico-historico" route_update="{{route('contrato.atualizar.servico')}}" style="padding-top: 0; padding-bottom: 0" servico_id="{{$servico->pivot->id}}"  contrato_id="{{$contrato->id}}"><i class="fa  fa-trash-o"></i></a>
                     </td>
                 </tr>
             @endforeach

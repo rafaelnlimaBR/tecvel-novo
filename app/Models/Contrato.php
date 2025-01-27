@@ -59,7 +59,12 @@ class Contrato extends Model
     {
         $total  =   0;
         foreach ($this->historicos as $historico){
-            $total  += $historico->servicos->sum('pivot.valor');
+            foreach ($historico->servicos as $servico){
+                if($servico->pivot->cobrar == true){
+                  $total += $servico->pivot->valor;
+                }
+            }
+
         }
 
         return $total;
