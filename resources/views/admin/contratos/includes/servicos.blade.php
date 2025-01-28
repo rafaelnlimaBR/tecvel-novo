@@ -5,15 +5,10 @@
             <div class="form-group col-md-3">
                 <input type="hidden" name="historico_id" value="{{$historico->id}}">
                 <label for="servicos">Serviços</label>
-                <input class="form-control" list="servicos-datalista-atualizaval" id="servicos-nome" name="ice-cream-choice" />
+                <select class="form-control" name="servico" id="servicos-select2">
 
-                <datalist id="servicos-datalista-atualizaval">
-                    <option value="Chocolate"></option>
-                    <option value="Coconut"></option>
-                    <option value="Mint"></option>
-                    <option value="Strawberry"></option>
-                    <option value="Vanilla"></option>
-                </datalist>
+                </select>
+
             </div>
             <div class="form-group col-md-2">
                 <label for="valor">Valor</label>

@@ -91,9 +91,21 @@ class ServicoController extends Controller
 
     public function servicoJson(Request $r)
     {
-        if($r->ajax()){
+        $servicos = Servico::PesquisarPorNome($r->get('q'))->orderBy('created_at', 'desc')->limit(20)->get();
 
-            return response()->json(Servico::pesquisarPorNome($r->get('nome'))->get());
+//        return response()->json($servicos->count());
+        $retorno    =   [];
+
+        foreach ($servicos as $key => $value) {
+
+            $retorno[$key]['id'] = $value->id;
+            $retorno[$key]['text'] = $value->nome;
+            $retorno[$key]['nome'] = $value->nome;
+            $retorno[$key]['valor'] = $value->valor;
+
+
+
         }
+        return response()->json($retorno);
     }
 }

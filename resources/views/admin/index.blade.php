@@ -1060,10 +1060,10 @@
                 });
             });
 
-            /*$("#servicos-select2").select2({
+            $("#servicos-select2").select2({
                 ajax: {
                     type: 'get',
-                    url: "{{route('servico.index')}}",
+                    url: "{{route('servico.json')}}",
                     dataType: 'json',
 
                     beforeSend: function (xhr) {
@@ -1104,7 +1104,7 @@
                     return html;
                 },
 
-            });*/
+            });
 
             $("#pesquisa-veiculo").select2({
                 ajax: {
