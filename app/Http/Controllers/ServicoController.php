@@ -58,13 +58,26 @@ class ServicoController extends Controller
             $servico->valor    =   $r->get('valor');
 
 
+
             if($servico->save()){
-                return redirect()->route('servico.editar',['id'=>$servico->id])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Servico cadastrado com sucesso."]);
+
+                if($r->has("modal")){
+                    return $servico;
+                }else{
+                    return redirect()->route('servico.editar',['id'=>$servico->id])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Servico cadastrado com sucesso."]);
+                }
+
             }
 
 
         } catch (\Throwable $th) {
-            return redirect()->route('servico.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);
+            if($r->ajax()){
+                return response()->json(['erro'=>$th->getMessage()]);
+            }else{
+                return redirect()->route('servico.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);
+            }
+
+
         }
     }
 

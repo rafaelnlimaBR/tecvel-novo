@@ -1266,6 +1266,39 @@
 
             });
 
+            $("form[name='cadastrar-servico-modal']").submit(function () {
+                var dados   = $(this).serialize();
+
+                var rota    =   this.action;
+
+
+                $.ajax({
+                    type: "POST",
+                    url: rota,
+                    data: dados,
+                    success: function( data )
+                    {
+                        if('erro' in data){
+                            alert(data.erro);
+
+                        }else{
+                            var html    =   '<option value='+data.id+'>'+data.nome+'</option>'
+                            $("#servicos-select2").html(html);
+                            $('#valor-servico').val(data.valor);
+                            $('#modal-novo-servico').modal('hide');
+                            $("#valor-servico").val(null);
+                            $("#nome-servico").val(null);
+                        }
+                    },
+                    error:function (data,e) {
+                        alert(data);
+                    }
+                });
+                return false;
+
+
+            });
+
         //PREENCHIMENTO AUTOMATICO DO CAMPO MONTADORA NA TELA DE VEICULOS
 
             $('.formulario-veiculo').on('change','#montadora-veiculos',function () {
