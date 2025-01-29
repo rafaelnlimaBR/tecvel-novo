@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Configuracao;
+use App\Models\HistoricoPeca;
 use App\Models\MaoObra;
 use App\Models\Montadora;
 use App\Models\Contrato;
@@ -185,6 +186,63 @@ class ContratoController extends Controller
     }
 
     public function atualizarServico(Request $r)
+    {
+        try {
+//            return response()->json($r->all());
+            $servico                =       MaoObra::find($r->get('servico_id'))   ;
+            $servico->valor         =      $r->get('valor');
+            $servico->cobrar        =       ($r->get('cobrar')=="1"?true:false);
+            $servico->data          =   Carbon::now();
+            $contrato       =   Contrato::find($r->get('contrato_id'));
+
+            if($servico->save()){
+                return response()->json(['servico'=>view("admin.contratos.includes.tabela-servico",['contrato'=>$contrato])->render()]);
+            }
+
+
+        } catch (\Throwable $th) {
+            return response()->json(['erro'=>$th->getMessage()]);
+        }
+
+    }
+
+    public function adicionarPeca(Request $r)
+    {
+
+        try {
+            $historico_atual                =   $r->get('historico_id');
+            $historico                      =   Historico::find($historico_atual);
+            $contrato                       =    $historico->contrato;
+            $historico->servicos()->attach($r->get('servico'),['valor'=>$r->get('valor'),'data'=>Carbon::now(),'cobrar'=>$r->get('cobrar')]);
+
+            return response()->json(['servico'=>view("admin.contratos.includes.tabela-servico",['contrato'=>$contrato])->render()]);
+
+        } catch (\Throwable $th) {
+            return response()->json(['erro'=>$th->getMessage()]);
+        }
+    }
+
+    public function removerPeca(Request $r)
+    {
+        try {
+            $historico_id                   =   $r->get('historico_id');
+            $peca_id                     =   $r->get('peca_id');
+            $historico                      =   Historico::find($historico_id);
+            $contrato                       =    $historico->contrato;
+            $peca                        =   HistoricoPeca::find($peca_id);
+
+            if ($peca->delete()){
+                return response()->json(['peca'=>view("admin.contratos.includes.tabela-pecas",['contrato'=>$contrato])->render()]);
+            }
+
+
+
+
+        } catch (\Throwable $th) {
+            return response()->json(['erro'=>$th->getMessage()]);
+        }
+    }
+    public function atualizarPeca(Request $r)
     {
         try {
 //            return response()->json($r->all());

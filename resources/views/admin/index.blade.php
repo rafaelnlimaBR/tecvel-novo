@@ -736,7 +736,7 @@
 
             $('.botao-mudar-status').click(function(){
                 var status      =   $(this).attr('status');
-                console.log(status);
+
                 $('#id-modal-status').val(status);
                 $('#modal-mudar-status').modal("show")
             });
@@ -791,7 +791,7 @@
                             alert(data.erro);
 
                         }else{
-                            console.log(data);
+
                             $('#tabela-proximos-status').html(data.status);
                             return false
                         }
@@ -845,7 +845,7 @@
                     var servico_id      =   $(this).attr('servico_id');
                     var historico_id    =   $(this).attr('historico_id');
                     var rota            =   $(this).attr('route_delete');
-                    console.log(historico_id);
+
                     $.ajax({
                         header:{
                             'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
@@ -865,6 +865,44 @@
 
                             }else{
                                 $('#tabela-servicos-atualizavel').html(data.servico);
+                                return false
+                            }
+
+                        },
+                        error:function (data) {
+                            console.log(data)
+                        }
+                    });
+                }
+
+            })
+
+            $("#tabela-pecas-atualizavel").on('click','.btn-remover-peca-historico',function () {
+
+                if(confirm("Deseja remover esse servico?")){
+                    var peca_id      =   $(this).attr('peca_id');
+                    var historico_id    =   $(this).attr('historico_id');
+                    var rota            =   $(this).attr('route_delete');
+
+                    $.ajax({
+                        header:{
+                            'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: rota,
+                        type: "post",
+                        data: {
+
+                            'peca_id'                :   peca_id,
+                            'historico_id'              :   historico_id
+
+                        },
+                        success: function( data )
+                        {
+                            if('erro' in data){
+                                alert(data.erro);
+
+                            }else{
+                                $('#tabela-pecas-atualizavel').html(data.peca);
                                 return false
                             }
 
@@ -1046,7 +1084,7 @@
                     },
                     success: function( data )
                     {
-                        $('#servicos-datalista-atualizaval').empty();
+                        $('#pecas-datalista-atualizaval').empty();
                         for(var i=0; i<data.length;i++){
                             $("#servicos-datalista-atualizaval").append("<option value='" +
                                 data[i].nome + "'></option>");
@@ -1100,6 +1138,52 @@
                     var html    =   $('<div class="select2-user-result">'+data.text+'</div><br>');
 
                     $('#valor-servico').val(data.valor);
+
+                    return html;
+                },
+
+            });
+
+            $("#pecas-select2").select2({
+                ajax: {
+                    type: 'get',
+                    url: "{{route('peca.json')}}",
+                    dataType: 'json',
+
+                    beforeSend: function (xhr) {
+                        var token = $("meta[name='csrf-token']" ).val();
+
+                        if (token) {
+                            return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+                        }
+                    },
+                    quietMillis: 400,
+                    delay:400,
+                    data: function (term, page) {
+
+                        return {
+                            q: term.term, //search term
+                            // page size
+                        };
+                    },
+                    processResults: function (data) {
+
+                        return {
+                            results: data
+                        };
+                    },
+                },
+                templateResult: function (data) {
+
+                    var html    =   $('<div class="select2-user-result"><h5>'+data.nome+'</h5>' +
+                        '</div>'
+                    );
+                    return html;
+                },
+                templateSelection:function (data) {
+                    var html    =   $('<div class="select2-user-result">'+data.text+'</div><br>');
+
+                    $('#valor-peca').val(data.valor);
 
                     return html;
                 },
@@ -1313,7 +1397,7 @@
                     url: rota,
                     success: function( data )
                     {
-                        console.log(data);
+
                         $('#modelos').empty();
                         for(var i=0; i<data.length;i++){
                             $("#modelos").append("<option value='" +

@@ -1,22 +1,22 @@
 <div class="row">
     <div class="col-md-12">
-        <form method="post" action="{{route('contrato.adicionar.servico')}}" id="form-adicionar-servico-historico">
+        <form method="post" action="" id="form-adicionar-peca-historico">
         <div class="form-row">
             <div class="form-group col-md-3">
                 <input type="hidden" name="historico_id" value="{{$historico->id}}">
-                <label for="pecas">Serviços</label>
-                <select required class="form-control" name="servico" id="pecas-select2">
+                <label for="pecas">Peças</label>
+                <select required class="form-control" name="peca" id="pecas-select2">
 
                 </select>
 
             </div>
             <div class="form-group col-md-2">
                 <label for="valor">Valor</label>
-                <input required type="text" class="form-control" id="valor-servico" placeholder="valor" name="valor">
+                <input required type="text" class="form-control" id="valor-peca" placeholder="valor" name="valor">
             </div>
             <div class="form-group col-md-2">
                 <label for="cobrar">Cobrar</label>
-                <select class="form-control" name="cobrar" id="cobrar-servico">
+                <select class="form-control" name="cobrar" id="cobrar-peca">
                     @if($historico->status->cobrar == true)
                         <option value="1" selected>Sim</option>
                         <option value="0" >Não</option>
@@ -31,8 +31,8 @@
                 <button  type="submit" class="form-control btn btn-primary" name="botao-adicionar">Adicionar</button>
             </div>
             <div class="form-group col-md-1">
-                <label for="botao-cadastrar-servico">Cadastrar</label>
-                <a  class="form-control btn btn-success" name="botao-cadastrar-servico" data-toggle="modal" data-target="#modal-novo-servico">Cadastrar</a>
+                <label for="botao-cadastrar-peca">Cadastrar</label>
+                <a  class="form-control btn btn-success" name="botao-cadastrar-peca" data-toggle="modal" data-target="#modal-novo-peca">Cadastrar</a>
             </div>
 
         </div>

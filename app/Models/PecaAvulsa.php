@@ -10,4 +10,9 @@ class PecaAvulsa extends Model
     use HasFactory;
 
     protected $table    =   "pecas_avulsas";
+
+    public function scopePesquisarPorNome($query, $nome)
+    {
+        return $query->where('nome','like','%'.$nome.'%');
+    }
 }

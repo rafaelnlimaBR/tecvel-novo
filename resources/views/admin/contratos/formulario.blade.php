@@ -47,7 +47,7 @@
                 <div class="tab-pane p-4  {{request()->exists('pagina')?request()->get('pagina') == "servicos"?'active':'':''}}" id="servicos">
                     @include("admin.contratos.includes.servicos")
                 </div>
-                    <div class="tab-pane p-4  {{request()->exists('pagina')?request()->get('pagina') == "servicos"?'active':'':''}}" id="pecas">
+                    <div class="tab-pane p-4  {{request()->exists('pagina')?request()->get('pagina') == "pecas"?'active':'':''}}" id="pecas">
                         @include("admin.contratos.includes.pecas")
                     </div>
 

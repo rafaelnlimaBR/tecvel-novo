@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             ['nome' => 'Não possui App','link' => '..','img'   =>  '..']
         ]);
         $this->command->info("Insertindo dados clientes");
-        Cliente::factory(20)->has(Contato::factory(100)->count(2))
+        Cliente::factory(20)->has(Contato::factory(20)->count(2))
         ->create();
         $this->command->info("Insertindo dados do montadoras");
         DB::table('montadoras')->insert([
@@ -43,6 +43,9 @@ class DatabaseSeeder extends Seeder
             ['nome'          =>  "Suzuki"],
             ['nome'          =>  "Hyundai"],
         ]);
+
+
+
 
         $this->command->info("Insertindo dados status");
         DB::table('status')->insert([
@@ -102,6 +105,28 @@ class DatabaseSeeder extends Seeder
             ['historico_id'=>1,"servico_id"=>2,"valor"=>1000,"data"=>Carbon::now(),"cobrar"=>false] ,
             ['historico_id'=>1,"servico_id"=>3,"valor"=>100,"data"=>Carbon::now(),"cobrar"=>false] ,
         ]);
+
+        $this->command->info("Insertindo dados peças avulsas");
+        DB::table('pecas_avulsas')->insert([
+            ["nome"=>"Sensor de velocidade ","marca"=>"Original","valor"=>"78",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Painel de instrumentos Palio","marca"=>"Original","valor"=>"77",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Sensor de velocidade Onix","marca"=>"Original","valor"=>"55",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"pião","marca"=>"Original","valor"=>"73",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Sensor de nível","marca"=>"Original","valor"=>"40",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Display  ","marca"=>"Original","valor"=>"500",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Filtro de combustivel","marca"=>"Original","valor"=>"50",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+
+        ]);
+        $this->command->info("Insertindo dados peças avulsas em historicos");
+        DB::table('historico_peca')->insert([
+            ["historico_id"=>"1","peca_id"=>"1","valor"=>"50",'cobrar'=>0,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["historico_id"=>"1","peca_id"=>"2","valor"=>"250",'cobrar'=>0,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["historico_id"=>"1","peca_id"=>"3","valor"=>"500",'cobrar'=>0,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["historico_id"=>"1","peca_id"=>"4","valor"=>"60",'cobrar'=>0,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["historico_id"=>"1","peca_id"=>"5","valor"=>"77",'cobrar'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+
+        ]);
+
         DB::table('configuracao')->insert([
             'nome_principal'        =>  "Tecvel",
             'nome_segundario'      =>  "Eletrônica Automotiva",
