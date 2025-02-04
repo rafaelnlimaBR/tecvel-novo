@@ -34,6 +34,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#contact-2" data-toggle="tab" aria-expanded="false">Contact</a>
                 </li>
+
                 @endif
             </ul>
             <div class="tab-content bg-white">

@@ -3,6 +3,8 @@
     <table class="table table-bordered tabela-pecas-historicos">
         <thead>
         <tr>
+
+            <th style="width: 4%; "  scope="col">Item</th>
             <th scope="col">Nome</th>
             <th style="width: 10%; " scope="col">Valor</th>
             <th scope="col" style="width: 10%; " >Cobrar</th>
@@ -16,11 +18,11 @@
 
 
         @foreach ($contrato->historicos as $historico)
-            @foreach($historico->pecas as $peca)
+            @foreach($historico->pecas as $i=>$peca)
                 <tr>
-
+                    <td>{{$peca->pivot->id}}</td>
                     <td>{{$peca->nome}}</td>
-                    <td><input class="form-control" name="valor-peca-table" id="valor-peca-{{$peca->pivot->id}}"  value="{{$peca->pivot->valor}}"></td>
+                    <td><input class="form-control" name="valor-peca-table" id="valor-peca-{{$peca->pivot->id}}"  value="{{$peca->pivot->valor}}"> </td>
                     <td>
 
                         <select class="form-control" name="cobrar" id="cobrar-peca-{{$peca->pivot->id}}">
@@ -34,7 +36,7 @@
                         </select>
                     </td>
 
-                    <td>{{\Carbon\Carbon::parse($peca->data)->format('d/m/Y')}}</td>
+                    <td>{{\Carbon\Carbon::parse($peca->data)->format('d/m/Y') }}</td>
 
 
                     <td>
@@ -49,5 +51,5 @@
         </tbody>
 
     </table>
-    <h5><b>Valor Total </b> R$ {{$contrato->somaTotalServicos()}}</h5>
+    <h5><b>Valor Total </b> R$ {{$contrato->somaTotalPecasAvulsas()}}</h5>
 </div>

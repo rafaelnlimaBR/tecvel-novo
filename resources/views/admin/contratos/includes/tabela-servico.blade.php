@@ -3,6 +3,7 @@
     <table class="table table-bordered tabela-servicos-historicos">
         <thead>
         <tr>
+            <th style="width: 4%; "  scope="col">Item</th>
             <th scope="col">Nome</th>
             <th style="width: 10%; " scope="col">Valor</th>
             <th scope="col" style="width: 10%; " >Cobrar</th>
@@ -18,7 +19,7 @@
         @foreach ($contrato->historicos as $historico)
             @foreach($historico->servicos as $servico)
                 <tr>
-
+                    <td>{{$servico->pivot->id}}</td>
                     <td>{{$servico->nome}}</td>
                     <td><input class="form-control" name="valor-servico-table" id="valor-servico-{{$servico->pivot->id}}"  value="{{$servico->pivot->valor}}"></td>
                     <td>

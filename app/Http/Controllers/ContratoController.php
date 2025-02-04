@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Avulsa;
 use App\Models\Configuracao;
 use App\Models\HistoricoPeca;
 use App\Models\MaoObra;
@@ -213,9 +214,9 @@ class ContratoController extends Controller
             $historico_atual                =   $r->get('historico_id');
             $historico                      =   Historico::find($historico_atual);
             $contrato                       =    $historico->contrato;
-            $historico->servicos()->attach($r->get('servico'),['valor'=>$r->get('valor'),'data'=>Carbon::now(),'cobrar'=>$r->get('cobrar')]);
+            $historico->pecas()->attach($r->get('peca'),['valor'=>$r->get('valor'),'cobrar'=>$r->get('cobrar')]);
 
-            return response()->json(['servico'=>view("admin.contratos.includes.tabela-servico",['contrato'=>$contrato])->render()]);
+            return response()->json(['peca'=>view("admin.contratos.includes.tabela-pecas",['contrato'=>$contrato])->render()]);
 
         } catch (\Throwable $th) {
             return response()->json(['erro'=>$th->getMessage()]);
@@ -229,7 +230,7 @@ class ContratoController extends Controller
             $peca_id                     =   $r->get('peca_id');
             $historico                      =   Historico::find($historico_id);
             $contrato                       =    $historico->contrato;
-            $peca                        =   HistoricoPeca::find($peca_id);
+            $peca                           =   Avulsa::find($peca_id);
 
             if ($peca->delete()){
                 return response()->json(['peca'=>view("admin.contratos.includes.tabela-pecas",['contrato'=>$contrato])->render()]);
@@ -246,14 +247,13 @@ class ContratoController extends Controller
     {
         try {
 //            return response()->json($r->all());
-            $servico                =       MaoObra::find($r->get('servico_id'))   ;
-            $servico->valor         =      $r->get('valor');
-            $servico->cobrar        =       ($r->get('cobrar')=="1"?true:false);
-            $servico->data          =   Carbon::now();
+            $peca                =       Avulsa::find($r->get('peca_id'))   ;
+            $peca->valor         =      $r->get('valor');
+            $peca->cobrar        =       ($r->get('cobrar')=="1"?true:false);
             $contrato       =   Contrato::find($r->get('contrato_id'));
 
-            if($servico->save()){
-                return response()->json(['servico'=>view("admin.contratos.includes.tabela-servico",['contrato'=>$contrato])->render()]);
+            if($peca->save()){
+                return response()->json(['peca'=>view("admin.contratos.includes.tabela-pecas",['contrato'=>$contrato])->render()]);
             }
 
 

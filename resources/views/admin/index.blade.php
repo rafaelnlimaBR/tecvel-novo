@@ -879,7 +879,7 @@
 
             $("#tabela-pecas-atualizavel").on('click','.btn-remover-peca-historico',function () {
 
-                if(confirm("Deseja remover esse servico?")){
+                if(confirm("Deseja remover esse peca?")){
                     var peca_id      =   $(this).attr('peca_id');
                     var historico_id    =   $(this).attr('historico_id');
                     var rota            =   $(this).attr('route_delete');
@@ -913,7 +913,9 @@
                     });
                 }
 
-            })
+            });
+
+
 
             $("#servicos").on('click','.btn-atualizar-servico-historico',function () {
 
@@ -953,7 +955,47 @@
                         console.log(data)
                     }
                 });
-            })
+            });
+
+            $("#pecas").on('click','.btn-atualizar-peca-historico',function () {
+
+                var peca_id      =   $(this).attr('peca_id');
+                var rota            =   $(this).attr('route_update');
+                var valor           =   $('#valor-peca-'+peca_id).val();
+                var cobrar           =   $('#cobrar-peca-'+peca_id).val();
+                var  contrato_id     =   $(this).attr('contrato_id');
+
+                $.ajax({
+                    header:{
+                        'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: rota,
+                    type: "post",
+                    data: {
+
+                        'peca_id'                :   peca_id,
+                        'valor'              :   valor,
+                        'cobrar'            :   cobrar,
+                        'contrato_id'       :   contrato_id
+
+                    },
+                    success: function( data )
+                    {
+                        if('erro' in data){
+                            alert(data.erro);
+
+                        }else{
+                            console.log(data);
+                            $('#tabela-pecas-atualizavel').html(data.peca);
+                            return false
+                        }
+
+                    },
+                    error:function (data) {
+                        console.log(data)
+                    }
+                });
+            });
 
             $("#form-adicionar-servico-historico").submit(function () {
                 var dados   = $(this).serialize();
@@ -973,6 +1015,36 @@
                         }else{
 
                             $('#tabela-servicos-atualizavel').html(data.servico);
+                            return false
+                        }
+                    },
+                    error:function (data,e) {
+                        alert(data);
+                    }
+                });
+
+
+                return false;
+            });
+
+            $("#form-adicionar-peca-historico").submit(function () {
+                var dados   = $(this).serialize();
+
+                var rota    =   "{{route('contrato.adicionar.peca')}}";
+
+                $.ajax({
+                    type: "POST",
+                    url: rota,
+                    data: dados,
+                    success: function( data )
+                    {
+
+                        if('erro' in data){
+                            alert(data.erro);
+
+                        }else{
+
+                            $('#tabela-pecas-atualizavel').html(data.peca);
                             return false
                         }
                     },

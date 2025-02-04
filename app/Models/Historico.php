@@ -27,7 +27,7 @@ class Historico extends Model
 
     public function pecas()
     {
-        return $this->belongsToMany(PecaAvulsa::class,'historico_peca','peca_id','historico_id')->withPivot('id','valor')->withTimestamps();
+        return $this->belongsToMany(PecaAvulsa::class,'historico_peca','historico_id','peca_id')->withPivot('id','valor','cobrar')->withTimestamps();
     }
 
 }
