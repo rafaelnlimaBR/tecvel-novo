@@ -18,11 +18,11 @@
             </div>
             <div class="form-group col-md-2">
                 <label for="valor">Valor</label>
-                <input required type="text" class="form-control" id="valor-peca" placeholder="valor" name="valor">
+                <input required type="text" class="form-control" id="valor-peca" placeholder="Valor" name="valor">
             </div>
             <div class="form-group col-md-2">
                 <label for="marca">Marca</label>
-                <input required type="text" class="form-control"  placeholder="Marca" name="marca-peca">
+                <input  type="text" class="form-control"  placeholder="Marca" name="marca-peca" id="marca-peca">
             </div>
             <div class="form-group col-md-2">
                 <label for="cobrar">Cobrar</label>

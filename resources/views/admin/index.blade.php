@@ -1047,6 +1047,10 @@
                         }else{
                                 // console.log(data);
                             $('#tabela-pecas-atualizavel').html(data.peca);
+                            $('#input-peca').val("");
+                            $('#valor-peca').val("");
+                            $('#marca-peca').val("");
+                            $('#input-peca').focus();
                             return false
                         }
                     },
