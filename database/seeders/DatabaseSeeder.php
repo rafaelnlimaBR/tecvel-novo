@@ -108,22 +108,22 @@ class DatabaseSeeder extends Seeder
 
         $this->command->info("Insertindo dados peças avulsas");
         DB::table('pecas_avulsas')->insert([
-            ["nome"=>"Sensor de velocidade ","marca"=>"Original","valor"=>"78",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-            ["nome"=>"Painel de instrumentos Palio","marca"=>"Original","valor"=>"77",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-            ["nome"=>"Sensor de velocidade Onix","marca"=>"Original","valor"=>"55",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-            ["nome"=>"pião","marca"=>"Original","valor"=>"73",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-            ["nome"=>"Sensor de nível","marca"=>"Original","valor"=>"40",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-            ["nome"=>"Display  ","marca"=>"Original","valor"=>"500",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-            ["nome"=>"Filtro de combustivel","marca"=>"Original","valor"=>"50",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Sensor de velocidade ","valor"=>"78",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Painel de instrumentos Palio","valor"=>"77",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Sensor de velocidade Onix","valor"=>"55",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"pião","valor"=>"73",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Sensor de nível","valor"=>"40",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Display  ","valor"=>"500",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Filtro de combustivel","valor"=>"50",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
 
         ]);
         $this->command->info("Insertindo dados peças avulsas em historicos");
         DB::table('historico_peca')->insert([
-            ["historico_id"=>"1","peca_id"=>"1","valor"=>"50",'cobrar'=>0,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-            ["historico_id"=>"1","peca_id"=>"2","valor"=>"250",'cobrar'=>0,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-            ["historico_id"=>"1","peca_id"=>"3","valor"=>"500",'cobrar'=>0,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-            ["historico_id"=>"1","peca_id"=>"4","valor"=>"60",'cobrar'=>0,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-            ["historico_id"=>"1","peca_id"=>"5","valor"=>"77",'cobrar'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["historico_id"=>"1","peca_id"=>"1","valor"=>"50",'cobrar'=>0,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["historico_id"=>"1","peca_id"=>"2","valor"=>"250",'cobrar'=>0,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["historico_id"=>"1","peca_id"=>"3","valor"=>"500",'cobrar'=>0,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["historico_id"=>"1","peca_id"=>"4","valor"=>"60",'cobrar'=>0,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["historico_id"=>"1","peca_id"=>"5","valor"=>"77",'cobrar'=>1,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
 
         ]);
 

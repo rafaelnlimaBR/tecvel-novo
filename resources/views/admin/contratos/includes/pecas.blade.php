@@ -5,14 +5,24 @@
             <div class="form-group col-md-3">
                 <input type="hidden" name="historico_id" value="{{$historico->id}}">
                 <label for="pecas">Peças</label>
-                <select required class="form-control" name="peca" id="pecas-select2">
 
-                </select>
+                <input list="lista-pecas" class="form-control caixa-alta" id="input-peca" name="peca"  />
+
+                <datalist id="lista-pecas">
+
+                </datalist>
+               {{-- <select required class="form-control" name="peca" id="pecas-select2">
+
+                </select>--}}
 
             </div>
             <div class="form-group col-md-2">
                 <label for="valor">Valor</label>
                 <input required type="text" class="form-control" id="valor-peca" placeholder="valor" name="valor">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="marca">Marca</label>
+                <input required type="text" class="form-control"  placeholder="Marca" name="marca-peca">
             </div>
             <div class="form-group col-md-2">
                 <label for="cobrar">Cobrar</label>
@@ -30,10 +40,7 @@
                 <label for="botao-adicionar">Adicionar</label>
                 <button  type="submit" class="form-control btn btn-primary" name="botao-adicionar">Adicionar</button>
             </div>
-            <div class="form-group col-md-1">
-                <label for="botao-cadastrar-peca">Cadastrar</label>
-                <a  class="form-control btn btn-success" name="botao-cadastrar-peca" data-toggle="modal" data-target="#modal-novo-peca">Cadastrar</a>
-            </div>
+
 
         </div>
         </form>

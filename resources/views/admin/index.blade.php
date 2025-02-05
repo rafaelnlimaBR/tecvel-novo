@@ -963,6 +963,7 @@
                 var rota            =   $(this).attr('route_update');
                 var valor           =   $('#valor-peca-'+peca_id).val();
                 var cobrar           =   $('#cobrar-peca-'+peca_id).val();
+                var marca           =   $('#marca-peca-'+peca_id).val();
                 var  contrato_id     =   $(this).attr('contrato_id');
 
                 $.ajax({
@@ -976,7 +977,8 @@
                         'peca_id'                :   peca_id,
                         'valor'              :   valor,
                         'cobrar'            :   cobrar,
-                        'contrato_id'       :   contrato_id
+                        'contrato_id'       :   contrato_id,
+                        'marca'             :   marca
 
                     },
                     success: function( data )
@@ -1043,7 +1045,7 @@
                             alert(data.erro);
 
                         }else{
-
+                                // console.log(data);
                             $('#tabela-pecas-atualizavel').html(data.peca);
                             return false
                         }
@@ -1216,7 +1218,37 @@
 
             });
 
-            $("#pecas-select2").select2({
+            $('#input-peca').keyup(function () {
+                var rota    =   '{{route('peca.json')}}';
+                var q       =   $(this).val();
+                $.ajax({
+                    header:{
+                        'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: rota,
+                    type: "get",
+                    data: {
+
+                        'q'                :   q,
+                    },
+                    success: function( data )
+                    {
+                        $('#lista-pecas').empty();
+                        for(var i=0; i<data.length;i++){
+                            $("#lista-pecas").append("<option value='" +
+                                data[i].nome + "'></option>");
+
+                        }
+
+                    },
+                    error:function (data) {
+                        console.log(data)
+                    }
+                });
+
+            })
+
+            /*$("#pecas-select2").select2({
                 ajax: {
                     type: 'get',
                     url: "{{route('peca.json')}}",
@@ -1260,7 +1292,7 @@
                     return html;
                 },
 
-            });
+            });*/
 
             $("#pesquisa-veiculo").select2({
                 ajax: {

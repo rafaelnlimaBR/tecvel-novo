@@ -7,6 +7,7 @@
             <th style="width: 4%; "  scope="col">Item</th>
             <th scope="col">Nome</th>
             <th style="width: 10%; " scope="col">Valor</th>
+            <th style="width: 15%; " scope="col">Marca</th>
             <th scope="col" style="width: 10%; " >Cobrar</th>
             <th style="width: 10%; min-width: 150px;"  scope="col">Criado </th>
             <th style="width: 7%; min-width: 150px;" scope="col">Ações</th>
@@ -23,6 +24,7 @@
                     <td>{{$peca->pivot->id}}</td>
                     <td>{{$peca->nome}}</td>
                     <td><input class="form-control" name="valor-peca-table" id="valor-peca-{{$peca->pivot->id}}"  value="{{$peca->pivot->valor}}"> </td>
+                    <td><input class="form-control caixa-alta" name="marca-peca-table" id="marca-peca-{{$peca->pivot->id}}"  value="{{$peca->pivot->marca}}"></td>
                     <td>
 
                         <select class="form-control" name="cobrar" id="cobrar-peca-{{$peca->pivot->id}}">

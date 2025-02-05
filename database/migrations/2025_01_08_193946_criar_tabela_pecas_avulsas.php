@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('pecas_avulsas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->decimal('valor',8,2);
-            $table->string('marca');
+
             $table->string('nome');
             $table->timestamps();
         });

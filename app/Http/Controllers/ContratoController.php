@@ -9,9 +9,11 @@ use App\Models\MaoObra;
 use App\Models\Montadora;
 use App\Models\Contrato;
 use App\Models\Historico;
+use App\Models\PecaAvulsa;
 use App\Models\Servico;
 use App\Models\Status;
 use Carbon\Carbon;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use function Symfony\Component\Mime\Header\get;
 
@@ -211,10 +213,19 @@ class ContratoController extends Controller
     {
 
         try {
-            $historico_atual                =   $r->get('historico_id');
-            $historico                      =   Historico::find($historico_atual);
-            $contrato                       =    $historico->contrato;
-            $historico->pecas()->attach($r->get('peca'),['valor'=>$r->get('valor'),'cobrar'=>$r->get('cobrar')]);
+
+            $peca                           =   PecaAvulsa::where('nome',$r->get('peca'))->first();
+            if($peca == null){
+                $peca           =   new PecaAvulsa();
+                $peca->nome     =   $r->get('peca');
+                $peca->valor    =   $r->get('valor');
+                if(!$peca->save()){
+                    return response()->json(['erro'=>'Não foi possível cadastrar a peça nova.']);
+                }
+            }
+            $historico                      =   Historico::find( $r->get('historico_id'));
+            $contrato                       =   $historico->contrato;
+            $historico->pecas()->attach($peca->id,['valor'=>$r->get('valor'),'cobrar'=>$r->get('cobrar'),'marca'=>$r->get('marca-peca')]);
 
             return response()->json(['peca'=>view("admin.contratos.includes.tabela-pecas",['contrato'=>$contrato])->render()]);
 
@@ -250,6 +261,7 @@ class ContratoController extends Controller
             $peca                =       Avulsa::find($r->get('peca_id'))   ;
             $peca->valor         =      $r->get('valor');
             $peca->cobrar        =       ($r->get('cobrar')=="1"?true:false);
+            $peca->marca         =      $r->get('marca');
             $contrato       =   Contrato::find($r->get('contrato_id'));
 
             if($peca->save()){

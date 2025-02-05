@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('historico_id')->constrained('historicos','id')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('peca_id')->constrained('pecas_avulsas','id')->onDelete('cascade')->onUpdate('cascade');
             $table->decimal('valor')->default(0);
+            $table->string('marca')->nullable();
             $table->boolean('cobrar');
             $table->timestamps();
         });
