@@ -15,6 +15,7 @@ use App\Models\Status;
 use Carbon\Carbon;
 use http\Env\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use function Symfony\Component\Mime\Header\get;
 
 class ContratoController extends Controller
@@ -87,6 +88,37 @@ class ContratoController extends Controller
         return view('admin.contratos.formulario',$dados);
     }
 
+    public function visualizacao(Request $r,$id)
+    {
+        try {
+            $contrato          =   Contrato::find($id);
+
+
+            if($contrato == null ){
+
+                return redirect()->route('contrato.index')->with('alerta',['tipo'=>'warning','icon'=>'','texto'=>"Contrato não existe."]);
+            }
+
+
+            $dados = [
+                'titulo'        => "Visualizar Contrato",
+                'contrato'        =>  $contrato,
+            ];
+
+
+
+            return view('admin.contratos.invoice',$dados);
+
+
+
+        } catch (\Throwable $th) {
+            return redirect()->route('contrato.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);
+
+        }
+
+
+    }
+
     public function cadastrar(Request $r){
         try {
 
@@ -97,6 +129,7 @@ class ContratoController extends Controller
             $contrato->defeito              =   $r->get('defeito');
             $contrato->solucao              =   $r->get('solucao');
             $contrato->garantia             =   Carbon::createFromFormat('d/m/Y',$r->get('garantia'));
+            $contrato->token                = Str::random(50);
 
             if($contrato->save()){
                 $status             =   Status::find(Configuracao::first()->abertura);

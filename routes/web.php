@@ -37,6 +37,7 @@ Route::post('/contrato/atualizar/servico', [App\Http\Controllers\ContratoControl
 Route::post('/contrato/adicionar/peca', [App\Http\Controllers\ContratoController::class, 'adicionarPeca'])->name('contrato.adicionar.peca');
 Route::post('/contrato/remover/peca', [App\Http\Controllers\ContratoController::class, 'removerPeca'])->name('contrato.remover.peca');
 Route::post('/contrato/atualizar/peca', [App\Http\Controllers\ContratoController::class, 'atualizarPeca'])->name('contrato.atualizar.peca');
+Route::get('/contrato/visualizacao/{id}', [App\Http\Controllers\ContratoController::class, 'visualizacao'])->name('contrato.visualizacao');
 
 //Route::get('/contratos/refresh', [App\Http\Controllers\ContratoController::class, 'refresh'])->name('contrato.refresh'); atualizar a pagina a cada certos segundos
 
@@ -114,7 +115,8 @@ View::composer(['admin.status.formulario'],function($view){
 
 Route::get('/',function(    ){
 
-    return Servico::pesquisarPorNome("a")->get();
+   $contrato        = Contrato::find(1);
+
 
 
 

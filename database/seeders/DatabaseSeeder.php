@@ -9,6 +9,7 @@ use App\Models\Cliente;
 use App\Models\Contato;
 use App\Models\Montadoras;
 use \Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -84,7 +85,7 @@ class DatabaseSeeder extends Seeder
 
         $this->command->info("Insertindo dados do contratos");
         DB::table("contratos")->insert([
-            ['cliente_id'=>10,"veiculo_id"=>1,"defeito"=>"teste","obs"=>"teste","solucao"=>"teste","garantia"=>Carbon::now()] ,
+            ['cliente_id'=>10,"veiculo_id"=>1,"defeito"=>"teste","obs"=>"teste","solucao"=>"teste","garantia"=>Carbon::now(),'token'=>Str::random(60)] ,
 
         ]);
         $this->command->info("Insertindo dados do historicos");

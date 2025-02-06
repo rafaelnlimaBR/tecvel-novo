@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('obs')->nullable();
             $table->text('solucao')->nullable();
             $table->date('garantia');
+            $table->text('token');
             $table->timestamps();
         });
     }
