@@ -38,6 +38,11 @@ Route::post('/contrato/adicionar/peca', [App\Http\Controllers\ContratoController
 Route::post('/contrato/remover/peca', [App\Http\Controllers\ContratoController::class, 'removerPeca'])->name('contrato.remover.peca');
 Route::post('/contrato/atualizar/peca', [App\Http\Controllers\ContratoController::class, 'atualizarPeca'])->name('contrato.atualizar.peca');
 Route::get('/contrato/visualizacao/{id}', [App\Http\Controllers\ContratoController::class, 'visualizacao'])->name('contrato.visualizacao');
+Route::get('/contrato/{id}/entrada', [App\Http\Controllers\ContratoController::class, 'entrada'])->name('contrato.entrada');
+Route::post('/contrato/faturar', [App\Http\Controllers\ContratoController::class, 'faturar'])->name('contrato.faturar');
+Route::post('/contrato/atualziar/entrada', [App\Http\Controllers\ContratoController::class, 'atualizarEntrada'])->name('contrato.atualizar.faturar');
+Route::get('/contrato/{id}/entrada/editar/{entrada}', [App\Http\Controllers\ContratoController::class, 'editarEntrada'])->name('contrato.editar.entrada');
+
 
 //Route::get('/contratos/refresh', [App\Http\Controllers\ContratoController::class, 'refresh'])->name('contrato.refresh'); atualizar a pagina a cada certos segundos
 
@@ -102,6 +107,12 @@ Route::post('/servico/excluir', [App\Http\Controllers\ServicoController::class, 
 //PEÇAS AVULSAS
 Route::get('/peca/json', [App\Http\Controllers\PecaAvulsaController::class, 'pecaJson'])->name('peca.json');
 
+//TIPOS DE PAGAMENTOS
+Route::get('/tipopagamentos/formas/json', [App\Http\Controllers\TipoPagamentoController::class, 'formas'])->name('tipo.formas.json');
+
+
+
+
 View::composer(['admin.contatos.formulario','admin.contatos.tabela','admin.clientes.formulario-modal'],function($view){
     $view->with(['aplicativos'=>AppContato::all()]);
 });
@@ -112,10 +123,13 @@ View::composer(['admin.veiculos.form'],function($view){
 View::composer(['admin.status.formulario'],function($view){
    $view->with(['todos_status'        =>\App\Models\Status::all()]);
 });
+View::composer(['admin.entradas.formulario'],function($view){
+    $view->with(['tipos'        =>\App\Models\TipoPagamento::all()]);
+});
 
 Route::get('/',function(    ){
-
-   $contrato        = Contrato::find(1);
+    $tipos          =   \App\Models\TipoPagamento::find(1)->formas;
+   return $tipos;
 
 
 

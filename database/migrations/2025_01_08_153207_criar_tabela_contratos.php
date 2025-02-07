@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('cliente_id')->constrained('clientes','id')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('veiculo_id')->nullable()->constrained('veiculos','id')->onUpdate('cascade')->onDelete('cascade');
             $table->text('defeito')->nullable();
-            $table->text('obs')->nullable();
+
             $table->text('solucao')->nullable();
             $table->date('garantia');
             $table->text('token');

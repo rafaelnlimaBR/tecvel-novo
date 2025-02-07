@@ -28,8 +28,11 @@
                 <li class="nav-item">
                     <a class="nav-link  {{request()->exists('pagina')?request()->get('pagina') == "servicos"?'active':'':''}}" href="#servicos" data-toggle="tab" aria-expanded="false">Serviços</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link  {{request()->exists('pagina')?request()->get('pagina') == "pecas"?'active':'':''}}" href="#pecas" data-toggle="tab" aria-expanded="false">Peças</a>
+                </li>
                     <li class="nav-item">
-                        <a class="nav-link  {{request()->exists('pagina')?request()->get('pagina') == "pecas"?'active':'':''}}" href="#pecas" data-toggle="tab" aria-expanded="false">Peças</a>
+                        <a class="nav-link  {{request()->exists('pagina')?request()->get('pagina') == "entradas"?'active':'':''}}" href="#entradas" data-toggle="tab" aria-expanded="false">Entradas</a>
                     </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#contact-2" data-toggle="tab" aria-expanded="false">Contact</a>
@@ -48,9 +51,12 @@
                 <div class="tab-pane p-4  {{request()->exists('pagina')?request()->get('pagina') == "servicos"?'active':'':''}}" id="servicos">
                     @include("admin.contratos.includes.servicos")
                 </div>
-                    <div class="tab-pane p-4  {{request()->exists('pagina')?request()->get('pagina') == "pecas"?'active':'':''}}" id="pecas">
-                        @include("admin.contratos.includes.pecas")
-                    </div>
+                <div class="tab-pane p-4  {{request()->exists('pagina')?request()->get('pagina') == "pecas"?'active':'':''}}" id="pecas">
+                    @include("admin.contratos.includes.pecas")
+                </div>
+                <div class="tab-pane p-4  {{request()->exists('pagina')?request()->get('pagina') == "entradas"?'active':'':''}}" id="entradas">
+                    @include("admin.contratos.includes.tabela-entradas")
+                </div>
 
                 <div class="tab-pane p-4" id="contact-2">
                     <div class="row">

@@ -45,8 +45,49 @@ class DatabaseSeeder extends Seeder
             ['nome'          =>  "Hyundai"],
         ]);
 
+        $this->command->info("Insertindo dados Tipos Pagamentos");
+        DB::table('tipos_pagamentos')->insert([
+            ["nome"=>"InfinityPay",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"SumUp",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Dinheiro Especie",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Pix",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
 
+        ]);
+        DB::table('formas_pagamentos')->insert([
+            ["nome"=>"Débito",'taxa'=>1,'tipo_id'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X1",'taxa'=>1,'tipo_id'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X2",'taxa'=>2,'tipo_id'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X3",'taxa'=>3,'tipo_id'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X4",'taxa'=>4,'tipo_id'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X5",'taxa'=>5,'tipo_id'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X6",'taxa'=>6,'tipo_id'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X7",'taxa'=>7,'tipo_id'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X8",'taxa'=>8,'tipo_id'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X9",'taxa'=>9,'tipo_id'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X10",'taxa'=>10,'tipo_id'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X11",'taxa'=>11,'tipo_id'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X12",'taxa'=>12,'tipo_id'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
 
+            ["nome"=>"Débito",'taxa'=>1,'tipo_id'=>2,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X1",'taxa'=>1,'tipo_id'=>2,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X2",'taxa'=>2,'tipo_id'=>2,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X3",'taxa'=>3,'tipo_id'=>2,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X4",'taxa'=>4,'tipo_id'=>2,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X5",'taxa'=>5,'tipo_id'=>2,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X6",'taxa'=>6,'tipo_id'=>2,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X7",'taxa'=>7,'tipo_id'=>2,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X8",'taxa'=>8,'tipo_id'=>2,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X9",'taxa'=>9,'tipo_id'=>2,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X10",'taxa'=>10,'tipo_id'=>2,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X11",'taxa'=>11,'tipo_id'=>2,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"Crédito X12",'taxa'=>12,'tipo_id'=>2,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+
+            ["nome"=>"A vista",'taxa'=>0,'tipo_id'=>3,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+
+            ["nome"=>"CNPJ ",'taxa'=>0,'tipo_id'=>4,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["nome"=>"CPF ",'taxa'=>0,'tipo_id'=>4,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+
+        ]);
 
         $this->command->info("Insertindo dados status");
         DB::table('status')->insert([
@@ -85,7 +126,7 @@ class DatabaseSeeder extends Seeder
 
         $this->command->info("Insertindo dados do contratos");
         DB::table("contratos")->insert([
-            ['cliente_id'=>10,"veiculo_id"=>1,"defeito"=>"teste","obs"=>"teste","solucao"=>"teste","garantia"=>Carbon::now(),'token'=>Str::random(60)] ,
+            ['cliente_id'=>10,"veiculo_id"=>1,"defeito"=>"teste","solucao"=>"teste","garantia"=>Carbon::now(),'token'=>Str::random(60)] ,
 
         ]);
         $this->command->info("Insertindo dados do historicos");

@@ -33,9 +33,9 @@
                         </div>
                     </div>
                     <div class="row historicos">
-                        <div class="col-md-12">
+                        <div class="col-md-8">
                             <h4 class="titulo">Histórico</h4>
-                            <table class="tabela-historico table">
+                            <table class="tabela-historico table table-bordered ">
                                 <thead>
                                 <tr>
                                     <th style="width: 15%">Status</th>
@@ -56,6 +56,12 @@
                                 @endforeach
                                 </tbody>
                             </table>
+
+                        </div>
+                        <div class="col-md-4">
+                            <p class="texto"><b>Defeito Relatado: </b>da dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal kda dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal kda dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal k
+                                da dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal kda dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal kda dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal k
+                                da dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal kda dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal k</p>
                         </div>
                     </div>
                     <div class="row servicos">
@@ -150,29 +156,46 @@
 
                     </div>
                     <div class="row">
-                        <div class="col-md-8">
-                            <p><b>Defeito Relatado: </b> {{$contrato->defeito}}</p>
-                        </div>
-
                         <div class="col-md-4">
                             <h4 class="titulo">Valores</h4>
-                            <table class="tabela-pagamento table">
+                            <table class="tabela-pagamento table table-bordered">
                                 <tbody>
-                                    <tr>
-                                        <td class="tabela-pagamento-titulo">Total Serviços</td>
-                                        <td class="tabela-pagamento-resultado">R$ 300.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td  class="tabela-pagamento-titulo">Total Peças</td>
-                                        <td class="tabela-pagamento-resultado">R$ 300.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td  class="tabela-pagamento-titulo">Total Pago</td>
-                                        <td class="tabela-pagamento-resultado">R$ 0.00</td>
-                                    </tr>
+                                <tr>
+                                    <td class="tabela-pagamento-titulo">Total Serviços</td>
+                                    <td class="tabela-pagamento-resultado">R$ 300.00</td>
+                                </tr>
+                                <tr>
+                                    <td  class="tabela-pagamento-titulo">Total Peças</td>
+                                    <td class="tabela-pagamento-resultado">R$ 300.00</td>
+                                </tr>
+                                <tr>
+                                    <td  class="tabela-pagamento-titulo">Total Pago</td>
+                                    <td class="tabela-pagamento-resultado">R$ 0.00</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
+                        <div class="col-md-8">
+                            <h4 class="titulo">Pagamentos</h4>
+                            <table class="tabela-pagamento table table-bordered">
+                                <tbody>
+                                <tr>
+                                    <td class="tabela-pagamento-titulo">Total Serviços</td>
+                                    <td class="tabela-pagamento-resultado">R$ 300.00</td>
+                                </tr>
+                                <tr>
+                                    <td  class="tabela-pagamento-titulo">Total Peças</td>
+                                    <td class="tabela-pagamento-resultado">R$ 300.00</td>
+                                </tr>
+                                <tr>
+                                    <td  class="tabela-pagamento-titulo">Total Pago</td>
+                                    <td class="tabela-pagamento-resultado">R$ 0.00</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
                     </div>
                 </div>
             </div>
@@ -182,9 +205,9 @@
     <style type="text/css">
         .borda-direita{border-right: 2px solid #c3c3c3}
         .cabecalho{height: 150px}
-        .titulo{padding: 10px; border-bottom: 1px solid #c3c3c3; border-top: 1px solid #c3c3c3; background-color: #f6f6f6;margin-top: 10px}
-        .tabela-pagamento td{padding: 5px; }
-        .tabela-pagamento tr{border-bottom-style: solid; border-bottom-color: #bebebe}
+        .titulo{padding: 10px; border-bottom: 1px solid #ebebeb; border-top: 1px solid #c3c3c3; background-color: #f6f6f6;margin-top: 10px}
+
+        .texto{padding: 20px}
     </style>
 
 @stop

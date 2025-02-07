@@ -39,18 +39,15 @@
 
             </div>
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label for="defeito">Defeito </label>
                     <textarea style="min-height: 150px" class="form-control " name="defeito">{{isset($contrato)?$contrato->defeito:""}}</textarea>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label for="solucao">Solução </label>
                     <textarea style="min-height: 150px" class="form-control " name="solucao">{{isset($contrato)?$contrato->solucao:""}}</textarea>
                 </div>
-                <div class="form-group col-md-4">
-                    <label for="obs">Observação </label>
-                    <textarea style="min-height: 150px" class="form-control " name="obs">{{isset($contrato)?$contrato->obs:""}}</textarea>
-                </div>
+
 
             </div>
             <div class="form-row">

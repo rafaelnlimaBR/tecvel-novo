@@ -915,7 +915,34 @@
 
             });
 
+            $("#tipos_pagamentos").change(function () {
+                var rota    =   "{{route('tipo.formas.json')}}";
+                var id      =   $(this).val();
 
+                $.ajax({
+                    type: "get",
+                    url: rota,
+                    data: {
+                        'id'       :   id
+                    },
+                    success: function( data )
+                    {
+                        if('erro' in data){
+                            alert(data.erro);
+
+                        }else{
+                            $("#forma-pagamentos").html('');
+                            for(var i=0; i<data.length;i++){
+                                $("#forma-pagamentos").append("<option value='" +
+                                    data[i].id + "'>"+data[i].nome+"</option>");
+                            }
+                        }
+                    },
+                    error:function (data,e) {
+                        alert(data);
+                    }
+                });
+            })
 
             $("#servicos").on('click','.btn-atualizar-servico-historico',function () {
 

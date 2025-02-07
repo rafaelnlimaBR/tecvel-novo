@@ -15,6 +15,7 @@ use App\Models\Status;
 use Carbon\Carbon;
 use http\Env\Response;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Str;
 use function Symfony\Component\Mime\Header\get;
 
@@ -125,7 +126,6 @@ class ContratoController extends Controller
             $contrato                       =   new Contrato();
             $contrato->cliente_id           =   $r->get('cliente');
             $contrato->veiculo_id           =   $r->get('veiculo');
-            $contrato->obs                  =   $r->get('obs');
             $contrato->defeito              =   $r->get('defeito');
             $contrato->solucao              =   $r->get('solucao');
             $contrato->garantia             =   Carbon::createFromFormat('d/m/Y',$r->get('garantia'));
@@ -148,7 +148,6 @@ class ContratoController extends Controller
             $contrato                       =   Contrato::find($r->get('id'));
             $contrato->cliente_id           =   $r->get('cliente');
             $contrato->veiculo_id           =   $r->get('veiculo');
-            $contrato->obs                  =   $r->get('obs');
             $contrato->defeito              =   $r->get('defeito');
             $contrato->solucao              =   $r->get('solucao');
             $contrato->garantia             =   Carbon::createFromFormat('d/m/Y',$r->get('garantia'));
@@ -305,6 +304,34 @@ class ContratoController extends Controller
         } catch (\Throwable $th) {
             return response()->json(['erro'=>$th->getMessage()]);
         }
+
+    }
+
+    public function entrada(Request $r,$id)
+    {
+        $contrato   =   Contrato::find($id);
+        $dados = [
+            'titulo'        => "Entrada",
+            'routeAction'   =>  route('contrato.faturar'),
+            'routeUpdate'   =>  route('contrato.atualizar.faturar'),
+            'routeBack'     =>  Route('contrato.editar',['id'=>$contrato,'historico_id'=>$contrato->historicos->last()->id])
+        ];
+
+        return view('admin.entradas.formulario',$dados);
+    }
+
+    public function faturar()
+    {
+
+    }
+
+    public function atualizarEntrada()
+    {
+
+    }
+
+    public function editarEntrada()
+    {
 
     }
 }
