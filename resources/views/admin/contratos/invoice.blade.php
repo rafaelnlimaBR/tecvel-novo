@@ -32,6 +32,32 @@
                             <h5><b>Garantia</b> : 25/05/2025</h5><br>
                         </div>
                     </div>
+                    <div class="row historicos">
+                        <div class="col-md-12">
+                            <h4 class="titulo">Histórico</h4>
+                            <table class="tabela-historico table">
+                                <thead>
+                                <tr>
+                                    <th style="width: 15%">Status</th>
+                                    <th style=" width: 15%">Data</th>
+                                    <th>Obs</th>
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($contrato->historicos as $historico)
+                                    <tr>
+                                        <td class="tabela-pagamento-titulo">{{$historico->status->nome}}</td>
+                                        <td class="tabela-pagamento-resultado">{{\Carbon\Carbon::parse($historico->data)->format('d/m/Y')}}</td>
+                                        <td class="tabela-pagamento-resultado">{{$historico->obs}}</td>
+
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     <div class="row servicos">
 
                         <div class="col-md-12">
@@ -79,6 +105,7 @@
                                 <thead>
                                 <tr>
                                     <th>Nome da Peça</th>
+                                    <th>Marca</th>
                                     <th style="width: 10%">Qnt</th>
                                     <th style="width: 15%">Valor Unitário</th>
                                     <th style="width: 15%">Valor Total</th>
@@ -88,34 +115,33 @@
                                 <tbody>
                                     <tr>
                                         <td>Reparo do painel de instrumentos </td>
+                                        <td>Original </td>
                                         <td>3</td>
                                         <td>R$ 100</td>
                                         <td>R$ 300,00</td>
                                     </tr>
                                     <tr>
                                         <td>Reparo do painel de instrumentos </td>
+                                        <td>Original </td>
                                         <td>3</td>
                                         <td>R$ 100</td>
                                         <td>R$ 300,00</td>
                                     </tr>
                                     <tr>
                                         <td>Reparo do painel de instrumentos </td>
+                                        <td>Original </td>
                                         <td>3</td>
                                         <td>R$ 100</td>
                                         <td>R$ 300,00</td>
                                     </tr>
                                     <tr>
                                         <td>Reparo do painel de instrumentos </td>
+                                        <td>Original </td>
                                         <td>3</td>
                                         <td>R$ 100</td>
                                         <td>R$ 300,00</td>
                                     </tr>
-                                    <tr>
-                                        <td>Reparo do painel de instrumentos </td>
-                                        <td>3</td>
-                                        <td>R$ 100</td>
-                                        <td>R$ 300,00</td>
-                                    </tr>
+
 
 
                                 </tbody>
@@ -125,13 +151,11 @@
                     </div>
                     <div class="row">
                         <div class="col-md-8">
-                            <p><b>OBS: </b> awd ad awdad ljf skjfl asjkf asf asdjfnasdjn sanjjn awd ad awdad ljf skjfl asjkf asf asdjfnasdjn sanjjn awd ad awdad ljf skjfl asjkf asf asdjfnasdjn sanjjn
-                                awd ad awdad ljf skjfl asjkf asf asdjfnasdjn sanjjn awd ad awdad ljf skjfl asjkf asf asdjfnasdjn sanjjn awd ad awdad ljf skjfl asjkf asf asdjfnasdjn sanjjn
-                                awd ad awdad ljf skjfl asjkf asf asdjfnasdjn sanjjn awd ad awdad ljf skjfl asjkf asf asdjfnasdjn sanjjn awd ad awdad ljf skjfl asjkf asf asdjfnasdjn sanjjn awd ad awdad ljf skjfl asjkf asf asdjfnasdjn sanjjn
-                                awd ad awdad ljf skjfl asjkf asf asdjfnasdjn sanjjn awd ad awdad ljf skjfl asjkf as</p>
+                            <p><b>Defeito Relatado: </b> {{$contrato->defeito}}</p>
                         </div>
+
                         <div class="col-md-4">
-                            <h4>Pagamentos</h4>
+                            <h4 class="titulo">Valores</h4>
                             <table class="tabela-pagamento table">
                                 <tbody>
                                     <tr>
@@ -156,9 +180,9 @@
     </div>
 
     <style type="text/css">
-        .borda-direita{border-color: #c3c3c3;border-right-style: solid}
+        .borda-direita{border-right: 2px solid #c3c3c3}
         .cabecalho{height: 150px}
-        .titulo{padding: 15px}
+        .titulo{padding: 10px; border-bottom: 1px solid #c3c3c3; border-top: 1px solid #c3c3c3; background-color: #f6f6f6;margin-top: 10px}
         .tabela-pagamento td{padding: 5px; }
         .tabela-pagamento tr{border-bottom-style: solid; border-bottom-color: #bebebe}
     </style>
