@@ -915,6 +915,43 @@
 
             });
 
+            $('#valor').keyup(function () {
+
+                var valor =     parseFloat($(this).val());
+                var taxa    =   parseFloat($('#taxa').val());
+                console.log(taxa);
+                $('#valor-com-taxa').val(((taxa/100)*valor)+valor);
+
+            })
+            $("#forma-pagamentos").change(function () {
+                var rota    =   "{{route('forma.json')}}";
+                var id      =   $(this).val();
+
+                $.ajax({
+                    type: "get",
+                    url: rota,
+                    data: {
+                        'id'       :   id
+                    },
+                    success: function( data )
+                    {
+                        console.log(data)
+                        if('erro' in data){
+                            alert(data.erro);
+
+                        }else{
+                            var valor   =   parseFloat($('#valor').val());
+                            var taxa    =   parseFloat(data.taxa);
+                            $('#valor-com-taxa').val(((taxa/100)*valor)+valor);
+                            $('#taxa').val(taxa);
+
+                        }
+                    },
+                    error:function (data,e) {
+                        alert(data);
+                    }
+                });
+            });
             $("#tipos_pagamentos").change(function () {
                 var rota    =   "{{route('tipo.formas.json')}}";
                 var id      =   $(this).val();
@@ -933,6 +970,13 @@
                         }else{
                             $("#forma-pagamentos").html('');
                             for(var i=0; i<data.length;i++){
+                                if(i==0){
+
+                                    var valor   =   parseFloat($('#valor').val());
+                                    var taxa    =   parseFloat(data[i].taxa);
+                                    $('#valor-com-taxa').val(((taxa/100)*valor)+valor);
+                                    $('#taxa').val(taxa);
+                                }
                                 $("#forma-pagamentos").append("<option value='" +
                                     data[i].id + "'>"+data[i].nome+"</option>");
                             }
@@ -942,7 +986,7 @@
                         alert(data);
                     }
                 });
-            })
+            });
 
             $("#servicos").on('click','.btn-atualizar-servico-historico',function () {
 

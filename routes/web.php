@@ -109,6 +109,8 @@ Route::get('/peca/json', [App\Http\Controllers\PecaAvulsaController::class, 'pec
 
 //TIPOS DE PAGAMENTOS
 Route::get('/tipopagamentos/formas/json', [App\Http\Controllers\TipoPagamentoController::class, 'formas'])->name('tipo.formas.json');
+Route::get('/forma', [App\Http\Controllers\TipoPagamentoController::class, 'forma'])->name('forma.json');
+
 
 
 

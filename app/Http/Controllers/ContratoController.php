@@ -307,14 +307,16 @@ class ContratoController extends Controller
 
     }
 
-    public function entrada(Request $r,$id)
+    public function entrada($id)
     {
         $contrato   =   Contrato::find($id);
+
         $dados = [
             'titulo'        => "Entrada",
             'routeAction'   =>  route('contrato.faturar'),
             'routeUpdate'   =>  route('contrato.atualizar.faturar'),
-            'routeBack'     =>  Route('contrato.editar',['id'=>$contrato,'historico_id'=>$contrato->historicos->last()->id])
+            'routeBack'     =>  Route('contrato.editar',['id'=>$contrato,'historico_id'=>$contrato->historicos->last()->id]),
+            'valor'         =>  $contrato->somaTotalPecasAvulsas()+$contrato->somaTotalServicos(),
         ];
 
         return view('admin.entradas.formulario',$dados);
