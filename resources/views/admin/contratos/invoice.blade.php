@@ -5,10 +5,16 @@
     <div class="page-head">
         <h4 class="my-2">{{$titulo}}</h4>
     </div>
+    <div class="row botoes" style="margin: 10px">
+        <div class="col-md-12">
+            <a class="btn btn-default" style="background-color: #aeaeae; color: white" href="{{route('contrato.index')}}">Voltar</a>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-12">
             <div class="card m-b-30">
                 <div class="card-body">
+
                     <div class="row cabecalho">
                         <div class="col-md-3 borda-direita">
                                 <h4>LOGO</h4>
