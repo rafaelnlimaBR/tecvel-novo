@@ -8,7 +8,7 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-4 col-sm-4 col-md-4">
+        <div class="col-lg-5 col-sm-5 col-md-5">
             <div class="card ">
                 <div class="card-body">
                     <form action="{{ isset($entrada)?$routeUpdate :$routeAction}}" method="POST">
@@ -47,12 +47,12 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="forma">Valor</label>
-                                <input type="text" class="form-control" name="valor" value="{{$valor}}" id="valor">
+                                <input type="text" class="form-control dinheiro" name="valor" value="{{$valor}}" id="valor">
 
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="forma">Valor Com Taxa</label>
-                                <input type="text" class="form-control" name="valor" value="" id="valor-com-taxa" disabled>
+                                <input type="text" class="form-control dinheiro" name="valor" value="" id="valor-com-taxa" disabled>
                             </div>
 
                         </div>
@@ -76,7 +76,24 @@
 
             </div>
         </div>
+        <div class="col-md-5">
+            <table>
+                <tr>
+                    <td><h3>Forma do Pagamento :</h3></td>
+                    <td ><h4 style="color: #eb2027; margin-left: 10px" id="resultado-forma" class="resultado-pagamento"></h4></td>
+                </tr>
+                <tr>
+                    <td><h3>Valor : </h3></td>
+                    <td><h4 style="color: #eb2027; margin-left: 10px"   id="resultado-valor" class="resultado-pagamento"></h4></td>
+                </tr>
+                <tr>
+                    <td><h3>Valor Com Taxa :</h3></td>
+                    <td ><h4 style="color: #eb2027; margin-left: 10px"  id="resultado-valor-taxa" class="resultado-pagamento"></h4></td>
+                </tr>
+            </table>
 
+
+        </div>
 
     </div>
 

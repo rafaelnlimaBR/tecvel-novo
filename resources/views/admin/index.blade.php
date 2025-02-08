@@ -699,6 +699,7 @@
 
 
             $('.cep').mask('00000-000');
+            $('.dinheiro').mask("00000000.00" , { reverse:true})
             $('.caixa-alta').keyup(function() {
                 this.value = this.value.toLocaleUpperCase();
             });
@@ -914,13 +915,31 @@
                 }
 
             });
+            function calcularTaxa(taxa, valor){
+                var valorTotal  =   (valor*100)/(100-taxa);
+                return valorTotal.toFixed(2);
+            }
+            function atualizarDadosPagamentos(){
+                var valor =     parseFloat($('#valor').val());
+                var taxa    =   parseFloat($('#taxa').val());
+                var forma   =   $('#forma-pagamentos').find(":selected").text();
+                var valorTaxa   =   this.calcularTaxa(taxa,valor);
 
+                $('#resultado-valor').html('R$ '+valor);
+                $('#resultado-forma').html(forma);
+                $('#resultado-valor-taxa').html('R$ '+valorTaxa);
+            }
             $('#valor').keyup(function () {
+                if(!$(this).val()){
+                    $(this).val(0.00)
 
+                }
                 var valor =     parseFloat($(this).val());
                 var taxa    =   parseFloat($('#taxa').val());
-                console.log(taxa);
-                $('#valor-com-taxa').val(((taxa/100)*valor)+valor);
+
+
+                $('#valor-com-taxa').val(calcularTaxa(taxa,valor));
+                atualizarDadosPagamentos();
 
             })
             $("#forma-pagamentos").change(function () {
@@ -935,15 +954,19 @@
                     },
                     success: function( data )
                     {
-                        console.log(data)
+
                         if('erro' in data){
                             alert(data.erro);
 
                         }else{
+
                             var valor   =   parseFloat($('#valor').val());
                             var taxa    =   parseFloat(data.taxa);
-                            $('#valor-com-taxa').val(((taxa/100)*valor)+valor);
+
+                            $('#valor-com-taxa').val(calcularTaxa(taxa,valor));
+
                             $('#taxa').val(taxa);
+                            atualizarDadosPagamentos();
 
                         }
                     },
@@ -974,11 +997,14 @@
 
                                     var valor   =   parseFloat($('#valor').val());
                                     var taxa    =   parseFloat(data[i].taxa);
-                                    $('#valor-com-taxa').val(((taxa/100)*valor)+valor);
+                                    $('#valor-com-taxa').val(calcularTaxa(taxa,valor));
+
                                     $('#taxa').val(taxa);
+
                                 }
                                 $("#forma-pagamentos").append("<option value='" +
                                     data[i].id + "'>"+data[i].nome+"</option>");
+                                    atualizarDadosPagamentos();
                             }
                         }
                     },
@@ -1016,7 +1042,7 @@
                             alert(data.erro);
 
                         }else{
-                            console.log(data);
+
                             $('#tabela-servicos-atualizavel').html(data.servico);
                             return false
                         }

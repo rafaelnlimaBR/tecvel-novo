@@ -315,7 +315,7 @@ class ContratoController extends Controller
             'titulo'        => "Entrada",
             'routeAction'   =>  route('contrato.faturar'),
             'routeUpdate'   =>  route('contrato.atualizar.faturar'),
-            'routeBack'     =>  Route('contrato.editar',['id'=>$contrato,'historico_id'=>$contrato->historicos->last()->id]),
+            'routeBack'     =>  Route('contrato.editar',['id'=>$contrato,'historico_id'=>$contrato->historicos->last()->id,'pagina'=>"entradas"]),
             'valor'         =>  $contrato->somaTotalPecasAvulsas()+$contrato->somaTotalServicos(),
         ];
 
