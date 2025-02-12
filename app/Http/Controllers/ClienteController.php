@@ -155,7 +155,14 @@ class ClienteController extends Controller
     public function clientesJson(Request $r)
     {
 
-        $clientes = Cliente::PesquisarPorNome($r->get('q'))->orderBy('created_at', 'desc')->limit(20)->get();
+        $clientes    =   "";
+        if(is_numeric($r->get('q'))){
+            $clientes   =   Cliente::PesquisarPorTelefone($r->get('q'))->orderBy('created_at', 'desc')->limit(20)->get();
+        }else{
+            $clientes = Cliente::PesquisarPorNome($r->get('q'))->orderBy('created_at', 'desc')->limit(20)->get();
+        }
+
+
 
 //        return response()->json($clientes->count());
         $retorno    =   [];

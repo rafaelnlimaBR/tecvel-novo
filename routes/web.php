@@ -130,8 +130,7 @@ View::composer(['admin.entradas.formulario'],function($view){
 });
 
 Route::get('/',function(    ){
-    $tipos          =   \App\Models\TipoPagamento::find(1)->formas;
-   return $tipos;
+    return  is_numeric('85');
 
 
 
