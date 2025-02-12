@@ -1,5 +1,3 @@
-@extends('admin.index')
-@section('conteudo')
 
 
 {{-- VARIAVEIS PASSADAS POR PARAMETRO AO CHAMAR ESSE FORMULARIO    routeAaction:routeUpdate:routeBack:valorTotal--}}
@@ -13,6 +11,7 @@
                 <div class="card-body">
                     <form action="{{ isset($entrada)?$routeUpdate :$routeAction}}" method="POST">
                         {{ csrf_field() }}
+                        <input type="hidden" name="id" value="{{$id}}">
                         @if(isset($entrada))
                             <input hidden type="text" class="form-control" id="id-entrada" placeholder="" name="id" value="{{$entrada->id}}">
                         @endif
@@ -34,7 +33,7 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="forma">Repasse</label>
-                                <input type="checkbox" class="form-control" name="repassar" checked >
+                                <input type="checkbox" class="form-control" name="repassar" id="repassar" checked >
                             </div>
 
 
@@ -43,7 +42,7 @@
 
                             <div class="form-group col-md-2">
                                 <label for="taxa">Taxa</label>
-                                <input class="form-control" type="text" id="taxa" value="0" disabled>
+                                <input class="form-control" type="text" id="taxa" value="0" name="taxa" readonly>
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="forma">Valor</label>
@@ -51,8 +50,12 @@
 
                             </div>
                             <div class="form-group col-md-3">
+                                <label for="forma">Valor Liquido</label>
+                                <input type="text" class="form-control dinheiro" name="valor-liquido" value="" id="valor-liquido" readonly>
+                            </div>
+                            <div class="form-group col-md-3">
                                 <label for="forma">Valor Com Taxa</label>
-                                <input type="text" class="form-control dinheiro" name="valor" value="" id="valor-com-taxa" disabled>
+                                <input type="text" class="form-control dinheiro" name="valor-taxa" value="" id="valor-com-taxa" readonly>
                             </div>
 
                         </div>
@@ -97,5 +100,3 @@
 
     </div>
 
-
-@stop

@@ -915,30 +915,55 @@
                 }
 
             });
-            function calcularTaxa(taxa, valor){
-                var valorTotal  =   (valor*100)/(100-taxa);
+            function calcularTaxa(taxa, valor,repassarTaxa){
+
+                var valorTotal  =   0;
+                if(repassarTaxa == true){
+                    valorTotal  =   (valor*100)/(100-taxa);
+                }else{
+                    valorTotal  =   (valor * (100 - taxa))/100;
+                }
+
+
                 return valorTotal.toFixed(2);
             }
             function atualizarDadosPagamentos(){
+
+                var repassarTaxa    =   $('#repassar').is(':checked');
                 var valor =     parseFloat($('#valor').val());
+
                 var taxa    =   parseFloat($('#taxa').val());
                 var forma   =   $('#forma-pagamentos').find(":selected").text();
-                var valorTaxa   =   this.calcularTaxa(taxa,valor);
+                var valorTaxa   =   0;
+                var valorLiquido=  0;
 
-                $('#resultado-valor').html('R$ '+valor);
+
+
+                if(repassarTaxa == true){
+                    valorTaxa       = calcularTaxa(taxa,valor,repassarTaxa);
+                    $('#resultado-valor-taxa').html('R$ '+valorTaxa);
+                    $('#resultado-valor').html('R$ '+valor);
+                    $('#valor-liquido').val(valor);
+                    $('#valor-com-taxa').val(valorTaxa);
+                }else{
+                    valorLiquido    =   calcularTaxa(taxa,valor,repassarTaxa);
+                    $('#resultado-valor-taxa').html('R$ '+valor);
+                    $('#resultado-valor').html('R$ '+valor);
+                    $('#valor-liquido').val(valorLiquido);
+                    $('#valor-com-taxa').val(valor);
+                }
                 $('#resultado-forma').html(forma);
-                $('#resultado-valor-taxa').html('R$ '+valorTaxa);
+
             }
+            $('#repassar').change(function () {
+                atualizarDadosPagamentos();
+            })
             $('#valor').keyup(function () {
                 if(!$(this).val()){
                     $(this).val(0.00)
 
                 }
-                var valor =     parseFloat($(this).val());
-                var taxa    =   parseFloat($('#taxa').val());
 
-
-                $('#valor-com-taxa').val(calcularTaxa(taxa,valor));
                 atualizarDadosPagamentos();
 
             })
@@ -959,15 +984,8 @@
                             alert(data.erro);
 
                         }else{
-
-                            var valor   =   parseFloat($('#valor').val());
-                            var taxa    =   parseFloat(data.taxa);
-
-                            $('#valor-com-taxa').val(calcularTaxa(taxa,valor));
-
-                            $('#taxa').val(taxa);
+                            $('#taxa').val(data.taxa)
                             atualizarDadosPagamentos();
-
                         }
                     },
                     error:function (data,e) {
@@ -993,13 +1011,15 @@
                         }else{
                             $("#forma-pagamentos").html('');
                             for(var i=0; i<data.length;i++){
+                                var valor   =   parseFloat($('#valor').val());
                                 if(i==0){
 
-                                    var valor   =   parseFloat($('#valor').val());
+
                                     var taxa    =   parseFloat(data[i].taxa);
-                                    $('#valor-com-taxa').val(calcularTaxa(taxa,valor));
+                                    // $('#valor-com-taxa').val(calcularTaxa(taxa,valor));/
 
                                     $('#taxa').val(taxa);
+                                    atualizarDadosPagamentos();
 
                                 }
                                 $("#forma-pagamentos").append("<option value='" +

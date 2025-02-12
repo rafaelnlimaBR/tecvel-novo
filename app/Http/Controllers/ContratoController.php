@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Avulsa;
 use App\Models\Configuracao;
+use App\Models\Entrada;
 use App\Models\HistoricoPeca;
 use App\Models\MaoObra;
 use App\Models\Montadora;
@@ -309,22 +310,43 @@ class ContratoController extends Controller
 
     public function entrada($id)
     {
+
         $contrato   =   Contrato::find($id);
 
         $dados = [
-            'titulo'        => "Entrada",
-            'routeAction'   =>  route('contrato.faturar'),
-            'routeUpdate'   =>  route('contrato.atualizar.faturar'),
-            'routeBack'     =>  Route('contrato.editar',['id'=>$contrato,'historico_id'=>$contrato->historicos->last()->id,'pagina'=>"entradas"]),
+            'titulo'        => "Pagamento",
             'valor'         =>  $contrato->somaTotalPecasAvulsas()+$contrato->somaTotalServicos(),
+            'contrato'      => $contrato,
+            'id'            => $contrato->id
         ];
 
-        return view('admin.entradas.formulario',$dados);
+        return view('admin.contratos.includes.entrada',$dados);
     }
 
-    public function faturar()
+    public function faturar(Request $r)
     {
+        try{
 
+            $contrato                       =   Contrato::find($r->get('id'));
+            $entrada                        =   new Entrada();
+            $entrada->valor                 =   $r->get('valor');
+            $entrada->valor_liquido         =   $r->get('valor-liquido');
+            $entrada->valor_acrescimo        =   $r->get('valor-taxa');
+            $entrada->forma_pagamento_id    =   $r->get('forma');
+            $entrada->taxa                  =   $r->get('taxa');
+            $entrada->repassar_taxa         =   ($r->get('repassar') == 'on')?true:false;
+
+            if ($entrada->save()){
+                $contrato->entrada()->attach($entrada);
+            }
+
+            return redirect()->route('contrato.editar',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'pagina'=>'entradas'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Pagamento registrado com sucesso"]);
+
+        }catch (\Exception $e){
+
+            return redirect()->route('contrato.editar',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'pagina'=>'entradas'])->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage()]);
+
+        }
     }
 
     public function atualizarEntrada()

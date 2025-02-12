@@ -10,4 +10,9 @@ class FormaPagamento extends Model
     use HasFactory;
 
     protected $table    =   "formas_pagamentos";
+
+    public function tipo()
+    {
+        return $this->belongsTo(TipoPagamento::class,'tipo_id');
+    }
 }

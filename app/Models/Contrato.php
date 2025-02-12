@@ -14,6 +14,11 @@ class Contrato extends Model
         return $this->belongsTo(Cliente::class);
     }
 
+    public function entrada()
+    {
+        return $this->belongsToMany(Entrada::class,'contrato_entrada','contrato_id','entrada_id')->withTimestamps();
+    }
+
     public function veiculo()
     {
         return $this->belongsTo(Veiculo::class);
