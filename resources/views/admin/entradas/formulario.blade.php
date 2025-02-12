@@ -13,7 +13,7 @@
                         {{ csrf_field() }}
                         <input type="hidden" name="id" value="{{$id}}">
                         @if(isset($entrada))
-                            <input hidden type="text" class="form-control" id="id-entrada" placeholder="" name="id" value="{{$entrada->id}}">
+                            <input hidden type="text" class="form-control" id="id-entrada" placeholder="" name="entrada_id" value="{{$entrada->id}}">
                         @endif
                         <div class="form-row">
                             <div class="form-group col-md-5">

@@ -44,6 +44,7 @@ Route::get('/contrato/{id}/entrada', [App\Http\Controllers\ContratoController::c
 Route::post('/contrato/faturar', [App\Http\Controllers\ContratoController::class, 'faturar'])->name('contrato.faturar');
 Route::post('/contrato//atualziar/entrada/', [App\Http\Controllers\ContratoController::class, 'atualizarEntrada'])->name('contrato.atualizar.faturar');
 Route::get('/contrato/{id}/entrada/editar/{entrada_id}', [App\Http\Controllers\ContratoController::class, 'editarEntrada'])->name('contrato.editar.entrada');
+Route::get('/contrato/{id}/entrada/excluir/{entrada_id}', [App\Http\Controllers\ContratoController::class, 'excluirEntrada'])->name('contrato.excluir.entrada');
 
 
 //Route::get('/contratos/refresh', [App\Http\Controllers\ContratoController::class, 'refresh'])->name('contrato.refresh'); atualizar a pagina a cada certos segundos

@@ -359,9 +359,51 @@ class ContratoController extends Controller
         }
     }
 
-    public function atualizarEntrada()
+    public function excluirEntrada(Request $r,$id,$entrada_id)
     {
+        try{
 
+            $contrato                       =   Contrato::find($id);
+            $entrada                        =   Entrada::find($entrada_id);
+
+
+            if ($entrada->delete()){
+
+            }
+
+            return redirect()->route('contrato.editar',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'pagina'=>'entradas'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Pagamento excluir com sucesso"]);
+
+        }catch (\Exception $e){
+
+            return redirect()->route('contrato.editar',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'pagina'=>'entradas'])->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage()]);
+
+        }
+    }
+
+    public function atualizarEntrada(Request $r)
+    {
+        try{
+
+            $contrato                       =   Contrato::find($r->get('id'));
+            $entrada                        =   Entrada::find($r->get('entrada_id'));
+            $entrada->valor                 =   $r->get('valor');
+            $entrada->valor_liquido         =   $r->get('valor-liquido');
+            $entrada->valor_acrescimo        =   $r->get('valor-taxa');
+            $entrada->forma_pagamento_id    =   $r->get('forma');
+            $entrada->taxa                  =   $r->get('taxa');
+            $entrada->repassar_taxa         =   ($r->get('repassar') == 'on')?true:false;
+
+            if ($entrada->save()){
+
+            }
+
+            return redirect()->route('contrato.editar',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'pagina'=>'entradas'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Pagamento atualizado com sucesso"]);
+
+        }catch (\Exception $e){
+
+            return redirect()->route('contrato.editar',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'pagina'=>'entradas'])->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage()]);
+
+        }
     }
 
     public function editarEntrada($id,$entrada_id)

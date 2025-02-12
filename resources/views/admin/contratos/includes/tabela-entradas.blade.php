@@ -40,7 +40,10 @@
                             <td>{{$entrada->taxa ."% / ".($entrada->repassar_taxa==true?"Cliente":"Loja")}}</td>
 
                             <td>{{$entrada->forma->tipo->nome.' / '.$entrada->forma->nome}}</td>
-                            <td><a class="btn btn-sm btn-warning " href="{{route('contrato.editar.entrada',['id'=>$contrato->id,'entrada_id'=>$entrada->id])}}">editar</a></td>
+                            <td>
+                                <a class="btn btn-sm btn-warning " href="{{route('contrato.editar.entrada',['id'=>$contrato->id,'entrada_id'=>$entrada->id])}}">editar</a>
+                                <a class="btn btn-sm btn-danger " href="{{route('contrato.excluir.entrada',['id'=>$contrato->id,'entrada_id'=>$entrada->id])}}">Excluir</a>
+                            </td>
 
                         </tr>
                     @endforeach
