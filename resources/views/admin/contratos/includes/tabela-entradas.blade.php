@@ -24,6 +24,7 @@
                         <td>Data</td>
                         <td>Taxa / Repassada </td>
                         <td>Forma</td>
+                        <td>Ações</td>
 
 
                     </tr>
@@ -39,7 +40,7 @@
                             <td>{{$entrada->taxa ."% / ".($entrada->repassar_taxa==true?"Cliente":"Loja")}}</td>
 
                             <td>{{$entrada->forma->tipo->nome.' / '.$entrada->forma->nome}}</td>
-
+                            <td><a class="btn btn-sm btn-warning " href="{{route('contrato.editar.entrada',['id'=>$contrato->id,'entrada_id'=>$entrada->id])}}">editar</a></td>
 
                         </tr>
                     @endforeach

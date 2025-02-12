@@ -32,6 +32,7 @@ return new class extends Migration
             $tabela->bigInteger('recusado');
             $tabela->bigInteger('retorno');
             $tabela->bigInteger('concluido');
+            $tabela->bigInteger('forma_pagamento_preferido');
 
 
 

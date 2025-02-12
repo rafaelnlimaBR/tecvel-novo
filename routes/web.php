@@ -4,8 +4,10 @@ use App\Models\AppContato;
 use App\Models\Cliente;
 use App\Models\Configuracao;
 use App\Models\Contrato;
+use App\Models\FormaPagamento;
 use App\Models\Modelo;
 use App\Models\Servico;
+use App\Models\TipoPagamento;
 use \App\Models\Veiculo;
 use \App\Models\Montadora;
 use Illuminate\Database\Eloquent\Collection;
@@ -40,8 +42,8 @@ Route::post('/contrato/atualizar/peca', [App\Http\Controllers\ContratoController
 Route::get('/contrato/visualizacao/{id}', [App\Http\Controllers\ContratoController::class, 'visualizacao'])->name('contrato.visualizacao');
 Route::get('/contrato/{id}/entrada', [App\Http\Controllers\ContratoController::class, 'entrada'])->name('contrato.entrada');
 Route::post('/contrato/faturar', [App\Http\Controllers\ContratoController::class, 'faturar'])->name('contrato.faturar');
-Route::post('/contrato/atualziar/entrada', [App\Http\Controllers\ContratoController::class, 'atualizarEntrada'])->name('contrato.atualizar.faturar');
-Route::get('/contrato/{id}/entrada/editar/{entrada}', [App\Http\Controllers\ContratoController::class, 'editarEntrada'])->name('contrato.editar.entrada');
+Route::post('/contrato//atualziar/entrada/', [App\Http\Controllers\ContratoController::class, 'atualizarEntrada'])->name('contrato.atualizar.faturar');
+Route::get('/contrato/{id}/entrada/editar/{entrada_id}', [App\Http\Controllers\ContratoController::class, 'editarEntrada'])->name('contrato.editar.entrada');
 
 
 //Route::get('/contratos/refresh', [App\Http\Controllers\ContratoController::class, 'refresh'])->name('contrato.refresh'); atualizar a pagina a cada certos segundos
@@ -126,8 +128,17 @@ View::composer(['admin.status.formulario'],function($view){
    $view->with(['todos_status'        =>\App\Models\Status::all()]);
 });
 View::composer(['admin.entradas.formulario'],function($view){
-    $view->with(['tipos'        =>\App\Models\TipoPagamento::all()]);
+    $conf       =   Configuracao::all()->last();
+    $tipo       =   TipoPagamento::find(FormaPagamento::find($conf->forma_pagamento_preferido)->tipo_id);
+    $view->with([
+        'tipos'        =>\App\Models\TipoPagamento::all(),
+        'forma_pagamento_preferida'=>   $conf->forma_pagamento_preferido,
+        'formas'                    =>  $tipo->formas,
+        'tipo_pagamento_preferido'  =>  $tipo->id
+    ]);
 });
+
+
 
 Route::get('/',function(    ){
     return  is_numeric('85');

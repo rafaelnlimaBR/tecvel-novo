@@ -20,20 +20,51 @@
                                 <label for="tipo">Tipo Pagamento</label>
                                 <select class="form-control" name="tipo" id="tipos_pagamentos">
                                     @foreach($tipos as $tipo)
-                                        <option value="{{$tipo->id}}">{{$tipo->nome}}</option>
-
+                                        @if(isset($entrada))
+                                            @if($entrada->forma->tipo->id == $tipo->id)
+                                                <option value="{{$tipo->id}}" selected>{{$tipo->nome}}</option>
+                                            @else
+                                                <option value="{{$tipo->id}}" >{{$tipo->nome}}</option>
+                                            @endif
+                                        @else
+                                            @if($tipo_pagamento_preferido = $tipo->id)
+                                                <option value="{{$tipo->id}}" selected>{{$tipo->nome}}</option>
+                                            @else
+                                                <option value="{{$tipo->id}}" >{{$tipo->nome}}</option>
+                                            @endif
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group col-md-5">
                                 <label for="forma">Forma de Pagamento</label>
                                 <select class="form-control" name="forma" id="forma-pagamentos">
-                                    <option value="0">CPNJ</option>
+
+
+                                    @if(isset($entrada))
+                                        @foreach($formas as $forma)
+                                            @if($entrada->forma->id == $forma->id)
+                                                <option value="{{$forma->id}}" selected>{{$forma->nome}}</option>
+                                            @else
+                                                <option value="{{$forma->id}}" >{{$forma->nome}}</option>
+                                            @endif
+                                        @endforeach
+
+                                    @else
+                                        @foreach($formas    as $forma)
+                                            @if($forma->id  ==  $forma_pagamento_preferida)
+                                                <option value="{{$forma->id}}" selected>{{$forma->nome}}</option>
+                                            @else
+                                                <option value="{{$forma->id}}" >{{$forma->nome}}</option>
+                                            @endif
+
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="forma">Repasse</label>
-                                <input type="checkbox" class="form-control" name="repassar" id="repassar" checked >
+                                <input type="checkbox" class="form-control" name="repassar" id="repassar" {{(isset($entrada)?$entrada->repassar_taxa==true?'checked':'':'checked')}} >
                             </div>
 
 
@@ -42,20 +73,20 @@
 
                             <div class="form-group col-md-2">
                                 <label for="taxa">Taxa</label>
-                                <input class="form-control" type="text" id="taxa" value="0" name="taxa" readonly>
+                                <input class="form-control" type="text" id="taxa" value="{{isset($entrada)?$entrada->taxa:"0.00"}}" name="taxa" readonly>
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="forma">Valor</label>
-                                <input type="text" class="form-control dinheiro" name="valor" value="{{$valor}}" id="valor">
+                                <input type="text" class="form-control dinheiro" name="valor" value="{{isset($entrada)?$entrada->valor:$valor}}" id="valor">
 
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="forma">Valor Liquido</label>
-                                <input type="text" class="form-control dinheiro" name="valor-liquido" value="" id="valor-liquido" readonly>
+                                <input type="text" class="form-control dinheiro" name="valor-liquido" value="{{isset($entrada)?$entrada->valor_liquido:''}}" id="valor-liquido" readonly>
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="forma">Valor Com Taxa</label>
-                                <input type="text" class="form-control dinheiro" name="valor-taxa" value="" id="valor-com-taxa" readonly>
+                                <input type="text" class="form-control dinheiro" name="valor-taxa" value="{{isset($entrada)?$entrada->valor_acrescimo:''}}" id="valor-com-taxa" readonly>
                             </div>
 
                         </div>

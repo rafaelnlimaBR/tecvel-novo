@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Avulsa;
 use App\Models\Configuracao;
 use App\Models\Entrada;
+use App\Models\FormaPagamento;
 use App\Models\HistoricoPeca;
 use App\Models\MaoObra;
 use App\Models\Montadora;
@@ -13,15 +14,24 @@ use App\Models\Historico;
 use App\Models\PecaAvulsa;
 use App\Models\Servico;
 use App\Models\Status;
+use App\Models\TipoPagamento;
 use Carbon\Carbon;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Str;
+use function Symfony\Component\Mime\Header\all;
 use function Symfony\Component\Mime\Header\get;
 
 class ContratoController extends Controller
 {
+    var $conf   =   "";
+
+    public function __construct()
+    {
+        $this->conf     =   Configuracao::all()->last();
+    }
+
     public function index(Request $r){
         $dados = [
             'titulo' => "Contratos",
@@ -354,8 +364,24 @@ class ContratoController extends Controller
 
     }
 
-    public function editarEntrada()
+    public function editarEntrada($id,$entrada_id)
     {
 
+        $contrato   =   Contrato::find($id);
+        $entrada =   Entrada::find($entrada_id);
+
+        if($contrato == null or $entrada == null){
+            return redirect()->route('contrato.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>'Contrato ou Pagamento não existem']);
+        }
+        $dados = [
+            'titulo'        => "Pagamento",
+            'valor'         =>  $contrato->somaTotalPecasAvulsas()+$contrato->somaTotalServicos(),
+            'contrato'      => $contrato,
+            'id'            => $contrato->id,
+            'entrada'       => $entrada,
+            'formas'        => TipoPagamento::find($entrada->forma->tipo->id)->formas
+        ];
+
+        return view('admin.contratos.includes.entrada',$dados);
     }
 }
