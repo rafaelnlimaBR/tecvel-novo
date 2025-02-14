@@ -778,13 +778,12 @@
                 Webcam.reset( '#camera' );
                 $('#modalCamera').modal('hide');
             });
-            $('#btn-muda-camera').click(function () {
-                Webcam.set('constraints',{
-                    facingMode:"environment"
+            $('#btn-tirar-foto').click(function () {
+                Webcam.snap(function (data_uri) {
+                    document.getElementById('resultado').innerHTML = '<img src="'+data_uri+'"/>';
+                    $('#arquivo-salvar').files = data_uri;
                 });
-                Webcam.reset( '#camera' );
-                Webcam.attach( '#camera' );
-            })
+            });
 
             $('.botao-mudar-status').click(function(){
                 var status      =   $(this).attr('status');

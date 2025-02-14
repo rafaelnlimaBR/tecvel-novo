@@ -93,8 +93,8 @@
             <div class="card">
                 <div class="card-body">
                     <a class="btn btn-sm btn-primary" style="color: white" id="btn-camera">camera</a> ou
-                    <input type="file" accept="image/*" class="profile_picture_file_input" id="profile_picture_file_upload" capture>
-
+                    <input type="file" accept="image/*"  id="arquivo-salvar" >
+                    <div id="resultado"></div>
                 </div>
             </div>
         </div>
