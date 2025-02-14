@@ -5,7 +5,8 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-fechar-modal-camera">Fechar</button>
+                <button type="button" class="btn btn-secondary"  id="btn-muda-camera">Mudar Camera</button>
                 <button type="button" class="btn btn-primary">Tirar Foto</button>
             </div>
         </div>

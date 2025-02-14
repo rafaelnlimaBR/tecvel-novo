@@ -696,17 +696,7 @@
 
         <script type="text/javascript">
 
-            Webcam.set({
 
-                width: 490,
-
-                height: 390,
-
-                image_format: 'jpeg',
-
-                jpeg_quality: 90
-
-            });
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -766,11 +756,33 @@
                 dateFormat: "dd/mm/yy"
             });
 
+            Webcam.set({
+
+                width: 490,
+
+                height: 390,
+
+                image_format: 'jpeg',
+
+                jpeg_quality: 90
+
+            });
             $('#btn-camera').click(function () {
                 Webcam.attach( '#camera' );
                 $('#modalCamera').modal('show');
 
             });
+            $('#btn-fechar-modal-camera').click(function () {
+                Webcam.reset( '#camera' );
+                $('#modalCamera').modal('hide');
+            });
+            $('#btn-muda-camera').click(function () {
+                Webcam.set('constraints',{
+                    facingMode:"environmet"
+                });
+                Webcam.reset( '#camera' );
+                Webcam.attach( '#camera' );
+            })
 
             $('.botao-mudar-status').click(function(){
                 var status      =   $(this).attr('status');
