@@ -23,6 +23,9 @@
                 </li>
                 @if(isset($contrato))
                 <li class="nav-item">
+                    <a class="nav-link {{request()->exists('pagina')?request()->get('pagina') == "notas"?'active':'':''}}" href="#notas" data-toggle="tab" aria-expanded="false">Notas</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {{request()->exists('pagina')?request()->get('pagina') == "historicos"?'active':'':''}}" href="#historicos" data-toggle="tab" aria-expanded="false">Historicos</a>
                 </li>
                 <li class="nav-item">
@@ -45,6 +48,9 @@
                     @include('admin.contratos.includes.dados')
                 </div>
                 @if(isset($contrato))
+                <div class="tab-pane  p-4 {{request()->exists('pagina')?request()->get('pagina') == "notas"?'active':'':''}}" id="notas">
+                    @include('admin.contratos.includes.tabela-notas')
+                </div>
                 <div class="tab-pane p-4 {{request()->exists('pagina')?request()->get('pagina') == "historicos"?'active':'':''}}" id="historicos">
                     @include("admin.contratos.includes.historicos")
                 </div>

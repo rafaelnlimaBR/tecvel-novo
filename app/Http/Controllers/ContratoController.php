@@ -426,4 +426,6 @@ class ContratoController extends Controller
 
         return view('admin.contratos.includes.entrada',$dados);
     }
+
+
 }

@@ -18,6 +18,7 @@
         <link href="{{ URL::asset('/css/icons.css') }}" rel="stylesheet">
         <link href="{{ URL::asset('/css/menu.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ URL::asset('/plugins/colorpicker/colorpicker.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ URL::asset('/plugins/summernote/summernote-bs4.css') }}" rel="stylesheet" type="text/css">
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
         <link href="{{ URL::asset('/css/style.css') }}" rel="stylesheet">
@@ -679,6 +680,8 @@
         <script src="{{ URL::asset('/js/jquery.slimscroll.min.js') }}"></script>
         <script src="{{ URL::asset('/js/slidebars.min.js') }}"></script>
         <script src="{{ URL::asset('/plugins/colorpicker/jquery-asColor.js') }}"></script>
+        <script src="{{ URL::asset('/plugins/summernote/summernote-bs4.js') }}"></script>
+        <script src="{{ URL::asset('/plugins/webcam/webcam.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
@@ -687,9 +690,23 @@
 
 
 
+
         <!--app js-->
         <script src="{{ URL::asset('/js/jquery.app.js') }}"></script>
+
         <script type="text/javascript">
+
+            Webcam.set({
+
+                width: 490,
+
+                height: 390,
+
+                image_format: 'jpeg',
+
+                jpeg_quality: 90
+
+            });
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -699,7 +716,21 @@
 
 
             $('.cep').mask('00000-000');
-            $('.dinheiro').mask("00000000.00" , { reverse:true})
+            $('.dinheiro').mask("00000000.00" , { reverse:true});
+            $('#texto-notesummer').summernote({
+                height: 300,
+                minHeight: 200,
+                toolbar: [
+                    // [groupName, [list of button]]
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']]
+                ]
+
+            });
             $('.caixa-alta').keyup(function() {
                 this.value = this.value.toLocaleUpperCase();
             });
@@ -733,6 +764,12 @@
             });
             $('.date-time').datepicker({
                 dateFormat: "dd/mm/yy"
+            });
+
+            $('#btn-camera').click(function () {
+                Webcam.attach( '#camera' );
+                $('#modalCamera').modal('show');
+
             });
 
             $('.botao-mudar-status').click(function(){

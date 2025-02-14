@@ -8,8 +8,5 @@ class EntradaController extends Controller
 {
 
 
-    public static function entrada($routeAction, $routeUpdate, $routeBack, $valor)
-    {
-        return "deu";
-    }
+
 }

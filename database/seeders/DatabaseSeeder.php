@@ -134,6 +134,17 @@ class DatabaseSeeder extends Seeder
             ['contrato_id'=>1,"status_id"=>1,"data"=>Carbon::now(),"obs"=>"teste"] ,
 
         ]);
+        $this->command->info("Insertindo dados de Tipo de Notas");
+        DB::table("tipos_notas")->insert([
+            ['nome'=>"Observações do Serviço","cliente"=>0,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()] ,
+            ['nome'=>"Detalhes","cliente"=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()] ,
+        ]);
+        $this->command->info("Insertindo dados de Notas");
+        DB::table("notas")->insert([
+            ['texto'=>"awd aw aad awd adklaw daklçwd lk dalkjçef klsf lkçs fkls dfnl lnsfglnkç sdfklmng lksdf","tipo_nota_id"=>1,'historico_id'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()] ,
+            ['texto'=>"dad wdawda dawda dawd ad adefgh h f kls dfnl lnsfglnkç sdfklmng lksdf","tipo_nota_id"=>2,'historico_id'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()] ,
+        ]);
+
         $this->command->info("Insertindo dados de servicos");
         DB::table("servicos")->insert([
             ['nome'=>"servico teste 01","valor"=>10] ,

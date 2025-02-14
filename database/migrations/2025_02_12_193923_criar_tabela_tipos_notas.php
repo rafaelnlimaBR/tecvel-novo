@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('notas', function (Blueprint $table) {
+        Schema::create('tipos_notas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('texto');
-
-            $table->foreignId('historico_id')->constrained('historicos','id')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('tipo_nota_id')->constrained('tipos_notas','id')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('nome');
+            $table->boolean('cliente')->default(0);
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notas');
+
     }
 };
