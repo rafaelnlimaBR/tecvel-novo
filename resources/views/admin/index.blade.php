@@ -757,7 +757,9 @@
             });
 
             Webcam.set({
-
+                constraints:{
+                    facingMode:"environment"
+                },
                 width: 490,
 
                 height: 390,
