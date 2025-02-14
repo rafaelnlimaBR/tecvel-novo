@@ -778,7 +778,7 @@
             });
             $('#btn-muda-camera').click(function () {
                 Webcam.set('constraints',{
-                    facingMode:"environmet"
+                    facingMode:"environment"
                 });
                 Webcam.reset( '#camera' );
                 Webcam.attach( '#camera' );
