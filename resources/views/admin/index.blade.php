@@ -769,21 +769,8 @@
                 jpeg_quality: 90
 
             });
-            $('#btn-camera').click(function () {
-                Webcam.attach( '#camera' );
-                $('#modalCamera').modal('show');
 
-            });
-            $('#btn-fechar-modal-camera').click(function () {
-                Webcam.reset( '#camera' );
-                $('#modalCamera').modal('hide');
-            });
-            $('#btn-tirar-foto').click(function () {
-                Webcam.snap(function (data_uri) {
-                    document.getElementById('resultado').innerHTML = '<img src="'+data_uri+'"/>';
-                    $('#arquivo-salvar').files = data_uri;
-                });
-            });
+
 
             $('.botao-mudar-status').click(function(){
                 var status      =   $(this).attr('status');

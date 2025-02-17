@@ -93,13 +93,56 @@
             <div class="card">
                 <div class="card-body">
                     <a class="btn btn-sm btn-primary" style="color: white" id="btn-camera">camera</a> ou
-                    <input type="file" accept="image/*"  id="arquivo-salvar" >
-                    <div id="resultado"></div>
+                    <input type="file" accept="image/*;capture=camera">
+                    <canvas id="photo"></canvas>
                 </div>
             </div>
         </div>
         @endif
 
     </div>
+
 @include("admin.contratos.includes.camera")
+
+    <script type="application/javascript">
+        const video = document.getElementById('camera');
+        const canvas = document.getElementById('photo');
+        const captureBtn = document.getElementById('capture-btn');
+        const closeBtn = document.getElementById('btn-fechar-modal-camera');
+        const abrirCarmeraBtn = document.getElementById('btn-camera');
+        const context = canvas.getContext('2d');
+
+        // Request access to the user's camera
+        document.getElementById('btn-camera').addEventListener('click', () => {
+            $('#modalCamera').modal('show');
+            navigator.mediaDevices.getUserMedia({ video: true,audio:false  })
+                .then((stream) => {
+                    video.srcObject = stream;
+                })
+                .catch((error) => {
+                    console.error("Error accessing the camera: ", error);
+                });
+        });
+
+        // Capture photo on button click
+        captureBtn.addEventListener('click', () => {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        });
+        closeBtn.addEventListener('click', () => {
+            $('#modalCamera').modal('hide');
+        });
+        abrirCarmeraBtn.addEventListener('click', () => {
+            $('#modalCamera').modal('show');
+            navigator.mediaDevices.getUserMedia({ video: true,audio:false  })
+                .then((stream) => {
+                    video.srcObject = stream;
+                })
+                .catch((error) => {
+                    console.error("Error accessing the camera: ", error);
+                });
+        });
+    </script>
 @stop
