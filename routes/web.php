@@ -49,6 +49,10 @@ Route::get('/contrato/editar/{id}/historico/{historico_id}/nova/nota', [App\Http
 Route::get('/contrato/editar/{id}/historico/{historico_id}/editar/nota/{nota_id}', [App\Http\Controllers\NotaController::class, 'editar'])->name('contrato.editar.nota');
 Route::post('/contrato/cadastrar/nota', [App\Http\Controllers\NotaController::class, 'cadastrar'])->name('contrato.cadastrar.nota');
 Route::post('/contrato/atualizar/nota', [App\Http\Controllers\NotaController::class, 'atualizar'])->name('contrato.atualizar.nota');
+Route::get('/contrato/excluir/nota/{id}', [App\Http\Controllers\NotaController::class, 'excluir'])->name('contrato.excluir.nota');
+Route::post('/contrato/adicionar/imagens', [App\Http\Controllers\NotaController::class, 'adicionarImagens'])->name('contrato.adicionar.imagens');
+Route::post('/contrato/atualizar/imagens', [App\Http\Controllers\NotaController::class, 'atualizarImagens'])->name('contrato.atualizar.imagens');
+Route::get('/contrato/excluir/imagens/{id}', [App\Http\Controllers\NotaController::class, 'excluirImagens'])->name('contrato.excluir.imagens');
 
 //Route::get('/contratos/refresh', [App\Http\Controllers\ContratoController::class, 'refresh'])->name('contrato.refresh'); atualizar a pagina a cada certos segundos
 
@@ -148,7 +152,7 @@ View::composer(['admin.entradas.formulario'],function($view){
 
 
 Route::get('/',function(    ){
-    return  is_numeric('85');
+   return \App\Models\ImagensNota::create(['nome'=>'teste']);
 
 
 

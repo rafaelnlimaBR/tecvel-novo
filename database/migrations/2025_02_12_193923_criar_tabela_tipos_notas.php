@@ -17,6 +17,8 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('nome');
             $table->boolean('cliente')->default(0);
+            $table->integer('width_imagem')->default(300);
+            $table->integer('height_imagem')->default(300);
             $table->timestamps();
         });
     }

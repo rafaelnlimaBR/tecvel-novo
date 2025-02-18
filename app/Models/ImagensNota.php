@@ -9,6 +9,7 @@ class ImagensNota extends Model
 {
     use HasFactory;
     protected $table    =   'imagens';
+    protected $fillable =   ['nome','texto'];
 
     public function nota()
     {

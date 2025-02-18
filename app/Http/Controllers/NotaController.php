@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contrato;
+use App\Models\ImagensNota;
 use App\Models\Nota;
 use Illuminate\Http\Request;
+use Intervention\Image\Laravel\Facades\Image;
+
+use Illuminate\Support\Str;
+use Mockery\Matcher\Not;
+
 
 class NotaController extends Controller
 {
@@ -52,7 +58,7 @@ class NotaController extends Controller
     public function cadastrar(Request $r)
     {
         try{
-            $contrato       =   Contrato::find($r->get('contrato_id'));
+
 
             $nota                   =   new Nota();
             $nota->texto            =   $r->get('texto');
@@ -60,7 +66,8 @@ class NotaController extends Controller
             $nota->tipo_nota_id          =   $r->get('tipo_nota');
 
             if($nota->save()){
-                return redirect()->route('contrato.editar',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'pagina'=>'notas'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Pagamento registrado com sucesso"]);
+                $contrato       =   $nota->historico->contrato;
+                return redirect()->route('contrato.editar.nota',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'nota_id'=>$nota->id,'pagina'=>'notas'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Nota Atualizada com sucesso"]);
             }
 
 
@@ -70,8 +77,116 @@ class NotaController extends Controller
         }
     }
 
-    public function atualizar()
+    public function atualizar(Request $r)
     {
+        try{
+            $nota                   =   Nota::find($r->get('id'));
+            $nota->texto            =   $r->get('texto');
+            $nota->historico_id     =   $r->get('historico');
+            $nota->tipo_nota_id     =   $r->get('tipo_nota');
+
+            if($nota->save()){
+                $contrato       =   $nota->historico->contrato;
+                return redirect()->route('contrato.editar.nota',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'nota_id'=>$nota->id,'pagina'=>'notas'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Nota Atualizada com sucesso"]);
+            }
+
+
+        }catch (\Exception $e){
+            return redirect()->route('contrato.editar.nota',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'nota_id'=>$nota->id,'pagina'=>'notas'])->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage()]);
+        }
+    }
+
+    public function excluir($id)
+    {
+        try{
+            $nota           =   Nota::findOrFail($id);
+            $contrato       =   $nota->historico->contrato;
+            foreach ($nota->imagens as $imagem){
+                if(\File::exists(public_path('/images/notas/').$imagem->nome)){
+                    \File::delete(public_path('/images/notas/').$imagem->nome);
+                }
+            }
+
+            if($nota->delete()){
+
+                return redirect()->route('contrato.editar',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'pagina'=>'notas'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Nota exluido com sucesso"]);
+            }
+
+        }catch (\Exception $e){
+            return redirect()->route('contrato.editar.nota',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'nota_id'=>$nota->id,'pagina'=>'notas'])->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage()]);
+        }
+    }
+
+    public function adicionarImagens(Request $r)
+    {
+
+
+        try{
+
+
+            if(!$r->hasFile('imagens')){
+                return "nao tem imagem";
+            }
+            $nota       =   Nota::find($r->get('id'));
+            $contrato   =   $nota->historico->contrato;
+
+            foreach($r->file('imagens') as $i=> $image){
+
+                $filename="";
+                $filename = $r->get('id').'-'.Str::random(16).'.'.$image->getClientOriginalExtension();
+
+                $resize  =  Image::read($image)->resize($nota->tipo->width_imagem,$nota->tipo->height_imagem);
+                $resize->save(public_path('/images/notas/').$filename);
+                $img                =   new ImagensNota();
+                $img->nota_id       =   $nota->id;
+                $img->nome          =   $filename;
+                ($i ==0 )?$img->texto=$r->get('descricao'):$img->texto='';
+                $img->save();
+
+            }
+            return redirect()->route('contrato.editar.nota',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'nota_id'=>$nota->id,'pagina'=>'notas'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Imagem registrada com sucesso"]);
+
+        }catch (\Exception $e){
+            return $e->getMessage();
+        }
+    }
+
+    public function atualizarImagens(Request $r)
+    {
+
+        try{
+            $img        =   ImagensNota::find($r->get('id'));
+            $nota       =   $img->nota;
+            $contrato   =   $img->nota->historico->contrato;
+
+            $img->texto =   $r->get('texto');
+
+            if($img->save()){
+                return redirect()->route('contrato.editar.nota',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'nota_id'=>$nota->id,'pagina'=>'notas'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Imagem atualizada com sucesso"]);
+            }
+
+        }catch (\Exception $e){
+            return redirect()->route('contrato.editar.nota',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'nota_id'=>$nota->id,'pagina'=>'notas'])->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage()]);
+        }
+    }
+
+    public function excluirImagens($id)
+    {
+        try{
+            $imagem             =   ImagensNota::findOrFail($id);
+            $nota               =   $imagem->nota;
+            $contrato           = $imagem->nota->historico->contrato;
+
+            if(\File::exists(public_path('/images/notas/').$imagem->nome)){
+                \File::delete(public_path('/images/notas/').$imagem->nome);
+            }
+            $imagem->delete();
+            return redirect()->route('contrato.editar.nota',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'nota_id'=>$nota->id,'pagina'=>'notas'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Imagem excluida com sucesso"]);
+
+        }catch (\Exception $e){
+            return redirect()->route('contrato.editar.nota',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'nota_id'=>$nota->id,'pagina'=>'notas'])->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage()]);
+        }
+
 
     }
 }

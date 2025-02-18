@@ -74,6 +74,7 @@
                         </div>
                         @if(isset($nota))
                             <button type="submit" class="btn btn-warning">Editar</button>
+                            <a onclick="return confirm('Deleseja excluir esse registro?')" class="btn btn-danger float-right" href="{{route('contrato.excluir.nota',['id'=>$nota->id])}}">Excluir</a>
                         @else
                             <button type="submit" class="btn btn-success">Cadastrar</button>
                         @endif
@@ -92,9 +93,57 @@
         <div class="col-md-5">
             <div class="card">
                 <div class="card-body">
-                    <a class="btn btn-sm btn-primary" style="color: white" id="btn-camera">camera</a> ou
-                    <input type="file" accept="image/*;capture=camera">
-                    <canvas id="photo"></canvas>
+
+                    <form method="post" action="{{route('contrato.adicionar.imagens')}}" enctype="multipart/form-data" >
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="texto">Imagem ou Foto</label>
+                                @csrf
+                                <input required type="file" accept="image/*;capture=camera" name="imagens[]" class="form-control" multiple>
+                                <input type="hidden" name="id" value="{{$nota->id}}">
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="descricao">Descrição</label>
+
+                                    <textarea class="form-control"  name="descricao"></textarea>
+
+
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                    </form>
+
+                    <table style="margin-top: 15px" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td style="width: 20%">Nome</td>
+                                <td>Texto</td>
+                                <td style="width: 10%">Editar</td>
+                                <td style="width: 10%">Excluir</td>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($nota->imagens as $imagem)
+                            <tr>
+                                <form method="post" action="{{route('contrato.atualizar.imagens')}}">
+                                    <td><img style="height: 60px" src="{{url('/images/notas/'.$imagem->nome)}}" alt="Image"/></td>
+                                    <td>
+                                        <textarea name="texto" class="form-control" imagem-id="{{$imagem->id}}">{{$imagem->texto}}</textarea>
+                                        <input hidden name="id" value="{{$imagem->id}}">
+                                        {{ csrf_field() }}
+                                    </td>
+                                    <td><button  type="submit" href="#" class="btn btn-warning btn-sm">Editar</button>  </td>
+                                    <td><a  type="submit" href="{{route('contrato.excluir.imagens',['id'=>$imagem->id])}}" class="btn btn-danger btn-sm" onclick="return confirm('Deseja excluir esse registro?')">Excluir</a>  </td>
+                                </form>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
         </div>
@@ -102,47 +151,7 @@
 
     </div>
 
-@include("admin.contratos.includes.camera")
 
-    <script type="application/javascript">
-        const video = document.getElementById('camera');
-        const canvas = document.getElementById('photo');
-        const captureBtn = document.getElementById('capture-btn');
-        const closeBtn = document.getElementById('btn-fechar-modal-camera');
-        const abrirCarmeraBtn = document.getElementById('btn-camera');
-        const context = canvas.getContext('2d');
 
-        // Request access to the user's camera
-        document.getElementById('btn-camera').addEventListener('click', () => {
-            $('#modalCamera').modal('show');
-            navigator.mediaDevices.getUserMedia({ video: true,audio:false  })
-                .then((stream) => {
-                    video.srcObject = stream;
-                })
-                .catch((error) => {
-                    console.error("Error accessing the camera: ", error);
-                });
-        });
 
-        // Capture photo on button click
-        captureBtn.addEventListener('click', () => {
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-        });
-        closeBtn.addEventListener('click', () => {
-            $('#modalCamera').modal('hide');
-        });
-        abrirCarmeraBtn.addEventListener('click', () => {
-            $('#modalCamera').modal('show');
-            navigator.mediaDevices.getUserMedia({ video: true,audio:false  })
-                .then((stream) => {
-                    video.srcObject = stream;
-                })
-                .catch((error) => {
-                    console.error("Error accessing the camera: ", error);
-                });
-        });
-    </script>
 @stop
