@@ -25,4 +25,6 @@ class Nota extends Model
     {
         return $this->belongsTo(TipoNota::class,'tipo_nota_id');
     }
+
+
 }

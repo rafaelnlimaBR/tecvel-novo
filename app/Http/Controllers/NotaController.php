@@ -81,12 +81,14 @@ class NotaController extends Controller
     {
         try{
             $nota                   =   Nota::find($r->get('id'));
+            if($nota == null){
+                return redirect()->route('contrato.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>"Nenhuma nota foi encontrada"]);
+            }
             $nota->texto            =   $r->get('texto');
             $nota->historico_id     =   $r->get('historico');
             $nota->tipo_nota_id     =   $r->get('tipo_nota');
-
+            $contrato       =   $nota->historico->contrato;
             if($nota->save()){
-                $contrato       =   $nota->historico->contrato;
                 return redirect()->route('contrato.editar.nota',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'nota_id'=>$nota->id,'pagina'=>'notas'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Nota Atualizada com sucesso"]);
             }
 
