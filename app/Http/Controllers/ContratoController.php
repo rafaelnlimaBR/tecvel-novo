@@ -201,7 +201,7 @@ class ContratoController extends Controller
             $historico_atual                =   $r->get('historico_id');
             $historico                      =   Historico::find($historico_atual);
             $contrato                       =    $historico->contrato;
-            $historico->servicos()->attach($r->get('servico'),['valor'=>$r->get('valor'),'data'=>Carbon::now(),'cobrar'=>$r->get('cobrar')]);
+            $historico->servicos()->attach($r->get('servico'),['valor'=>$r->get('valor'),'data'=>Carbon::now(),'cobrar'=>$r->get('cobrar'),'desconto'=>0,'valor_liquido'=>$r->get('valor')]);
 
             return response()->json(['servico'=>view("admin.contratos.includes.tabela-servico",['contrato'=>$contrato])->render()]);
 
@@ -238,6 +238,8 @@ class ContratoController extends Controller
             $servico                =       MaoObra::find($r->get('servico_id'))   ;
             $servico->valor         =      $r->get('valor');
             $servico->cobrar        =       ($r->get('cobrar')=="1"?true:false);
+            $servico->desconto      =       $r->get('desconto');
+            $servico->valor_liquido =       $r->get('valor_liquido');
             $servico->data          =   Carbon::now();
             $contrato       =   Contrato::find($r->get('contrato_id'));
 

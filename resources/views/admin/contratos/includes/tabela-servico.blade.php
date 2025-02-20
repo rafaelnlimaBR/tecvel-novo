@@ -6,8 +6,10 @@
             <th style="width: 4%; "  scope="col">Item</th>
             <th scope="col">Nome</th>
             <th style="width: 10%; " scope="col">Valor</th>
+            <th style="width: 10%; " scope="col">D%</th>
+            <th style="width: 10%; " scope="col">Valor Total</th>
             <th scope="col" style="width: 10%; " >Cobrar</th>
-            <th style="width: 10%; min-width: 150px;"  scope="col">Criado </th>
+            <th style="width: 10%; min-width: 150px;"  scope="col">Adicionado </th>
             <th style="width: 7%; min-width: 150px;" scope="col">Ações</th>
 
         </tr>
@@ -21,7 +23,9 @@
                 <tr>
                     <td>{{$servico->pivot->id}}</td>
                     <td>{{$servico->nome}}</td>
-                    <td><input class="form-control" name="valor-servico-table" id="valor-servico-{{$servico->pivot->id}}"  value="{{$servico->pivot->valor}}"></td>
+                    <td><input class="form-control calcular-desconto numero" name="valor-servico-table" id="valor-servico-{{$servico->pivot->id}}" servico-id="{{$servico->pivot->id}}" ativo="valor-bruto"  value="{{$servico->pivot->valor}}"></td>
+                    <td><input class="form-control calcular-desconto numero" name="desconto-servico-table" id="desconto-servico-{{$servico->pivot->id}}" servico-id="{{$servico->pivot->id}}" ativo="desconto" value="{{$servico->pivot->desconto}}"></td>
+                    <td><input class="form-control calcular-desconto numero" name="valor-liquido-servico-table" id="valor-liquido-servico-{{$servico->pivot->id}}" servico-id="{{$servico->pivot->id}}" ativo="valor-liquido" value="{{$servico->pivot->valor_liquido}}"></td>
                     <td>
 
                         <select class="form-control" name="cobrar" id="cobrar-servico-{{$servico->pivot->id}}">
@@ -35,7 +39,7 @@
                         </select>
                     </td>
 
-                    <td>{{\Carbon\Carbon::parse($servico->data)->format('d/m/Y')}}</td>
+                    <td>{{\Carbon\Carbon::parse($servico->pivot->data)->format('d/m/Y')}}</td>
 
 
                     <td>
@@ -50,5 +54,5 @@
         </tbody>
 
     </table>
-    <h5><b>Valor Total </b> R$ {{$contrato->somaTotalServicos()}}</h5>
+    <h5><b>Valor Total </b> R$ {{$contrato->totalServicosLiquido()}}</h5>
 </div>

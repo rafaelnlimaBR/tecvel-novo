@@ -80,6 +80,21 @@ class Contrato extends Model
         return $total;
     }
 
+    public function totalServicosLiquido()
+    {
+        $total  =   0;
+        foreach ($this->historicos as $historico){
+            foreach ($historico->servicos as $servico){
+                if($servico->pivot->cobrar == true){
+                    $total += $servico->pivot->valor_liquido;
+                }
+            }
+
+        }
+
+        return $total;
+    }
+
     public function somaTotalPecasAvulsas()
     {
         $total  =   0;

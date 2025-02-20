@@ -154,9 +154,9 @@ class DatabaseSeeder extends Seeder
         ]);
         $this->command->info("Insertindo dados de servicos historico");
         DB::table("historico_servico")->insert([
-            ['historico_id'=>1,"servico_id"=>1,"valor"=>10,"data"=>Carbon::now(),"cobrar"=>false] ,
-            ['historico_id'=>1,"servico_id"=>2,"valor"=>1000,"data"=>Carbon::now(),"cobrar"=>false] ,
-            ['historico_id'=>1,"servico_id"=>3,"valor"=>100,"data"=>Carbon::now(),"cobrar"=>false] ,
+            ['historico_id'=>1,"servico_id"=>1,"valor"=>10,'desconto'=>10,'valor_liquido'=>9,"data"=>Carbon::now(),"cobrar"=>false] ,
+            ['historico_id'=>1,"servico_id"=>2,"valor"=>1000,'desconto'=>10,'valor_liquido'=>990,"data"=>Carbon::now(),"cobrar"=>false] ,
+            ['historico_id'=>1,"servico_id"=>3,"valor"=>100,'desconto'=>10,'valor_liquido'=>90,"data"=>Carbon::now(),"cobrar"=>false] ,
         ]);
 
         $this->command->info("Insertindo dados peças avulsas");
@@ -172,11 +172,11 @@ class DatabaseSeeder extends Seeder
         ]);
         $this->command->info("Insertindo dados peças avulsas em historicos");
         DB::table('historico_peca')->insert([
-            ["historico_id"=>"1","peca_id"=>"1","valor"=>"50",'cobrar'=>0,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-            ["historico_id"=>"1","peca_id"=>"2","valor"=>"250",'cobrar'=>0,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-            ["historico_id"=>"1","peca_id"=>"3","valor"=>"500",'cobrar'=>0,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-            ["historico_id"=>"1","peca_id"=>"4","valor"=>"60",'cobrar'=>0,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-            ["historico_id"=>"1","peca_id"=>"5","valor"=>"77",'cobrar'=>1,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["historico_id"=>"1","peca_id"=>"1","valor"=>"50",'desconto'=>10,'valor_liquido'=>45,'qnt'=>1,'cobrar'=>0,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["historico_id"=>"1","peca_id"=>"2","valor"=>"250",'desconto'=>10,'valor_liquido'=>225,'qnt'=>1,'cobrar'=>0,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["historico_id"=>"1","peca_id"=>"3","valor"=>"500",'desconto'=>10,'valor_liquido'=>450,'qnt'=>1,'cobrar'=>0,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["historico_id"=>"1","peca_id"=>"4","valor"=>"60",'desconto'=>10,'valor_liquido'=>54,'qnt'=>1,'cobrar'=>0,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ["historico_id"=>"1","peca_id"=>"5","valor"=>"77",'desconto'=>10,'valor_liquido'=>69.30,'qnt'=>1,'cobrar'=>1,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
 
         ]);
 

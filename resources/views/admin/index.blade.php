@@ -709,6 +709,8 @@
 
             $('.cep').mask('00000-000');
             $('.dinheiro').mask("00000000.00" , { reverse:true});
+            $('.numero').mask("00000000.00" , { reverse:true});
+
             $('#texto-notesummer').summernote({
                 height: 300,
                 minHeight: 200,
@@ -1083,6 +1085,8 @@
                 var rota            =   $(this).attr('route_update');
                 var valor           =   $('#valor-servico-'+servico_id).val();
                var cobrar           =   $('#cobrar-servico-'+servico_id).val();
+               var valor_liquido    =   $('#valor-liquido-servico-'+servico_id).val();
+               var desconto         =   $('#desconto-servico-'+servico_id).val();
                var  contrato_id     =   $(this).attr('contrato_id');
 
                 $.ajax({
@@ -1096,7 +1100,9 @@
                         'servico_id'                :   servico_id,
                         'valor'              :   valor,
                         'cobrar'            :   cobrar,
-                        'contrato_id'       :   contrato_id
+                        'contrato_id'       :   contrato_id,
+                        'desconto'          :   desconto,
+                        'valor_liquido'     :   valor_liquido
 
                     },
                     success: function( data )
@@ -1744,6 +1750,29 @@
                 else {
                     //cep sem valor, limpa formulário.
                     limpa_formulário_cep();
+                }
+            });
+
+
+
+            $('#servicos').on('keyup','.calcular-desconto',function () {
+                var servico_id      =    $(this).attr("servico-id");
+                var desconto        =   $("#desconto-servico-"+servico_id).val();
+                var valor_liquido   =   $("#valor-liquido-servico-"+servico_id).val();
+                var valor_bruto     =   $("#valor-servico-"+servico_id).val();
+
+                if($(this).attr("ativo") == 'valor-bruto'){
+                    $("#valor-liquido-servico-"+servico_id).val(parseFloat((valor_bruto*(100-desconto))/100).toFixed(2));
+                }else if($(this).attr("ativo") == 'desconto'){
+                    // if($("#valor-liquido-servico-"+servico_id).val() == null){
+                    //     $("#valor-liquido-servico-"+servico_id).val(0)
+                    // }
+                    $("#valor-liquido-servico-"+servico_id).val(parseFloat((valor_bruto*(100-desconto))/100).toFixed(2));
+                }else if($(this).attr("ativo") == 'valor-liquido'){
+                    // if($("#valor-liquido-servico-"+servico_id).val() == null){
+                    //     $("#valor-liquido-servico-"+servico_id).val(0)
+                    // }
+                        $("#desconto-servico-"+servico_id).val(parseFloat(100-((valor_liquido*100)/valor_bruto)).toFixed(2));
                 }
             });
 

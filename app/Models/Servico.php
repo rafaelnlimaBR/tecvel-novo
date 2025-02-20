@@ -17,6 +17,6 @@ class Servico extends Model
 
     public function historicos()
     {
-        return $this->belongsToMany(Historico::class,'historico_servico','historico_id',"servico_id")->withPivot('id','valor','data')->withTimestamps();
+        return $this->belongsToMany(Historico::class,'historico_servico','historico_id',"servico_id")->withPivot('id','valor','data','valor_liquido','desconto')->withTimestamps();
     }
 }
