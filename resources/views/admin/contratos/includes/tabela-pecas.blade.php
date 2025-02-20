@@ -7,8 +7,12 @@
             <th style="width: 4%; "  scope="col">Item</th>
             <th scope="col">Nome</th>
             <th style="width: 10%; " scope="col">Valor</th>
-            <th style="width: 15%; " scope="col">Marca</th>
-            <th scope="col" style="width: 10%; " >Cobrar</th>
+            <th style="width: 10%; " scope="col">Qnt</th>
+            <th style="width: 10%; " scope="col">Valor Total</th>
+            <th style="width: 10%; " scope="col">Desconto</th>
+            <th style="width: 10%; " scope="col">Valor Final</th>
+            <th style="width: 10%; " scope="col">Marca</th>
+{{--            <th scope="col" style="width: 10%; " >Cobrar</th>--}}
             <th style="width: 10%; min-width: 150px;"  scope="col">Criado </th>
             <th style="width: 7%; min-width: 150px;" scope="col">Ações</th>
 
@@ -24,8 +28,12 @@
                     <td>{{$peca->pivot->id}}</td>
                     <td>{{$peca->nome}}</td>
                     <td><input class="form-control" name="valor-peca-table" id="valor-peca-{{$peca->pivot->id}}"  value="{{$peca->pivot->valor}}"> </td>
+                    <td><input class="form-control" type="number" name="qnt-peca-table" id="qnt-peca-{{$peca->pivot->id}}"  value="{{$peca->pivot->qnt}}"> </td>
+                    <td><input disabled class="form-control"  name="valor-total-peca-table" id="valor-total-peca-{{$peca->pivot->id}}"  value="{{$peca->pivot->qnt*$peca->pivot->valor}}"> </td>
+                    <td><input class="form-control" name="desconto-peca-table" id="desconto-peca-{{$peca->pivot->id}}"  value="{{$peca->pivot->desconto}}"> </td>
+                    <td><input class="form-control" name="desconto-peca-table" id="desconto-peca-{{$peca->pivot->id}}"  value="{{$peca->pivot->desconto}}"> </td>
                     <td><input class="form-control caixa-alta" name="marca-peca-table" id="marca-peca-{{$peca->pivot->id}}"  value="{{$peca->pivot->marca}}"></td>
-                    <td>
+                    {{--<td>
 
                         <select class="form-control" name="cobrar" id="cobrar-peca-{{$peca->pivot->id}}">
                             @if($peca->pivot->cobrar == true)
@@ -36,7 +44,7 @@
                                 <option value="0" selected>Não</option>
                             @endif
                         </select>
-                    </td>
+                    </td>--}}
 
                     <td>{{\Carbon\Carbon::parse($peca->data)->format('d/m/Y') }}</td>
 
