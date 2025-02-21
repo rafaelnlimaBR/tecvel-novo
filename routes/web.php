@@ -122,7 +122,7 @@ Route::get('/tipopagamentos/formas/json', [App\Http\Controllers\TipoPagamentoCon
 Route::get('/forma', [App\Http\Controllers\TipoPagamentoController::class, 'forma'])->name('forma.json');
 
 
-
+Route::get('/contrato/abrir/{token}/{id}', [App\Http\Controllers\ContratoController::class, 'abrir'])->name('contrato.abrir');
 
 
 View::composer(['admin.contatos.formulario','admin.contatos.tabela','admin.clientes.formulario-modal'],function($view){
@@ -152,9 +152,10 @@ View::composer(['admin.entradas.formulario'],function($view){
 
 
 Route::get('/',function(    ){
-   return \App\Models\ImagensNota::create(['nome'=>'teste']);
 
 
+    $contrato   =   Contrato::find(1);
+    return $contrato->tokens;
 
 
 

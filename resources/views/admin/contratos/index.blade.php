@@ -70,7 +70,8 @@
 
 
                                 <td>
-                                    <a href="{{route('contrato.visualizacao',['id'=>$contrato->id])}}" class="btn btn-sm btn-primary" style="padding-top: 0; padding-bottom: 0"><i class="fa   fa-sign-out"></i></a>
+{{--                                    <a href="{{route('contrato.visualizacao',['id'=>$contrato->id])}}" class="btn btn-sm btn-primary" style="padding-top: 0; padding-bottom: 0"><i class="fa   fa-sign-out"></i></a>--}}
+                                    <a href="{{route('contrato.abrir',['token'=>$contrato->tokens->last()->token,'id'=>$contrato->id])}}" class="btn btn-sm btn-primary" style="padding-top: 0; padding-bottom: 0"><i class="fa   fa-sign-out"></i></a>
                                     <a href="{{route('contrato.editar',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'pagina'=>'dados'])}}" class="btn btn-sm btn-warning" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-pencil-square"></i></a>
                                     <button class="btn btn-sm btn-danger" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-trash-o"></i></button>
 

@@ -39,6 +39,11 @@ class Contrato extends Model
         return $this->belongsToMany(Entrada::class,'contrato_entrada');
     }
 
+    public function tokens()
+    {
+        return $this->hasMany(TokenContrato::class,'contrato_id');
+    }
+
     public function scopePesquisarPorCliente($query, $nome)
     {
 
@@ -109,5 +114,7 @@ class Contrato extends Model
 
         return $total;
     }
+
+
 
 }

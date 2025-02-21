@@ -10,6 +10,7 @@ use App\Models\Contato;
 use App\Models\Montadoras;
 use \Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use PhpParser\Node\Stmt\Catch_;
 
 class DatabaseSeeder extends Seeder
 {
@@ -126,13 +127,15 @@ class DatabaseSeeder extends Seeder
 
         $this->command->info("Insertindo dados do contratos");
         DB::table("contratos")->insert([
-            ['cliente_id'=>10,"veiculo_id"=>1,"defeito"=>"teste","solucao"=>"teste","garantia"=>Carbon::now(),'token'=>Str::random(60)] ,
+            ['cliente_id'=>10,"veiculo_id"=>1,"defeito"=>"teste","solucao"=>"teste","garantia"=>Carbon::now()] ,
 
         ]);
-        $this->command->info("Insertindo dados do historicos");
-        DB::table("historicos")->insert([
-            ['contrato_id'=>1,"status_id"=>1,"data"=>Carbon::now(),"obs"=>"teste"] ,
-
+        DB::table('historicos')->insert([
+            ['data'=>Carbon::now(),'obs'=>'awd','status_id'=>1,'contrato_id'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]
+        ]);
+        $this->command->info("Insertindo token de acesso para contratos");
+        DB::table("token_contrato")->insert([
+            ['contrato_id'=>1,"token"=>Str::random(50),'dias_expirar'=>90,'data_vencimento'=>Carbon::now()->addDays(90),'acessos'=>0,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]
         ]);
         $this->command->info("Insertindo dados de Tipo de Notas");
         DB::table("tipos_notas")->insert([
@@ -170,15 +173,15 @@ class DatabaseSeeder extends Seeder
             ["nome"=>"Filtro de combustivel","valor"=>"50",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
 
         ]);
-        $this->command->info("Insertindo dados peças avulsas em historicos");
-        DB::table('historico_peca')->insert([
-            ["historico_id"=>"1","peca_id"=>"1","valor"=>"50",'desconto'=>10,'valor_liquido'=>45,'qnt'=>1,'cobrar'=>0,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-            ["historico_id"=>"1","peca_id"=>"2","valor"=>"250",'desconto'=>10,'valor_liquido'=>225,'qnt'=>1,'cobrar'=>0,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-            ["historico_id"=>"1","peca_id"=>"3","valor"=>"500",'desconto'=>10,'valor_liquido'=>450,'qnt'=>1,'cobrar'=>0,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-            ["historico_id"=>"1","peca_id"=>"4","valor"=>"60",'desconto'=>10,'valor_liquido'=>54,'qnt'=>1,'cobrar'=>0,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-            ["historico_id"=>"1","peca_id"=>"5","valor"=>"77",'desconto'=>10,'valor_liquido'=>69.30,'qnt'=>1,'cobrar'=>1,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-
-        ]);
+//        $this->command->info("Insertindo dados peças avulsas em historicos");
+//        DB::table('historico_peca')->insert([
+//            ["historico_id"=>"1","peca_id"=>"1","valor"=>"50",'desconto'=>10,'valor_liquido'=>45,'qnt'=>1,'cobrar'=>0,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+//            ["historico_id"=>"1","peca_id"=>"2","valor"=>"250",'desconto'=>10,'valor_liquido'=>225,'qnt'=>1,'cobrar'=>0,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+//            ["historico_id"=>"1","peca_id"=>"3","valor"=>"500",'desconto'=>10,'valor_liquido'=>450,'qnt'=>1,'cobrar'=>0,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+//            ["historico_id"=>"1","peca_id"=>"4","valor"=>"60",'desconto'=>10,'valor_liquido'=>54,'qnt'=>1,'cobrar'=>0,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+//            ["historico_id"=>"1","peca_id"=>"5","valor"=>"77",'desconto'=>10,'valor_liquido'=>69.30,'qnt'=>1,'cobrar'=>1,'marca'=>'original','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+//
+//        ]);
 
         DB::table('configuracao')->insert([
             'nome_principal'        =>  "Tecvel",

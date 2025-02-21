@@ -21,7 +21,7 @@ return new class extends Migration
 
             $table->text('solucao')->nullable();
             $table->date('garantia');
-            $table->text('token');
+//            $table->text('token');
             $table->timestamps();
         });
     }
