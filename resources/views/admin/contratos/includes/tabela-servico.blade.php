@@ -9,7 +9,7 @@
             <th style="width: 10%; " scope="col">D%</th>
             <th style="width: 10%; " scope="col">Valor Total</th>
             <th scope="col" style="width: 10%; " >Cobrar</th>
-            <th style="width: 10%; min-width: 150px;"  scope="col">Adicionado </th>
+
             <th style="width: 7%; min-width: 150px;" scope="col">Ações</th>
 
         </tr>
@@ -21,7 +21,7 @@
         @foreach ($contrato->historicos as $historico)
             @foreach($historico->servicos as $servico)
                 <tr>
-                    <td>{{$servico->pivot->id}}</td>
+                    <td>{{$historico->id.'.'.$servico->pivot->id}}</td>
                     <td>{{$servico->nome}}</td>
                     <td><input class="form-control calcular-desconto numero" name="valor-servico-table" id="valor-servico-{{$servico->pivot->id}}" servico-id="{{$servico->pivot->id}}" ativo="valor-bruto"  value="{{$servico->pivot->valor}}"></td>
                     <td><input class="form-control calcular-desconto numero" name="desconto-servico-table" id="desconto-servico-{{$servico->pivot->id}}" servico-id="{{$servico->pivot->id}}" ativo="desconto" value="{{$servico->pivot->desconto}}"></td>
@@ -39,7 +39,7 @@
                         </select>
                     </td>
 
-                    <td>{{\Carbon\Carbon::parse($servico->pivot->data)->format('d/m/Y')}}</td>
+
 
 
                     <td>

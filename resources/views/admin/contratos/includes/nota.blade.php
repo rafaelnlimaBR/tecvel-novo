@@ -60,7 +60,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label for="texto">Descrição</label>
-                                <textarea  required name="texto" class="form-control" id="texto-notesummer">{{isset($nota)?$nota->texto:''}}</textarea>
+                                <textarea  required name="texto" class="form-control texto-notesummer" id="">{{isset($nota)?$nota->texto:''}}</textarea>
                             </div>
 
 

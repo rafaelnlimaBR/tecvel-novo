@@ -270,7 +270,18 @@ class ContratoController extends Controller
             }
             $historico                      =   Historico::find( $r->get('historico_id'));
             $contrato                       =   $historico->contrato;
-            $historico->pecas()->attach($peca->id,['valor'=>$r->get('valor'),'cobrar'=>$r->get('cobrar'),'marca'=>$r->get('marca-peca')]);
+            $desconto                       =   $r->get('desconto');
+            $qnt                            =   $r->get('qnt');
+            $valor                          =   $r->get('valor');
+            $valor_total                    =   $qnt*$valor;
+            $valor_liquido                  =   ((100-$desconto)/100)*$valor_total;
+            $cobrar                         =   0;
+            if($r->has('cobrar')){
+                $cobrar     =   $r->get('cobrar');
+            }else{
+                $cobrar     =   $contrato->status->last()->cobrar;
+            }
+            $historico->pecas()->attach($peca->id,['valor'=>$valor,'cobrar'=>$cobrar,'marca'=>$r->get('marca-peca'),'qnt'=>$r->get('qnt'),'desconto'=>$desconto,'valor_total'=>$valor_total,'valor_liquido'=>$valor_liquido]);
 
             return response()->json(['peca'=>view("admin.contratos.includes.tabela-pecas",['contrato'=>$contrato])->render()]);
 
@@ -307,6 +318,10 @@ class ContratoController extends Controller
             $peca->valor         =      $r->get('valor');
             $peca->cobrar        =       ($r->get('cobrar')=="1"?true:false);
             $peca->marca         =      $r->get('marca');
+            $peca->qnt           =      $r->get('qnt');
+            $peca->valor_total   =      $r->get('valor_bruto_total');
+            $peca->desconto     =       $r->get('desconto');
+            $peca->valor_liquido =      $r->get('valor_liquido');
             $contrato       =   Contrato::find($r->get('contrato_id'));
 
             if($peca->save()){

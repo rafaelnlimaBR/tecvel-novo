@@ -41,11 +41,11 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="defeito">Defeito </label>
-                    <textarea style="min-height: 150px" class="form-control " name="defeito">{{isset($contrato)?$contrato->defeito:""}}</textarea>
+                    <textarea style="min-height: 150px" class="form-control texto-notesummer" name="defeito">{{isset($contrato)?$contrato->defeito:""}}</textarea>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="solucao">Solução </label>
-                    <textarea style="min-height: 150px" class="form-control " name="solucao">{{isset($contrato)?$contrato->solucao:""}}</textarea>
+                    <textarea style="min-height: 150px" class="form-control texto-notesummer" name="solucao">{{isset($contrato)?$contrato->solucao:""}}</textarea>
                 </div>
 
 
@@ -53,7 +53,7 @@
             <div class="form-row">
                 <div class="form-group col-md-2">
                     <label for="garantia">Garantia </label>
-                    <input class="form-control date-time" required name="garantia" value="{{isset($contrato)?\Carbon\Carbon::parse($contrato->garantia)->format('d/m/Y'):\Carbon\Carbon::now()->addDay(90)->format('d/m/Y')}}">
+                    <input class="form-control date-time " required name="garantia" value="{{isset($contrato)?\Carbon\Carbon::parse($contrato->garantia)->format('d/m/Y'):\Carbon\Carbon::now()->addDay(90)->format('d/m/Y')}}">
                 </div>
 
 

@@ -707,11 +707,9 @@
 
 
 
-            $('.cep').mask('00000-000');
-            $('.dinheiro').mask("00000000.00" , { reverse:true});
-            $('.numero').mask("00000000.00" , { reverse:true});
 
-            $('#texto-notesummer').summernote({
+
+            $('.texto-notesummer').summernote({
                 height: 300,
                 minHeight: 200,
                 toolbar: [
@@ -725,9 +723,19 @@
                 ]
 
             });
-            $('.caixa-alta').keyup(function() {
-                this.value = this.value.toLocaleUpperCase();
+
+            $('.sticky-header').on('keyup','.dinheiro',function () {
+                $(this).mask("00000000.00" , { reverse:true});
             });
+            $('.sticky-header').on('keyup','.numero',function () {
+                $(this).mask("00000000.00" , { reverse:true});
+            });
+            $('.sticky-header').on('keyup','.caixa-alta',function () {
+                this.value = this.value.toLocaleUpperCase();
+            })
+            $('.cep').mask('00000-000');
+
+
             $('.caixa-baixa').keyup(function() {
                 this.value = this.value.toLocaleLowerCase();
             });
@@ -1128,6 +1136,10 @@
                 var peca_id      =   $(this).attr('peca_id');
                 var rota            =   $(this).attr('route_update');
                 var valor           =   $('#valor-peca-'+peca_id).val();
+                var qnt             =   $('#qnt-peca-'+peca_id).val();
+                var valor_bruto_total   =   valor*qnt;
+                var desconto        =   $('#desconto-peca-'+peca_id).val();
+                var valor_liquido_total =   $('#valor-liquido-'+peca_id).val();
                 var cobrar           =   $('#cobrar-peca-'+peca_id).val();
                 var marca           =   $('#marca-peca-'+peca_id).val();
                 var  contrato_id     =   $(this).attr('contrato_id');
@@ -1144,7 +1156,11 @@
                         'valor'              :   valor,
                         'cobrar'            :   cobrar,
                         'contrato_id'       :   contrato_id,
-                        'marca'             :   marca
+                        'marca'             :   marca,
+                        'qnt'               :   qnt,
+                        'desconto'          :   desconto,
+                        'valor_bruto_total' :   valor_bruto_total,
+                        'valor_liquido'     :   valor_liquido_total
 
                     },
                     success: function( data )
@@ -1753,7 +1769,36 @@
                 }
             });
 
+            $('#tabela-pecas-atualizavel').on('keyup','.calcular-valor-pecas',function () {
+                // console.log('deu');
+                var peca_id         =   $(this).attr('peca_id');
+                var valor_bruto     =   $('#valor-peca-'+peca_id).val();
+                var qnt             =   $('#qnt-peca-'+peca_id).val();
+                var valor_bruto_total   =   valor_bruto*qnt;
+                var desconto        =   $('#desconto-peca-'+peca_id).val();
+                var valor_liquido_total =   $('#valor-liquido-'+peca_id).val();
+                console.log(valor_bruto_total)
 
+                if($(this).attr("ativo") == 'valor-peca') {
+                    $('#valor-total-peca-'+peca_id).val(parseFloat(valor_bruto_total).toFixed(2));
+                    $('#valor-liquido-'+peca_id).val(parseFloat(valor_bruto_total*((100-desconto)/100)).toFixed(2));
+                }else if($(this).attr("ativo") == 'qnt-peca'){
+                    $('#valor-total-peca-'+peca_id).val(parseFloat(valor_bruto_total).toFixed(2));
+                    $('#valor-liquido-'+peca_id).val(parseFloat(valor_bruto_total*((100-desconto)/100)).toFixed(2));
+                }else if($(this).attr("ativo") == 'desconto-peca'){
+                    $('#valor-liquido-'+peca_id).val(parseFloat(valor_bruto_total*((100-desconto)/100)).toFixed(2));
+                }else if($(this).attr("ativo") == 'valor-liquido-peca'){
+                    var desconto    =   parseFloat(100-((valor_liquido_total*100)/valor_bruto_total)).toFixed(2);
+
+                    if(desconto < 0){
+
+                        $("#desconto-peca-"+peca_id).css("background-color", 'red').css('color','white');
+                    }else{
+                        $("#desconto-peca-"+peca_id).css("background-color", 'white').css('color','#495057');
+                    }
+                    $("#desconto-peca-"+peca_id).val(desconto);
+                }
+            });
 
             $('#servicos').on('keyup','.calcular-desconto',function () {
                 var servico_id      =    $(this).attr("servico-id");
@@ -1772,7 +1817,16 @@
                     // if($("#valor-liquido-servico-"+servico_id).val() == null){
                     //     $("#valor-liquido-servico-"+servico_id).val(0)
                     // }
-                        $("#desconto-servico-"+servico_id).val(parseFloat(100-((valor_liquido*100)/valor_bruto)).toFixed(2));
+
+                    var desconto    =   parseFloat(100-((valor_liquido*100)/valor_bruto)).toFixed(2);
+
+                    if(desconto < 0){
+
+                        $("#desconto-servico-"+servico_id).css("background-color", 'red').css('color','white');
+                    }else{
+                        $("#desconto-servico-"+servico_id).css("background-color", 'white').css('color','#495057');
+                    }
+                        $("#desconto-servico-"+servico_id).val(desconto);
                 }
             });
 

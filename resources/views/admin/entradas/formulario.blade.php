@@ -130,4 +130,9 @@
         </div>
 
     </div>
-
+<script type="text/javascript">
+    window.onload = function(){
+        console.log('Onload disparado');
+        atualizarDadosPagamentos();
+    }
+</script>
