@@ -19,7 +19,6 @@
         <link href="{{ URL::asset('/css/menu.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ URL::asset('/plugins/colorpicker/colorpicker.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ URL::asset('/plugins/summernote/summernote-bs4.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ URL::asset('/plugins/baguetteBox/baguetteBox.scss') }}" rel="stylesheet" type="text/css">
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
         <link href="{{ URL::asset('/css/style.css') }}" rel="stylesheet">
@@ -683,7 +682,7 @@
         <script src="{{ URL::asset('/plugins/colorpicker/jquery-asColor.js') }}"></script>
         <script src="{{ URL::asset('/plugins/summernote/summernote-bs4.js') }}"></script>
         <script src="{{ URL::asset('/plugins/webcam/webcam.js') }}"></script>
-        <script src="{{ URL::asset('/plugins/baguetteBox/baguetteBox.js') }}"></script>
+
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
@@ -783,10 +782,6 @@
             });
 
 
-            baguetteBox.run('.galeriaNotas',{
-                buttons: true,
-                captions:true
-            });
 
             $('.botao-mudar-status').click(function(){
                 var status      =   $(this).attr('status');

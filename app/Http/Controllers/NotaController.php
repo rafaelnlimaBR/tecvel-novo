@@ -133,7 +133,9 @@ class NotaController extends Controller
             $contrato   =   $nota->historico->contrato;
 
             foreach($r->file('imagens') as $i=> $image){
-
+                if (!file_exists(public_path('/images/notas/'))){
+                    mkdir(public_path('/images/notas/'), 0777, true);
+                }
                 $filename="";
                 $filename = $r->get('id').'-'.Str::random(16).'.'.$image->getClientOriginalExtension();
 
@@ -149,7 +151,7 @@ class NotaController extends Controller
             return redirect()->route('contrato.editar.nota',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'nota_id'=>$nota->id,'pagina'=>'notas'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Imagem registrada com sucesso"]);
 
         }catch (\Exception $e){
-            return $e->getMessage();
+            return redirect()->route('contrato.editar.nota',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'nota_id'=>$nota->id,'pagina'=>'notas'])->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage()]);
         }
     }
 
