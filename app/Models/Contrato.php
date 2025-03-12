@@ -115,6 +115,21 @@ class Contrato extends Model
         return $total;
     }
 
+    public function totalPecasAvulsasLiquido()
+    {
+        $total  =   0;
+        foreach ($this->historicos as $historico){
+            foreach ($historico->pecas as $peca){
+                if($peca->pivot->cobrar == true){
+                    $total += $peca->pivot->valor_liquido;
+                }
+            }
+
+        }
+
+        return $total;
+    }
+
 
 
 }

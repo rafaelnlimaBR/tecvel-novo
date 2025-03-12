@@ -14,7 +14,7 @@
                 <label for="valor">Valor</label>
                 <input required type="text" class="form-control" id="valor-servico" placeholder="valor" name="valor">
             </div>
-            <div class="form-group col-md-2">
+            {{--<div class="form-group col-md-2">
                 <label for="cobrar">Cobrar</label>
                 <select class="form-control" name="cobrar" id="cobrar-servico">
                     @if($historico->status->cobrar == true)
@@ -25,7 +25,7 @@
                         <option value="0" selected>Não</option>
                     @endif
                 </select>
-            </div>
+            </div>--}}
             <div class="form-group col-md-1">
                 <label for="botao-adicionar">Adicionar</label>
                 <button  type="submit" class="form-control btn btn-primary" name="botao-adicionar">Adicionar</button>

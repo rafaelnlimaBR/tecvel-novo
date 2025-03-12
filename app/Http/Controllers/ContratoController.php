@@ -200,8 +200,9 @@ class ContratoController extends Controller
         try {
             $historico_atual                =   $r->get('historico_id');
             $historico                      =   Historico::find($historico_atual);
+            $cobrar                         =   $historico->status->cobrar;
             $contrato                       =    $historico->contrato;
-            $historico->servicos()->attach($r->get('servico'),['valor'=>$r->get('valor'),'data'=>Carbon::now(),'cobrar'=>$r->get('cobrar'),'desconto'=>0,'valor_liquido'=>$r->get('valor')]);
+            $historico->servicos()->attach($r->get('servico'),['valor'=>$r->get('valor'),'data'=>Carbon::now(),'cobrar'=>$cobrar,'desconto'=>0,'valor_liquido'=>$r->get('valor')]);
 
             return response()->json(['servico'=>view("admin.contratos.includes.tabela-servico",['contrato'=>$contrato])->render()]);
 
@@ -237,7 +238,8 @@ class ContratoController extends Controller
 //            return response()->json($r->all());
             $servico                =       MaoObra::find($r->get('servico_id'))   ;
             $servico->valor         =      $r->get('valor');
-            $servico->cobrar        =       ($r->get('cobrar')=="1"?true:false);
+//            $servico->cobrar        =       ($r->get('cobrar')=="1"?true:false);
+            $servico->cobrar        =       $servico->historico->status->cobrar;
             $servico->desconto      =       $r->get('desconto');
             $servico->valor_liquido =       $r->get('valor_liquido');
             $servico->data          =   Carbon::now();
@@ -313,10 +315,10 @@ class ContratoController extends Controller
     public function atualizarPeca(Request $r)
     {
         try {
-//            return response()->json($r->all());
             $peca                =       Avulsa::find($r->get('peca_id'))   ;
             $peca->valor         =      $r->get('valor');
-            $peca->cobrar        =       ($r->get('cobrar')=="1"?true:false);
+//            $peca->cobrar        =       ($r->get('cobrar')=="1"?true:false);
+            $peca->cobrar        =      $peca->historico->status->cobrar;
             $peca->marca         =      $r->get('marca');
             $peca->qnt           =      $r->get('qnt');
             $peca->valor_total   =      $r->get('valor_bruto_total');
@@ -342,7 +344,7 @@ class ContratoController extends Controller
 
         $dados = [
             'titulo'        => "Pagamento",
-            'valor'         =>  $contrato->somaTotalPecasAvulsas()+$contrato->somaTotalServicos(),
+            'valor'         =>  $contrato->totalPecasAvulsasLiquido()+$contrato->totalServicosLiquido(),
             'contrato'      => $contrato,
             'id'            => $contrato->id
         ];

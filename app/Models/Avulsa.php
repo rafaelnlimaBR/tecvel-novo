@@ -11,4 +11,8 @@ class Avulsa extends Model
     protected $table    =   'historico_peca';
 
 
+    public function historico()
+    {
+        return $this->belongsTo(Historico::class);
+    }
 }

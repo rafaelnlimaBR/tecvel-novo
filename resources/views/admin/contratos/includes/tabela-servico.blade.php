@@ -5,12 +5,12 @@
         <tr>
             <th style="width: 4%; "  scope="col">Item</th>
             <th scope="col">Nome</th>
-            <th style="width: 10%; " scope="col">Valor</th>
-            <th style="width: 10%; " scope="col">D%</th>
-            <th style="width: 10%; " scope="col">Valor Total</th>
-            <th scope="col" style="width: 10%; " >Cobrar</th>
+            <th style="width: 13%; " scope="col">Valor</th>
+            <th style="width: 13%; " scope="col">D%</th>
+            <th style="width: 13%; " scope="col">Valor Total</th>
+{{--            <th scope="col" style="width: 10%; " >Cobrar</th>--}}
 
-            <th style="width: 7%; min-width: 150px;" scope="col">Ações</th>
+            <th style="width: 5%; min-width: 100px;" scope="col">Ações</th>
 
         </tr>
         </thead>
@@ -26,7 +26,7 @@
                     <td><input class="form-control calcular-desconto numero" name="valor-servico-table" id="valor-servico-{{$servico->pivot->id}}" servico-id="{{$servico->pivot->id}}" ativo="valor-bruto"  value="{{$servico->pivot->valor}}"></td>
                     <td><input class="form-control calcular-desconto numero" name="desconto-servico-table" id="desconto-servico-{{$servico->pivot->id}}" servico-id="{{$servico->pivot->id}}" ativo="desconto" value="{{$servico->pivot->desconto}}"></td>
                     <td><input class="form-control calcular-desconto numero" name="valor-liquido-servico-table" id="valor-liquido-servico-{{$servico->pivot->id}}" servico-id="{{$servico->pivot->id}}" ativo="valor-liquido" value="{{$servico->pivot->valor_liquido}}"></td>
-                    <td>
+                    {{--<td>
 
                         <select class="form-control" name="cobrar" id="cobrar-servico-{{$servico->pivot->id}}">
                             @if($servico->pivot->cobrar == true)
@@ -37,7 +37,7 @@
                                 <option value="0" selected>Não</option>
                             @endif
                         </select>
-                    </td>
+                    </td>--}}
 
 
 

@@ -11,6 +11,9 @@ class MaoObra extends Model
 
     protected $table    =   "historico_servico";
 
-
+    public function historico()
+    {
+        return $this->belongsTo(Historico::class,'historico_id','id');
+    }
 
 }
