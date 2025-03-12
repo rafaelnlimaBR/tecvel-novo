@@ -24,9 +24,7 @@ class Contrato extends Model
         if(!$contrato->tokens()->where('token',$token)->exists()){
             throw new \Exception("Token inexistente");
         }
-
         if($contrato->tokens()->where('token',$token)->first()->data_vencimento < \Carbon\Carbon::now()){
-
             throw new \Exception("Token expirado");
         }
         return true;
