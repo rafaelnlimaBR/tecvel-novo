@@ -135,7 +135,7 @@ class DatabaseSeeder extends Seeder
         ]);
         $this->command->info("Insertindo token de acesso para contratos");
         DB::table("tokens")->insert([
-            ["token"=>Str::random(50),'dias_expirar'=>90,'data_vencimento'=>Carbon::now()->addDays(90),'acessos'=>0,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]
+            ["token"=>Str::random(50),'dias_expirar'=>90,'data_vencimento'=>Carbon::now()->addDays(90),'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]
         ]);
         $this->command->info("Vinculando token de acesso ao contrato");
         DB::table("contrato_token")->insert([
