@@ -4,11 +4,34 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Contrato extends Model
 {
     use HasFactory;
     protected $table    =   'contratos';
+    private $config     ;
+
+    public function __construct()
+    {
+        $this->config     =   Configuracao::all()->last();
+    }
+
+    public function validarToken($token)
+    {
+        $contrato   =   $this;
+
+        if(!$contrato->tokens()->where('token',$token)->exists()){
+            throw new \Exception("Token inexistente");
+        }
+
+        if($contrato->tokens()->where('token',$token)->first()->data_vencimento < \Carbon\Carbon::now()){
+
+            throw new \Exception("Token expirado");
+        }
+        return true;
+    }
+
     public function cliente()
     {
         return $this->belongsTo(Cliente::class);
@@ -41,7 +64,7 @@ class Contrato extends Model
 
     public function tokens()
     {
-        return $this->hasMany(TokenContrato::class,'contrato_id');
+        return $this->belongsToMany(Token::class,'contrato_token','contrato_id','token_id')->withTimestamps();
     }
 
     public function scopePesquisarPorCliente($query, $nome)
@@ -130,6 +153,42 @@ class Contrato extends Model
         return $total;
     }
 
+    public function getToken()
+    {
+        $contrato   =   $this;
+        $token      =   "";
+        if($contrato->tokens->count() == 0){
+            $token  =   new \App\Models\Token();
+            $token->token       =   Str::random(50);
+            $token->dias_expirar    =   $this->config->dias_expirar_token;
+            $token->data_vencimento =   \Carbon\Carbon::now()->addDays($this->config->dias_expirar_token);
+            if($token->save()){
+                $contrato->tokens()->save($token);
+                $token  =   $contrato->tokens->last();
+            }
+
+        }else{
+            $resultado  =   $contrato->tokens->last()->data_vencimento <= \Carbon\Carbon::now();
+
+            if($resultado){
+                $dias       =   $this->config->dias_expirar_token;;
+                $token  =   new \App\Models\Token();
+                $token->token       =   Str::random(50);
+                $token->dias_expirar    =   $dias;
+                $token->data_vencimento =   \Carbon\Carbon::now()->addDays($dias);
+
+                if($token->save()){
+                    $contrato->tokens()->save($token);
+                    $token  =   $contrato->tokens->last();
+                }
+
+            }else{
+
+                $token  =   $contrato->tokens->last();
+            }
+        }
+        return $token;
+    }
 
 
 }

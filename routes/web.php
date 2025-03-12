@@ -13,6 +13,7 @@ use \App\Models\Montadora;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -142,8 +143,8 @@ View::composer(['admin.entradas.formulario'],function($view){
     $conf       =   Configuracao::all()->last();
     $tipo       =   TipoPagamento::find(FormaPagamento::find($conf->forma_pagamento_preferido)->tipo_id);
     $view->with([
-        'tipos'        =>\App\Models\TipoPagamento::all(),
-        'forma_pagamento_preferida'=>   $conf->forma_pagamento_preferido,
+        'tipos'                     =>\App\Models\TipoPagamento::all(),
+        'forma_pagamento_preferida' =>   $conf->forma_pagamento_preferido,
         'formas'                    =>  $tipo->formas,
         'tipo_pagamento_preferido'  =>  $tipo->id
     ]);
@@ -151,11 +152,19 @@ View::composer(['admin.entradas.formulario'],function($view){
 
 
 
-Route::get('/',function(    ){
+Route::get('/garantia/{token}-{id}', [App\Http\Controllers\Front\SiteController::class, 'contrato'])->name('site.contrato');
 
 
+Route::get('/teste',function(    ){
     $contrato   =   Contrato::find(1);
-    return $contrato->tokens;
+
+    return $contrato->tokens()->where('token','7z86pqzpeExIjyS0x5ZyqoxuVskA6WWLJZyaA27tCa0KeA1P7M')->exists();
+
+    if($contrato->tokens->last()->data_vencimento >= \Carbon\Carbon::now()){
+        return \view('Front.contrato')->with('contrato',$contrato);
+    }else{
+        echo "Não permitido";
+    }
 
 
 

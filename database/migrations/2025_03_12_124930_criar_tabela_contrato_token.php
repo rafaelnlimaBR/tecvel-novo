@@ -13,17 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('token_contrato', function (Blueprint $table) {
+        Schema::create('contrato_token', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('token');
-            $table->integer('dias_expirar')->default(1);
-            $table->dateTime('data_vencimento');
-            $table->integer('acessos')->default(0);
-            $table->timestamps();
-
             $table->foreignId('contrato_id')->constrained('contratos','id')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('token_id')->constrained('tokens','id')->onDelete('cascade')->onUpdate('cascade');
+            $table->timestamps();
         });
-
     }
 
     /**
@@ -33,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('token_contrato');
+        Schema::dropIfExists('contrato_token');
     }
 };

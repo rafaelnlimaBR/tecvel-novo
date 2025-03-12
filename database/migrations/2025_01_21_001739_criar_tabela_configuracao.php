@@ -33,6 +33,7 @@ return new class extends Migration
             $tabela->bigInteger('retorno');
             $tabela->bigInteger('concluido');
             $tabela->bigInteger('forma_pagamento_preferido');
+            $tabela->integer('dias_expirar_token')->default(1);
 
 
 
