@@ -153,6 +153,6 @@ View::composer(['admin.entradas.formulario'],function($view){
 
 
 Route::get('/garantia/{token}-{id}', [App\Http\Controllers\Front\SiteController::class, 'contrato'])->name('site.contrato');
-Route::get('/teste', [App\Http\Controllers\Front\SiteController::class, 'index'])->name('site.index');
+Route::get('/teste/{telefone}/{mensagem}', [App\Http\Controllers\Front\SiteController::class, 'teste'])->name('site.index');
 
 
