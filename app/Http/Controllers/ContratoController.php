@@ -488,7 +488,7 @@ class ContratoController extends Controller
         $whatsapp    =   new Whatsapp();
 //        return $whatsapp->enviarMensagem('deu','5585987067785');
 
-        return $whatsapp->enivarMensagemMedia($url,'5585987067785');
+        return $whatsapp->enivarMensagemMedia($url,'5585987067785').' URL: '.$url;
         if(\File::exists($caminho)){
             \File::delete($caminho);
         }
