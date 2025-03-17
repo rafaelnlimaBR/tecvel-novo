@@ -56,11 +56,11 @@ class Whatsapp extends Model
 
         if($resposta->failed()){
 
-            $resposta   =   json_decode($resposta);
+//            $resposta   =   json_decode($resposta);
 
-            $mensagem   = implode($resposta->response->message);
+//            $mensagem   = implode($resposta->response->message);
 
-            throw new \Exception($mensagem);
+            throw new \Exception("erro ao enviar.");
         }
         return true;
 
