@@ -483,12 +483,13 @@ class ContratoController extends Controller
 //        PDF::loadView('admin.contratos.includes.invoicePDF',$contrato)->save($caminho);
         Pdf::loadView('admin.contratos.includes.invoicePDF',['contrato'=>$contrato])->save($caminho);
         $url        =   URL::to($url.$filename);
-        return $url;
+
 
         $whatsapp    =   new Whatsapp();
 //        return $whatsapp->enviarMensagem('deu','5585987067785');
 
-        return $whatsapp->enivarMensagemMedia($url,'5585987067785').' URL: '.$url;
+        return $whatsapp->enivarMensagemMedia($url,'5585987067785');
+
         if(\File::exists($caminho)){
             \File::delete($caminho);
         }
