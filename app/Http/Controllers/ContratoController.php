@@ -22,6 +22,7 @@ use Carbon\Carbon;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use function Symfony\Component\Mime\Header\all;
 use function Symfony\Component\Mime\Header\get;
@@ -466,8 +467,11 @@ class ContratoController extends Controller
 
     public function enviarInvoiceWhatsapp(Request $r,$id)
     {
+
         $contrato   =   Contrato::find($id);
         $filename   =   $contrato->id.".pdf";
+        $url        =   URL::to('/').'/invoice/';
+
         $caminho    =   public_path('invoice/');
 
         if (!file_exists($caminho)){
@@ -478,12 +482,15 @@ class ContratoController extends Controller
 //        PDF::view('admin.contratos.includes.invoicePDF',['contrato'=>$contrato]);
 //        PDF::loadView('admin.contratos.includes.invoicePDF',$contrato)->save($caminho);
         Pdf::loadView('admin.contratos.includes.invoicePDF',['contrato'=>$contrato])->save($caminho);
+        $url        =   URL::to($url.$filename);
+
         $whatsapp    =   new Whatsapp();
 //        return $whatsapp->enviarMensagem('deu','5585987067785');
-        return $whatsapp->enivarMensagemMedia($caminho,'5585987067785');
-//        if(\File::exists($caminho)){
-//            \File::delete($caminho);
-//        }
+
+        return $whatsapp->enivarMensagemMedia($url,'5585987067785');
+        if(\File::exists($caminho)){
+            \File::delete($caminho);
+        }
 
 
 
