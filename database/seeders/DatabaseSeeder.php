@@ -205,7 +205,8 @@ class DatabaseSeeder extends Seeder
             'recusado'             =>  DB::table('status')->where('nome','like','Recusado')->first()->id,
             'retorno'              =>  DB::table('status')->where('nome','like','Retorno')->first()->id,
             'concluido'            =>  DB::table('status')->where('nome','like','Concluido')->first()->id,
-            'forma_pagamento_preferido'=>'28'
+            'forma_pagamento_preferido'=>'28',
+            'key_evolutionapi'=>  env('KEY_EVOLUTIONAPI')
         ]);
 
         \App\Models\User::factory(10)->create();
