@@ -15,6 +15,9 @@ use App\Models\PecaAvulsa;
 use App\Models\Servico;
 use App\Models\Status;
 use App\Models\TipoPagamento;
+
+use App\Models\Whatsapp;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use http\Env\Response;
 use Illuminate\Http\Request;
@@ -460,4 +463,30 @@ class ContratoController extends Controller
 
 
     }
+
+    public function enviarInvoiceWhatsapp(Request $r,$id)
+    {
+        $contrato   =   Contrato::find($id);
+        $filename   =   $contrato->id.".pdf";
+        $caminho    =   public_path('invoice/');
+
+        if (!file_exists($caminho)){
+            mkdir($caminho, 0777, true);
+        }
+        $caminho    =   $caminho.$filename;
+//        return $caminho;
+//        PDF::view('admin.contratos.includes.invoicePDF',['contrato'=>$contrato]);
+//        PDF::loadView('admin.contratos.includes.invoicePDF',$contrato)->save($caminho);
+        Pdf::loadView('admin.contratos.includes.invoicePDF',['contrato'=>$contrato])->save($caminho);
+        $whatsapp    =   new Whatsapp();
+//        return $whatsapp->enviarMensagem('deu','5585987067785');
+        return $whatsapp->enivarMensagemMedia($caminho,'5585987067785');
+//        if(\File::exists($caminho)){
+//            \File::delete($caminho);
+//        }
+
+
+
+    }
+
 }
