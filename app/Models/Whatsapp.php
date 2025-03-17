@@ -36,7 +36,7 @@ class Whatsapp extends Model
         return true;
     }
 
-    public function enivarMensagemMedia($url,$telefone)
+    public function enivarMensagemMedia($url,$telefone,string$texto,string $nome_arquivo,int $delay)
     {
         $resposta   =   Http::withHeaders([
             'Content-Type'  =>  'application/json',
@@ -44,10 +44,10 @@ class Whatsapp extends Model
         ])->post('http://104.251.210.46:8081/message/sendMedia/tecvel',[
             'mediatype' =>  'document',
             'media'     =>  $url,
-            'delay'     =>  2,
+            'delay'     =>  $delay,
             'number'    =>  '55'.$telefone,
-            'caption'   =>  'Garantia',
-            'fileName'  =>  'garantia.pdf',
+            'caption'   =>  $texto,
+            'fileName'  =>  $nome_arquivo,
 
         ]);
 
