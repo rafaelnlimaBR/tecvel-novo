@@ -467,34 +467,40 @@ class ContratoController extends Controller
 
     public function enviarInvoiceWhatsapp(Request $r,$id)
     {
+        try{
 
-        $contrato   =   Contrato::find($id);
-        $filename   =   $contrato->id.".pdf";
-        $url        =   URL::to('/').'/invoice/';
 
-        $caminho    =   public_path('invoice/');
+            $contrato   =   Contrato::find($id);
+            $filename   =   $contrato->id.".pdf";
+            $url        =   URL::to('/').'/invoice/';
 
-        if (!file_exists($caminho)){
-            mkdir($caminho, 0777, true);
+            $caminho    =   public_path('invoice/');
+
+            if (!file_exists($caminho)){
+                mkdir($caminho, 0777, true);
+            }
+            $caminho    =   $caminho.$filename;
+    //        return $caminho;
+    //        PDF::view('admin.contratos.includes.invoicePDF',['contrato'=>$contrato]);
+    //        PDF::loadView('admin.contratos.includes.invoicePDF',$contrato)->save($caminho);
+            Pdf::loadView('admin.contratos.includes.invoicePDF',['contrato'=>$contrato])->save($caminho);
+            $url        =   URL::to($url.$filename);
+
+
+            $whatsapp    =   new Whatsapp();
+            foreach ($contrato->cliente->contatos as $contato){
+//                $whatsapp->enviarMensagem('deu','55'.$contato->numero);
+                $whatsapp->enivarMensagemMedia($url,'55'.$contato->numero);
+            }
+
+            if(\File::exists($caminho)){
+                \File::delete($caminho);
+            }
+
+            return redirect()->route('contrato.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Enviado com sucesso."]);
+        }catch (\Exception $e){
+            return redirect()->route('contrato.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage()    ]);
         }
-        $caminho    =   $caminho.$filename;
-//        return $caminho;
-//        PDF::view('admin.contratos.includes.invoicePDF',['contrato'=>$contrato]);
-//        PDF::loadView('admin.contratos.includes.invoicePDF',$contrato)->save($caminho);
-        Pdf::loadView('admin.contratos.includes.invoicePDF',['contrato'=>$contrato])->save($caminho);
-        $url        =   URL::to($url.$filename);
-
-
-        $whatsapp    =   new Whatsapp();
-//        return $whatsapp->enviarMensagem('deu','5585987067785');
-
-        return $whatsapp->enivarMensagemMedia($url,'5585987067785');
-
-        if(\File::exists($caminho)){
-            \File::delete($caminho);
-        }
-
-
 
     }
 

@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Http;
+use Symfony\Component\ErrorHandler\ThrowableUtils;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Whatsapp extends Model
 {
@@ -27,7 +29,13 @@ class Whatsapp extends Model
             'text'      =>  $mensagem,
 
         ]);
-        return $resposta;
+        if($resposta->failed()){
+            $resposta   =   json_decode($resposta);
+            $mensagem   = $resposta->response->message;
+
+            throw new \Exception($mensagem[0]);
+        }
+        return true;
     }
 
     public function enivarMensagemMedia($url,$telefone)
@@ -44,36 +52,16 @@ class Whatsapp extends Model
             'fileName'  =>  'garantia.pdf',
 
         ]);
-        return $resposta;
 
-       /* $curl = curl_init();
 
-        curl_setopt_array($curl, [
-            CURLOPT_PORT => "8081",
-            CURLOPT_URL => "http://104.251.210.46:8081/message/sendMedia/tecvel",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "{\n  \"mediatype\": \"document\",\n  \"delay\": 2,\n  \"number\": \"$telefone\",\n  \"media\": \"C:\xampp\htdocs\tecvel-novo\public\invoice/1.pdf\",\n  \"mimetype\": \"\",\n  \"caption\": \"Caption\",\n  \"fileName\": \"fileName\"\n}",
-            CURLOPT_HTTPHEADER => [
-                "Content-Type: application/json",
-                "apikey: mmcVlmdaaGljY9s8NfH7wEde3HQMQtHg"
-            ],
-        ]);
+        if($resposta->failed()){
+            $resposta   =   json_decode($resposta);
+            $mensagem   = $resposta->response->message;
 
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
+            throw new \Exception($mensagem[0]);
+        }
+        return true;
 
-        curl_close($curl);
-
-        if ($err) {
-            echo "cURL Error #:" . $err;
-        } else {
-            echo $response;
-        }*/
     }
 
 
