@@ -491,7 +491,7 @@ class ContratoController extends Controller
 
 
             //apagar essa linha
-            return $whatsapp->enivarMensagemMedia($url,'5585987067785');
+
 
             foreach ($contrato->cliente->contatos as $contato){
 //                return $whatsapp->enviarMensagem('deu','55'.$contato->numero);
