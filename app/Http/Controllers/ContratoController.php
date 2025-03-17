@@ -495,7 +495,7 @@ class ContratoController extends Controller
 
             foreach ($contrato->cliente->contatos as $contato){
 //                $whatsapp->enviarMensagem('deu','5585987067785');
-                 $whatsapp->enivarMensagemMedia($url,'5585987067785');
+                 $whatsapp->enivarMensagemMedia($url,$contato->numero);
             }
 
             if(\File::exists($caminho)){

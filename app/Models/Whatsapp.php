@@ -45,7 +45,7 @@ class Whatsapp extends Model
             'mediatype' =>  'document',
             'media'     =>  $url,
             'delay'     =>  2,
-            'number'    =>  $telefone,
+            'number'    =>  '55'.$telefone,
             'caption'   =>  'Garantia',
             'fileName'  =>  'garantia.pdf',
 
