@@ -58,7 +58,7 @@ class Whatsapp extends Model
 
 
 //            $mensagem   =(string) "Status : ".$resposta['status'].". Erro : ".$resposta['error'].". Mensagem : ".$resposta['response']['message'];
-            $mensagem   =   "Status : ".$resposta['status']."<br> Error : ".$resposta['error'].". <br> Mensagem : ".$resposta['response']['message'][0];
+            $mensagem   =   "Status : ".$resposta['status']."<br> Error : ".$resposta['error'];
             throw new \Exception($mensagem);
         }
         return true;
