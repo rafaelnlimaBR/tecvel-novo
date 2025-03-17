@@ -31,9 +31,9 @@ class Whatsapp extends Model
         ]);
         if($resposta->failed()){
             $resposta   =   json_decode($resposta);
-            $mensagem   = $resposta->response->message;
+            $mensagem   = (string)$resposta->response->message;
 
-            throw new \Exception($mensagem[0]);
+            throw new \Exception($mensagem);
         }
         return true;
     }
@@ -56,9 +56,9 @@ class Whatsapp extends Model
 
         if($resposta->failed()){
             $resposta   =   json_decode($resposta);
-            $mensagem   = $resposta->response->message;
+            $mensagem   = (string) $resposta->response->message;
 
-            throw new \Exception($mensagem[0]);
+            throw new \Exception($mensagem);
         }
         return true;
 
