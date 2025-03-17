@@ -494,7 +494,7 @@ class ContratoController extends Controller
 
 
             foreach ($contrato->cliente->contatos as $contato){
-                 $whatsapp->enivarMensagemMedia($url,$contato->numero,"Segue a garantia do servico realizado. Data da Garantia : ".Carbon::parse($contrato->dataGarantia)->format('d/m/Y'),"Garantia.pdf",2);
+                 $whatsapp->enivarMensagemMedia($url,$contato->numero,"Segue a garantia do servico realizado. Data da Garantia : ".Carbon::parse($contrato->garantia)->format('d/m/Y'),"Garantia.pdf",2);
             }
 
             if(\File::exists($caminho)){
