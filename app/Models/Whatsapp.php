@@ -30,10 +30,8 @@ class Whatsapp extends Model
 
         ]);
         if($resposta->failed()){
-            $resposta   =   json_encode($resposta);
-            $mensagem   = $resposta->response->message;
-            return $mensagem;
-            throw new \Exception($mensagem);
+
+            throw new \Exception('erro');
         }
         return true;
     }
