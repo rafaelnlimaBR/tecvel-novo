@@ -503,7 +503,7 @@ class ContratoController extends Controller
 
             return redirect()->route('contrato.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Enviado com sucesso."]);
         }catch (\Exception $e){
-            return redirect()->route('contrato.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage()    ]);
+            return redirect()->route('contrato.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage() ]);
         }
 
     }
