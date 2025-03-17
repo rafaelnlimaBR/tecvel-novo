@@ -54,10 +54,11 @@ class Whatsapp extends Model
 
         if($resposta->failed()){
 
-            $resposta   =   json_decode($resposta);
+            $resposta =   $resposta->json();
 
-            $mensagem   = implode($resposta->response->message);
 
+//            $mensagem   =(string) "Status : ".$resposta['status'].". Erro : ".$resposta['error'].". Mensagem : ".$resposta['response']['message'];
+            $mensagem   =   "Status : ".$resposta['status']."<br> Error : ".$resposta['error'].". <br> Mensagem : ".$resposta['response']['message'][0];
             throw new \Exception($mensagem);
         }
         return true;
