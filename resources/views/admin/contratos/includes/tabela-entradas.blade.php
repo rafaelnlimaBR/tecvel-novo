@@ -42,7 +42,7 @@
                             <td>{{$entrada->forma->tipo->nome.' / '.$entrada->forma->nome}}</td>
                             <td>
                                 <a class="btn btn-sm btn-warning " href="{{route('contrato.editar.entrada',['id'=>$contrato->id,'entrada_id'=>$entrada->id])}}">editar</a>
-                                <a class="btn btn-sm btn-danger " href="{{route('contrato.excluir.entrada',['id'=>$contrato->id,'entrada_id'=>$entrada->id])}}">Excluir</a>
+                                <a class="btn btn-sm btn-danger confirmDelete" href="{{route('contrato.excluir.entrada',['id'=>$contrato->id,'entrada_id'=>$entrada->id])}}" onclick="return confirm('Deseja excluir esse registro?')">Excluir</a>
                             </td>
 
                         </tr>

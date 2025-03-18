@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contrato;
+use App\Models\Historico;
 use App\Models\ImagensNota;
 use App\Models\Nota;
+use App\Models\Whatsapp;
+use \Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 use Intervention\Image\Laravel\Facades\Image;
 
@@ -187,10 +190,49 @@ class NotaController extends Controller
             $imagem->delete();
             return redirect()->route('contrato.editar.nota',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'nota_id'=>$nota->id,'pagina'=>'notas'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Imagem excluida com sucesso"]);
 
-        }catch (\Exception $e){
-            return redirect()->route('contrato.editar.nota',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'nota_id'=>$nota->id,'pagina'=>'notas'])->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage()]);
+        }catch (\Exception $e) {
+            return redirect()->route('contrato.editar.nota', ['id' => $contrato->id, 'historico_id' => $contrato->historicos->last()->id, 'nota_id' => $nota->id, 'pagina' => 'notas'])->with('alerta', ['tipo' => 'danger', 'icon' => '', 'texto' => $e->getMessage()]);
         }
+    }
+
+    public function enviarImagensAplicativos($id, $historico_id,$nota_id)
+    {
+        try{
+            $historico              =   Historico::find($historico_id);
+            if($historico == null   ){
+                return "nao existe historico";
+            }
+            $contrato   =   $historico->contrato;
+            $nota                   =   Nota::find($nota_id);
+            if($nota == null   ){
+                return "nao existe nota";
+            }
+            $whatsapp   =   new Whatsapp();
+            $caminho    =   'images/notas/';
+
+                $resultado  =   [];
+                $count  =   1;
+                foreach ($historico->contrato->cliente->contatos as $key => $contato){
+
+                    foreach ($nota->imagens as $k   => $imagen){
+                        $url    =   URL::to($caminho.$imagen->nome);
+                        $resultado   =   array_merge($resultado,[$whatsapp->enivarMensagemMedia($url,$contato->numero,$imagen->texto,$imagen->nome,2,55)]);
 
 
+                        $count++;
+                    }
+
+
+                }
+
+
+
+            return redirect()->route('contrato.editar',['id'=>$historico->contrato->id,'historico_id'=>$contrato->historicos->last()->id,'pagina'=>'notas'])->with('alertas',$resultado);
+
+
+
+        }catch (\Exception $e){
+            return redirect()->route('contrato.editar.nota',['id'=>$contrato->id,'historico_id'=>$historico->id,'nota_id'=>$nota->id,'pagina'=>'notas'])->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage()]);
+        }
     }
 }

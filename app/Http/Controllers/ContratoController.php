@@ -39,7 +39,8 @@ class ContratoController extends Controller
     public function index(Request $r){
         $dados = [
             'titulo' => "Contratos",
-            'titulo_tabela' => "Lista de Contratos"
+            'titulo_tabela' => "Lista de Contratos",
+            'orcamento_id'  => $this->conf->abertura_id,//id do status orçamento
         ];
         $contratos = "";
         if($r->get('placa') == null){
@@ -348,7 +349,7 @@ class ContratoController extends Controller
 
         $dados = [
             'titulo'        => "Pagamento",
-            'valor'         =>  $contrato->totalPecasAvulsasLiquido()+$contrato->totalServicosLiquido(),
+            'valor'         =>  $contrato->restantePagamento(),
             'contrato'      => $contrato,
             'id'            => $contrato->id
         ];
@@ -462,7 +463,7 @@ class ContratoController extends Controller
             $filename   =   $contrato->id.".pdf";
             $url        =   URL::to('/').'/invoice/';
 
-            $caminho    =   public_path('invoice/');
+            $caminho = public_path('invoice/');
 
             if (!file_exists($caminho)){
                 mkdir($caminho, 0777, true);

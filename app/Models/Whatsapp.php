@@ -53,7 +53,7 @@ class Whatsapp extends Model
 
     }
 
-    public function enivarMensagemMedia($url,$telefone,string$texto,string $nome_arquivo,int $delay,$codigoPais)
+    public function enivarMensagemMedia($url,$telefone,$texto,string $nome_arquivo,int $delay,$codigoPais)
     {
         $resposta   =   Http::withHeaders([
             'Content-Type'  =>  'application/json',

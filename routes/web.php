@@ -49,6 +49,7 @@ Route::get('/contrato/{id}/entrada/excluir/{entrada_id}', [App\Http\Controllers\
 Route::get('/contrato/{id}/enviar/invoice/aplicativos', [App\Http\Controllers\ContratoController::class, 'enviarInvoiceAplicativos'])->name('contrato.enviar.invoice.aplicativos');
 Route::get('/contrato/editar/{id}/historico/{historico_id}/nova/nota', [App\Http\Controllers\NotaController::class, 'novo'])->name('contrato.nova.nota');
 Route::get('/contrato/editar/{id}/historico/{historico_id}/editar/nota/{nota_id}', [App\Http\Controllers\NotaController::class, 'editar'])->name('contrato.editar.nota');
+Route::get('/contrato/editar/{id}/historico/{historico_id}/editar/nota/{nota_id}/enviar/imagens/whatsapp', [App\Http\Controllers\NotaController::class, 'enviarImagensAplicativos'])->name('contrato.enviar.imagens.aplicativo');
 Route::post('/contrato/cadastrar/nota', [App\Http\Controllers\NotaController::class, 'cadastrar'])->name('contrato.cadastrar.nota');
 Route::post('/contrato/atualizar/nota', [App\Http\Controllers\NotaController::class, 'atualizar'])->name('contrato.atualizar.nota');
 Route::get('/contrato/excluir/nota/{id}', [App\Http\Controllers\NotaController::class, 'excluir'])->name('contrato.excluir.nota');

@@ -48,10 +48,11 @@
                             <th style="width: 5%; min-width: 40px;" scope="col">#</th>
                             <th scope="col">Cliente</th>
                             <th scope="col">Placa</th>
-                            <th scope="col">Modelo</th>
                             <th scope="col">Status</th>
-
+                            <th scope="col">Valor</th>
+                            <th scope="col">Pagamento</th>
                             <th style="width: 10%; min-width: 150px;"  scope="col">Criado </th>
+                            <th style="width: 10%; min-width: 150px;"  scope="col">Garantia </th>
                             <th style="width: 7%; min-width: 150px;" scope="col">Ações</th>
 
                         </tr>
@@ -62,15 +63,32 @@
                             <tr>
                                 <th scope="row">{{$contrato->id}}</th>
                                 <td>{{$contrato->cliente->nome}}</td>
-                                <td >{{isset($contrato->veiculo)?$contrato->veiculo->placa:"ND"}}  </td>
-                                <td>{{isset($contrato->veiculo)?$contrato->veiculo->modelo->nome:"ND"}}</td>
+                                <td >{{isset($contrato->veiculo)?$contrato->veiculo->placa." - ".$contrato->veiculo->modelo->nome:"ND"}}  </td>
                                 <td style="width: 7%;"><span style="background-color: {{$contrato->historicos->last()->status->cor_fundo}}; color: {{$contrato->historicos->last()->status->cor_letra}}; padding: 3px 5px 3px 5px;border-radius: 10px;">{{$contrato->historicos->last()->status->nome}}</span></td>
+                                <td style="width: 7%;">R$ {{$contrato->valorTotal()}}</td>
+                                <td style="width: 7%;">
+                                    @if($contrato->historicos->last()->status->id    == $orcamento_id)
+                                        - - - - - - -
+                                    @else
+                                        @if($contrato->verificarPagamento() == 1)
+                                            <span style="background-color: #148519; color: #fffefa; padding: 3px 5px 3px 5px;border-radius: 10px;">Pago</span>
+                                        @elseif($contrato->verificarPagamento() == 2)
+                                            <span style="background-color: #4d38cf; color: #fffefa; padding: 3px 5px 3px 5px;border-radius: 10px;">Super Faturado</span>
+                                        @else
+
+                                            <span style="background-color: #cf3239; color: #fffefa; padding: 3px 5px 3px 5px;border-radius: 10px;">Pendente</span>
+                                        @endif
+
+                                    @endif
+
+                                </td>
 
                                 <td style="width: 7%;">{{\Carbon\Carbon::parse($contrato->created_at)->format('d/m/Y')}}</td>
+                                <td style="width: 7%;">{{\Carbon\Carbon::parse($contrato->garantia)->format('d/m/Y')}}</td>
 
 
                                 <td>
-{{--                                    <a href="{{route('contrato.visualizacao',['id'=>$contrato->id])}}" class="btn btn-sm btn-primary" style="padding-top: 0; padding-bottom: 0"><i class="fa   fa-sign-out"></i></a>--}}
+
                                     <a class="btn-sm btn-success" href="{{route('contrato.enviar.invoice.aplicativos',['id'=>$contrato->id])}}" style="padding-top: 0; padding-bottom: 0"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
 
                                     <a href="{{route('contrato.editar',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'pagina'=>'dados'])}}" class="btn btn-sm btn-warning" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-pencil-square"></i></a>

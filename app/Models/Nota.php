@@ -16,7 +16,7 @@ class Nota extends Model
         return $this->belongsTo(Historico::class);
     }
 
-    public function Imagens()
+    public function imagens()
     {
         return $this->hasMany(ImagensNota::class);
     }

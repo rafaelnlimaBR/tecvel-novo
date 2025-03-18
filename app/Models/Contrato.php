@@ -77,6 +77,11 @@ class Contrato extends Model
         });
     }
 
+    public function valorTotal()
+    {
+        return $this->totalServicosLiquido()+$this->totalPecasAvulsasLiquido();
+    }
+
     public function somaTotalServicos()
     {
         $total  =   0;
@@ -97,13 +102,9 @@ class Contrato extends Model
         $total  =   0;
         foreach ($this->historicos as $historico){
             foreach ($historico->servicos as $servico){
-                if($servico->pivot->cobrar == true){
                     $total += $servico->pivot->valor_liquido;
-                }
             }
-
         }
-
         return $total;
     }
 
@@ -112,13 +113,12 @@ class Contrato extends Model
         $total  =   0;
         foreach ($this->historicos as $historico){
             foreach ($historico->pecas as $peca){
-                if($peca->pivot->cobrar == true){
+
                     $total += $peca->pivot->valor;
-                }
+
             }
 
         }
-
         return $total;
     }
 
@@ -127,9 +127,9 @@ class Contrato extends Model
         $total  =   0;
         foreach ($this->historicos as $historico){
             foreach ($historico->pecas as $peca){
-                if($peca->pivot->cobrar == true){
+
                     $total += $peca->pivot->valor_liquido;
-                }
+
             }
 
         }
@@ -137,7 +137,26 @@ class Contrato extends Model
         return $total;
     }
 
+    public function verificarPagamento()
+    {
+        $totalPago      =   $this->entradas->sum('valor');
+        $totalContrato  =   $this->valorTotal();
 
+        if ($totalPago == $totalContrato){
+            return 1;//pago
+        }elseif ($totalPago > $totalContrato){
+            return 2;//super faturado
+        }else{
+            return 0;//pendente
+        }
+    }
 
+    public function restantePagamento()
+    {
+        $totalPago      =   $this->entradas->sum('valor');
+        $totalContrato  =   $this->valorTotal();
+
+        return $totalContrato - $totalPago;
+    }
 
 }
