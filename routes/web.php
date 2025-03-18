@@ -46,7 +46,7 @@ Route::post('/contrato/faturar', [App\Http\Controllers\ContratoController::class
 Route::post('/contrato//atualziar/entrada/', [App\Http\Controllers\ContratoController::class, 'atualizarEntrada'])->name('contrato.atualizar.faturar');
 Route::get('/contrato/{id}/entrada/editar/{entrada_id}', [App\Http\Controllers\ContratoController::class, 'editarEntrada'])->name('contrato.editar.entrada');
 Route::get('/contrato/{id}/entrada/excluir/{entrada_id}', [App\Http\Controllers\ContratoController::class, 'excluirEntrada'])->name('contrato.excluir.entrada');
-Route::get('/contrato/{id}/enviar/invoice/whatsapp', [App\Http\Controllers\ContratoController::class, 'enviarInvoiceWhatsapp'])->name('contrato.enviar.invoice.whatsapp');
+Route::get('/contrato/{id}/enviar/invoice/aplicativos', [App\Http\Controllers\ContratoController::class, 'enviarInvoiceAplicativos'])->name('contrato.enviar.invoice.aplicativos');
 Route::get('/contrato/editar/{id}/historico/{historico_id}/nova/nota', [App\Http\Controllers\NotaController::class, 'novo'])->name('contrato.nova.nota');
 Route::get('/contrato/editar/{id}/historico/{historico_id}/editar/nota/{nota_id}', [App\Http\Controllers\NotaController::class, 'editar'])->name('contrato.editar.nota');
 Route::post('/contrato/cadastrar/nota', [App\Http\Controllers\NotaController::class, 'cadastrar'])->name('contrato.cadastrar.nota');

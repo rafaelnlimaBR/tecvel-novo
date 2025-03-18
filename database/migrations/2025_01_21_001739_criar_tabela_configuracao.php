@@ -34,7 +34,7 @@ return new class extends Migration
             $tabela->bigInteger('concluido');
             $tabela->bigInteger('forma_pagamento_preferido');
             $tabela->integer('dias_expirar_token')->default(1);
-            $tabela->string('key_evolutionapi')->nullable();
+            $tabela->bigInteger('whatsapp_id')->nullable();
 
 
 

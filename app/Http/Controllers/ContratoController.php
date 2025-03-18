@@ -465,7 +465,7 @@ class ContratoController extends Controller
 
     }
 
-    public function enviarInvoiceWhatsapp(Request $r,$id)
+    public function enviarInvoiceAplicativos(Request $r,$id)
     {
         try{
 
@@ -494,10 +494,9 @@ class ContratoController extends Controller
 
             $resultado  =   [];
             foreach ($contrato->cliente->contatos as $key=>$contato){
-
-                $resultado  =   array_merge($resultado,[$whatsapp->enivarMensagemMedia($url,$contato->numero,"Segue a garantia do servico realizado. Data da Garantia : ".Carbon::parse($contrato->garantia)->format('d/m/Y'),"Garantia.pdf",2,55)]);
-
-
+                if($contato->app->id == $this->conf->whatsapp_id){
+                    $resultado  =   array_merge($resultado,[$whatsapp->enivarMensagemMedia($url,$contato->numero,"Segue a garantia do servico realizado. Data da Garantia : ".Carbon::parse($contrato->garantia)->format('d/m/Y'),"Garantia.pdf",2,55)]);
+                }
             }
 
             if(\File::exists($caminho)){
