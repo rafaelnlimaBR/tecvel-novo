@@ -53,13 +53,13 @@ class Whatsapp extends Model
 
     }
 
-    public function enivarMensagemMedia($url,$telefone,$texto,string $nome_arquivo,int $delay,$codigoPais)
+    public function enivarMensagemMedia($url,$telefone,$texto,string $nome_arquivo,int $delay,$codigoPais,$tipo)
     {
         $resposta   =   Http::withHeaders([
             'Content-Type'  =>  'application/json',
             'apikey'       => env('KEY_EVOLUTIONAPI'),
         ])->post('http://104.251.210.46:8081/message/sendMedia/tecvel',[
-            'mediatype' =>  'document',
+            'mediatype' =>  $tipo,
             'media'     =>  $url,
             'delay'     =>  $delay,
             'number'    =>  $codigoPais.$telefone,
