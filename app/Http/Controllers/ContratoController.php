@@ -492,16 +492,19 @@ class ContratoController extends Controller
 
             //apagar essa linha
 
+            $resultado  =   [];
+            foreach ($contrato->cliente->contatos as $key=>$contato){
 
-            foreach ($contrato->cliente->contatos as $contato){
-                 $whatsapp->enivarMensagemMedia($url,$contato->numero,"Segue a garantia do servico realizado. Data da Garantia : ".Carbon::parse($contrato->garantia)->format('d/m/Y'),"Garantia.pdf",2);
+                $resultado  =   array_merge($resultado,[$whatsapp->enivarMensagemMedia($url,$contato->numero,"Segue a garantia do servico realizado. Data da Garantia : ".Carbon::parse($contrato->garantia)->format('d/m/Y'),"Garantia.pdf",2,55)]);
+
+
             }
 
             if(\File::exists($caminho)){
                 \File::delete($caminho);
             }
 
-            return redirect()->route('contrato.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Enviado com sucesso."]);
+            return redirect()->route('contrato.index')->with('alertas',$resultado);
         }catch (\Exception $e){
             return redirect()->route('contrato.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage() ]);
         }
