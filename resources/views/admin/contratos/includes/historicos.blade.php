@@ -28,29 +28,5 @@
 
         </table>
     </div>
-    <div class="col-lg-3 ">
-        <h4>Tokens</h4>
-        <table class="table table-bordered ">
-            <thead class="thead-light">
-            <tr>
 
-                <th scope="col">Token</th>
-                <th scope="col">Data vencimento</th>
-
-            </tr>
-            </thead>
-            <tbody>
-
-            @foreach ($contrato->tokens as $token)
-                <tr>
-                    <td><a href="{{route('site.contrato',['token'=>$token->token,'id'=>$contrato->id])}}">{{$token->token}}</a></td>
-                    <td>{{$token->data_vencimento}}</td>
-
-                </tr>
-            @endforeach
-
-            </tbody>
-
-        </table>
-    </div>
 </div>

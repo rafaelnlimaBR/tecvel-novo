@@ -137,10 +137,7 @@ class DatabaseSeeder extends Seeder
         DB::table("tokens")->insert([
             ["token"=>Str::random(50),'dias_expirar'=>90,'data_vencimento'=>Carbon::now()->addDays(90),'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]
         ]);
-        $this->command->info("Vinculando token de acesso ao contrato");
-        DB::table("contrato_token")->insert([
-            ['contrato_id'=>1,'token_id'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]
-        ]);
+
         $this->command->info("Insertindo dados de Tipo de Notas");
         DB::table("tipos_notas")->insert([
             ['nome'=>"Observações do Serviço","cliente"=>0,'width_imagem'=>400,'height_imagem'=>300,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()] ,

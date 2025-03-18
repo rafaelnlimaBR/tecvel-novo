@@ -144,7 +144,7 @@ class ContratoController extends Controller
             $contrato->defeito              =   $r->get('defeito');
             $contrato->solucao              =   $r->get('solucao');
             $contrato->garantia             =   Carbon::createFromFormat('d/m/Y',$r->get('garantia'));
-//            $contrato->token                = Str::random(50);
+
 
             if($contrato->save()){
                 $status             =   Status::find(Configuracao::first()->abertura);
@@ -451,19 +451,7 @@ class ContratoController extends Controller
     }
 
 
-    public function abrir(Request $r,$token,$id)
-    {
-        $contrato           =   Contrato::find($id);
-        if($contrato == null){
-            return "cliente null";
-        }
-        return $contrato->tokens->last();
-        $token  =   $contrato->tokens()->PesquisarPorToken($token);
 
-        return $token;
-
-
-    }
 
     public function enviarInvoiceAplicativos(Request $r,$id)
     {
