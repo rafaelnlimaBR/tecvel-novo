@@ -2,183 +2,218 @@
 <html lang="pt-br">
 <head>
 
+    <link href="{{ URL::asset('/css/bootstrap.min.css') }}" rel="stylesheet">
+    <style>
+
+        table{width: 100%;}
+        .cabecalho{height:150px}
+        .corpo{margin: 7px}
+    </style>
 </head>
 <body>
 <div class="container invoice">
-    <div class="invoice-header">
-        <div class="ui left aligned grid">
-            <div class="row">
-                <div class="left floated left aligned six wide column">
-                    <div class="ui">
-                        <h1 class = "ui header pageTitle">Invoice <small class = "ui sub header">With Credit</small></h1>
-                        <h4 class="ui sub header invDetails">NO: 554775/R1 | Date: 01/01/2015</h4>
-                    </div>
-                </div>
-                <div class="right floated left aligned six wide column">
-                    <div class="ui">
-                        <div class="column two wide right floated">
-                            <img class="logo" src="https://scontent.fmel5-1.fna.fbcdn.net/v/t1.0-9/10358691_1595827163984651_6845505980791568353_n.png?_nc_cat=109&_nc_ohc=We4wwT6M2Q0AX8qY8-b&_nc_ht=scontent.fmel5-1.fna&oh=69bd30fc152063c470afd928919c8734&oe=5E94664A" />
-                            <ul class="">
-                                <li><strong>RCJA Australia</strong></li>
-                                <li>Lorem Ipsum</li>
-                                <li>2 Alliance Lane VIC</li>
-                                <li>info@rcja.com</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+    <div class="invoice p-3 mb-3">
+
+        <div class="row">
+            <div class="col-12">
+                <h4>
+
+                    <small class="float-right">{{date('d/m/Y', strtotime(\Carbon\Carbon::now()))}}</small>
+                </h4>
             </div>
-        </div>
-    </div>
-    <div class="ui segment cards">
-        <div class="ui card">
-            <div class="content">
-                <div class="header">Company Details</div>
-            </div>
-            <div class="content">
-                <ul>
-                    <li> <strong> Name: RCJA </strong> </li>
-                    <li><strong> Address: </strong> 1 Unknown Street VIC</li>
-                    <li><strong> Phone: </strong> (+61)404123123</li>
-                    <li><strong> Email: </strong> admin@rcja.com</li>
-                    <li><strong> Contact: </strong> John Smith</li>
-                </ul>
-            </div>
-        </div>
-        <div class="ui card customercard">
-            <div class="content">
-                <div class="header">Customer Details</div>
-            </div>
-            <div class="content">
-                <ul>
-                    <li> <strong> Name: RCJA </strong> </li>
-                    <li><strong> Address: </strong> 1 Unknown Street VIC</li>
-                    <li><strong> Phone: </strong> (+61)404123123</li>
-                    <li><strong> Email: </strong> admin@rcja.com</li>
-                    <li><strong> Contact: </strong> John Smith</li>
-                </ul>
-            </div>
+
         </div>
 
-        <div class="ui segment itemscard">
-            <div class="content">
-                <table class="ui celled table">
+        <div class="row invoice-info">
+            <div class="col-sm-3 invoice-col">
+                @if (isset($conf))
+                    @if($conf->logo != "")
+                    <img loading="lazy" style="height: 100px; margin:35px 0 0 15px"  src="{{url('imagens/'.$conf->logo)}}" alt="logo-tecvel">
+                    @endif
+                @endif
+
+            </div>
+            <div class="col-sm-3 invoice-col">
+                @if (isset($conf))
+                <address>
+                    <strong>{{$conf->nome_empresa}}</strong><br>
+                    {{$conf->endereco}}<br>
+                    Telefone: {{$conf->telefone_movel}}<br>
+                    Email: {{$conf->email}}<br>
+
+                </address>
+                @endif
+            </div>
+
+            <div class="col-sm-3 invoice-col">
+
+                <address>
+                    <strong>{{$contrato->cliente->nome}}</strong><br>
+                    <span style="font-size: 11px">
+                        @foreach ($contrato->cliente->contatos as $contato)
+                            {{ $contato->numero }}
+                        @endforeach
+                    </span>
+
+                    <br>
+                    Veículo: {{$contrato->veiculo->modelo->nome}}<br>
+                    Placa:<strong> {{$contrato->veiculo->placa}}</strong><br>
+
+                </address>
+            </div>
+
+            <div class="col-sm-3 invoice-col">
+                <b>ID #{{$contrato->id}}</b><br>
+                <b>Data: </b>{{date('d/m/Y', strtotime($contrato->created_at))}}
+                @if (isset($conf))
+                    @if($contrato->historicos->last()->tipo->id != $conf->orcamento)
+                    <br>
+                    <b>Garantia: </b> {{date('d/m/Y', strtotime($contrato->data_fim_garantia))}}
+                    @endif
+                @endif
+                <br>
+
+
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-12 table-responsive">
+
+
+                <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>Item / Details</th>
-                        <th class="text-center colfix">Unit Cost</th>
-                        <th class="text-center colfix">Sum Cost</th>
-                        <th class="text-center colfix">Discount</th>
-                        <th class="text-center colfix">Tax</th>
-                        <th class="text-center colfix">Total</th>
+                        <th>Serviço
+
+
+
+
+
+                        </th>
+                        <th style="width: 20%">Valor</th>
+
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>
-                            Lorem Ipsum Dolor
-                            <br>
-                            <small class="text-muted">The best lorem in town, try it now or leave forever</small>
-                        </td>
-                        <td class="text-right">
-                            <span class="mono">$1,000.00</span>
-                            <br>
-                            <small class="text-muted">Before Tax</small>
-                        </td>
-                        <td class="text-right">
-                            <span class="mono">$18,000.00</span>
-                            <br>
-                            <small class="text-muted">18 Units</small>
-                        </td>
-                        <td class="text-right">
-                            <span class="mono">- $1,800.00</span>
-                            <br>
-                            <small class="text-muted">Special -10%</small>
-                        </td>
-                        <td class="text-right">
-                            <span class="mono">+ $3,240.00</span>
-                            <br>
-                            <small class="text-muted">VAT 20%</small>
-                        </td>
-                        <td class="text-right">
-                            <strong class="mono">$19,440.00</strong>
-                            <br>
-                            <small class="text-muted mono">$16,200.00</small>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            Sit Amet Dolo
-                            <br>
-                            <small class="text-muted">Now you may sit</small>
-                        </td>
-                        <td class="text-right">
-                            <span class="mono">$120.00</span>
-                            <br>
-                            <small class="text-muted">Before Tax</small>
-                        </td>
-                        <td class="text-right">
-                            <span class="mono">$240.00</span>
-                            <br>
-                            <small class="text-muted">2 Units</small>
-                        </td>
-                        <td class="text-right">
-                            <span class="mono">- $0.00</span>
-                            <br>
-                            <small class="text-muted">-</small>
-                        </td>
-                        <td class="text-right">
-                            <span class="mono">+ $72.00</span>
-                            <br>
-                            <small class="text-muted">VAT:20% S:10%</small>
-                        </td>
-                        <td class="text-right">
-                            <strong class="mono">$312.00</strong>
-                            <br>
-                            <small class="text-muted mono">$240.00</small>
-                        </td>
-                    </tr>
+                        @foreach ($contrato->historicos as $historico)
+                            @foreach ($historico->servicos as $servico)
+                                <tr>
+                                    <td>{{$servico->nome}}</td>
+                                    <td>R$ {{$servico->pivot->valor}}</td>
+                                </tr>
+                            @endforeach
+                        @endforeach
                     </tbody>
-                    <tfoot class="full-width">
-                    <tr>
-                        <th> Total: </th>
-                        <th colspan="2"></th>
-                        <th colspan = "1"> $500 </th>
-                        <th colspan = "1"> $800 </th>
-                        <th colspan = "1"> $20000.00 </th>
-                    </tr>
-                    </tfoot>
                 </table>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-12 table-responsive">
+
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>
+                            Peça|
+                        </th>
+                        <th>Qnt</th>
+                        <th>Valor</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @if (isset($conf))
+                        @if($contrato->historicos->last()->tipo->id != $conf->orcamento)
+                            @foreach($contrato->historicos as $h)
+                                @foreach($h->pecas as $peca)
+                                    <tr>
+                                        <td style="{{$peca->pivot->autorizado == 0?"text-decoration:line-through":""}};">{{$peca->descricao}}</td>
+                                        <td style="{{$peca->pivot->autorizado == 0?"text-decoration:line-through":""}};">{{$peca->pivot->qnt}}</td>
+                                        <td style="{{$peca->pivot->autorizado == 0?"text-decoration:line-through":""}};">R$ {{$peca->pivot->valor}}</td>
+                                        <td style="{{$peca->pivot->autorizado == 0?"text-decoration:line-through":""}};">R$ {{$peca->pivot->valor*$peca->pivot->qnt}}</td>
+                                    </tr>
+                                @endforeach
+                            @endforeach
+                        @else
+                            @foreach($contrato->historicos->last()->pecas as $peca)
+                                <tr>
+                                    <td>{{$peca->descricao}}</td>
+                                    <td>{{$peca->pivot->qnt}}</td>
+                                    <td>R$ {{$peca->pivot->valor}}</td>
+                                    <td>R$ {{$peca->pivot->valor*$peca->pivot->qnt}}</td>
+                                </tr>
+                            @endforeach
+
+                        @endif
+                    @endif
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-6">
+                <p class="lead">Forma de Pagamentos:</p><br>
+                <p>Pix, Cartão de crédito, Débito, Dinheiro</p>
 
             </div>
+
+            <div class="col-6" >
+                <p class="lead">Valores</p>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th style="width:50%">Subtotal:</th>
+                                <td>R$ </td>
+                            </tr>
+
+                            <tr>
+                                <th>Serviços </th>
+                                <td>R$ </td>
+                            </tr>
+
+
+                            <tr>
+                                <th>Peças</th>
+                                <td>R$ </td>
+                            </tr>
+
+                            <tr>
+                                <th>Total:</th>
+                                <td>R$</td>
+                            </tr>
+                            <tr>
+
+
+                                   <th>Pago:</th>
+                                    <td>R$ </td>
+
+
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
 
-        <div class="ui card">
-            <div class="content center aligned text segment">
-                <small class="ui sub header"> Amount Due (AUD): </small>
-                <p class="bigfont"> $5000.25 </p>
-            </div>
-        </div>
-        <div class="ui card">
-            <div class="content">
-                <div class="header">Payment Details</div>
-            </div>
-            <div class="content">
-                <p> <strong> Account Name: </strong> "RJCA" </p>
-                <p> <strong> BSB: </strong> 111-111 </p>
-                <p> <strong>Account Number: </strong> 1234101 </p>
-            </div>
-        </div>
-        <div class="ui card">
-            <div class="content">
-                <div class="header">Notes</div>
-            </div>
-            <div class="content">
-                Payment is requested within 15 days of recieving this invoice.
-            </div>
-        </div>
+
+
     </div>
+
+
+
+
 </div>
 </body>
 </html>

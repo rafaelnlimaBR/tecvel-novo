@@ -157,12 +157,9 @@ View::composer(['admin.entradas.formulario'],function($view){
 
 Route::get('/garantia/{token}-{id}', [App\Http\Controllers\Front\SiteController::class, 'contrato'])->name('site.contrato');
 
-Route::get('/teste/{telefone}/{mensagem}', [App\Http\Controllers\Front\SiteController::class, 'teste'])->name('site.index');
-Route::get('teste',function (){
-    $contato                =   Contato::where(['numero'=>'0000']);
 
-            $contato            =   $contato->first();
-            return $contato;
+Route::get('teste',function (){
+    return view('admin.contratos.includes.invoicePDF',['contrato'=>Contrato::find(1)]);
 
 });
 
