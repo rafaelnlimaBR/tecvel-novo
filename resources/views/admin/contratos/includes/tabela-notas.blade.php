@@ -12,7 +12,10 @@
                             <h4>{{$nota->historico->status->nome. " - ".$nota->tipo->nome." - ".\Carbon\Carbon::parse($nota->created_at)->format('d/m/Y')}}</h4>
                             {!! $nota->texto !!}
                             <a style="margin: 10px" class="btn btn-sm btn-warning" href="{{route('contrato.editar.nota',['id'=>$contrato->id,'historico_id'=>$historico->id,'nota_id'=>$nota->id])}}"> editar</a>
-                            <a class="btn btn-success" href="{{route('contrato.enviar.imagens.aplicativo',['id'=>$contrato->id,'historico_id'=>$historico->id,'nota_id'=>$nota->id])}}" style="padding-top: 0; padding-bottom: 0"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+                            @if($nota->tipo->cliente == 1)
+                                <a class="btn btn-success" href="{{route('contrato.enviar.imagens.aplicativo',['id'=>$contrato->id,'historico_id'=>$historico->id,'nota_id'=>$nota->id])}}" style="padding-top: 0; padding-bottom: 0"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+                            @endif
+
                         </div>
 
                     </div>
@@ -31,34 +34,6 @@
                 </div>
             @endforeach
         @endforeach
-
-
-
-
-        {{--<table class="table-responsive-lg table ">
-            <tbody>
-            @foreach($contrato->historicos as $historico)
-                @foreach($historico->notas as $nota)
-
-
-                    <tr>
-                        <td></td>
-                        <td><h6></h6></td>
-                        <td><h5></h5></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
-                @endforeach
-            @endforeach
-
-            </tbody>
-        </table>--}}
-
-
-
-
-
     </div>
 </div>
 

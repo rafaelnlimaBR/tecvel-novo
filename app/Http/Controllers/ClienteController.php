@@ -100,7 +100,7 @@ class ClienteController extends Controller
             $cliente        =   Cliente::find($r->id);
 
 
-            $contato = ContatoController::cadastrar($r->get('numero'),$r->get('app'));
+            $contato = Contato::cadastrar($r->get('numero'),$r->get('app'));
 
             $cliente->contatos()->attach($contato,['responsavel'=>$r->get('responsavel')]);
             return response()->json([
@@ -116,11 +116,18 @@ class ClienteController extends Controller
     public function atualizarContato(Request $r){
         try {
 
-            $contato        =   Contato::find($r->get('id'));
+            $contato        =   0;
             $cliente        =   Cliente::find($r->get('foreignkey'));
 
-            ContatoController::atualizar($r->get('id'),$r->get('numero'),$r->get('app'));
-            $cliente->contatos()->updateExistingPivot($contato->id,['responsavel'=>$r->get('responsavel')]);
+            $contato        =   Contato::atualizar($r->get('id'),$r->get('numero'),$r->get('app'));
+            if($contato->id == $r->get('id')){
+                $cliente->contatos()->updateExistingPivot($contato->id,['responsavel'=>$r->get('responsavel')]);
+            }else{
+                $cliente->contatos()->detach($r->get('id'));
+                $cliente->contatos()->attach($contato->id,['responsavel'=>$r->get('responsavel')]);
+            }
+
+
             return response()->json([
                 'contatos'=>view('admin.contatos.tabela',['contatos'=>$cliente->contatos,'id'=>$cliente->id,'route_update'=>route('cliente.atualizar.contato'),"route_delete"=>route('cliente.excluir.contato')])->render(),
             ]);

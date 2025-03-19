@@ -214,13 +214,14 @@ class NotaController extends Controller
                 $count  =   1;
                 foreach ($historico->contrato->cliente->contatos as $key => $contato){
                     if($count == 1){
-                        $whatsapp->enviarMensagem($nota->texto,$contato->numero,'55');
+                        $resultado  =   array_merge($resultado,[$whatsapp->enviarMensagem($nota->texto,$contato->numero,'55')]);
                     }
                     foreach ($nota->imagens as $k   => $imagen){
                         $url    =   URL::to($caminho.$imagen->nome);
 
                         $resultado   =   array_merge($resultado,[$whatsapp->enivarMensagemMedia($url,$contato->numero,$imagen->texto,$imagen->nome,2,55,"image")]);
-                        if($resultado[0]['resposta'] == "false"){
+
+                        if($resultado[1]['resposta'] == "false"){
                             break;
                         }
                         $count++;
