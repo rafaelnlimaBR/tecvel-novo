@@ -17,26 +17,32 @@
         <div class="row">
             <div class="col-12">
                 <h4>
-
                     <small class="float-right">{{date('d/m/Y', strtotime(\Carbon\Carbon::now()))}}</small>
                 </h4>
             </div>
 
         </div>
-
+        @if($conf->abertura == $contrato->historicos->last()->status->id)
+        <div class="row">
+            <div class="col-lg-12" style="background-color: #e8e8e8; border-top: 2px solid #f3f3f3; border-bottom: 2px solid #c9c9c9; margin-bottom: 18px">
+                <h3 style="text-align: center; font-family:Arial; padding: 0px">ORÇAMENTO</h3>
+            </div>
+        </div>
+        @endif
         <div class="row invoice-info">
             <div class="col-sm-3 invoice-col">
                 @if (isset($conf))
                     @if($conf->logo != "")
-                    <img loading="lazy" style="height: 100px; margin:35px 0 0 15px"  src="{{url('imagens/'.$conf->logo)}}" alt="logo-tecvel">
+                    <img loading="lazy" style="height: 100px; margin:35px 0 0 15px"  src="{{url('images/'.$conf->logo)}}" alt="logo-tecvel">
                     @endif
                 @endif
 
             </div>
+
             <div class="col-sm-3 invoice-col">
                 @if (isset($conf))
                 <address>
-                    <strong>{{$conf->nome_empresa}}</strong><br>
+                    <strong>{{$conf->nome_principal.' - '.$conf->nome_segundario}}</strong><br>
                     {{$conf->endereco}}<br>
                     Telefone: {{$conf->telefone_movel}}<br>
                     Email: {{$conf->email}}<br>
@@ -65,11 +71,11 @@
             <div class="col-sm-3 invoice-col">
                 <b>ID #{{$contrato->id}}</b><br>
                 <b>Data: </b>{{date('d/m/Y', strtotime($contrato->created_at))}}
-                @if (isset($conf))
-                    @if($contrato->historicos->last()->tipo->id != $conf->orcamento)
+                @if(!$conf->abertura == $contrato->historicos->last()->status->id)
+
                     <br>
                     <b>Garantia: </b> {{date('d/m/Y', strtotime($contrato->data_fim_garantia))}}
-                    @endif
+
                 @endif
                 <br>
 
@@ -128,30 +134,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if (isset($conf))
-                        @if($contrato->historicos->last()->tipo->id != $conf->orcamento)
-                            @foreach($contrato->historicos as $h)
-                                @foreach($h->pecas as $peca)
-                                    <tr>
-                                        <td style="{{$peca->pivot->autorizado == 0?"text-decoration:line-through":""}};">{{$peca->descricao}}</td>
-                                        <td style="{{$peca->pivot->autorizado == 0?"text-decoration:line-through":""}};">{{$peca->pivot->qnt}}</td>
-                                        <td style="{{$peca->pivot->autorizado == 0?"text-decoration:line-through":""}};">R$ {{$peca->pivot->valor}}</td>
-                                        <td style="{{$peca->pivot->autorizado == 0?"text-decoration:line-through":""}};">R$ {{$peca->pivot->valor*$peca->pivot->qnt}}</td>
-                                    </tr>
-                                @endforeach
-                            @endforeach
-                        @else
-                            @foreach($contrato->historicos->last()->pecas as $peca)
-                                <tr>
-                                    <td>{{$peca->descricao}}</td>
-                                    <td>{{$peca->pivot->qnt}}</td>
-                                    <td>R$ {{$peca->pivot->valor}}</td>
-                                    <td>R$ {{$peca->pivot->valor*$peca->pivot->qnt}}</td>
-                                </tr>
-                            @endforeach
 
-                        @endif
-                    @endif
+                    @foreach($contrato->historicos->last()->pecas as $peca)
+                        <tr>
+                            <td>{{$peca->descricao}}</td>
+                            <td>{{$peca->pivot->qnt}}</td>
+                            <td>R$ {{$peca->pivot->valor}}</td>
+                            <td>R$ {{$peca->pivot->valor*$peca->pivot->qnt}}</td>
+                        </tr>
+                    @endforeach
+
                     </tbody>
                 </table>
             </div>
@@ -161,8 +153,16 @@
         <div class="row">
 
             <div class="col-6">
-                <p class="lead">Forma de Pagamentos:</p><br>
-                <p>Pix, Cartão de crédito, Débito, Dinheiro</p>
+                @if($conf->abertura == $contrato->historicos->last()->status->id)
+
+                    <h6>Or&ccedil;amento v&aacute;lio por 48 horas.&nbsp;<br />
+                        <strong>Caso n&atilde;o seja autorizado o servi&ccedil;o, consultar o valor do diagnóstico.</strong></h6>
+                @endif
+
+                    <br>
+                    <h5>FORMAS DE PAGAMENTOS:</h5><br />
+                    <p>D&eacute;bito, Pix, Cr&eacute;dito em at&eacute; 12 vezes.</p>
+{{--                    <p>OBS: em caso de parcelamento no cr&eacute;dito ser&aacute; acrescido a taxa da maquina de cart&atilde;o</p>--}}
 
             </div>
 
@@ -192,12 +192,12 @@
                                 <td>R$</td>
                             </tr>
                             <tr>
-
+                                @if(!$conf->abertura == $contrato->historicos->last()->status->id)
 
                                    <th>Pago:</th>
                                     <td>R$ </td>
 
-
+                                @endif
 
                             </tr>
                         </tbody>

@@ -142,6 +142,10 @@ View::composer(['admin.status.formulario'],function($view){
 View::composer(['admin.contratos.includes.nota'],function($view){
     $view->with(['tipos_notas'        =>\App\Models\TipoNota::all()]);
 });
+View::composer(['admin.index'],function($view){
+    $conf   =   Configuracao::find(1);
+    $view->with(['nome_empresa'        =>$conf->nome_principal,]);
+});
 View::composer(['admin.entradas.formulario'],function($view){
     $conf       =   Configuracao::all()->last();
     $tipo       =   TipoPagamento::find(FormaPagamento::find($conf->forma_pagamento_preferido)->tipo_id);
@@ -159,7 +163,9 @@ Route::get('/garantia/{token}-{id}', [App\Http\Controllers\Front\SiteController:
 
 
 Route::get('teste',function (){
-    return view('admin.contratos.includes.invoicePDF',['contrato'=>Contrato::find(1)]);
+    $conf   =   Configuracao::find(1);
+
+    return view('admin.contratos.includes.invoicePDF',['contrato'=>Contrato::find(1),'conf'=>$conf]);
 
 });
 

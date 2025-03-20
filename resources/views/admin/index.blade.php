@@ -182,10 +182,10 @@
                     <div class="logo">
                         <a href="index.html">
                             <span class="logo-img">
-                                <img src="{{URL::asset('/images/logo_sm.png')}}" alt="" height="26">
+                                <img src="{{URL::asset('/images/logo.png')}}" alt="" height="26">
                             </span>
                             <!--<i class="fa fa-maxcdn"></i>-->
-                            <span class="brand-name">Syntra</span>
+                            <span class="brand-name">{{$nome_empresa}}</span>
                         </a>
                     </div>
 
