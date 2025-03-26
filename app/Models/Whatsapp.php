@@ -13,11 +13,13 @@ class Whatsapp extends Model
     use HasFactory;
     private $key;
     private $instance;
+    private $url;
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
         $this->key  =   env('KEY_EVOLUTIONAPI');
         $this->instance =   env('INSTANCE_EVOLUTIONAPI');
+        $this->url    =   env('URL_EVOLUTIONAPI');
     }
 
     public function enviarMensagem(string $mensagem,$telefone,$codigoPais){
@@ -25,7 +27,8 @@ class Whatsapp extends Model
         $resposta   =   Http::withHeaders([
             'Content-Type'  =>  'application/json',
             'apikey'       => $this->key,
-        ])->post('http://104.251.210.46:8081/message/sendText/'.$this->instance,[
+        ])->post($this->url.'message/sendText/'.$this->instance,[
+
 
             'delay'     =>  2,
             'number'    =>  $codigoPais.$telefone,
@@ -60,7 +63,7 @@ class Whatsapp extends Model
         $resposta   =   Http::withHeaders([
             'Content-Type'  =>  'application/json',
             'apikey'       => $this->key,
-        ])->post('http://104.251.210.46:8081/message/sendMedia/'.$this->instance,[
+        ])->post($this->url.'message/sendMedia/'.$this->instance,[
             'mediatype' =>  $tipo,
             'media'     =>  $url,
             'delay'     =>  $delay,

@@ -163,6 +163,9 @@ Route::get('/garantia/{token}-{id}', [App\Http\Controllers\Front\SiteController:
 
 
 Route::get('teste',function (){
+    $zap    =   new \App\Models\Whatsapp();
+    return $zap->enviarMensagem('teste','85986607785','55');
+
     $conf   =   Configuracao::find(1);
 
     return view('admin.contratos.includes.invoicePDF',['contrato'=>Contrato::find(1),'conf'=>$conf]);
