@@ -164,10 +164,10 @@ Route::get('/garantia/{token}-{id}', [App\Http\Controllers\Front\SiteController:
 
 Route::get('updateMontadoras',function (){
     $marcas     =   \Illuminate\Support\Facades\Http::get('https://parallelum.com.br/fipe/api/v1/carros/marcas')->json();
-    return $marcas;
+
     foreach ($marcas as $marca) {
-        return $marca['nome'];
-        $montadora          =   Montadora::where('codigo', $marca['codigo'])->first();
+
+        $montadora          =   Montadora::where('nome', $marca['nome'])->first();
         if($montadora== null){
             $montadora          =   new Montadora();
             $montadora->nome    =   $marca['nome'];
