@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('montadoras', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nome');
+            $table->string('codigo')->nullable();
             $table->timestamps();
         });
     }

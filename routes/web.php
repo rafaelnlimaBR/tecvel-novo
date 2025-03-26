@@ -162,13 +162,33 @@ View::composer(['admin.entradas.formulario'],function($view){
 Route::get('/garantia/{token}-{id}', [App\Http\Controllers\Front\SiteController::class, 'contrato'])->name('site.contrato');
 
 
-Route::get('teste',function (){
-    $zap    =   new \App\Models\Whatsapp();
-    return $zap->enviarMensagem('teste','85986607785','55');
+Route::get('updateMontadoras',function (){
+    $marcas     =   \Illuminate\Support\Facades\Http::get('https://parallelum.com.br/fipe/api/v1/carros/marcas')->json();
+    return $marcas;
+    foreach ($marcas as $marca) {
+        return $marca['nome'];
+        $montadora          =   Montadora::where('codigo', $marca['codigo'])->first();
+        if($montadora== null){
+            $montadora          =   new Montadora();
+            $montadora->nome    =   $marca['nome'];
+            $montadora->codigo  =   $marca['codigo'];
+            $montadora->save();
+        }
 
-    $conf   =   Configuracao::find(1);
+        $modelos    =   \Illuminate\Support\Facades\Http::get('https://parallelum.com.br/fipe/api/v1/carros/marcas/'.$marca['codigo'].'/modelos');
 
-    return view('admin.contratos.includes.invoicePDF',['contrato'=>Contrato::find(1),'conf'=>$conf]);
+        foreach ($modelos['modelos'] as $m) {
+            $modelo         =   Modelo::where('codigo', $m['codigo'])->first();
+            if($modelo== null){
+                $modelo         =   new Modelo();
+                $modelo->nome   =   $m['nome'];
+                $modelo->codigo =   $m['codigo'];
+                $modelo->montadora_id   =   $montadora->id;
+                $modelo->save();
+            }
+        }
+    }
+
 
 });
 
