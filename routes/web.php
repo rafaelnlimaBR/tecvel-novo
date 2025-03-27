@@ -11,6 +11,7 @@ use App\Models\Servico;
 use App\Models\TipoPagamento;
 use \App\Models\Veiculo;
 use \App\Models\Montadora;
+use Dompdf\Dompdf;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
@@ -163,12 +164,19 @@ Route::get('/garantia/{token}-{id}', [App\Http\Controllers\Front\SiteController:
 
 
 Route::get('teste',function (){
-    $zap    =   new \App\Models\Whatsapp();
-    return $zap->enviarMensagem('teste','85986607785','55');
+///*    $zap    =   new \App\Models\Whatsapp();
+//    return $zap->enviarMensagem('teste','85986607785','55');*/
 
     $conf   =   Configuracao::find(1);
 
-    return view('admin.contratos.includes.invoicePDF',['contrato'=>Contrato::find(1),'conf'=>$conf]);
+    $pdf        =   new Dompdf();
+    $view       =   view('admin.contratos.includes.invoicePDF',['contrato'=>Contrato::find(1),'conf'=>$conf])->render();
+    $pdf->loadHtml($view);
+
+    $pdf->render();
+
+    $pdf->stream();
+//    return view('admin.contratos.includes.invoicePDF',['contrato'=>Contrato::find(1),'conf'=>$conf]);
 
 });
 
