@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Avulsa;
+use App\Models\Comissao;
 use App\Models\Configuracao;
 use App\Models\Entrada;
 use App\Models\FormaPagamento;
@@ -79,8 +80,6 @@ class ContratoController extends Controller
                 'titulo'        => "Editar Contrato",
                 'contrato'        =>  $contrato,
                 'historico'         => $historico
-
-
             ];
 
 
@@ -196,6 +195,80 @@ class ContratoController extends Controller
 
         } catch (\Throwable $th) {
             return redirect()->route('contrato.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);
+        }
+    }
+
+    public function novaComissao($id,$historico_id)
+    {
+        try {
+
+
+            $historico          =   Historico::find($historico_id);
+            if($historico == null){
+                return "historico inexistente";
+            }
+            if($historico->contrato->id != $id  ){
+                return "Contrato inexistente";
+            }
+            $dados = [
+                'titulo' => "Contratos - Nova Comissao",
+                'contrato'        =>  $historico->contrato,
+                'historico'         => $historico
+            ];
+            return view('admin.contratos.includes.comissao',$dados);
+        }catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function EditarComissao($id,$historico_id,$comissao_id)
+    {
+        try {
+            $dados = [
+                'titulo' => "Contratos - Nova Comissao",
+            ];
+
+            $historico          =   Historico::find($historico_id);
+            if($historico == null){
+                return "historico inexistente";
+            }
+            if($historico->contrato->id != $id  ){
+                return "Contrato inexistente";
+            }
+
+
+            $comissao       =   Comissao::find($comissao_id);
+            if($comissao == null){
+                return "comissao inexistente";
+            }
+
+            $dados = [
+                'titulo'            => "Contratos - Nova Comissao",
+                'contrato'          =>  $historico->contrato,
+                'historico'         => $historico,
+                'comissao'          =>  $comissao
+            ];
+            return view('admin.contratos.includes.comissao',$dados);
+        }catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function cadastrarComissao(Request $r)
+    {
+        try {
+
+        }catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function atualizarComissao(Request $r)
+    {
+        try {
+
+        }catch (\Throwable $th) {
+            return $th->getMessage();
         }
     }
 

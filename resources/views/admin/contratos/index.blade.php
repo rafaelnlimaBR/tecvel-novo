@@ -41,7 +41,7 @@
             <div class="card-body">
                 <h5 class="header-title ">{{$titulo_tabela}}<p style="float: right"><a href="{{ route('contrato.novo',['pagina'=>'dados']) }}" style="color: white; font-size: 13px; text-transform: none" class="btn btn-primary btn-sm">Novo <i class="fa fa-plus-square"></i></a></p></h5>
 
-                <div class="table-responsive-sm " id="tabela-refresh-contratos">
+                <div class="table-responsive" id="tabela-refresh-contratos">
                     <table class="table table-bordered">
                         <thead class="thead-light">
                         <tr>

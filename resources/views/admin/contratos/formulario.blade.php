@@ -1,6 +1,7 @@
 @extends('admin.index')
 
 @section('conteudo')
+{{--    {{$historico}}--}}
 <div class="page-head">
     @if(isset($contrato))
         <h4 class="my-2">Status atual : {{$contrato->historicos->last()->status->nome}}<br>
@@ -34,6 +35,9 @@
                 <li class="nav-item">
                     <a class="nav-link  {{request()->exists('pagina')?request()->get('pagina') == "pecas"?'active':'':''}}" href="#pecas" data-toggle="tab" aria-expanded="false">Peças</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link  {{request()->exists('pagina')?request()->get('pagina') == "comissao"?'active':'':''}}" href="#comissao" data-toggle="tab" aria-expanded="false">Comissao</a>
+                </li>
                     <li class="nav-item">
                         <a class="nav-link  {{request()->exists('pagina')?request()->get('pagina') == "entradas"?'active':'':''}}" href="#entradas" data-toggle="tab" aria-expanded="false">Entradas</a>
                     </li>
@@ -60,6 +64,9 @@
                 <div class="tab-pane p-4  {{request()->exists('pagina')?request()->get('pagina') == "pecas"?'active':'':''}}" id="pecas">
                     @include("admin.contratos.includes.pecas")
                 </div>
+                    <div class="tab-pane p-4  {{request()->exists('pagina')?request()->get('pagina') == "comissao"?'active':'':''}}" id="comissao">
+                        @include("admin.contratos.includes.tabela-comissao")
+                    </div>
                 <div class="tab-pane p-4  {{request()->exists('pagina')?request()->get('pagina') == "entradas"?'active':'':''}}" id="entradas">
                     @include("admin.contratos.includes.tabela-entradas")
                 </div>

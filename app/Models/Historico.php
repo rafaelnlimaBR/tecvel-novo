@@ -35,4 +35,9 @@ class Historico extends Model
         return $this->hasMany(Nota::class);
     }
 
+    public function comissoes()
+    {
+        return  $this->hasMany(Comissao::class);
+    }
+
 }

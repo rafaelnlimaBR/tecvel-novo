@@ -18,6 +18,7 @@
             <li>
                 <a href="index.html"><i class="fa fa-users fa-fw"></i> Clientes</a>
             </li>
+
             <li>
                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
