@@ -17,6 +17,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('nome');
             $table->string('endereco');
+            $table->string('cnpjCPF')->nullable();
 
             $table->timestamps();
         });

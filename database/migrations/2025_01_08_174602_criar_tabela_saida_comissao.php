@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('saida_comissao', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('saida_id')->constrained('saidas','id')->onDepete('cascade')->onUpdate('cascade');
-            $table->foreignId('comissao_id')->constrained('comissoes','id')->onDepete('cascade')->onUpdate('cascade');
+            $table->foreignId('saida_id')->constrained('saidas','id')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('comissao_id')->constrained('comissoes','id')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

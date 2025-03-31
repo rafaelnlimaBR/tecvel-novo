@@ -58,8 +58,22 @@ Route::get('/contrato/excluir/nota/{id}', [App\Http\Controllers\NotaController::
 Route::post('/contrato/adicionar/imagens', [App\Http\Controllers\NotaController::class, 'adicionarImagens'])->name('contrato.adicionar.imagens');
 Route::post('/contrato/atualizar/imagens', [App\Http\Controllers\NotaController::class, 'atualizarImagens'])->name('contrato.atualizar.imagens');
 Route::get('/contrato/excluir/imagens/{id}', [App\Http\Controllers\NotaController::class, 'excluirImagens'])->name('contrato.excluir.imagens');
+Route::get('/contrato/{id}/historico/{historico_id}/nova/comissao/', [App\Http\Controllers\ContratoController::class, 'novaComissao'])->name('contrato.nova.comissao');
+Route::get('/contrato/{id}/historico/{historico_id}/editar/comissao/{comissao_id}', [App\Http\Controllers\ContratoController::class, 'editarComissao'])->name('contrato.editar.comissao');
+Route::post('/contrato/cadastrar/comissao', [App\Http\Controllers\NotaController::class, 'cadastrarComissao'])->name('contrato.cadastrar.comissao');
+Route::post('/contrato/atualizar/comissao', [App\Http\Controllers\NotaController::class, 'atualizarComissao'])->name('contrato.atualizar.comissao');
 
 //Route::get('/contratos/refresh', [App\Http\Controllers\ContratoController::class, 'refresh'])->name('contrato.refresh'); atualizar a pagina a cada certos segundos
+
+//FORNECEDORES
+Route::get('/fornecedores', [App\Http\Controllers\FornecedorController::class, 'index'])->name('fornecedor.index');
+Route::get('/fornecedor/novo', [App\Http\Controllers\FornecedorController::class, 'novo'])->name('fornecedor.novo');
+Route::get('/fornecedor/editar/{id}', [App\Http\Controllers\FornecedorController::class, 'editar'])->name('fornecedor.editar');
+Route::post('/fornecedor/cadastrar', [App\Http\Controllers\FornecedorController::class, 'cadastrar'])->name('fornecedor.cadastrar');
+Route::post('/fornecedor/atualizar', [App\Http\Controllers\FornecedorController::class, 'atualizar'])->name('fornecedor.atualizar');
+Route::get('/fornecedor/excluir/{id}', [App\Http\Controllers\FornecedorController::class, 'excluir'])->name('fornecedor.excluir');
+
+
 
 //CLIENTES
 Route::get('/clientes', [App\Http\Controllers\ClienteController::class, 'index'])->name('cliente.index');
@@ -163,21 +177,5 @@ View::composer(['admin.entradas.formulario'],function($view){
 Route::get('/garantia/{token}-{id}', [App\Http\Controllers\Front\SiteController::class, 'contrato'])->name('site.contrato');
 
 
-Route::get('teste',function (){
-///*    $zap    =   new \App\Models\Whatsapp();
-//    return $zap->enviarMensagem('teste','85986607785','55');*/
-
-    $conf   =   Configuracao::find(1);
-
-    $pdf        =   new Dompdf();
-    $view       =   view('admin.contratos.includes.invoicePDF',['contrato'=>Contrato::find(1),'conf'=>$conf])->render();
-    $pdf->loadHtml($view);
-
-    $pdf->render();
-
-    $pdf->stream();
-//    return view('admin.contratos.includes.invoicePDF',['contrato'=>Contrato::find(1),'conf'=>$conf]);
-
-});
 
 

@@ -30,6 +30,17 @@ class DatabaseSeeder extends Seeder
         $this->command->info("Insertindo dados clientes");
         Cliente::factory(20)->has(Contato::factory(20)->count(2))
         ->create();
+
+        $this->command->info("Insertindo dados de fornecedores");
+        DB::table('fornecedores')->insert([
+            ['nome' => 'Fornecedor01 ','cnpjCPF' => '00000000000','endereco'   =>  'teste'],
+            ['nome' => 'Fornecedor02 ','cnpjCPF' => '00000000001','endereco'   =>  'teste'],
+            ['nome' => 'Fornecedor01 ','cnpjCPF' => '00000000002','endereco'   =>  'teste'],
+        ]);
+
+
+
+
         $this->command->info("Insertindo dados do montadoras");
         DB::table('montadoras')->insert([
             ['nome'          =>  "Fiat"],
@@ -149,6 +160,8 @@ class DatabaseSeeder extends Seeder
             ['texto'=>"dad wdawda dawda dawd ad adefgh h f kls dfnl lnsfglnkç sdfklmng lksdf","tipo_nota_id"=>2,'historico_id'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()] ,
         ]);
 
+
+
         $this->command->info("Insertindo dados de servicos");
         DB::table("servicos")->insert([
             ['nome'=>"servico teste 01","valor"=>10] ,
@@ -205,7 +218,20 @@ class DatabaseSeeder extends Seeder
             'forma_pagamento_preferido'=>'28',
             'whatsapp_id'=>  1
         ]);
+        $this->command->info("Insertindo dados de saidas");
+        DB::table('saidas')->insert([
+            ['valor' => '10.00','obs' => 'teste','data'=>Carbon::now()],
+        ]);
 
+        $this->command->info("Insertindo dados de comissoes");
+        DB::table('comissoes')->insert([
+            ['fornecedor_id' => 1,'historico_id'=>1,'valor' => '100','obs'=>'teste','data'=>Carbon::now()],
+        ]);
+
+        $this->command->info("Insertindo dados de comissao saidas");
+        DB::table('saida_comissao')->insert([
+            ['comissao_id' => 1,'saida_id' => '1'],
+        ]);
         \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

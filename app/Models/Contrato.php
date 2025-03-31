@@ -49,7 +49,10 @@ class Contrato extends Model
         return $this->belongsToMany(Entrada::class,'contrato_entrada');
     }
 
+    public function comissoes()
+    {
 
+    }
 
     public function scopePesquisarPorCliente($query, $nome)
     {

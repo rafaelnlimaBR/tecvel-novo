@@ -57,6 +57,10 @@
                         <li>
                             <a href="{{route('cliente.index')}}"><i class="fa fa-users"></i> <span>Clientes</span></a>
                         </li>
+
+                        <li>
+                            <a href="{{route('fornecedor.index')}}"><i class="fa fa-users"></i> <span>Fornecedores</span></a>
+                        </li>
                         <li>
                             <a href="{{route('montadora.index')}}"><i class="fa fa-users"></i> <span>Montadoras</span></a>
                         </li>
@@ -1634,6 +1638,30 @@
 
 
             });
+            $('.form-modal-fornecedor').submit(function (){
+                var dados   = $(this).serialize();
+                var rota    =   this.action;
+
+                $.ajax({
+                    type: "POST",
+                    url: rota,
+                    data: dados,
+                    success: function( data )
+                    {
+                        if('erro' in data){
+                            alert(data.erro);
+
+                        }else{
+                            alert(data.alerta)
+                            $('#fornecedorModal').modal('toggle');
+                        }
+                    },
+                    error:function (data,e) {
+                        alert(data);
+                    }
+                });
+                return false;
+            });
 
             $("form[name='cadastrar-servico-modal']").submit(function () {
                 var dados   = $(this).serialize();
@@ -1794,6 +1822,8 @@
                     $("#desconto-peca-"+peca_id).val(desconto);
                 }
             });
+
+
 
             $('#servicos').on('keyup','.calcular-desconto',function () {
                 var servico_id      =    $(this).attr("servico-id");

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('modelos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nome');
+            $table->string('codigo')->nullable();
             $table->foreignId('montadora_id')->constrained('montadoras','id')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
