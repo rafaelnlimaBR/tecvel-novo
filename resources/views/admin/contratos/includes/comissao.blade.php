@@ -16,9 +16,7 @@
                     <div class="form-row">
 
                         <div class="form-group col-md-12">
-                            <label for="fornecedor">Fornecedor <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#fornecedorModal">
-                                    Novo Fornecedor
-                                </button></label>
+                            <label for="fornecedor">Fornecedor</label>
                             <input class="form-control" type="text" id="fornecedor" value="" name="taxa" >
                         </div>
 
@@ -49,14 +47,25 @@
                     @endif
                     <a href="{{route('contrato.editar',['id'=>$contrato->id,'historico_id'=>$historico->id,'pagina'=>'comissao'])}}" class="btn btn-secondary">Voltar</a>
 
+                    <a class="btn btn-primary pull-right btn-fornecedor" style="color: #fffefa">Novo Fornecedor</a>
 
                 </form>
             </div>
 
         </div>
+
+        <div class="card fornecedor-form"  style="margin-top: 10px">
+            <div class="card-header">
+                <h5>Novo Fornecedor</h5>
+            </div>
+            <div class="card-body">
+                @include('admin.fornecedores.includes.form',['modal'=>0])
+            </div>
+
+        </div>
     </div>
 
-
 </div>
-@include('admin.fornecedores.includes.formModal')
+
+
 @stop

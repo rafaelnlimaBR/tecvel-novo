@@ -46,27 +46,22 @@ class FornecedorController extends Controller
     public function cadastrar(FornecedorRequest $r)
     {
         try {
-            $validacao = $r->validate([
-                'nome' => 'required|unique:fornecedores|min:3',
-            ]);
+
 
             $fornecedor = new Fornecedor();
             $fornecedor->nome       = $r->get('nome');
             $fornecedor->endereco   =   $r->get('endereco');
             if($fornecedor->save()){
-                if($r->get('modal') == 1){
-                    return response()->json(['alerta'=>'Registo Cadastrado com Sucesso!']);
-                }else{
-                    return redirect()->route('fornecedor.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>'Fornecedor cadastrado com sucesso!']);
-                }
+
+
+                    return redirect()->back()->with('alerta',['tipo'=>'success','icon'=>'','texto'=>'Fornecedor cadastrado com sucesso!']);
+
 
             }
         }catch (\Exception $e){
-            if($r->get('modal') == 1){
-                return response()->json(['erro'=>$e->getMessage()]);
-            }else{
-                return redirect()->route('fornecedor.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage()]);
-            }
+
+                return redirect()->back()->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage()]);
+
 
         }
     }
