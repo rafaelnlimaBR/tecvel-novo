@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->text('obs');
             $table->decimal('valor',8,2);
-            $table->date('data');
+            $table->date('data')->nullable();
             $table->foreignId('fornecedor_id')->constrained('fornecedores','id')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('historico_id')->constrained('historicos','id')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

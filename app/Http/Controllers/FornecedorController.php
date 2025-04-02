@@ -112,4 +112,31 @@ class FornecedorController extends Controller
             return $e->getMessage();
         }
     }
+
+    public function fornecedoresJson(Request $r)
+    {
+        {
+
+            $fornecedores    =   "";
+
+            $fornecedores = Fornecedor::PesquisarPorNome($r->get('q'))->orderBy('created_at', 'desc')->limit(30)->get();
+
+
+
+
+//        return response()->json($clientes->count());
+            $retorno    =   [];
+
+            foreach ($fornecedores as $key => $value) {
+
+                $retorno[$key]['id'] = $value->id;
+                $retorno[$key]['text'] = $value->nome;
+                $retorno[$key]['nome'] = $value->nome;
+
+
+
+            }
+            return response()->json($retorno);
+        }
+    }
 }

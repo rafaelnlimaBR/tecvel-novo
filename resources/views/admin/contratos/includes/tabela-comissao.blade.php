@@ -72,7 +72,7 @@
 
 
                     <td>
-                        <a class="btn btn-sm btn-danger "  style="padding-top: 0; padding-bottom: 0" href="" ><i class="fa  fa-trash-o"></i></a>
+                        <a class="btn btn-sm btn-danger " onclick="return confirm('Deseja excluir esse registro')"  style="padding-top: 0; padding-bottom: 0" href="{{route('comissao.excluir',['id'=>$contrato->id,'historico_id'=>$historico->id,'comissao_id'=>$comissao->id])}}" ><i class="fa  fa-trash-o"></i></a>
                         <a class="btn btn-sm btn-warning " style="padding-top: 0; padding-bottom: 0" href="{{route('contrato.editar.comissao',['id'=>$contrato->id,'historico_id'=>$historico->id,'comissao_id'=>$comissao->id])}}"><i class="fa  fa-trash-o"></i></a>
                     </td>
                 </tr>

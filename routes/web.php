@@ -58,10 +58,15 @@ Route::get('/contrato/excluir/nota/{id}', [App\Http\Controllers\NotaController::
 Route::post('/contrato/adicionar/imagens', [App\Http\Controllers\NotaController::class, 'adicionarImagens'])->name('contrato.adicionar.imagens');
 Route::post('/contrato/atualizar/imagens', [App\Http\Controllers\NotaController::class, 'atualizarImagens'])->name('contrato.atualizar.imagens');
 Route::get('/contrato/excluir/imagens/{id}', [App\Http\Controllers\NotaController::class, 'excluirImagens'])->name('contrato.excluir.imagens');
-Route::get('/contrato/{id}/historico/{historico_id}/nova/comissao/', [App\Http\Controllers\ContratoController::class, 'novaComissao'])->name('contrato.nova.comissao');
-Route::get('/contrato/{id}/historico/{historico_id}/editar/comissao/{comissao_id}', [App\Http\Controllers\ContratoController::class, 'editarComissao'])->name('contrato.editar.comissao');
-Route::post('/contrato/cadastrar/comissao', [App\Http\Controllers\NotaController::class, 'cadastrarComissao'])->name('contrato.cadastrar.comissao');
-Route::post('/contrato/atualizar/comissao', [App\Http\Controllers\NotaController::class, 'atualizarComissao'])->name('contrato.atualizar.comissao');
+
+
+//COMISSÃO
+Route::get('/contrato/{id}/historico/{historico_id}/nova/comissao/', [App\Http\Controllers\ComissaoController::class, 'novo'])->name('contrato.nova.comissao');
+Route::get('/contrato/{id}/historico/{historico_id}/editar/comissao/{comissao_id}', [App\Http\Controllers\ComissaoController::class, 'editar'])->name('contrato.editar.comissao');
+Route::post('/contrato/cadastrar/comissao', [App\Http\Controllers\ComissaoController::class, 'cadastrar'])->name('cadastrar.comissao');
+Route::post('/contrato/atualizar/comissao', [App\Http\Controllers\ComissaoController::class, 'atualizar'])->name('atualizar.comissao');
+Route::get('/contrato/{id}/historico/{historico_id}/comissao/excluir/{comissao_id}', [App\Http\Controllers\ComissaoController::class, 'excluir'])->name('comissao.excluir');
+
 
 //Route::get('/contratos/refresh', [App\Http\Controllers\ContratoController::class, 'refresh'])->name('contrato.refresh'); atualizar a pagina a cada certos segundos
 
@@ -72,6 +77,8 @@ Route::get('/fornecedor/editar/{id}', [App\Http\Controllers\FornecedorController
 Route::post('/fornecedor/cadastrar', [App\Http\Controllers\FornecedorController::class, 'cadastrar'])->name('fornecedor.cadastrar');
 Route::post('/fornecedor/atualizar', [App\Http\Controllers\FornecedorController::class, 'atualizar'])->name('fornecedor.atualizar');
 Route::get('/fornecedor/excluir/{id}', [App\Http\Controllers\FornecedorController::class, 'excluir'])->name('fornecedor.excluir');
+Route::post('/fornecedor/pesquisa/json', [App\Http\Controllers\FornecedorController::class, 'fornecedoresJson'])->name('fornecedor.pesquisar.json');
+
 
 
 
@@ -171,6 +178,7 @@ View::composer(['admin.entradas.formulario'],function($view){
         'tipo_pagamento_preferido'  =>  $tipo->id
     ]);
 });
+
 
 
 

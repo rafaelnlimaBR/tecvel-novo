@@ -1327,6 +1327,54 @@
             });
 
 
+            $("#pesquisa-fornecedor").select2({
+
+                // placeholder: "Selecione um cliente",
+                ajax: {
+                    type: 'POST',
+                    url: "{{route('fornecedor.pesquisar.json')}}",
+                    dataType: 'json',
+
+                    beforeSend: function (xhr) {
+                        var token = $("meta[name='csrf-token']" ).val();
+
+                        if (token) {
+                            return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+                        }
+                    },
+                    quietMillis: 400,
+                    delay:400,
+                    data: function (term, page) {
+
+                        return {
+                            q: term.term, //search term
+                            // page size
+                        };
+                    },
+                    processResults: function (data) {
+
+                        return {
+                            results: data
+                        };
+                    },
+                },
+                templateResult: function (data) {
+
+                    var html    =   $('<div class="select2-user-result"><h5>'+data.nome+'</h5>' +
+                        '</div>'
+                    );
+                    return html;
+                },
+                templateSelection:function (data) {
+
+                    var html    =   $('<div class="select2-user-result"><b>Fornecedor: </b>'+data.text+'</div><br>'
+                    );
+                    return html;
+                },
+
+            });
+
+
             $("#servicos-nome").keyup(function () {
                 var nome = $(this).val();
                 var rota    =   '{{route('servico.json')}}';
