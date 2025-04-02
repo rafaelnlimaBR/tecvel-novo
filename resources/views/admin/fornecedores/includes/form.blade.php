@@ -5,7 +5,7 @@
         <input hidden type="text" class="form-control" id="id-fornecedor" placeholder="" name="id" value="{{$fornecedor->id}}">
     @endif
     <div class="form-row">
-        <div class="form-group col-md-12">
+        <div class="form-group col-lg-12">
             <label for="nome">Nome</label>
             <input type="text"  class="form-control @error('nome')is-invalid @enderror" id="Nome" placeholder="Nome" name="nome" value="{{isset($fornecedor)?$fornecedor->nome:''}}">
             <input  type="hidden" name="modal"   value="{{$modal == false?0:1}}">
