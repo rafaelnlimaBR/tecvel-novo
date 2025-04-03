@@ -112,8 +112,35 @@
                     </div>
                 </div>--}}
                 <div class="tab-pane p-4" id="saidas-2">
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
-                    <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
+
+                    <div class="row">
+
+                        <div class="col-lg-12">
+                            <a class="btn btn-primary" style="margin-bottom: 10px; color: #efefef">Novo Pagamento</a>
+                            <table class="table table-bordered ">
+                                <thead>
+                                    <tr>
+                                        <td>Valor</td>
+                                        <td     >Data</td>
+                                        <td style="width: 20%">Ações</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($comissao->saidas as $saida)
+                                    <tr>
+                                        <td>{{$saida->valor}}</td>
+                                        <td>{{\Carbon\Carbon::parse($saida->data)->format('d/m/Y')}}</td>
+                                        <td>1</td>
+                                    </tr>
+                                @endforeach
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
                 </div>
 
             </div>
