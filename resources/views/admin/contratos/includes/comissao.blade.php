@@ -111,6 +111,7 @@
                         </div>
                     </div>
                 </div>--}}
+                @if(isset($comissao))
                 <div class="tab-pane p-4" id="saidas-2">
 
                     <div class="row">
@@ -142,7 +143,7 @@
 
 
                 </div>
-
+                @endif
             </div>
         </div>
     </div>
