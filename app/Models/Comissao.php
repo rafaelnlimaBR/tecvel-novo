@@ -17,6 +17,11 @@ class Comissao extends Model
 
     public function saidas()
     {
-        return $this->belongsToMany(Saida::class,'saida_comissao');
+        return $this->belongsToMany(Saida::class,'saida_comissao')->withPivot('id');
+    }
+
+    public function historico()
+    {
+        return $this->belongsTo(Historico::class,'historico_id');
     }
 }

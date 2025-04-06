@@ -63,9 +63,14 @@ Route::get('/contrato/excluir/imagens/{id}', [App\Http\Controllers\NotaControlle
 //COMISSÃO
 Route::get('/contrato/{id}/historico/{historico_id}/nova/comissao/', [App\Http\Controllers\ComissaoController::class, 'novo'])->name('contrato.nova.comissao');
 Route::get('/contrato/{id}/historico/{historico_id}/editar/comissao/{comissao_id}', [App\Http\Controllers\ComissaoController::class, 'editar'])->name('contrato.editar.comissao');
+Route::get('/contrato/{id}/historico/{historico_id}/editar/comissao/{comissao_id}/novo/pagamento', [App\Http\Controllers\ComissaoController::class, 'novoPagamento'])->name('contrato.editar.comissao.novo.pagamento');
+Route::get('/contrato/{id}/historico/{historico_id}/editar/comissao/{comissao_id}/editar/pagamento/{saida_id}', [App\Http\Controllers\ComissaoController::class, 'editarPagamento'])->name('contrato.editar.comissao.editar.pagamento');
 Route::post('/contrato/cadastrar/comissao', [App\Http\Controllers\ComissaoController::class, 'cadastrar'])->name('cadastrar.comissao');
 Route::post('/contrato/atualizar/comissao', [App\Http\Controllers\ComissaoController::class, 'atualizar'])->name('atualizar.comissao');
+Route::post('/contrato/comissao/salvar/pagamento', [App\Http\Controllers\ComissaoController::class, 'salvarPagamento'])->name('comissao.salvar.pagamento');
+Route::post('/contrato/comissao/atualizar/pagamento', [App\Http\Controllers\ComissaoController::class, 'atualizarPagamento'])->name('comissao.atualizar.pagamento');
 Route::get('/contrato/{id}/historico/{historico_id}/comissao/excluir/{comissao_id}', [App\Http\Controllers\ComissaoController::class, 'excluir'])->name('comissao.excluir');
+Route::get('/contrato/{id}/historico/{historico_id}/comissao/{comissao_id}/excluir/pagamento/{saida_id}', [App\Http\Controllers\ComissaoController::class, 'excluirPagamento'])->name('comissao.excluir.pagamento');
 
 
 //Route::get('/contratos/refresh', [App\Http\Controllers\ContratoController::class, 'refresh'])->name('contrato.refresh'); atualizar a pagina a cada certos segundos
