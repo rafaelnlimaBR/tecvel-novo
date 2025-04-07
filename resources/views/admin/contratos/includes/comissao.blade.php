@@ -12,7 +12,7 @@
         <div class="tab-2 m-b-30">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active show" href="#dados" data-toggle="tab" aria-expanded="false">Dados da Comissão</a>
+                    <a class="nav-link {{request()->exists('pagina')?request()->get('pagina') == "dados"?'active':'':'active'}}" href="#dados" data-toggle="tab" aria-expanded="false">Dados da Comissão</a>
                 </li>
                {{-- <li class="nav-item">
                     <a class="nav-link" href="#fornecedor-2" data-toggle="tab" aria-expanded="false">Fornecedor</a>
@@ -20,14 +20,14 @@
                 @if(isset($comissao))
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#saidas-2" data-toggle="tab" aria-expanded="false">Pagamentos</a>
+                        <a class="nav-link {{request()->exists('pagina')?request()->get('pagina') == "pagamentos"?'active':'':''}}" href="#saidas-2" data-toggle="tab" aria-expanded="false">Pagamentos</a>
                     </li>
 
                 @endif
 
             </ul>
             <div class="tab-content bg-white">
-                <div class="tab-pane p-4 active show" id="dados">
+                <div class="tab-pane p-4 {{request()->exists('pagina')?request()->get('pagina') == "dados"?'active':'':'active'}}" id="dados">
 
 
                     <div class="row">
@@ -42,7 +42,7 @@
                                 <div class="form-row">
 
                                     <div class="form-group col-md-9">
-                                        <label for="fornecedor ">Fornecedor</label>
+                                        <label for="fornecedor "><a href="{{route('fornecedor.novo')}}" target="new" style="color: #0a53be" class="">Fornecedor <i class="fa fa-plus-square" aria-hidden="true"></i></a></label>
                                         <select type="text"  class="form-control select2 @error('fornecedor')is-invalid @enderror" ui-select2="{width:'resolve',dropdownAutoWidth:true}" style="width:100%" id="pesquisa-fornecedor" name="fornecedor" >
                                             @if(isset($comissao))
                                                 <option value="{{$comissao->fornecedor->id}}">{{$comissao->fornecedor->nome}}</option>
@@ -113,12 +113,12 @@
                     </div>
                 </div>--}}
                 @if(isset($comissao))
-                <div class="tab-pane p-4" id="saidas-2">
+                <div class="tab-pane p-4 {{request()->exists('pagina')?request()->get('pagina') == "pagamentos"?'active':'':''}}" id="saidas-2">
 
                     <div class="row">
 
                         <div class="col-lg-12">
-                            <a class="btn btn-primary" style="margin-bottom: 10px; color: #efefef">Novo Pagamento</a>
+                            <a class="btn btn-primary" href="{{route('contrato.editar.comissao.novo.pagamento',['id'=>$contrato->id,'historico_id'=>$historico->id,'comissao_id'=>$comissao->id])}}" style="margin-bottom: 10px; color: #efefef">Novo Pagamento</a>
                             <table class="table table-bordered ">
                                 <thead>
                                     <tr>
@@ -132,7 +132,9 @@
                                     <tr>
                                         <td>{{$saida->valor}}</td>
                                         <td>{{\Carbon\Carbon::parse($saida->data)->format('d/m/Y')}}</td>
-                                        <td>1</td>
+                                        <td><a href="{{route('comissao.excluir.pagamento',['id'=>$contrato->id,'historico_id'=>$historico->id,'comissao_id'=>$comissao->id,'saida_id'=>$saida->id])}}" onclick="return confirm('Deseja excluir esse registro?')" class="btn btn-danger btn-sm"  ><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                            <a href="{{route('contrato.editar.comissao.editar.pagamento',['id'=>$contrato->id,'historico_id'=>$historico->id,'comissao_id'=>$comissao->id,'saida_id'=>$saida->id])}}" class="btn btn-warning btn-sm"  ><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        </td>
                                     </tr>
                                 @endforeach
 
@@ -148,17 +150,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-6 col-sm-6 col-md-6">
-        <div class="card ">
-            <div class="card-header">
-                <h5>Novo Fornecedor</h5>
-            </div>
-            <div class="card-body">
-                @include('admin.fornecedores.includes.form',['modal'=>false])
-            </div>
 
-        </div>
-    </div>
 </div>
 
 
