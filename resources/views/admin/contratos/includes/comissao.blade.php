@@ -94,6 +94,7 @@
                                 @endif
                                 <a href="{{route('contrato.editar',['id'=>$contrato->id,'historico_id'=>$historico->id,'pagina'=>'comissao'])}}" class="btn btn-secondary">Voltar</a>
 
+                                <a class="pull-right btn btn-primary" href="{{route('fornecedor.novo',['route_back'=>route('contrato.nova.comissao',['id'=>$contrato->id,'historico_id'=>$historico->id])])}}">Novo Fornecedor</a>
 
 
                             </form>
