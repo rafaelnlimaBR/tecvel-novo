@@ -31,30 +31,14 @@ class SiteController extends Controller
 
     }
 
-    public function contrato($token,$id)
+    public function orcamento()
     {
-        try{
-            $dados = [
-                'titulo' => "Garantia",
-            ];
 
-            $contrato   =   Contrato::find($id);
-            if(is_null($contrato)){
-                return "Contrato inexistente";
-            }
+        $dados  =   [
+            'titulo'        =>  'Orçamento'
+        ];
 
-            $contrato->validarToken($token);
+        return view('front.orcamento',$dados);
 
-            return view('front.contrato', $dados)->with('contrato', $contrato);
-
-
-
-
-        }catch (\Exception $e){
-            return view('front.contrato', $dados)->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage()]);
-
-        }
-
-        
     }
 }

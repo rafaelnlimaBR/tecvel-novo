@@ -187,7 +187,7 @@ View::composer(['admin.entradas.formulario'],function($view){
 
 
 
-Route::get('/garantia/{token}-{id}', [App\Http\Controllers\Front\SiteController::class, 'contrato'])->name('site.contrato');
+Route::get('/fazer-orcamento', [App\Http\Controllers\Front\SiteController::class, 'orcamento'])->name('site.orcamento');
 
 
 
