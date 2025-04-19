@@ -159,7 +159,7 @@ Route::get('/contrato/abrir/{token}/{id}', [App\Http\Controllers\ContratoControl
 View::composer(['admin.contatos.formulario','admin.contatos.tabela','admin.clientes.formulario-modal'],function($view){
     $view->with(['aplicativos'=>AppContato::all()]);
 });
-View::composer(['admin.veiculos.form'],function($view){
+View::composer(['admin.veiculos.form','front.orcamento'],function($view){
    $view->with(['montadoras'    =>  Montadora::all()]);
    $view->with(['cores'         =>  Veiculo::$cores]);
 });
@@ -186,7 +186,9 @@ View::composer(['admin.entradas.formulario'],function($view){
 
 
 
-
+Route::get('/teste',function (){
+   return \view('front.orcamento');
+});
 Route::get('/fazer-orcamento', [App\Http\Controllers\Front\SiteController::class, 'orcamento'])->name('site.orcamento');
 
 
