@@ -92,22 +92,22 @@
                     <div class="form-row">
                         <div class="form-group col-md-7">
                             <label class="control-label">Nome Completo *</label>
-                            <input  maxlength="100" type="text" class="form-control" placeholder="Seu Nome" name="nome" />
+                            <input  maxlength="100" type="text" class="form-control" required="required" placeholder="Seu Nome" name="nome" />
                         </div>
                         <div class="form-group col-md-5">
                             <label class="control-label">CPF/CNPJ *</label>
-                            <input  maxlength="100" type="text" class="form-control cpfCnpj" placeholder="CPF ou CNPJ" name="cpfcnpj" />
+                            <input  maxlength="100" type="text" class="form-control cpfCnpj" required="required" placeholder="CPF ou CNPJ" name="cpfcnpj" />
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-8">
                             <label class="control-label">Email *</label>
-                            <input maxlength="100"  type="email" class="form-control" placeholder="Seu Email" name="email" />
+                            <input maxlength="100"  type="email" class="form-control" required="required" placeholder="Seu Email" name="email" />
                         </div>
                         <div class="form-group col-md-4">
-                            <label class="control-label">Whatsapp *</label>
-                            <input maxlength="100"  type="text" class="form-control telefone" placeholder="Seu Número Com Whatsapp" value="{{request()->get('whatsapp')?request()->get('whatsapp'):''}}" name="telefone"/>
+                            <label class="control-label">Whatsapp * Ex: 85987067785</label>
+                            <input maxlength="100"  type="text" class="form-control telefone" required="required" placeholder="Seu Número Com Whatsapp" value="{{request()->get('whatsapp')?request()->get('whatsapp'):''}}" name="telefone"/>
                         </div>
                     </div>
                     <div class="form-row">
@@ -150,7 +150,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-2">
                             <label class="control-label">Placa</label>
-                            <input maxlength="200" type="text" class="form-control placa" placeholder="Placa do Veículo" name="placa" />
+                            <input maxlength="200" type="text" class="form-control placa" required="required" placeholder="Placa do Veículo" name="placa" />
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">Montadora</label>
@@ -163,14 +163,14 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">Modelo</label>
-                            <select class="form-control" id="modelos-veiculos"  name="modelo">
+                            <select class="form-control" id="modelos-veiculos" required="required"  name="modelo">
 
                             </select>
 
                         </div>
                         <div class="form-group col-md-2">
                             <label class="control-label">Cor</label>
-                            <input list="cor" class="form-control" name="cor"   />
+                            <input list="cor" class="form-control" name="cor"  required="required" />
                             <datalist id="cor" >
                                 @foreach($cores as $c)
 
@@ -183,7 +183,7 @@
                         </div>
                         <div class="form-group col-md-2">
                             <label class="control-label">Ano do Modelo</label>
-                            <input maxlength="200" type="text"  class="form-control numero" placeholder="Ano do Modelo" />
+                            <input maxlength="200" type="text"  class="form-control numero" required="required" name="ano" placeholder="Ano do Modelo" />
                         </div>
                     </div>
 

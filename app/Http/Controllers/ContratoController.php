@@ -39,13 +39,16 @@ class ContratoController extends Controller
     }
 
     public function index(Request $r){
+
+
+
         $dados = [
             'titulo' => "Contratos",
             'titulo_tabela' => "Lista de Contratos",
             'orcamento_id'  => $this->conf->abertura_id,//id do status orçamento
         ];
-        $contratos = "";
-        if($r->get('placa') == null){
+
+        if($r->has('placa')){
             $contratos   =   Contrato::pesquisarPorCliente($r->input('nome'))->PesquisarPorTelefone($r->input('telefone'))->
             orderBy('created_at', 'desc')
                 ->paginate(10)->
@@ -76,6 +79,8 @@ class ContratoController extends Controller
             if($contrato->historicos->contains($historico_id) == false){
                 return redirect()->route('contrato.index')->with('alerta',['tipo'=>'warning','icon'=>'','texto'=>"Histórico não é desse contrato."]);
             }
+            $contrato->visualizado = true;
+            $contrato->save();
 
             $dados = [
                 'titulo'        => "Editar Contrato",

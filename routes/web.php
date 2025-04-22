@@ -187,7 +187,10 @@ View::composer(['admin.entradas.formulario'],function($view){
 
 
 Route::get('/teste',function (){
-   return \view('front.orcamento');
+    $cliente            =   Cliente::find(21);
+    return $cliente->PesquisarPorTelefone('85987067785')->exists();
+   return str_replace(['.',',','/','-'],"",'040.206.763-05');
+
 });
 Route::get('/fazer-orcamento', [App\Http\Controllers\Front\SiteController::class, 'orcamento'])->name('site.orcamento');
 Route::post('/cadastrar-pedido-orcamento', [App\Http\Controllers\Front\SiteController::class, 'cadastrarPedidoOrcamento'])->name('site.cadastrar.orcamento');

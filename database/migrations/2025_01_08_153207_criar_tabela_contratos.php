@@ -21,7 +21,7 @@ return new class extends Migration
             $table->boolean('pedido_orcamento')->default(false);
             $table->boolean('visualizado')->default(false);
             $table->text('solucao')->nullable();
-            $table->date('garantia');
+            $table->date('garantia')->nullable();
             $table->timestamps();
         });
     }

@@ -138,7 +138,7 @@ class DatabaseSeeder extends Seeder
 
         $this->command->info("Insertindo dados do contratos");
         DB::table("contratos")->insert([
-            ['cliente_id'=>10,"veiculo_id"=>1,"defeito"=>"teste","solucao"=>"teste","garantia"=>Carbon::now()] ,
+            ['cliente_id'=>10,"veiculo_id"=>1,"defeito"=>"teste","solucao"=>"teste","garantia"=>Carbon::now(),'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
 
         ]);
         DB::table('historicos')->insert([
@@ -153,6 +153,7 @@ class DatabaseSeeder extends Seeder
         DB::table("tipos_notas")->insert([
             ['nome'=>"Observações do Serviço","cliente"=>0,'width_imagem'=>400,'height_imagem'=>300,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()] ,
             ['nome'=>"Detalhes","cliente"=>1,'width_imagem'=>800,'height_imagem'=>600,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()] ,
+            ['nome'=>"Solicitação de Orçamento","cliente"=>1,'width_imagem'=>800,'height_imagem'=>600,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()] ,
         ]);
         $this->command->info("Insertindo dados de Notas");
         DB::table("notas")->insert([
@@ -215,6 +216,7 @@ class DatabaseSeeder extends Seeder
             'recusado'             =>  DB::table('status')->where('nome','like','Recusado')->first()->id,
             'retorno'              =>  DB::table('status')->where('nome','like','Retorno')->first()->id,
             'concluido'            =>  DB::table('status')->where('nome','like','Concluido')->first()->id,
+            'solicitação_orcamento' =>  3,
             'forma_pagamento_preferido'=>'28',
             'whatsapp_id'=>  1
         ]);

@@ -22,7 +22,7 @@
                         </div>
                         <div class="form-group col-md-1">
                             <label for="placa">Placa</label>
-                            <input type="text" class="form-control form-control-sm placa" value="{{request()->has('placa')?request()->get('placa'):''}}" name="placa" id="placa" placeholder="Placa">
+                            <input type="text" class="form-control form-control-sm " value="{{request()->has('placa')?request()->get('placa'):''}}" name="placa" id="placa" placeholder="Placa">
                         </div>
 
                       <div class="form-group col-md-1" style="float: right">
@@ -60,7 +60,7 @@
                         <tbody>
 
                         @foreach ($contratos as $contrato)
-                            <tr>
+                            <tr class=" {{$contrato->pedido_orcamento==1?'table-warning':''}}">
                                 <th scope="row">{{$contrato->id}}</th>
                                 <td>{{$contrato->cliente->nome}}</td>
                                 <td >{{isset($contrato->veiculo)?$contrato->veiculo->placa." - ".$contrato->veiculo->modelo->nome:"ND"}}  </td>
