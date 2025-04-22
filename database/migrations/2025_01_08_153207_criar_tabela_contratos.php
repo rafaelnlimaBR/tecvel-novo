@@ -18,10 +18,10 @@ return new class extends Migration
             $table->foreignId('cliente_id')->constrained('clientes','id')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('veiculo_id')->nullable()->constrained('veiculos','id')->onUpdate('cascade')->onDelete('cascade');
             $table->text('defeito')->nullable();
-
+            $table->boolean('pedido_orcamento')->default(false);
+            $table->boolean('visualizado')->default(false);
             $table->text('solucao')->nullable();
             $table->date('garantia');
-//            $table->text('token');
             $table->timestamps();
         });
     }

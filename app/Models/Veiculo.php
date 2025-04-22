@@ -17,6 +17,10 @@ class Veiculo extends Model
         ['id'=>'vermelho','nome'=>'Vermelho'],
         ['id'=>'amarelo','nome'=>'Amarelo'],
         ['id'=>'vinho','nome'=>'Vinho'],
+        ['id'=>'azul','nome'=>'Azul'],
+        ['id'=>'verde','nome'=>'Verde'],
+        ['id'=>'laranja','nome'=>'Laranja'],
+
     ];
 
     public function scopePesquisarPorPlaca($query,$placa)

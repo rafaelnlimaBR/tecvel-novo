@@ -17,8 +17,9 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('nome');
             $table->string('email')->nullable();
+            $table->string('cpfcnpj')->nullable();
             $table->string('cep')->nullable();
-            $table->string('logradouro')->nullable();
+            $table->string('endereco')->nullable();
             $table->string('numero')->nullable();
             $table->string('bairro')->nullable();
             $table->string('cidade')->nullable();

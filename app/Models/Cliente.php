@@ -37,4 +37,6 @@ class Cliente extends Model
         return $this->belongsToMany(Contato::class)->withPivot('responsavel')->withTimestamps();
     }
 
+
+
 }
