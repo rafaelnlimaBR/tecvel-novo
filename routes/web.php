@@ -13,6 +13,7 @@ use \App\Models\Veiculo;
 use \App\Models\Montadora;
 use Dompdf\Dompdf;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
@@ -187,9 +188,17 @@ View::composer(['admin.entradas.formulario'],function($view){
 
 
 Route::get('/teste',function (){
-    $cliente            =   Cliente::find(21);
-    return $cliente->PesquisarPorTelefone('85987067785')->exists();
-   return str_replace(['.',',','/','-'],"",'040.206.763-05');
+    return Http::withHeaders([
+        'Content-Type'  =>  'application/json',
+        'apikey'       => env('KEY_EVOLUTIONAPI'),
+    ])->post(env('URL_EVOLUTIONAPI').'message/sendText/'.env('INSTANCE_EVOLUTIONAPI'),[
+
+
+        'delay'     =>  2,
+        'number'    =>  5585987067785,
+        'text'      =>  "teste",
+
+    ]);
 
 });
 Route::get('/fazer-orcamento', [App\Http\Controllers\Front\SiteController::class, 'orcamento'])->name('site.orcamento');
