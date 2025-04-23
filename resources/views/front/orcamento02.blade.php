@@ -16,12 +16,12 @@
 
     <!-- CSS Files -->
 
-    <link href="{{ URL::asset('/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ URL::asset('/css/gsdk-bootstrap-wizard.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ URL::asset('/wizard/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ URL::asset('/wizard/css/gsdk-bootstrap-wizard.css') }}" rel="stylesheet" type="text/css">
 
     <link href="{{ URL::asset('/plugins/upload-image/image-uploader.css') }}" rel="stylesheet" type="text/css">
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="{{ URL::asset('/css/demo.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ URL::asset('/wizard/css/demo.css') }}" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -226,9 +226,9 @@
 
 <script type="text/javascript"  src="{{ URL::asset('/js/jquery-3.2.1.min.js') }}" rel="stylesheet" type="text/css"></script>
 
-<script type="text/javascript"  src="{{ URL::asset('/js/bootstrap.min.js') }}" rel="stylesheet" type="text/css"></script>
-<script type="text/javascript"  src="{{ URL::asset('/js/jquery.bootstrap.wizard.js') }}" rel="stylesheet" type="text/css"></script>
-<script type="text/javascript"  src="{{ URL::asset('/js/gsdk-bootstrap-wizard.js') }}" rel="stylesheet" type="text/css"></script>
+<script type="text/javascript"  src="{{ URL::asset('/wizard/js/bootstrap.min.js') }}" rel="stylesheet" type="text/css"></script>
+<script type="text/javascript"  src="{{ URL::asset('/wizard/js/jquery.bootstrap.wizard.js') }}" rel="stylesheet" type="text/css"></script>
+<script type="text/javascript"  src="{{ URL::asset('/wizard/js/gsdk-bootstrap-wizard.js') }}" rel="stylesheet" type="text/css"></script>
 <script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 <script type="text/javascript"  src="{{ URL::asset('/plugins/upload-image/dist/image-uploader.min.js') }}" rel="stylesheet" type="text/css"></script>
 
