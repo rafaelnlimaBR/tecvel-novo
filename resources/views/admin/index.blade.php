@@ -49,7 +49,7 @@
                             <a href="{{route('cliente.index')}}"><i class="fa fa-tachometer"></i> <span>Dashboard</span></a>
                         </li>
                         <li>
-                            <a href="{{route('contrato.index')}}"><i class="fa fa-tachometer"></i> <span>Contratos</span></a>
+                            <a href="{{route('contrato.index')}}"><i class="fa fa-tachometer"></i> <span id="totalPedidosNovos">Contratos</span></a>
                         </li>
                         <li>
                             <a href="{{route('servico.index')}}"><i class="fa fa-tachometer"></i> <span>Servicos</span></a>
@@ -700,7 +700,9 @@
         <script src="{{ URL::asset('/js/jquery.app.js') }}"></script>
 
         <script type="text/javascript">
-
+            $(document).ready(function(){
+                setInterval(carregarDados,5000);
+            });
 
             $.ajaxSetup({
                 headers: {
@@ -1903,6 +1905,15 @@
                 }
             });
 
+            function carregarDados() {
+                $.getJSON("{{route('carregarDadosAjax')}}", function(dados) {
+
+                    if(dados.novoPedidosOrcamento > 0){
+                        $('#totalPedidosNovos').html('Contratos <span class="badge badge-primary noti-arrow pull-right">'+dados.novoPedidosOrcamento+'</span> ');
+                    }
+
+                });
+            }
 
         </script>
 

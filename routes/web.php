@@ -28,6 +28,9 @@ use Illuminate\Support\Str;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('carregarDadosAjax', [App\Http\Controllers\Controller::class,'carregarDadosAjax'])->name('carregarDadosAjax');
+
 //CONTRATOS
 Route::get('/contratos', [App\Http\Controllers\ContratoController::class, 'index'])->name('contrato.index');
 Route::get('/contrato/novo', [App\Http\Controllers\ContratoController::class, 'novo'])->name('contrato.novo');
@@ -188,7 +191,8 @@ View::composer(['admin.entradas.formulario'],function($view){
 
 
 Route::get('/teste',function (){
-    return Cliente::find(1)->contatos()->where('numero','85987067785')->exists();
+    $contrato   =   Contrato::find(1);
+    return dd($contrato->novoPedidoOrcamento());
 
 });
 Route::get('/fazer-orcamento', [App\Http\Controllers\Front\SiteController::class, 'orcamento'])->name('site.orcamento');

@@ -45,7 +45,7 @@ class ContratoController extends Controller
         $dados = [
             'titulo' => "Contratos",
             'titulo_tabela' => "Lista de Contratos",
-            'orcamento_id'  => $this->conf->abertura_id,//id do status orçamento
+            'orcamento_id'  => $this->conf->abertura    ,//id do status orçamento
         ];
 
         if($r->has('placa')){
@@ -150,6 +150,7 @@ class ContratoController extends Controller
             $contrato->defeito              =   $r->get('defeito');
             $contrato->solucao              =   $r->get('solucao');
             $contrato->garantia             =   Carbon::createFromFormat('d/m/Y',$r->get('garantia'));
+            $contrato->visualizado          =   true;
 
 
             if($contrato->save()){

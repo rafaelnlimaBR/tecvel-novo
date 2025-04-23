@@ -80,6 +80,17 @@ class Contrato extends Model
         });
     }
 
+    public function novoPedidoOrcamento()
+    {
+        if($this->pedido_orcamento == 1 ){
+            if($this->visualizado == 0){
+                return true;
+            }
+        }
+        return false;
+
+    }
+
     public function valorTotal()
     {
         return $this->totalServicosLiquido()+$this->totalPecasAvulsasLiquido();

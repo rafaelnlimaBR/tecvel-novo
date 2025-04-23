@@ -68,7 +68,7 @@
                                 <td style="width: 7%;">R$ {{$contrato->valorTotal()}}</td>
                                 <td style="width: 7%;">
                                     @if($contrato->historicos->last()->status->id    == $orcamento_id)
-                                        - - - - - - -
+
                                     @else
                                         @if($contrato->verificarPagamento() == 1)
                                             <span style="background-color: #148519; color: #fffefa; padding: 3px 5px 3px 5px;border-radius: 10px;">Pago</span>
@@ -83,7 +83,12 @@
 
                                 </td>
 
-                                <td style="width: 7%;">{{\Carbon\Carbon::parse($contrato->created_at)->format('d/m/Y')}}</td>
+                                <td style="width: 7%;">{{\Carbon\Carbon::parse($contrato->created_at)->format('d/m/Y')}}
+                                    @if($contrato->visualizado ==0)
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+
+                                    @endif
+                                </td>
                                 <td style="width: 7%;">{{\Carbon\Carbon::parse($contrato->garantia)->format('d/m/Y')}}</td>
 
 

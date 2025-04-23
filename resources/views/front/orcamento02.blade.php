@@ -105,11 +105,11 @@
                                             <input maxlength="200" type="text"  class="form-control" placeholder="Cep" name="cep" id="cep" />
                                         </div>
 
-                                        <div class="form-group col-md-7">
+                                        <div class="form-group col-md-6">
                                             <label class="control-label">Endereço</label>
                                             <input maxlength="200" type="text"  class="form-control" placeholder="Endereço" name="endereco" id="rua"/>
                                         </div>
-                                        <div class="form-group col-md-2">
+                                        <div class="form-group col-md-3">
                                             <label class="control-label">Número</label>
                                             <input maxlength="200" type="text"  class="form-control" placeholder="Número" name="numero" id="numero" />
                                         </div>
