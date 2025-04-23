@@ -1,708 +1,374 @@
-<html>
-<header>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="content-language" content="pt-br">
+    <title>Tecvel - Orçamento</title>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
 
-    <style type="text/css">
-        @import url('https://fonts.googleapis.com/css?family=Roboto');
+    <!--     Fonts and icons     -->
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
 
-        body{
-            font-family: 'Roboto', sans-serif;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-        }
-        i {
-            margin-right: 10px;
-        }
+    <!-- CSS Files -->
 
-        /*------------------------*/
-        input:focus,
-        button:focus,
-        .form-control:focus{
-            outline: none;
-            box-shadow: none;
-        }
-        .form-control:disabled, .form-control[readonly]{
-            background-color: #fff;
-        }
-        /*----------step-wizard------------*/
-        .d-flex{
-            display: flex;
-        }
-        .justify-content-center{
-            justify-content: center;
-        }
-        .align-items-center{
-            align-items: center;
-        }
+    <link href="{{ URL::asset('/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ URL::asset('/css/gsdk-bootstrap-wizard.css') }}" rel="stylesheet" type="text/css">
 
-        /*---------signup-step-------------*/
-        .bg-color{
-            background-color: #333;
-        }
-        .signup-step-container{
-            padding: 150px 0px;
-            padding-bottom: 60px;
-        }
+    <link href="{{ URL::asset('/plugins/upload-image/image-uploader.css') }}" rel="stylesheet" type="text/css">
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="{{ URL::asset('/css/demo.css') }}" rel="stylesheet" type="text/css">
 
+</head>
 
-
-
-        .wizard .nav-tabs {
-            position: relative;
-            margin-bottom: 0;
-            border-bottom-color: transparent;
-        }
-
-        .wizard > div.wizard-inner {
-            position: relative;
-            margin-bottom: 50px;
-            text-align: center;
-        }
-
-        .connecting-line {
-            height: 2px;
-            background: #e0e0e0;
-            position: absolute;
-            width: 75%;
-            margin: 0 auto;
-            left: 0;
-            right: 0;
-            top: 15px;
-            z-index: 1;
-        }
-
-        .wizard .nav-tabs > li.active > a, .wizard .nav-tabs > li.active > a:hover, .wizard .nav-tabs > li.active > a:focus {
-            color: #555555;
-            cursor: default;
-            border: 0;
-            border-bottom-color: transparent;
-        }
-
-        span.round-tab {
-            width: 30px;
-            height: 30px;
-            line-height: 30px;
-            display: inline-block;
-            border-radius: 50%;
-            background: #fff;
-            z-index: 2;
-            position: absolute;
-            left: 0;
-            text-align: center;
-            font-size: 16px;
-            color: #0e214b;
-            font-weight: 500;
-            border: 1px solid #ddd;
-        }
-        span.round-tab i{
-            color:#555555;
-        }
-        .wizard li.active span.round-tab {
-            background: #0db02b;
-            color: #fff;
-            border-color: #0db02b;
-        }
-        .wizard li.active span.round-tab i{
-            color: #5bc0de;
-        }
-        .wizard .nav-tabs > li.active > a i{
-            color: #0db02b;
-        }
-
-        .wizard .nav-tabs > li {
-            width: 25%;
-        }
-
-        .wizard li:after {
-            content: " ";
-            position: absolute;
-            left: 46%;
-            opacity: 0;
-            margin: 0 auto;
-            bottom: 0px;
-            border: 5px solid transparent;
-            border-bottom-color: red;
-            transition: 0.1s ease-in-out;
-        }
-
-
-
-        .wizard .nav-tabs > li a {
-            width: 30px;
-            height: 30px;
-            margin: 20px auto;
-            border-radius: 100%;
-            padding: 0;
-            background-color: transparent;
-            position: relative;
-            top: 0;
-        }
-        .wizard .nav-tabs > li a i{
-            position: absolute;
-            top: -15px;
-            font-style: normal;
-            font-weight: 400;
-            white-space: nowrap;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 12px;
-            font-weight: 700;
-            color: #000;
-        }
-
-        .wizard .nav-tabs > li a:hover {
-            background: transparent;
-        }
-
-        .wizard .tab-pane {
-            position: relative;
-            padding-top: 20px;
-        }
-
-
-        .wizard h3 {
-            margin-top: 0;
-        }
-        .prev-step,
-        .next-step{
-            font-size: 13px;
-            padding: 8px 24px;
-            border: none;
-            border-radius: 4px;
-            margin-top: 30px;
-        }
-        .next-step{
-            background-color: #0db02b;
-        }
-        .skip-btn{
-            background-color: #cec12d;
-        }
-        .step-head{
-            font-size: 20px;
-            text-align: center;
-            font-weight: 500;
-            margin-bottom: 20px;
-        }
-        .term-check{
-            font-size: 14px;
-            font-weight: 400;
-        }
-        .custom-file {
-            position: relative;
-            display: inline-block;
-            width: 100%;
-            height: 40px;
-            margin-bottom: 0;
-        }
-        .custom-file-input {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            height: 40px;
-            margin: 0;
-            opacity: 0;
-        }
-        .custom-file-label {
-            position: absolute;
-            top: 0;
-            right: 0;
-            left: 0;
-            z-index: 1;
-            height: 40px;
-            padding: .375rem .75rem;
-            font-weight: 400;
-            line-height: 2;
-            color: #495057;
-            background-color: #fff;
-            border: 1px solid #ced4da;
-            border-radius: .25rem;
-        }
-        .custom-file-label::after {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 3;
-            display: block;
-            height: 38px;
-            padding: .375rem .75rem;
-            line-height: 2;
-            color: #495057;
-            content: "Browse";
-            background-color: #e9ecef;
-            border-left: inherit;
-            border-radius: 0 .25rem .25rem 0;
-        }
-        .footer-link{
-            margin-top: 30px;
-        }
-        .all-info-container{
-
-        }
-        .list-content{
-            margin-bottom: 10px;
-        }
-        .list-content a{
-            padding: 10px 15px;
-            width: 100%;
-            display: inline-block;
-            background-color: #f5f5f5;
-            position: relative;
-            color: #565656;
-            font-weight: 400;
-            border-radius: 4px;
-        }
-        .list-content a[aria-expanded="true"] i{
-            transform: rotate(180deg);
-        }
-        .list-content a i{
-            text-align: right;
-            position: absolute;
-            top: 15px;
-            right: 10px;
-            transition: 0.5s;
-        }
-        .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
-            background-color: #fdfdfd;
-        }
-        .list-box{
-            padding: 10px;
-        }
-        .signup-logo-header .logo_area{
-            width: 200px;
-        }
-        .signup-logo-header .nav > li{
-            padding: 0;
-        }
-        .signup-logo-header .header-flex{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .list-inline li{
-            display: inline-block;
-        }
-        .pull-right{
-            float: right;
-        }
-        /*-----------custom-checkbox-----------*/
-        /*----------Custom-Checkbox---------*/
-        input[type="checkbox"]{
-            position: relative;
-            display: inline-block;
-            margin-right: 5px;
-        }
-        input[type="checkbox"]::before,
-        input[type="checkbox"]::after {
-            position: absolute;
-            content: "";
-            display: inline-block;
-        }
-        input[type="checkbox"]::before{
-            height: 16px;
-            width: 16px;
-            border: 1px solid #999;
-            left: 0px;
-            top: 0px;
-            background-color: #fff;
-            border-radius: 2px;
-        }
-        input[type="checkbox"]::after{
-            height: 5px;
-            width: 9px;
-            left: 4px;
-            top: 4px;
-        }
-        input[type="checkbox"]:checked::after{
-            content: "";
-            border-left: 1px solid #fff;
-            border-bottom: 1px solid #fff;
-            transform: rotate(-45deg);
-        }
-        input[type="checkbox"]:checked::before{
-            background-color: #18ba60;
-            border-color: #18ba60;
-        }
-
-
-
-
-
-
-        @media (max-width: 767px){
-            .sign-content h3{
-                font-size: 40px;
-            }
-            .wizard .nav-tabs > li a i{
-                display: none;
-            }
-            .signup-logo-header .navbar-toggle{
-                margin: 0;
-                margin-top: 8px;
-            }
-            .signup-logo-header .logo_area{
-                margin-top: 0;
-            }
-            .signup-logo-header .header-flex{
-                display: block;
-            }
-        }
-
-    </style>
-</header>
 <body>
-<section class="signup-step-container">
+{{--<div class="image-container set-full-height" style="background-image: url('images/wizard/wizard-city.jpg')">--}}
+<div class="image-container set-full-height" style="background-color: #bebebe">
+    <!--   Creative Tim Branding   -->
+
+
+
+
+    <!--   Big container   -->
     <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-8">
-                <div class="wizard">
-                    <div class="wizard-inner">
-                        <div class="connecting-line"></div>
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active">
-                                <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" aria-expanded="true"><span class="round-tab">1 </span> <i>Step 1</i></a>
-                            </li>
-                            <li role="presentation" class="disabled">
-                                <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" aria-expanded="false"><span class="round-tab">2</span> <i>Step 2</i></a>
-                            </li>
-                            <li role="presentation" class="disabled">
-                                <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab"><span class="round-tab">3</span> <i>Step 3</i></a>
-                            </li>
-                            <li role="presentation" class="disabled">
-                                <a href="#step4" data-toggle="tab" aria-controls="step4" role="tab"><span class="round-tab">4</span> <i>Step 4</i></a>
-                            </li>
-                        </ul>
-                    </div>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
 
-                    <form role="form" action="index.html" class="login-box">
-                        <div class="tab-content" id="main_form">
-                            <div class="tab-pane active" role="tabpanel" id="step1">
-                                <h4 class="text-center">Step 1</h4>
+                <!--      Wizard container        -->
+                <div class="wizard-container orcamento">
+
+                    <div class="card wizard-card" data-color="orange" id="wizardProfile">
+                        <form action="{{route('site.cadastrar.orcamento')}}" enctype="multipart/form-data" method="post">
+                            <!--        You can switch ' data-color="orange" '  with one of the next bright colors: "blue", "green", "orange", "red"          -->
+
+                            <div class="wizard-header">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>First and Last Name *</label>
-                                            <input class="form-control" required="required" type="text" name="name" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Phone Number  *</label>
-                                            <input class="form-control" type="text" name="name" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Email Address *</label>
-                                            <input class="form-control" type="email" name="name" placeholder="">
-                                        </div>
-                                    </div>
+                                    <div class="col-md-4 ">
+                                        <div class="text-center">
+                                            <img class="rounded" src="{{URL::asset('/images/logo.png')}}" style="">
 
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Password *</label>
-                                            <input class="form-control" type="password" name="name" placeholder="">
                                         </div>
-                                    </div>
 
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h3>
+                                            <b>PEDIDO DE ORÇAMENTO</b> <br>
+                                            <small>Preencha as informações, em breve receberá o orçamento</small>
+                                        </h3>
+                                    </div>
 
                                 </div>
-                                <ul class="list-inline pull-right">
-                                    <li><button type="button" class="default-btn next-step">Continue to next step</button></li>
-                                </ul>
+
                             </div>
-                            <div class="tab-pane" role="tabpanel" id="step2">
-                                <h4 class="text-center">Step 2</h4>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Address 1 *</label>
-                                            <input class="form-control" type="text" name="name" placeholder="">
+
+                            <div class="wizard-navigation">
+                                <ul>
+                                    <li><a href="#about" data-toggle="tab">Seus Dados</a></li>
+                                    <li><a href="#account" data-toggle="tab">Dados do Veículo</a></li>
+                                    <li><a href="#address" data-toggle="tab">Detalhes</a></li>
+                                </ul>
+
+                            </div>
+
+                            <div class="tab-content">
+                                <div class="tab-pane" id="about">
+                                    <h4 class="info-text"> Seus Dados</h4>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-7">
+                                            <label class="control-label">Nome Completo *</label>
+                                            <input  maxlength="100" type="text" class="form-control" required="required" placeholder="Seu Nome" name="nome" />
+                                            {{csrf_field()}}
+                                        </div>
+                                        <div class="form-group col-md-5">
+                                            <label class="control-label">CPF/CNPJ *</label>
+                                            <input  maxlength="100" type="text" class="form-control cpfCnpj" required="required" placeholder="CPF ou CNPJ" name="cpfcnpj" />
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>City / Town *</label>
-                                            <input class="form-control" type="text" name="name" placeholder="">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-8">
+                                            <label class="control-label">Email *</label>
+                                            <input maxlength="100"  type="email" class="form-control" required="required" placeholder="Seu Email" name="email" />
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="control-label">Whatsapp * Ex: 85987067785</label>
+                                            <input maxlength="100"  type="text" class="form-control telefone" required="required" placeholder="Seu Número Com Whatsapp" value="{{request()->get('whatsapp')?request()->get('whatsapp'):''}}" name="telefone"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Country *</label>
-                                            <select name="country" class="form-control" id="country">
-                                                <option value="NG" selected="selected">Nigeria</option>
-                                                <option value="NU">Niue</option>
-                                                <option value="NF">Norfolk Island</option>
-                                                <option value="KP">North Korea</option>
-                                                <option value="MP">Northern Mariana Islands</option>
-                                                <option value="NO">Norway</option>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <label class="control-label">Cep</label>
+                                            <input maxlength="200" type="text"  class="form-control" placeholder="Cep" name="cep" id="cep" />
+                                        </div>
+
+                                        <div class="form-group col-md-7">
+                                            <label class="control-label">Endereço</label>
+                                            <input maxlength="200" type="text"  class="form-control" placeholder="Endereço" name="endereco" id="rua"/>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label class="control-label">Número</label>
+                                            <input maxlength="200" type="text"  class="form-control" placeholder="Número" name="numero" id="numero" />
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label class="control-label">Bairro</label>
+                                            <input maxlength="100" type="text"  class="form-control" placeholder="Bairro" name="bairro" id="bairro"/>
+                                        </div>
+                                        <div class="form-group col-md-5">
+                                            <label class="control-label">Cidade</label>
+                                            <input maxlength="100" type="text"  class="form-control" placeholder="Cidade" name="cidade" id="cidade"/>
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label class="control-label">Estado</label>
+                                            <input maxlength="100" type="text"  class="form-control" placeholder="Estado" name="estado" id="uf" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane" id="account">
+                                    <h4 class="info-text"> Dados do Veículo </h4>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label class="control-label">Placa</label>
+                                            <input maxlength="200" type="text" class="form-control placa" required="required" placeholder="Placa do Veículo" name="placa" />
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label class="control-label">Montadora</label>
+                                            <select class="form-control" id="montadora-veiculos"  name="montadora">
+                                                @foreach($montadoras as $montadora)
+                                                    <option value="{{$montadora->id}}">{{$montadora->nome}}</option>
+                                                @endforeach
                                             </select>
-                                        </div>
-                                    </div>
 
+                                        </div>
 
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label class="control-label">Modelo</label>
+                                            <select class="form-control" id="modelos-veiculos" required="required"  name="modelo">
 
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Registration No.</label>
-                                            <input class="form-control" type="text" name="name" placeholder="">
-                                        </div>
-                                    </div>
-                                </div>
+                                            </select>
 
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label class="control-label">Cor</label>
+                                            <input list="cor" class="form-control" name="cor"  required="required" />
+                                            <datalist id="cor" >
+                                                @foreach($cores as $c)
 
-                                <ul class="list-inline pull-right">
-                                    <li><button type="button" class="default-btn prev-step">Back</button></li>
-                                    <li><button type="button" class="default-btn next-step skip-btn">Skip</button></li>
-                                    <li><button type="button" class="default-btn next-step">Continue</button></li>
-                                </ul>
-                            </div>
-                            <div class="tab-pane" role="tabpanel" id="step3">
-                                <h4 class="text-center">Step 3</h4>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Account Name *</label>
-                                            <input class="form-control" type="text" name="name" placeholder="">
+                                                    <option  value="{{$c['nome']}}"></option>
+
+                                                @endforeach
+
+                                            </datalist>
+
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Demo</label>
-                                            <input class="form-control" type="text" name="name" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Inout</label>
-                                            <input class="form-control" type="text" name="name" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Information</label>
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="customFile">
-                                                <label class="custom-file-label" for="customFile">Select file</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Number *</label>
-                                            <input class="form-control" type="text" name="name" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Input Number</label>
-                                            <input class="form-control" type="text" name="name" placeholder="">
+                                        <div class="form-group col-md-3">
+                                            <label class="control-label">Ano do Modelo</label>
+                                            <input maxlength="200" type="text"  class="form-control numero" required="required" name="ano" placeholder="Ex: 2015" />
                                         </div>
                                     </div>
                                 </div>
-                                <ul class="list-inline pull-right">
-                                    <li><button type="button" class="default-btn prev-step">Back</button></li>
-                                    <li><button type="button" class="default-btn next-step skip-btn">Skip</button></li>
-                                    <li><button type="button" class="default-btn next-step">Continue</button></li>
-                                </ul>
-                            </div>
-                            <div class="tab-pane" role="tabpanel" id="step4">
-                                <h4 class="text-center">Step 4</h4>
-                                <div class="all-info-container">
-                                    <div class="list-content">
-                                        <a href="#listone" data-toggle="collapse" aria-expanded="false" aria-controls="listone">Collapse 1 <i class="fa fa-chevron-down"></i></a>
-                                        <div class="collapse" id="listone">
-                                            <div class="list-box">
-                                                <div class="row">
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>First and Last Name *</label>
-                                                            <input class="form-control" type="text"  name="name" placeholder="" disabled="disabled">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Phone Number *</label>
-                                                            <input class="form-control" type="text" name="name" placeholder="" disabled="disabled">
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
+                                <div class="tab-pane" id="address">
+                                    <h4 class="info-text"> Detalhes </h4>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12">
+                                            <label class="control-label">Descrição do Pedido de Orçamento *</label>
+                                            <textarea class="form-control" rows="9" required="required" name="descricao"></textarea>
                                         </div>
                                     </div>
-                                    <div class="list-content">
-                                        <a href="#listtwo" data-toggle="collapse" aria-expanded="false" aria-controls="listtwo">Collapse 2 <i class="fa fa-chevron-down"></i></a>
-                                        <div class="collapse" id="listtwo">
-                                            <div class="list-box">
-                                                <div class="row">
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Address 1 *</label>
-                                                            <input class="form-control" type="text" name="name" placeholder="" disabled="disabled">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>City / Town *</label>
-                                                            <input class="form-control" type="text" name="name" placeholder="" disabled="disabled">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Country *</label>
-                                                            <select name="country2" class="form-control" id="country2" disabled="disabled">
-                                                                <option value="NG" selected="selected">Nigeria</option>
-                                                                <option value="NU">Niue</option>
-                                                                <option value="NF">Norfolk Island</option>
-                                                                <option value="KP">North Korea</option>
-                                                                <option value="MP">Northern Mariana Islands</option>
-                                                                <option value="NO">Norway</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Legal Form</label>
-                                                            <select name="legalform2" class="form-control" id="legalform2" disabled="disabled">
-                                                                <option value="" selected="selected">-Select an Answer-</option>
-                                                                <option value="AG">Limited liability company</option>
-                                                                <option value="GmbH">Public Company</option>
-                                                                <option value="GbR">No minimum capital, unlimited liability of partners, non-busines</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Business Registration No.</label>
-                                                            <input class="form-control" type="text" name="name" placeholder="" disabled="disabled">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Registered</label>
-                                                            <select name="vat2" class="form-control" id="vat2" disabled="disabled">
-                                                                <option value="" selected="selected">-Select an Answer-</option>
-                                                                <option value="yes">Yes</option>
-                                                                <option value="no">No</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Seller</label>
-                                                            <input class="form-control" type="text" name="name" placeholder="" disabled="disabled">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label>Company Name *</label>
-                                                            <input class="form-control" type="password" name="name" placeholder="" disabled="disabled">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12">
+                                            <label class="control-label">Imagens</label>
+                                            <div class="input-images"></div>
                                         </div>
-                                    </div>
-                                    <div class="list-content">
-                                        <a href="#listthree" data-toggle="collapse" aria-expanded="false" aria-controls="listthree">Collapse 3 <i class="fa fa-chevron-down"></i></a>
-                                        <div class="collapse" id="listthree">
-                                            <div class="list-box">
-                                                <div class="row">
 
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Name *</label>
-                                                            <input class="form-control" type="text" name="name" placeholder="">
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Number *</label>
-                                                            <input class="form-control" type="text" name="name" placeholder="">
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
-
-                                <ul class="list-inline pull-right">
-                                    <li><button type="button" class="default-btn prev-step">Back</button></li>
-                                    <li><button type="button" class="default-btn next-step">Finish</button></li>
-                                </ul>
                             </div>
-                            <div class="clearfix"></div>
-                        </div>
+                            <div class="wizard-footer height-wizard">
+                                <div class="pull-right">
+                                    <input type='button' class='btn btn-next btn-fill btn-warning btn-wd btn-sm' name='next' value='Próximo' />
+                                    <input type='submit' class='btn btn-finish btn-fill btn-warning btn-wd btn-sm' name='finish' value='Enviar' />
 
-                    </form>
-                </div>
+                                </div>
+
+                                <div class="pull-left">
+                                    <input type='button' class='btn btn-previous btn-fill btn-default btn-wd btn-sm' name='previous' value='Anterior' />
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div> <!-- wizard container -->
             </div>
+        </div><!-- end row -->
+    </div> <!--  big container -->
+
+    <div class="footer">
+        <div class="container">
+
         </div>
     </div>
-</section>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-<script type="text/javascript">
-    // ------------step-wizard-------------
+
+</div>
+
+</body>
+
+<!--   Core JS Files   -->
+
+<script type="text/javascript"  src="{{ URL::asset('/js/jquery-3.2.1.min.js') }}" rel="stylesheet" type="text/css"></script>
+
+<script type="text/javascript"  src="{{ URL::asset('/js/bootstrap.min.js') }}" rel="stylesheet" type="text/css"></script>
+<script type="text/javascript"  src="{{ URL::asset('/js/jquery.bootstrap.wizard.js') }}" rel="stylesheet" type="text/css"></script>
+<script type="text/javascript"  src="{{ URL::asset('/js/gsdk-bootstrap-wizard.js') }}" rel="stylesheet" type="text/css"></script>
+<script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+<script type="text/javascript"  src="{{ URL::asset('/plugins/upload-image/dist/image-uploader.min.js') }}" rel="stylesheet" type="text/css"></script>
+
+
+<!--  Plugin for the Wizard -->
+
+
+<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
+<script type="text/javascript"  src="{{ URL::asset('/js/jquery.validate.min.js') }}" rel="stylesheet" type="text/css"></script>
+
+<script>
     $(document).ready(function () {
-        $('.nav-tabs > li a[title]').tooltip();
 
-        //Wizard
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 
-            var target = $(e.target);
+        atualizarModelos($('#montadora-veiculos').val())
 
-            if (target.parent().hasClass('disabled')) {
-                return false;
+        $('.orcamento').on('change','#montadora-veiculos',function () {
+            atualizarModelos($(this).val())
+        })
+
+        function atualizarModelos (idMontadora){
+            var id  =   idMontadora;
+            $('#modelos-veiculos').val('');
+            var rota    =   "{{route('montadora.modelos',['id'=>':id'])}}";
+            rota        =   rota.replace(':id',id);
+            var lista   =   "";
+
+            $.ajax({
+                type: "GET",
+                url: rota,
+                success: function( data )
+                {
+                    $('#modelos-veiculos').empty();
+                    for(var i=0; i<data.length;i++){
+                        $("#modelos-veiculos").append("<option value='" +
+                            data[i].id + "'>"+data[i].nome+"</option>");
+                    }
+                },
+                error:function (data,e) {
+                    alert(data);
+                }
+            });
+        }
+
+        $('.cpfcnpj').mask('000.000.000-00', {
+            onKeyPress : function(cpfcnpj, e, field, options) {
+                const masks = ['000.000.000-000', '00.000.000/0000-00'];
+                const mask = (cpfcnpj.length > 14) ? masks[1] : masks[0];
+                $('.cpfcnpj').mask(mask, options);
             }
         });
+        $('.cep').mask('00000-000');
+        $('.telefone').mask('(00)000000000')
+        $('.placa').mask('AAA0U00', {
+            translation: {
+                'A': {
+                    pattern: /[A-Za-z]/
+                },
+                'U': {
+                    pattern: /[A-Za-z0-9]/
+                },
+            },
+            onKeyPress: function (value, e, field, options) {
+                // Convert to uppercase
+                e.currentTarget.value = value.toUpperCase();
 
-        $(".next-step").click(function (e) {
+                // Get only valid characters
+                let val = value.replace(/[^\w]/g, '');
 
-            var active = $('.wizard .nav-tabs li.active');
-            active.next().removeClass('disabled');
-            nextTab(active);
-
+                // Detect plate format
+                let isNumeric = !isNaN(parseFloat(val[4])) && isFinite(val[4]);
+                let mask = 'AAA0U00';
+                if(val.length > 4 && isNumeric) {
+                    mask = 'AAA0000';
+                }
+                $(field).mask(mask, options);
+            }
         });
-        $(".prev-step").click(function (e) {
+        $('.numero').mask('0000');
+        $('.input-images').imageUploader();
 
-            var active = $('.wizard .nav-tabs li.active');
-            prevTab(active);
+        function limpa_formulário_cep() {
+            // Limpa valores do formulário de cep.
+            $("#rua").val("");
+            $("#bairro").val("");
+            $("#cidade").val("");
+            $("#uf").val("");
+            $("#ibge").val("");
+        };
+        $("#cep").blur(function() {
 
+            //Nova variável "cep" somente com dígitos.
+            var cep = $(this).val().replace(/\D/g, '');
+
+            //Verifica se campo cep possui valor informado.
+            if (cep != "") {
+
+                //Expressão regular para validar o CEP.
+                var validacep = /^[0-9]{8}$/;
+
+                //Valida o formato do CEP.
+                if(validacep.test(cep)) {
+
+                    //Preenche os campos com "..." enquanto consulta webservice.
+                    $("#rua").val("...");
+                    $("#bairro").val("...");
+                    $("#cidade").val("...");
+                    $("#uf").val("...");
+                    $("#ibge").val("...");
+
+                    //Consulta o webservice viacep.com.br/
+                    $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+
+                        if (!("erro" in dados)) {
+                            //Atualiza os campos com os valores da consulta.
+                            $("#rua").val(dados.logradouro);
+                            $("#bairro").val(dados.bairro);
+                            $("#cidade").val(dados.localidade);
+                            $("#uf").val(dados.uf);
+                            $('#numero').focus();
+                        } //end if.
+                        else {
+                            //CEP pesquisado não foi encontrado.
+                            limpa_formulário_cep();
+                            alert("CEP não encontrado.");
+                        }
+                    });
+                } //end if.
+                else {
+                    //cep é inválido.
+                    limpa_formulário_cep();
+                    alert("Formato de CEP inválido.");
+                }
+            } //end if.
+            else {
+                //cep sem valor, limpa formulário.
+                limpa_formulário_cep();
+            }
         });
     });
-
-    function nextTab(elem) {
-        $(elem).next().find('a[data-toggle="tab"]').click();
-    }
-    function prevTab(elem) {
-        $(elem).prev().find('a[data-toggle="tab"]').click();
-    }
-
-
-    $('.nav-tabs').on('click', 'li', function() {
-        $('.nav-tabs li.active').removeClass('active');
-        $(this).addClass('active');
-    });
-
-
-
 </script>
-</body>
+
 </html>

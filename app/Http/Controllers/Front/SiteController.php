@@ -147,8 +147,9 @@ class SiteController extends Controller
 
             }
 
-//            $zap    =   new Whatsapp();
-//             return $zap->enviarMensagem('Solicitação de orçamento criado com sucesso. Em breve você receberá um retorno com seu orçamento. Número de identificação do orçamento: '.$contrato->id,"85987067785",'55');
+            $zap    =   new Whatsapp();
+            $zap->enviarMensagem('Solicitação de orçamento criado com sucesso. Em breve você receberá um retorno com seu orçamento. ',"85987067785",'55');
+            $zap->enviarMensagem('*NÚMERO DO ORÇAMENTO: '.$contrato->id .'*',"85987067785",'55');
 
             return Contrato::all();
 
