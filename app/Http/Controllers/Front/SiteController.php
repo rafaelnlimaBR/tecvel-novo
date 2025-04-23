@@ -50,7 +50,7 @@ class SiteController extends Controller
             'titulo'        =>  'Orçamento'
         ];
 
-        return \view('front.orcamento');
+        return \view('front.orcamento02');
 
     }
 
