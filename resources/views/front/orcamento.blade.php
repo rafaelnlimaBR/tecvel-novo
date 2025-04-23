@@ -198,7 +198,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label class="control-label">Descrição do Pedido de Orçamento *</label>
-                            <textarea class="form-control" rows="9" name="descricao"></textarea>
+                            <textarea class="form-control" rows="9" required="required" name="descricao"></textarea>
                         </div>
                     </div>
                     <div class="form-row">

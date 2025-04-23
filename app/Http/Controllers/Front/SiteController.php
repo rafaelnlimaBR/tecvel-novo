@@ -76,13 +76,16 @@ class SiteController extends Controller
                 $cliente=$cliente->first();
             }
 
-
-            if(!$cliente->PesquisarPorTelefone($telefone)->exists()){
+            $contato            =   Contato::where('numero',$telefone);
+            if(!$contato->exists()){
                 $contato = ContatoController::cadastrar($telefone,Configuracao::first()->whatsapp_id);
-                $cliente->contatos()->attach($contato);
+            }else{
+                $contato=$contato->first();
             }
 
-
+            if(!$cliente->contatos()->where('numero',$telefone)->exists()){
+                $cliente->contatos()->save($contato);
+            }
 
 
 
@@ -144,8 +147,8 @@ class SiteController extends Controller
 
             }
 
-            $zap    =   new Whatsapp();
-             return $zap->enviarMensagem('Solicitação de orçamento criado com sucesso. Em breve você receberá um retorno com seu orçamento. Número de identificação do orçamento: '.$contrato->id,"85987067785",'55');
+//            $zap    =   new Whatsapp();
+//             return $zap->enviarMensagem('Solicitação de orçamento criado com sucesso. Em breve você receberá um retorno com seu orçamento. Número de identificação do orçamento: '.$contrato->id,"85987067785",'55');
 
             return Contrato::all();
 

@@ -188,17 +188,7 @@ View::composer(['admin.entradas.formulario'],function($view){
 
 
 Route::get('/teste',function (){
-    return Http::withHeaders([
-        'Content-Type'  =>  'application/json',
-        'apikey'       => env('KEY_EVOLUTIONAPI'),
-    ])->post(env('URL_EVOLUTIONAPI').'message/sendText/'.env('INSTANCE_EVOLUTIONAPI'),[
-
-
-        'delay'     =>  2,
-        'number'    =>  5585987067785,
-        'text'      =>  "teste",
-
-    ]);
+    return Cliente::find(1)->contatos()->where('numero','85987067785')->exists();
 
 });
 Route::get('/fazer-orcamento', [App\Http\Controllers\Front\SiteController::class, 'orcamento'])->name('site.orcamento');

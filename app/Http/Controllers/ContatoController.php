@@ -22,7 +22,7 @@ class ContatoController extends Controller
         $contato->numero        =   $numero;
         $contato->app_id        =   $app_id;
         if($contato->save()){
-            return $contato->id;
+            return $contato;
         }
 
         return new Exception('Erro ao cadastrar Contato');
