@@ -64,6 +64,13 @@ class Contrato extends Model
 
     }
 
+    public function scopepedidosOrcamentosNaoVisualizados($query)
+    {
+
+        return $query->where('visualizado',0);
+
+    }
+
     public function scopePesquisarPorPlaca($query, $placa)
     {
         return $query->whereHas('veiculo', function ($query) use ($placa) {

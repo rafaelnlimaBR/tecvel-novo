@@ -21,7 +21,10 @@ class Controller extends BaseController
         }
 
 
-        $dados      =   ['novoPedidosOrcamento'=>$totalNovosPedidosOrcamento];
+
+
+        $dados      =   ['novoPedidosOrcamento'=>$totalNovosPedidosOrcamento,
+            ];
         return response()->json($dados);
     }
 }

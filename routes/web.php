@@ -175,7 +175,8 @@ View::composer(['admin.contratos.includes.nota'],function($view){
 });
 View::composer(['admin.index'],function($view){
     $conf   =   Configuracao::find(1);
-    $view->with(['nome_empresa'        =>$conf->nome_principal,]);
+    $view->with(['nome_empresa'        =>$conf->nome_principal,
+                'contratos_nao_visualizados'=>Contrato::where('visualizado',0)->get()]);
 });
 View::composer(['admin.entradas.formulario'],function($view){
     $conf       =   Configuracao::all()->last();
@@ -191,8 +192,8 @@ View::composer(['admin.entradas.formulario'],function($view){
 
 
 Route::get('/teste',function (){
-    $contrato   =   Contrato::find(1);
-    return dd($contrato->novoPedidoOrcamento());
+
+    return Contrato::where('visualizado',0)->get();
 
 });
 Route::get('/fazer-orcamento', [App\Http\Controllers\Front\SiteController::class, 'orcamento'])->name('site.orcamento');

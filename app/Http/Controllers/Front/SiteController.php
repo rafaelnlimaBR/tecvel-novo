@@ -56,7 +56,7 @@ class SiteController extends Controller
 
     public function cadastrarPedidoOrcamento(Request $request)
     {
-        /*try{*/
+        try{
             $cpfCnpj                    =   str_replace(['.',',','/','-'],'',$request->input('cpfcnpj'));
             $telefone                   =   str_replace(['(',')'],'',$request->input('telefone'));
             $cliente                    =   Cliente::where(['cpfcnpj'=>$cpfCnpj]);
@@ -151,14 +151,14 @@ class SiteController extends Controller
             $zap->enviarMensagem('Solicitação de orçamento criado com sucesso. Em breve você receberá um retorno com seu orçamento. ',"85987067785",'55');
             $zap->enviarMensagem('*NÚMERO DO ORÇAMENTO: '.$contrato->id .'*',"85987067785",'55');
 
-            return Contrato::all();
+            return redirect()->route('site.orcamento')->with(['alerta'=>['texto_principal'=>'Cadastro realizado com sucesso!','texto_segundario'=>'Em breve retornaremos com seu orçamento'],'formulario_off'=>false]);
 
 
 
 
-        /*}catch (\Exception $e){
-            return $e->getMessage();
-//            return \redirect()->route('site.orcamento')->with('alertas',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage()]);
-        }*/
+        }catch (\Exception $e){
+
+            return \redirect()->route('site.orcamento')->with(['alerta'=>['texto_principal'=>'Houve um erro! ','texto_segundario'=>$e->getMessage()],'formulario_off'=>false]);
+        }
     }
 }

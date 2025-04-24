@@ -35,181 +35,188 @@
 
     <!--   Big container   -->
     <div class="container">
-        <div class="row">
-            <div class="col-sm-8 col-sm-offset-2">
+        @if(session()->has('alerta'))
+            <h1 class="" style="color: #2e8d2a; text-align: center">{{Session::get('alerta')['texto_principal']}}</h1>
+            <h5 style="color: #0a2c0a; text-align: center">{{Session::get('alerta')['texto_segundario']}}</h5>
+        @endif
 
-                <!--      Wizard container        -->
-                <div class="wizard-container orcamento">
+         <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2" {{session()->has('formulario_off')?'hidden':''}}>
 
-                    <div class="card wizard-card" data-color="orange" id="wizardProfile">
-                        <form action="{{route('site.cadastrar.orcamento')}}" enctype="multipart/form-data" method="post">
-                            <!--        You can switch ' data-color="orange" '  with one of the next bright colors: "blue", "green", "orange", "red"          -->
+                        <!--      Wizard container        -->
+                        <div class="wizard-container orcamento">
 
-                            <div class="wizard-header">
-                                <div class="row">
-                                    <div class="col-md-4 ">
-                                        <div class="text-center">
-                                            <img class="rounded" src="{{URL::asset('/images/logo.png')}}" style="">
+                            <div class="card wizard-card" data-color="orange" id="wizardProfile">
+                                <form action="{{route('site.cadastrar.orcamento')}}" enctype="multipart/form-data" method="post">
+                                    <!--        You can switch ' data-color="orange" '  with one of the next bright colors: "blue", "green", "orange", "red"          -->
+
+                                    <div class="wizard-header">
+                                        <div class="row">
+                                            <div class="col-md-4 ">
+                                                <div class="text-center">
+                                                    <img class="rounded" src="{{URL::asset('/images/logo.png')}}" style="">
+
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-8">
+                                                <h3>
+                                                    <b>PEDIDO DE ORÇAMENTO</b> <br>
+                                                    <small>Preencha as informações, em breve receberá o orçamento</small>
+                                                </h3>
+                                            </div>
 
                                         </div>
 
                                     </div>
-                                    <div class="col-md-8">
-                                        <h3>
-                                            <b>PEDIDO DE ORÇAMENTO</b> <br>
-                                            <small>Preencha as informações, em breve receberá o orçamento</small>
-                                        </h3>
+
+                                    <div class="wizard-navigation">
+                                        <ul>
+                                            <li><a href="#about" data-toggle="tab">Seus Dados</a></li>
+                                            <li><a href="#account" data-toggle="tab">Veículo</a></li>
+                                            <li><a href="#address" data-toggle="tab">Detalhes</a></li>
+                                        </ul>
+
                                     </div>
 
-                                </div>
+                                    <div class="tab-content">
+                                        <div class="tab-pane" id="about">
+                                            <h4 class="info-text"> Seus Dados</h4>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-7">
+                                                    <label class="control-label">Nome Completo (Obrigatório)</label>
+                                                    <input  maxlength="100" type="text" class="form-control" required="required" placeholder="Seu Nome" name="nome" />
+                                                    {{csrf_field()}}
+                                                </div>
+                                                <div class="form-group col-md-5">
+                                                    <label class="control-label">CPF/CNPJ (Obrigatório)</label>
+                                                    <input  maxlength="100" type="text" class="form-control cpfCnpj" required="required" placeholder="Somente Números" name="cpfcnpj" />
+                                                </div>
+                                            </div>
 
+                                            <div class="form-row">
+                                                <div class="form-group col-md-8">
+                                                    <label class="control-label">Email (Obrigatório)</label>
+                                                    <input maxlength="100"  type="email" class="form-control" required="required" placeholder="Seu Email" name="email" />
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label class="control-label">Whatsapp (Obrigatório)</label>
+                                                    <input maxlength="100"  type="text" class="form-control telefone" required="required" placeholder="Ex: 85987067785" value="{{request()->get('whatsapp')?request()->get('whatsapp'):''}}" name="telefone"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-3">
+                                                    <label class="control-label">Cep</label>
+                                                    <input maxlength="200" type="text"  class="form-control" placeholder="Cep" name="cep" id="cep" />
+                                                </div>
+
+                                                <div class="form-group col-md-6">
+                                                    <label class="control-label">Endereço</label>
+                                                    <input maxlength="200" type="text"  class="form-control" placeholder="Endereço" name="endereco" id="rua"/>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label class="control-label">Número</label>
+                                                    <input maxlength="200" type="text"  class="form-control" placeholder="Número" name="numero" id="numero" />
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-4">
+                                                    <label class="control-label">Bairro</label>
+                                                    <input maxlength="100" type="text"  class="form-control" placeholder="Bairro" name="bairro" id="bairro"/>
+                                                </div>
+                                                <div class="form-group col-md-5">
+                                                    <label class="control-label">Cidade</label>
+                                                    <input maxlength="100" type="text"  class="form-control" placeholder="Cidade" name="cidade" id="cidade"/>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label class="control-label">Estado</label>
+                                                    <input maxlength="100" type="text"  class="form-control" placeholder="Estado" name="estado" id="uf" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="tab-pane" id="account">
+                                            <h4 class="info-text"> Dados do Veículo </h4>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label class="control-label">Placa</label>
+                                                    <input maxlength="200" type="text" class="form-control placa" required="required" placeholder="Placa do Veículo" name="placa" />
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label class="control-label">Montadora</label>
+                                                    <select class="form-control" id="montadora-veiculos"  name="montadora">
+                                                        @foreach($montadoras as $montadora)
+                                                            <option value="{{$montadora->id}}">{{$montadora->nome}}</option>
+                                                        @endforeach
+                                                    </select>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label class="control-label">Modelo</label>
+                                                    <select class="form-control" id="modelos-veiculos" required="required"  name="modelo">
+
+                                                    </select>
+
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label class="control-label">Cor</label>
+                                                    <input list="cor" class="form-control" name="cor"  required="required" />
+                                                    <datalist id="cor" >
+                                                        @foreach($cores as $c)
+
+                                                            <option  value="{{$c['nome']}}"></option>
+
+                                                        @endforeach
+
+                                                    </datalist>
+
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label class="control-label">Ano do Modelo</label>
+                                                    <input maxlength="200" type="text"  class="form-control numero" required="required" name="ano" placeholder="Ex: 2015" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="address">
+                                            <h4 class="info-text"> Detalhes </h4>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-12">
+                                                    <label class="control-label">Descrição do Pedido de Orçamento *</label>
+                                                    <textarea class="form-control" rows="9" required="required" name="descricao"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-12">
+                                                    <label class="control-label">Imagens</label>
+                                                    <div class="input-images"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="wizard-footer height-wizard">
+                                        <div class="pull-right">
+                                            <input type='button' class='btn btn-next btn-fill btn-warning btn-wd btn-sm' name='next' value='Próximo' />
+                                            <input type='submit' class='btn btn-finish btn-fill btn-warning btn-wd btn-sm' name='finish' value='Enviar' />
+
+                                        </div>
+
+                                        <div class="pull-left">
+                                            <input type='button' class='btn btn-previous btn-fill btn-default btn-wd btn-sm' name='previous' value='Anterior' />
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                </form>
                             </div>
-
-                            <div class="wizard-navigation">
-                                <ul>
-                                    <li><a href="#about" data-toggle="tab">Seus Dados</a></li>
-                                    <li><a href="#account" data-toggle="tab">Dados do Veículo</a></li>
-                                    <li><a href="#address" data-toggle="tab">Detalhes</a></li>
-                                </ul>
-
-                            </div>
-
-                            <div class="tab-content">
-                                <div class="tab-pane" id="about">
-                                    <h4 class="info-text"> Seus Dados</h4>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-7">
-                                            <label class="control-label">Nome Completo *</label>
-                                            <input  maxlength="100" type="text" class="form-control" required="required" placeholder="Seu Nome" name="nome" />
-                                            {{csrf_field()}}
-                                        </div>
-                                        <div class="form-group col-md-5">
-                                            <label class="control-label">CPF/CNPJ *</label>
-                                            <input  maxlength="100" type="text" class="form-control cpfCnpj" required="required" placeholder="CPF ou CNPJ" name="cpfcnpj" />
-                                        </div>
-                                    </div>
-
-                                    <div class="form-row">
-                                        <div class="form-group col-md-8">
-                                            <label class="control-label">Email *</label>
-                                            <input maxlength="100"  type="email" class="form-control" required="required" placeholder="Seu Email" name="email" />
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label class="control-label">Whatsapp * Ex: 85987067785</label>
-                                            <input maxlength="100"  type="text" class="form-control telefone" required="required" placeholder="Seu Número Com Whatsapp" value="{{request()->get('whatsapp')?request()->get('whatsapp'):''}}" name="telefone"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-3">
-                                            <label class="control-label">Cep</label>
-                                            <input maxlength="200" type="text"  class="form-control" placeholder="Cep" name="cep" id="cep" />
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                            <label class="control-label">Endereço</label>
-                                            <input maxlength="200" type="text"  class="form-control" placeholder="Endereço" name="endereco" id="rua"/>
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label class="control-label">Número</label>
-                                            <input maxlength="200" type="text"  class="form-control" placeholder="Número" name="numero" id="numero" />
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            <label class="control-label">Bairro</label>
-                                            <input maxlength="100" type="text"  class="form-control" placeholder="Bairro" name="bairro" id="bairro"/>
-                                        </div>
-                                        <div class="form-group col-md-5">
-                                            <label class="control-label">Cidade</label>
-                                            <input maxlength="100" type="text"  class="form-control" placeholder="Cidade" name="cidade" id="cidade"/>
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label class="control-label">Estado</label>
-                                            <input maxlength="100" type="text"  class="form-control" placeholder="Estado" name="estado" id="uf" />
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="tab-pane" id="account">
-                                    <h4 class="info-text"> Dados do Veículo </h4>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label class="control-label">Placa</label>
-                                            <input maxlength="200" type="text" class="form-control placa" required="required" placeholder="Placa do Veículo" name="placa" />
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label class="control-label">Montadora</label>
-                                            <select class="form-control" id="montadora-veiculos"  name="montadora">
-                                                @foreach($montadoras as $montadora)
-                                                    <option value="{{$montadora->id}}">{{$montadora->nome}}</option>
-                                                @endforeach
-                                            </select>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label class="control-label">Modelo</label>
-                                            <select class="form-control" id="modelos-veiculos" required="required"  name="modelo">
-
-                                            </select>
-
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label class="control-label">Cor</label>
-                                            <input list="cor" class="form-control" name="cor"  required="required" />
-                                            <datalist id="cor" >
-                                                @foreach($cores as $c)
-
-                                                    <option  value="{{$c['nome']}}"></option>
-
-                                                @endforeach
-
-                                            </datalist>
-
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label class="control-label">Ano do Modelo</label>
-                                            <input maxlength="200" type="text"  class="form-control numero" required="required" name="ano" placeholder="Ex: 2015" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="address">
-                                    <h4 class="info-text"> Detalhes </h4>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-12">
-                                            <label class="control-label">Descrição do Pedido de Orçamento *</label>
-                                            <textarea class="form-control" rows="9" required="required" name="descricao"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-12">
-                                            <label class="control-label">Imagens</label>
-                                            <div class="input-images"></div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="wizard-footer height-wizard">
-                                <div class="pull-right">
-                                    <input type='button' class='btn btn-next btn-fill btn-warning btn-wd btn-sm' name='next' value='Próximo' />
-                                    <input type='submit' class='btn btn-finish btn-fill btn-warning btn-wd btn-sm' name='finish' value='Enviar' />
-
-                                </div>
-
-                                <div class="pull-left">
-                                    <input type='button' class='btn btn-previous btn-fill btn-default btn-wd btn-sm' name='previous' value='Anterior' />
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-
-                        </form>
+                        </div> <!-- wizard container -->
                     </div>
-                </div> <!-- wizard container -->
-            </div>
-        </div><!-- end row -->
+                </div><!-- end row -->
+
+
     </div> <!--  big container -->
 
     <div class="footer">
