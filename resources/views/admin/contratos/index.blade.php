@@ -92,15 +92,20 @@
                                 <td style="width: 7%;">{{\Carbon\Carbon::parse($contrato->garantia)->format('d/m/Y')}}</td>
 
 
-                                <td>
+                                    <td  style="width: 13%;">
 
-                                    <a class="btn-sm btn-success" href="{{route('contrato.enviar.invoice.aplicativos',['id'=>$contrato->id])}}" style="padding-top: 0; padding-bottom: 0"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+                                        <a class="btn-sm btn-success"  href="{{route('contrato.enviar.invoice.aplicativos',['id'=>$contrato->id])}}" style="padding-top: 0; padding-bottom: 0"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+                                        <a class="btn btn-sm btn-primary" style="padding-top: 0; padding-bottom: 0" href="{{route('contrato.visualizacao',['contrato'=>$contrato])}}"><i class="fa fa-wpforms" aria-hidden="true"></i></a>
+                                        @can('contrato-editar')
+                                            <a href="{{route('contrato.editar',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'pagina'=>'dados'])}}" class="btn btn-sm btn-warning" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-pencil-square"></i></a>
+                                        @endcan
+                                        @can('contrato-excluir')
+                                                <a href="{{route('contrato.excluir',['contrato'=>$contrato])}}" onclick=" return confirm('Deseja excluir esse registro?')" class="btn btn-sm btn-danger" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-trash-o"></i></a>
+                                        @endcan
 
-                                    <a href="{{route('contrato.editar',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'pagina'=>'dados'])}}" class="btn btn-sm btn-warning" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-pencil-square"></i></a>
-                                    <button class="btn btn-sm btn-danger" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-trash-o"></i></button>
+                                    </td>
 
 
-                                </td>
                             </tr>
                         @endforeach
 

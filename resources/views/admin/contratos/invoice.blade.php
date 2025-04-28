@@ -65,11 +65,44 @@
 
                         </div>
                         <div class="col-md-4">
-                            <p class="texto"><b>Defeito Relatado: </b>da dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal kda dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal kda dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal k
+                            <p class="texto"><b>Defeito:  </b>da dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal kda dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal kda dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal k
                                 da dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal kda dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal kda dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal k
                                 da dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal kda dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal k</p>
                         </div>
                     </div>
+                    @if($contrato->historicos->map->notas->flatten()->count() > 0)
+                        <div class="row notas">
+                            <div class="col-md-12">
+                                <h4 class="titulo">Notas</h4>
+                                <table class="tabela-notas table table-bordered ">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 15%">Tipo</th>
+                                        <th style=" width: 15%">Criado</th>
+                                        <th>Obs</th>
+
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($contrato->historicos as $historico)
+                                        @foreach($historico->notas as $nota)
+                                            <tr>
+                                                <td class="">{{$nota->tipo->nome}}</td>
+                                                <td class="">{{\Carbon\Carbon::parse($nota->created_at)->format('d/m/Y')}}</td>
+                                                <td class="">{{$nota->texto}}</td>
+
+                                            </tr>
+                                        @endforeach
+
+                                    @endforeach
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    @endif
                     <div class="row servicos">
 
                         <div class="col-md-12">

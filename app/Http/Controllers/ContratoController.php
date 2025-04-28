@@ -110,11 +110,9 @@ class ContratoController extends Controller
         return view('admin.contratos.formulario',$dados);
     }
 
-    public function visualizacao(Request $r,$id)
+    public function visualizacao(Request $r,Contrato $contrato)
     {
         try {
-            $contrato          =   Contrato::find($id);
-
 
             if($contrato == null ){
 
@@ -186,8 +184,23 @@ class ContratoController extends Controller
 
 
 
-    public function excluir(){
+    public function excluir(Contrato $contrato){
+        try{
+            if(auth()->user()->cannot('contrato-excluir')){
+                return redirect()->back()->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>'Acesso Negado']);
+            }
 
+            foreach ($contrato->entradas as $entrada){
+                $entrada->delete();
+            }
+
+            if($contrato->delete()){
+                return redirect()->route('contrato.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>'Excluido com sucesso']);
+            }
+
+        }catch(\Throwable $th){
+            return redirect()->route('contrato.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);
+        }
     }
 
     public function mudarStatus(Request $r)

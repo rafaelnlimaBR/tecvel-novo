@@ -64,6 +64,11 @@ class Contrato extends Model
 
     }
 
+    public function todasNotas()
+    {
+        return $this->historicos->map->notas;
+    }
+
     public function scopepedidosOrcamentosNaoVisualizados($query)
     {
 

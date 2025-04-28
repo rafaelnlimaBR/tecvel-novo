@@ -38,7 +38,7 @@ Route::get('/contrato/editar/{id}/historico/{historico_id}', [App\Http\Controlle
 Route::get('/contrato/{id}/modelos', [App\Http\Controllers\ContratoController::class, 'modelos'])->name('contrato.modelos');
 Route::post('/contrato/atualizar', [App\Http\Controllers\ContratoController::class, 'atualizar'])->name('contrato.atualizar');
 Route::post('/contrato/cadastrar', [App\Http\Controllers\ContratoController::class, 'cadastrar'])->name('contrato.cadastrar');
-Route::post('/contrato/excluir', [App\Http\Controllers\ContratoController::class, 'excluir'])->name('contrato.excluir');
+Route::get('/contrato/excluir/{contrato}', [App\Http\Controllers\ContratoController::class, 'excluir'])->name('contrato.excluir');
 Route::post('/contrato/novo/status', [App\Http\Controllers\ContratoController::class, 'mudarStatus'])->name('contrato.novo.status');
 Route::post('/contrato/adicionar/servico', [App\Http\Controllers\ContratoController::class, 'adicionarServico'])->name('contrato.adicionar.servico');
 Route::post('/contrato/remover/servico', [App\Http\Controllers\ContratoController::class, 'removerServico'])->name('contrato.remover.servico');
@@ -46,7 +46,7 @@ Route::post('/contrato/atualizar/servico', [App\Http\Controllers\ContratoControl
 Route::post('/contrato/adicionar/peca', [App\Http\Controllers\ContratoController::class, 'adicionarPeca'])->name('contrato.adicionar.peca');
 Route::post('/contrato/remover/peca', [App\Http\Controllers\ContratoController::class, 'removerPeca'])->name('contrato.remover.peca');
 Route::post('/contrato/atualizar/peca', [App\Http\Controllers\ContratoController::class, 'atualizarPeca'])->name('contrato.atualizar.peca');
-Route::get('/contrato/visualizacao/{id}', [App\Http\Controllers\ContratoController::class, 'visualizacao'])->name('contrato.visualizacao');
+Route::get('/contrato/visualizacao/{contrato}', [App\Http\Controllers\ContratoController::class, 'visualizacao'])->name('contrato.visualizacao');
 Route::get('/contrato/{id}/entrada', [App\Http\Controllers\ContratoController::class, 'entrada'])->name('contrato.entrada');
 Route::post('/contrato/faturar', [App\Http\Controllers\ContratoController::class, 'faturar'])->name('contrato.faturar');
 Route::post('/contrato//atualziar/entrada/', [App\Http\Controllers\ContratoController::class, 'atualizarEntrada'])->name('contrato.atualizar.faturar');
@@ -208,7 +208,7 @@ View::composer(['admin.entradas.formulario'],function($view){
 
 Route::get('/teste',function (){
 
-    return \App\Models\User::find(1)->isAdmin();
+    return Contrato::find(1)->historicos->map->notas->flatten()->count();
 
 });
 

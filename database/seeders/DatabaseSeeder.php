@@ -262,6 +262,11 @@ class DatabaseSeeder extends Seeder
             ['nome' => 'usuario-editar'],
             ['nome' => 'usuario-excluir'],
             ['nome' => 'usuario-visualizar'],
+
+            ['nome' => 'contrato-criar'],
+            ['nome' => 'contrato-editar'],
+            ['nome' => 'contrato-excluir'],
+            ['nome' => 'contrato-visualizar'],
         ]);
 
         DB::table('grupo_permissao')->insert([
@@ -274,6 +279,14 @@ class DatabaseSeeder extends Seeder
             ['grupo_id' =>2,'permissao_id' => 6],
             ['grupo_id' =>2,'permissao_id' => 7],
             ['grupo_id' =>2,'permissao_id' => 8],
+
+            ['grupo_id' =>2,'permissao_id' => 13],
+            ['grupo_id' =>2,'permissao_id' => 14],
+            ['grupo_id' =>2,'permissao_id' => 15],
+            ['grupo_id' =>2,'permissao_id' => 16],
+
+
+
 
         ]);
         DB::table('user_grupo')->insert([
