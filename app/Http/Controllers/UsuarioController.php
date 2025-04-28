@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Grupo;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
@@ -16,6 +18,7 @@ class UsuarioController extends Controller
             'titulo' => "Usuarios",
             'titulo_tabela' => "Lista de Usuários"
         ];
+
         $usuarios   =   User::all();
 
         return view('admin.usuarios.index',$dados)->with('usuarios',$usuarios);
@@ -45,7 +48,7 @@ class UsuarioController extends Controller
         $usuario = new User();
         $usuario->name      =   $validacao['nome'];
         $usuario->email     =   $validacao['email'];
-        $usuario->password  =   $validacao['senha'];
+        $usuario->password  =   Hash::make($validacao['senha']);
 
         if($usuario->save()){
             $usuario->grupos()->attach($validacao['grupos']);

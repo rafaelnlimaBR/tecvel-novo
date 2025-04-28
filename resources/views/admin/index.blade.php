@@ -25,22 +25,26 @@
                         <li>
                             <h3 class="navigation-title">Navigation</h3>
                         </li>
+
                         <li>
                             <a href="{{route('cliente.index')}}"><i class="fa fa-tachometer"></i> <span>Dashboard</span></a>
                         </li>
+                        @can('usuario-visualizar')
                         <li>
                             <a href="{{route('usuario.index')}}"><i class="fa fa-users"></i> <span>Usuarios</span></a>
                         </li>
+                        @endcan
                         <li>
                             <a href="{{route('contrato.index')}}"><i class="fa fa-tachometer"></i> <span id="totalPedidosNovos">Contratos</span></a>
                         </li>
                         <li>
                             <a href="{{route('servico.index')}}"><i class="fa fa-tachometer"></i> <span>Servicos</span></a>
                         </li>
+                        @can('cliente-visualizar')
                         <li>
                             <a href="{{route('cliente.index')}}"><i class="fa fa-users"></i> <span>Clientes</span></a>
                         </li>
-
+                        @endcan
                         <li>
                             <a href="{{route('fornecedor.index')}}"><i class="fa fa-users"></i> <span>Fornecedores</span></a>
                         </li>
@@ -51,9 +55,11 @@
                         <li>
                             <a href="{{route('modelo.index')}}"><i class="fa fa-users"></i> <span>Modelos</span></a>
                         </li>
+                        @can('veiculo-visualizar')
                         <li>
                             <a href="{{route('veiculo.index')}}"><i class="fa fa-users"></i> <span>Veículos</span></a>
                         </li>
+                        @endcan
                         <li>
                             <a href="{{route('status.index')}}"><i class="fa fa-users"></i> <span>Status</span></a>
                         </li>

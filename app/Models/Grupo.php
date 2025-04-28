@@ -10,4 +10,9 @@ class Grupo extends Model
     use HasFactory;
     protected $table = 'grupos';
 
+    public function permissoes()
+    {
+        return $this->belongsToMany(Permissao::class, 'grupo_permissao', 'grupo_id', 'permissao_id');
+    }
+
 }

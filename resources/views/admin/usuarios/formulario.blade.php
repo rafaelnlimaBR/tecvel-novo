@@ -31,7 +31,7 @@
                           </div>
                             <div class="form-group col-md-4">
                                 <label for="email">Senha</label>
-                                <input type="text" class="form-control {{$errors->has('senha')?'parsley-error':''}}" placeholder="Senha" name="senha" value="{{old('senha',isset($usuario)?$usuario->password:'')}}">
+                                <input type="text" class="form-control {{$errors->has('senha')?'parsley-error':''}}" placeholder="Senha" name="senha" value="{{old('senha')}}">
                                 @error('senha')
                                 <ul class="parsley-errors-list filled"><li class="parsley-required">{{$message}}</li></ul>
                                 @enderror

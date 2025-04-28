@@ -9,6 +9,8 @@ use App\Models\AppContato;
 use App\Models\Contato;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 
 class ClienteController extends Controller
@@ -19,6 +21,9 @@ class ClienteController extends Controller
             'titulo' => "Clientes",
             'titulo_tabela' => "Lista de Clientes"
         ];
+        if($r->user()->cannot('cliente-visualizar')){
+            return view('admin.includes.acesso-negado', $dados)->with('mensagem','Acesso negado.');
+        }
         $clientes   =   Cliente::pesquisarPorNome($r->input('nome'))
                                 ->pesquisarPorEmail($r->input('email'))
                                 ->pesquisarPorTelefone($r->input('telefone'))
@@ -33,6 +38,10 @@ class ClienteController extends Controller
             'titulo' => "Novo Cliente",
             'aplicativos'   => AppContato::all(),
         ];
+
+        if($r->user()->cannot('cliente-criar')){
+            return view('admin.includes.acesso-negado', $dados)->with('mensagem','Acesso negado.');
+        }
         return view('admin.clientes.formulario',$dados);
     }
 
@@ -43,7 +52,10 @@ class ClienteController extends Controller
             $cliente->nome  =   strtoupper($r->get('nome'));
             $cliente->email =   strtolower($r->get('email'));
 
+            if($r->user()->cannot('cliente-criar')){
+                return "Acesso negado.";
 
+            }
 
             if($cliente->save()){
                 $contato = ContatoController::cadastrar($r->get('contato'),$r->get('app'));

@@ -208,7 +208,7 @@ View::composer(['admin.entradas.formulario'],function($view){
 
 Route::get('/teste',function (){
 
-
+    return \App\Models\User::find(1)->isAdmin();
 
 });
 

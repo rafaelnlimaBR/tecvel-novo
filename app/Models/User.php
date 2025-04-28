@@ -48,4 +48,17 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Grupo::class, 'user_grupo', 'user_id', 'grupo_id');
     }
+
+    public function habilidades()
+    {
+        return $this->grupos->map->permissoes->flatten()->pluck('nome');
+    }
+
+    public function isAdmin()
+    {
+        if($this->grupos()->where('admin',1)->count() >= 1){
+            return true;
+        }
+        return false;
+    }
 }

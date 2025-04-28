@@ -238,6 +238,7 @@ class DatabaseSeeder extends Seeder
         $this->command->info("Insertindo dados de usuário");
         DB::table('users')->insert([
             ['name' => 'Rafael Lima','email'=>'rafael@tecvelautomotiva.com.br','email_verified_at'=>Carbon::now(),'password'=>Hash::make('3024'),'remember_token' => Str::random(10),'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ['name' => 'ADMIN','email'=>'rafaelnlima@live.com','email_verified_at'=>Carbon::now(),'password'=>Hash::make('3024'),'remember_token' => Str::random(10),'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
         ]);
 
         $this->command->info("Insertindo dados de grupos");
@@ -256,6 +257,11 @@ class DatabaseSeeder extends Seeder
             ['nome' => 'veiculo-editar'],
             ['nome' => 'veiculo-excluir'],
             ['nome' => 'veiculo-visualizar'],
+
+            ['nome' => 'usuario-criar'],
+            ['nome' => 'usuario-editar'],
+            ['nome' => 'usuario-excluir'],
+            ['nome' => 'usuario-visualizar'],
         ]);
 
         DB::table('grupo_permissao')->insert([
@@ -271,7 +277,8 @@ class DatabaseSeeder extends Seeder
 
         ]);
         DB::table('user_grupo')->insert([
-            ['user_id' => 1,'grupo_id' => 1],
+            ['user_id' => 1,'grupo_id' => 2],
+            ['user_id' => 2,'grupo_id' => 1],
         ]);
 
         // \App\Models\User::factory()->create([
