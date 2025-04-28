@@ -161,4 +161,6 @@ class SiteController extends Controller
             return \redirect()->route('site.orcamento')->with(['alerta'=>['texto_principal'=>'Houve um erro! ','texto_segundario'=>$e->getMessage()],'formulario_off'=>false]);
         }
     }
+
+
 }

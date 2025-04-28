@@ -91,7 +91,7 @@ Route::post('/fornecedor/pesquisa/json', [App\Http\Controllers\FornecedorControl
 //USUARIOS
 Route::get('/usuarios', [App\Http\Controllers\UsuarioController::class, 'index'])->name('usuario.index');
 Route::get('/usuario/novo', [App\Http\Controllers\usuarioController::class, 'novo'])->name('usuario.novo');
-Route::get('/usuario/editar/{id}', [App\Http\Controllers\usuarioController::class, 'editar'])->name('usuario.editar');
+Route::get('/usuario/editar/{user}', [App\Http\Controllers\usuarioController::class, 'editar'])->name('usuario.editar');
 Route::post('/usuario/cadastrar', [App\Http\Controllers\usuarioController::class, 'cadastrar'])->name('usuario.cadastrar');
 Route::post('/usuario/atualizar', [App\Http\Controllers\usuarioController::class, 'atualizar'])->name('usuario.atualizar');
 
@@ -187,6 +187,12 @@ View::composer(['admin.index'],function($view){
     $view->with(['nome_empresa'        =>$conf->nome_principal,
                 'contratos_nao_visualizados'=>Contrato::where('visualizado',0)->get()]);
 });
+
+View::composer(['admin.usuarios.formulario'],function($view){
+    $grupos     =   \App\Models\Grupo::all();
+
+    $view->with(['grupos'=>$grupos]);
+});
 View::composer(['admin.entradas.formulario'],function($view){
     $conf       =   Configuracao::all()->last();
     $tipo       =   TipoPagamento::find(FormaPagamento::find($conf->forma_pagamento_preferido)->tipo_id);
@@ -202,11 +208,15 @@ View::composer(['admin.entradas.formulario'],function($view){
 
 Route::get('/teste',function (){
 
-    return Contrato::where('visualizado',0)->get();
+
 
 });
+
 Route::get('/fazer-orcamento', [App\Http\Controllers\Front\SiteController::class, 'orcamento'])->name('site.orcamento');
+Route::get('/login2', [App\Http\Controllers\LoginController::class, 'index'])->name('site.login');
+Route::post('/logar', [App\Http\Controllers\LoginController::class, 'logar'])->name('logar');
 Route::post('/cadastrar-pedido-orcamento', [App\Http\Controllers\Front\SiteController::class, 'cadastrarPedidoOrcamento'])->name('site.cadastrar.orcamento');
+Route::get('/sair', [App\Http\Controllers\LoginController::class, 'logout'])->name('site.sair');
 
 
 

@@ -1,45 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-        <meta name="description" content="">
-        <meta name="author" content="Mannat Themes">
-        <meta name="keyword" content="">
-
-        <title>TECVEL | {{$titulo}}</title>
-        <meta name="csrf-token" content="{{ csrf_token() }}" />
-        <!-- Theme icon -->
-        <link rel="shortcut icon" href="{{ URL::asset('/images/favicon.ico') }}">
-
-        <!-- Theme Css -->
-        <link href="{{ URL::asset('/css/bootstrap.min.css') }}" rel="stylesheet">
-        <link href="{{ URL::asset('/css/slidebars.min.css') }}" rel="stylesheet">
-        <link href="{{ URL::asset('/css/icons.css') }}" rel="stylesheet">
-        <link href="{{ URL::asset('/css/menu.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ URL::asset('/plugins/colorpicker/colorpicker.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ URL::asset('/plugins/summernote/summernote-bs4.css') }}" rel="stylesheet" type="text/css">
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
-        <link href="{{ URL::asset('/css/style.css') }}" rel="stylesheet">
-    </head>
+    @include('admin.includes.header-html')
 
     <body class="sticky-header">
         <section>
             <!-- sidebar left start-->
             <div class="sidebar-left">
                 <div class="sidebar-left-info">
-
+                    @if(auth()->check())
                     <div class="user-box">
                         <div class="d-flex justify-content-center">
                             <img src="{{URL::asset('images/users/avatar-1.jpg')}}" alt="" class="img-fluid rounded-circle">
                         </div>
                         <div class="text-center text-white mt-2">
-                            <h6>Travis Watson</h6>
-                            <p class="text-muted m-0">Admin</p>
+                            <h6>{{auth()->user()->name}} - <a href="{{route('site.sair')}}">Sair</a></h6>
+                            @if(auth()->user()->grupos()->where('admin',1)->exists())
+                                <p class="text-muted m-0">{{auth()->user()->grupos()->where('admin',1)->first()->nome}}</p>
+                            @endif
                         </div>
                     </div>
-
+                    @endif
                     <!--sidebar nav start-->
                     <ul class="side-navigation">
                         <li>
@@ -47,6 +27,9 @@
                         </li>
                         <li>
                             <a href="{{route('cliente.index')}}"><i class="fa fa-tachometer"></i> <span>Dashboard</span></a>
+                        </li>
+                        <li>
+                            <a href="{{route('usuario.index')}}"><i class="fa fa-users"></i> <span>Usuarios</span></a>
                         </li>
                         <li>
                             <a href="{{route('contrato.index')}}"><i class="fa fa-tachometer"></i> <span id="totalPedidosNovos">Contratos</span></a>
@@ -535,20 +518,7 @@
         </section>
 
         <!-- jQuery -->
-        <script src="{{ URL::asset('/js/jquery-3.2.1.min.js') }}"></script>
-        <script src="{{ URL::asset('/js/popper.min.js') }}"></script>
-        <script src="{{ URL::asset('/js/bootstrap.min.js') }}"></script>
-        <script src="{{ URL::asset('/js/jquery-migrate.js') }}"></script>
-        <script src="{{ URL::asset('/js/modernizr.min.js') }}"></script>
-        <script src="{{ URL::asset('/js/jquery.slimscroll.min.js') }}"></script>
-        <script src="{{ URL::asset('/js/slidebars.min.js') }}"></script>
-        <script src="{{ URL::asset('/plugins/colorpicker/jquery-asColor.js') }}"></script>
-        <script src="{{ URL::asset('/plugins/summernote/summernote-bs4.js') }}"></script>
-        <script src="{{ URL::asset('/plugins/webcam/webcam.js') }}"></script>
-
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+      @include('admin.includes.scripts')
 
 
 

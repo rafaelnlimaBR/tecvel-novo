@@ -9,6 +9,7 @@ use App\Models\Cliente;
 use App\Models\Contato;
 use App\Models\Montadoras;
 use \Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use PhpParser\Node\Stmt\Catch_;
 
@@ -234,7 +235,44 @@ class DatabaseSeeder extends Seeder
         DB::table('saida_comissao')->insert([
             ['comissao_id' => 1,'saida_id' => '1'],
         ]);
-        \App\Models\User::factory(10)->create();
+        $this->command->info("Insertindo dados de usuário");
+        DB::table('users')->insert([
+            ['name' => 'Rafael Lima','email'=>'rafael@tecvelautomotiva.com.br','email_verified_at'=>Carbon::now(),'password'=>Hash::make('3024'),'remember_token' => Str::random(10),'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+        ]);
+
+        $this->command->info("Insertindo dados de grupos");
+        DB::table('grupos')->insert([
+            ['nome' => 'Admin','admin' => 1],
+            ['nome' => 'Balcão','admin' => 0],
+        ]);
+        $this->command->info("Insertindo dados de permissoes");
+        DB::table('permissoes')->insert([
+            ['nome' => 'cliente-criar'],
+            ['nome' => 'cliente-editar'],
+            ['nome' => 'cliente-excluir'],
+            ['nome' => 'cliente-visualizar'],
+
+            ['nome' => 'veiculo-criar'],
+            ['nome' => 'veiculo-editar'],
+            ['nome' => 'veiculo-excluir'],
+            ['nome' => 'veiculo-visualizar'],
+        ]);
+
+        DB::table('grupo_permissao')->insert([
+            ['grupo_id' =>2,'permissao_id' => 1],
+            ['grupo_id' =>2,'permissao_id' => 2],
+            ['grupo_id' =>2,'permissao_id' => 3],
+            ['grupo_id' =>2,'permissao_id' => 4],
+
+            ['grupo_id' =>2,'permissao_id' => 5],
+            ['grupo_id' =>2,'permissao_id' => 6],
+            ['grupo_id' =>2,'permissao_id' => 7],
+            ['grupo_id' =>2,'permissao_id' => 8],
+
+        ]);
+        DB::table('user_grupo')->insert([
+            ['user_id' => 1,'grupo_id' => 1],
+        ]);
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
