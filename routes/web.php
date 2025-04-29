@@ -11,6 +11,7 @@ use App\Models\Servico;
 use App\Models\TipoPagamento;
 use \App\Models\Veiculo;
 use \App\Models\Montadora;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Dompdf\Dompdf;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Http;
@@ -204,17 +205,20 @@ View::composer(['admin.entradas.formulario'],function($view){
     ]);
 });
 
+Route::get('/teste',function () {
 
 
-Route::get('/teste',function (){
+    return \view('admin.contratos.includes.invoicePDF',['contrato'=>Contrato::find(1),'titulo'=>'Garantia']);
+});
+Route::get('/pdf',function (){
 
-    $dados = [
 
-        'titulo' => "Garantia",
+  $pdf = Pdf::loadView('admin.contratos.includes.invoicePDF',['contrato'=>Contrato::find(1),'titulo'=>'Garantia']);
 
-    ];
-    $contrato = Contrato::find(1);
-    return \view('admin.contratos.includes.invoicePDF',$dados)->with('contrato',$contrato);
+    $pdf->setPaper('A4', 'portrait');
+
+    return $pdf->stream('invoice.pdf');
+//    Pdf::loadView('admin.contratos.includes.invoicePDF',['contrato'=>Contrato::find(1),'conf'=>$this->conf,'titulo'=>'Garantia'])->save($caminho);
 
 });
 
