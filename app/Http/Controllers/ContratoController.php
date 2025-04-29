@@ -500,7 +500,7 @@ class ContratoController extends Controller
     //        return $caminho;
     //        PDF::view('admin.contratos.includes.invoicePDF',['contrato'=>$contrato]);
     //        PDF::loadView('admin.contratos.includes.invoicePDF',$contrato)->save($caminho);
-            Pdf::loadView('admin.contratos.includes.invoicePDF',['contrato'=>$contrato,'conf'=>$this->conf])->save($caminho);
+            Pdf::loadView('admin.contratos.includes.invoicePDF',['contrato'=>$contrato,'conf'=>$this->conf,'titulo'=>'Garantia'])->save($caminho);
             $url        =   URL::to($url.$filename);
 
 
