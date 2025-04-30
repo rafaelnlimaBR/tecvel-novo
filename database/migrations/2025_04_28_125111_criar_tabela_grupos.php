@@ -17,6 +17,7 @@ return new class extends Migration
            $table->bigIncrements('id');
            $table->string('nome');
            $table->boolean('admin')->default(0);
+           $table->timestamps();
         });
     }
 

@@ -8,6 +8,9 @@
 <script src="{{ URL::asset('/plugins/colorpicker/jquery-asColor.js') }}"></script>
 <script src="{{ URL::asset('/plugins/summernote/summernote-bs4.js') }}"></script>
 <script src="{{ URL::asset('/plugins/webcam/webcam.js') }}"></script>
+<script src="{{ URL::asset('/plugins/jquery-multi-select/jquery.multi-select.js') }}"></script>
+<script src="{{ URL::asset('/plugins/jquery-multi-select/jquery.quicksearch.js') }}"></script>
+
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>

@@ -121,6 +121,15 @@ Route::post('/montadora/atualizar', [App\Http\Controllers\MontadoraController::c
 Route::post('/montadora/cadastrar', [App\Http\Controllers\MontadoraController::class, 'cadastrar'])->name('montadora.cadastrar');
 Route::post('/montadora/excluir', [App\Http\Controllers\MontadoraController::class, 'excluir'])->name('montadora.excluir');
 
+//GRUPOS DE USUÁRIOS
+Route::get('/grupos', [App\Http\Controllers\GrupoController::class, 'index'])->name('grupo.index');
+Route::get('/grupo/novo', [App\Http\Controllers\GrupoController::class, 'novo'])->name('grupo.novo');
+Route::get('/grupo/editar/{grupo}', [App\Http\Controllers\GrupoController::class, 'editar'])->name('grupo.editar');
+Route::get('/grupo/{id}/modelos', [App\Http\Controllers\GrupoController::class, 'modelos'])->name('grupo.modelos');
+Route::post('/grupo/atualizar', [App\Http\Controllers\GrupoController::class, 'atualizar'])->name('grupo.atualizar');
+Route::post('/grupo/cadastrar', [App\Http\Controllers\GrupoController::class, 'cadastrar'])->name('grupo.cadastrar');
+Route::post('/grupo/excluir', [App\Http\Controllers\GrupoController::class, 'excluir'])->name('grupo.excluir');
+
 //MODELOS DE VEICULOS
 Route::get('/modelo', [App\Http\Controllers\ModeloController::class, 'index'])->name('modelo.index');
 Route::get('/modelo/novo', [App\Http\Controllers\ModeloController::class, 'novo'])->name('modelo.novo');
@@ -188,7 +197,12 @@ View::composer(['admin.index'],function($view){
     $view->with(['nome_empresa'        =>$conf->nome_principal,
                 'contratos_nao_visualizados'=>Contrato::where('visualizado',0)->get()]);
 });
+View::composer(['admin.grupos.formulario'],function($view){
+    $permissoes     =   \App\Models\Permissao::all();
 
+
+    $view->with(['permissoes'=>$permissoes]);
+});
 View::composer(['admin.usuarios.formulario'],function($view){
     $grupos     =   \App\Models\Grupo::all();
 
@@ -207,9 +221,7 @@ View::composer(['admin.entradas.formulario'],function($view){
 
 Route::get('/teste',function () {
 
-$contrato   =   Contrato::find(1);
-return $contrato->historicos->map->servicos->flatten()->count();
-    return \view('admin.contratos.includes.invoicePDF',['contrato'=>Contrato::find(1),'titulo'=>'Garantia']);
+return \App\Models\Permissao::all();
 });
 Route::get('/pdf',function (){
 

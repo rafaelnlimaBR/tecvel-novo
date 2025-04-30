@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('permissoes', function (Blueprint $table) {
            $table->bigIncrements('id');
            $table->string('nome');
+           $table->timestamps();
         });
     }
 

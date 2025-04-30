@@ -18,6 +18,7 @@
     <link href="{{ URL::asset('/plugins/colorpicker/colorpicker.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/plugins/summernote/summernote-bs4.css') }}" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="{{ URL::asset('/plugins/jquery-multi-select/multi-select.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
     <link href="{{ URL::asset('/css/style.css') }}" rel="stylesheet">
 </head>
