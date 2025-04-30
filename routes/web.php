@@ -207,7 +207,8 @@ View::composer(['admin.entradas.formulario'],function($view){
 
 Route::get('/teste',function () {
 
-
+$contrato   =   Contrato::find(1);
+return $contrato->historicos->map->servicos->flatten()->count();
     return \view('admin.contratos.includes.invoicePDF',['contrato'=>Contrato::find(1),'titulo'=>'Garantia']);
 });
 Route::get('/pdf',function (){

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('qnt')->default(1);
             $table->decimal('desconto',8,2)->default(0);
             $table->decimal('valor_liquido',8,2)->default(0);
+            $table->decimal('valor_liquido_total',8,2)->default(0);
             $table->string('marca')->nullable();
             $table->boolean('cobrar');
             $table->timestamps();

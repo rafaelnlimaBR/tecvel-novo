@@ -309,14 +309,15 @@ class ContratoController extends Controller
             $qnt                            =   $r->get('qnt');
             $valor                          =   $r->get('valor');
             $valor_total                    =   $qnt*$valor;
-            $valor_liquido                  =   ((100-$desconto)/100)*$valor_total;
+            $valor_liquido                  =   ((100-$desconto)/100)*$valor;
+            $valor_liquido_total            =   $valor_liquido*$qnt;
             $cobrar                         =   0;
             if($r->has('cobrar')){
                 $cobrar     =   $r->get('cobrar');
             }else{
                 $cobrar     =   $contrato->status->last()->cobrar;
             }
-            $historico->pecas()->attach($peca->id,['valor'=>$valor,'cobrar'=>$cobrar,'marca'=>$r->get('marca-peca'),'qnt'=>$r->get('qnt'),'desconto'=>$desconto,'valor_total'=>$valor_total,'valor_liquido'=>$valor_liquido]);
+            $historico->pecas()->attach($peca->id,['valor'=>$valor,'cobrar'=>$cobrar,'marca'=>$r->get('marca-peca'),'qnt'=>$r->get('qnt'),'desconto'=>$desconto,'valor_total'=>$valor_total,'valor_liquido'=>$valor_liquido,'valor_liquido_total'=>$valor_liquido_total]);
 
             return response()->json(['peca'=>view("admin.contratos.includes.tabela-pecas",['contrato'=>$contrato])->render()]);
 
@@ -347,6 +348,7 @@ class ContratoController extends Controller
     }
     public function atualizarPeca(Request $r)
     {
+
         try {
             $peca                =       Avulsa::find($r->get('peca_id'))   ;
             $peca->valor         =      $r->get('valor');
@@ -357,6 +359,7 @@ class ContratoController extends Controller
             $peca->valor_total   =      $r->get('valor_bruto_total');
             $peca->desconto     =       $r->get('desconto');
             $peca->valor_liquido =      $r->get('valor_liquido');
+            $peca->valor_liquido_total = $r->get('valor_liquido_total');
             $contrato       =   Contrato::find($r->get('contrato_id'));
 
             if($peca->save()){

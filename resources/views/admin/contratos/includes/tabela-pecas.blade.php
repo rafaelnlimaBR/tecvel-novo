@@ -10,6 +10,7 @@
             <th style="width: 100px; " scope="col">Qnt</th>
             <th style="width: 10%; " scope="col">Valor Total</th>
             <th style="width: 7%;" scope="col">D%</th>
+            <th style="width: 10%; " scope="col">Valor Liquido</th>
             <th style="width: 10%; " scope="col">Valor Final</th>
             <th style="width: 10%; " scope="col">Marca</th>
 {{--            <th scope="col" style="width: 10%; " >Cobrar</th>--}}
@@ -32,6 +33,7 @@
                     <td><input disabled class="form-control calcular-valor-pecas "  name="valor-total-peca-table"  peca_id="{{$peca->pivot->id}}" id="valor-total-peca-{{$peca->pivot->id}}"  value="{{$peca->pivot->qnt*$peca->pivot->valor}}"> </td>
                     <td><input class="form-control calcular-valor-pecas numero" name="desconto-peca-table" id="desconto-peca-{{$peca->pivot->id}}"  peca_id="{{$peca->pivot->id}}" ativo="desconto-peca"  value="{{$peca->pivot->desconto}}"> </td>
                     <td><input class="form-control calcular-valor-pecas dinheiro" name="valor-liquido-table" id="valor-liquido-{{$peca->pivot->id}}"  peca_id="{{$peca->pivot->id}}" ativo="valor-liquido-peca" value="{{$peca->pivot->valor_liquido}}"> </td>
+                    <td><input class="form-control calcular-valor-pecas dinheiro" name="valor-liquido-total-table" id="valor-liquido-total-{{$peca->pivot->id}}"  peca_id="{{$peca->pivot->id}}" ativo="valor-liquido-total-peca" value="{{$peca->pivot->valor_liquido_total}}" disabled> </td>
                     <td><input class="form-control caixa-alta" name="marca-peca-table" id="marca-peca-{{$peca->pivot->id}}"  value="{{$peca->pivot->marca}}"></td>
                     {{--<td>
 

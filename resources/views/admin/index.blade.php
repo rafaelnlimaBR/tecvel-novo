@@ -975,10 +975,12 @@
                 var qnt             =   $('#qnt-peca-'+peca_id).val();
                 var valor_bruto_total   =   valor*qnt;
                 var desconto        =   $('#desconto-peca-'+peca_id).val();
-                var valor_liquido_total =   $('#valor-liquido-'+peca_id).val();
+                var valor_liquido_total =   $('#valor-liquido-total-'+peca_id).val();
+                var valor_liquido   =   $('#valor-liquido-'+peca_id).val();
                 var cobrar           =   $('#cobrar-peca-'+peca_id).val();
                 var marca           =   $('#marca-peca-'+peca_id).val();
                 var  contrato_id     =   $(this).attr('contrato_id');
+                console.log(valor_liquido_total+" " +valor_liquido);
 
                 $.ajax({
                     header:{
@@ -996,7 +998,8 @@
                         'qnt'               :   qnt,
                         'desconto'          :   desconto,
                         'valor_bruto_total' :   valor_bruto_total,
-                        'valor_liquido'     :   valor_liquido_total
+                        'valor_liquido_total':   valor_liquido_total,
+                        'valor_liquido'     :   valor_liquido
 
                     },
                     success: function( data )
@@ -1684,19 +1687,24 @@
                 var qnt             =   $('#qnt-peca-'+peca_id).val();
                 var valor_bruto_total   =   valor_bruto*qnt;
                 var desconto        =   $('#desconto-peca-'+peca_id).val();
-                var valor_liquido_total =   $('#valor-liquido-'+peca_id).val();
-                console.log(valor_bruto_total)
+                var valor_liquido   =   $('#valor-liquido-'+peca_id).val();
+                var valor_liquido_total =   $('#valor-liquido-total-'+peca_id).val();
+
 
                 if($(this).attr("ativo") == 'valor-peca') {
                     $('#valor-total-peca-'+peca_id).val(parseFloat(valor_bruto_total).toFixed(2));
-                    $('#valor-liquido-'+peca_id).val(parseFloat(valor_bruto_total*((100-desconto)/100)).toFixed(2));
+                    $('#valor-liquido-total-'+peca_id).val(parseFloat(valor_bruto_total*((100-desconto)/100)).toFixed(2));
+                    $('#valor-liquido-'+peca_id).val(parseFloat(valor_bruto*((100-desconto)/100)).toFixed(2));
                 }else if($(this).attr("ativo") == 'qnt-peca'){
                     $('#valor-total-peca-'+peca_id).val(parseFloat(valor_bruto_total).toFixed(2));
-                    $('#valor-liquido-'+peca_id).val(parseFloat(valor_bruto_total*((100-desconto)/100)).toFixed(2));
+                    $('#valor-liquido-total-'+peca_id).val(parseFloat(valor_bruto_total*((100-desconto)/100)).toFixed(2));
+                    $('#valor-liquido-'+peca_id).val(parseFloat(valor_bruto*((100-desconto)/100)).toFixed(2));
                 }else if($(this).attr("ativo") == 'desconto-peca'){
-                    $('#valor-liquido-'+peca_id).val(parseFloat(valor_bruto_total*((100-desconto)/100)).toFixed(2));
+                    $('#valor-liquido-total-'+peca_id).val(parseFloat(valor_bruto_total*((100-desconto)/100)).toFixed(2));
+                    $('#valor-liquido-'+peca_id).val(parseFloat(valor_bruto*((100-desconto)/100)).toFixed(2));
                 }else if($(this).attr("ativo") == 'valor-liquido-peca'){
-                    var desconto    =   parseFloat(100-((valor_liquido_total*100)/valor_bruto_total)).toFixed(2);
+                    console.log('deu');
+                    var desconto    =   parseFloat(100-((valor_liquido*100)/valor_bruto)).toFixed(2);
 
                     if(desconto < 0){
 
@@ -1704,6 +1712,7 @@
                     }else{
                         $("#desconto-peca-"+peca_id).css("background-color", 'white').css('color','#495057');
                     }
+                    $('#valor-liquido-total-'+peca_id).val(valor_liquido*qnt);
                     $("#desconto-peca-"+peca_id).val(desconto);
                 }
             });

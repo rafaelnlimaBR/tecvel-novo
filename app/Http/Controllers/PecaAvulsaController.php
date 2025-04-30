@@ -53,7 +53,7 @@ class PecaAvulsaController extends Controller
     public function cadastrar(Request $r){
         try {
             $peca          =   new PecaAvulsa();
-            $peca->nome    =   $r->get('peca');
+            $peca->nome    =   strtoupper($r->get('peca'));
             $peca->valor    =   $r->get('valor');
 
 
@@ -83,7 +83,7 @@ class PecaAvulsaController extends Controller
     public function atualizar(Request $r){
         try {
             $peca          =   PecaAvulsa::find($r->get('id'));
-            $peca->nome    =   $r->get('peca');
+            $peca->nome    =   strtoupper($r->get('peca'));
             $peca->valor    =   $r->get('valor');
 
 

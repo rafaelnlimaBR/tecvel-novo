@@ -154,7 +154,7 @@ class Contrato extends Model
         foreach ($this->historicos as $historico){
             foreach ($historico->pecas as $peca){
 
-                    $total += $peca->pivot->valor_liquido;
+                    $total += $peca->pivot->valor_liquido_total;
 
             }
 

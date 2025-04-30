@@ -54,7 +54,7 @@ class ServicoController extends Controller
     public function cadastrar(Request $r){
         try {
             $servico          =   new Servico();
-            $servico->nome    =   $r->get('servico');
+            $servico->nome    =   strtoupper($r->get('servico'));
             $servico->valor    =   $r->get('valor');
 
 
@@ -84,7 +84,7 @@ class ServicoController extends Controller
     public function atualizar(Request $r){
         try {
             $servico          =   Servico::find($r->get('id'));
-            $servico->nome    =   $r->get('servico');
+            $servico->nome    =   strtoupper($r->get('servico'));
             $servico->valor    =   $r->get('valor');
 
 
