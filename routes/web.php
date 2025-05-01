@@ -220,13 +220,15 @@ View::composer(['admin.entradas.formulario'],function($view){
 });
 
 Route::get('/teste',function () {
+$contrato   =   Contrato::find(1);
 
-return \App\Models\Permissao::all();
+    \Illuminate\Support\Facades\Mail::to('rafaelnlima@live.com','Rafael')->send(new \App\Mail\PedidoOrcamentoMail($contrato));
+
 });
 Route::get('/pdf',function (){
 
 
-  $pdf = Pdf::loadView('admin.contratos.includes.invoicePDF',['contrato'=>Contrato::find(1),'titulo'=>'Garantia']);
+  $pdf = Pdf::loadView('admin.contratos.includes.invoicePDF',['contrato'=>Contrato::find(1),'titulo'=>'Garantia','conf'=>Configuracao::find(1)->first()]);
 
     $pdf->setPaper('A4', 'portrait');
 

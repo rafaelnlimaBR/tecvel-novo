@@ -76,7 +76,12 @@
             <img src="{{ public_path('images/logo.png') }}"height="70" />
         </td>
         <td class="w-half">
-            <h2>ID: {{$contrato->id}}</h2>
+            <h4></h4>
+            @if($conf->abertura == $contrato->status->last()->id)
+                <h2 style="margin: 3px; font-family: 'Open Sans', sans-serif">ORÇAMENTO</h2>
+            @endif
+            <h2 style="margin: 6px; font-family: 'Open Sans', sans-serif">ID: {{$contrato->id}}</h2>
+
         </td>
     </tr>
 </table>
@@ -90,16 +95,20 @@
                 <span ><b>Email : </b><span class="texto-pequeno">{{$contrato->cliente->email}}</span></span><br>
                 <span><b>Telefone : </b><span class="text-small">{{$contrato->cliente->contatos()->first()->numero}}</span></span>
             </td>
+            @if($contrato->veiculo != null)
             <td class="w-half">
                 <h3 class="titulo">Veículo:</h3>
                 <span><b>Placa : </b>{{$contrato->veiculo->placa}}</span><br>
                 <span><b>Marca : </b><span class="text-small">{{$contrato->veiculo->modelo->nome}}</span></span><br>
                 <span><b>Montadora : </b><span class="text-small">{{$contrato->veiculo->modelo->montadora->nome}}</span></span>
             </td>
+            @endif
             <td class="w-half">
-                <h3 class="titulo">Cliente:</h3>
-                <span><b>Nome : </b>{{$contrato->cliente->nome}}</span><br>
-                <span><b>Telefone : </b><span class="text-small">{{$contrato->cliente->contatos()->first()->numero}}</span></span>
+
+                <span><b>Criado : </b>{{\Carbon\Carbon::parse($contrato->created_at)->format('d/m/Y')}}</span><br>
+                @if($conf->abertura != $contrato->status->last()->id)
+                    <span><b>Garantia : </b>{{\Carbon\Carbon::parse($contrato->garantia)->format('d/m/Y')}}</span><br>
+                @endif
             </td>
 
 
@@ -129,9 +138,7 @@
         </tr>
         @endforeach
     </table>
-    <div class="total">
 
-    </div>
 </div>
 @endif
 @if($contrato->historicos->map->pecas->flatten()->count() > 0)
@@ -165,18 +172,39 @@
         </tr>
         @endforeach
     </table>
-    <div class="total">
-        Total: $129.00 USD
-    </div>
+
+
 </div>
+    <div style="margin-top: 20px">
+        <div style="width: 30%; border: 1px solid #e2e2e9; float: left; padding: 10px">
+            <table>
+                <tr>
+                    <td> SERVICO: </td>
+                    <td>  R$ {{$contrato->totalServicosLiquido()}} </td>
+                </tr>
+                <tr>
+                    <td> PEÇA: </td>
+                    <td> R$ {{$contrato->totalPecasAvulsasLiquido()}} </td>
+                </tr>
+                <tr style="background-color: #e2e2e9">
+                    <td> TOTAL: </td>
+                    <td> R$ {{$contrato->totalPecasAvulsasLiquido()+$contrato->totalServicosLiquido()}} </td>
+                </tr>
+            </table>
+        </div>
+        <div style="width: 65%;float: right">
+            @if($conf->abertura == $contrato->status->last()->id)
+                <p style="font-family: 'Open Sans', sans-serif; font-size: 10px; padding: 5px; margin: 0">* Válido por <b>24 horas </b></p>
+            <p style="font-family: 'Open Sans', sans-serif; font-size: 10px; padding: 5px; margin: 0">* Orçamento sujeito a alterações previamente comunicadas</p>
+            <p style="font-size: 11px; margin: 4px; font-family: 'Open Sans', sans-serif">* Aceitamos Crédito, Débito e PIX</p>
+            <p style="font-size: 11px; margin: 4px; font-family: 'Open Sans', sans-serif">* Pagamento no crédito estará sujeita a cobrança da taxa na maquineta.</p>
+            @endif
+        </div>
+    </div>
 @endif
 
 
 
 
-<div class="footer margin-top">
-    <div>Thank you</div>
-    <div>&copy; Laravel Daily</div>
-</div>
 </body>
 </html>
