@@ -39,22 +39,13 @@ class Whatsapp extends Model
 
 
         if($resposta->failed()){
-            $resultado   =   ['resposta' => 'false',
-                            'texto' => "Numero : ".$telefone." - Erro ao enviar a mensagem",
-                            'numero'=>$telefone,
-                            'status'=>$resposta->status(),
-                            'tipo'  =>'danger'];
+            return false;
 
 
         }elseif ($resposta->successful()) {
-            $resultado   =   ['resposta' => 'true',
-                            'texto' => "Numero : ".$telefone." - Mensagem enviado com sucesso",
-                            'numero'=>$telefone,
-                            'status'=>$resposta->status(),
-                            'tipo'  =>'success'];
+            return true;
         }
 
-        return $resultado;
 
     }
 
@@ -75,21 +66,13 @@ class Whatsapp extends Model
 
 
         if($resposta->failed()){
-            $resultado   =   ['resposta' => 'false',
-                'texto' => "Numero : ".$telefone." - Erro ao enviar o documento",
-                'numero'=>$telefone,
-                'status'=>$resposta->status(),
-                'tipo'  =>'danger'];
+            return false;
 
 
         }elseif ($resposta->successful()) {
-            $resultado   =   ['resposta' => 'true',
-                'texto' => "Numero : ".$telefone." - Arquivo enviado com sucesso",
-                'numero'=>$telefone,
-                'status'=>$resposta->status(),
-                'tipo'  =>'success'];
+            return true;
         }
-        return $resultado;
+
     }
 
 

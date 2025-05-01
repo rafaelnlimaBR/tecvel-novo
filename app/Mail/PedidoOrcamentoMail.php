@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Address;
+use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -15,15 +16,17 @@ class PedidoOrcamentoMail extends Mailable
 {
     use Queueable, SerializesModels;
     private $contrato;
+    private $url;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Contrato $contrato)
+    public function __construct(Contrato $contrato,$pdf)
     {
-
+        $this->subject  =   'Pedido de Orcamento';
         $this->contrato = $contrato;
+        $this->pdf       =   $pdf;
     }
 
     /**
@@ -35,8 +38,7 @@ class PedidoOrcamentoMail extends Mailable
     {
         return new Envelope(
 
-            from:   new Address($this->contrato->cliente->email,$this->contrato->cliente->nome),
-            subject: 'Seu pedido de orçamento foi recebido com sucesso! Em breve terá um retorno',
+            subject: 'Pedido de Orcamento',
 
         );
     }
@@ -50,6 +52,7 @@ class PedidoOrcamentoMail extends Mailable
     {
         return new Content(
             view: 'admin.email.pedido-orcamento',
+            with: ['contrato' => $this->contrato],
         );
     }
 
@@ -60,6 +63,8 @@ class PedidoOrcamentoMail extends Mailable
      */
     public function attachments()
     {
-        return [];
+        return [
+            Attachment::fromPath($this->pdf),
+        ];
     }
 }

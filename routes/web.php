@@ -16,6 +16,7 @@ use Dompdf\Dompdf;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 
@@ -220,10 +221,29 @@ View::composer(['admin.entradas.formulario'],function($view){
 });
 
 Route::get('/teste',function () {
-$contrato   =   Contrato::find(1);
+    $contrato   =   Contrato::find(1);
+    $filename   =   $contrato->id."-Orçamento".".pdf";
+    $url        =   URL::to('/').'/invoice/';
+    $conf       =   Configuracao::first();
+    $caminho = public_path('invoice/');
 
-    \Illuminate\Support\Facades\Mail::to('rafael@tecvelautomotiva.com.br','Rafael')->send(new \App\Mail\PedidoOrcamentoMail($contrato));
+    if (!file_exists($caminho)){
+        mkdir($caminho, 0777, true);
+    }
+    $caminho    =   $caminho.$filename;
+    //        return $caminho;
+    //        PDF::view('admin.contratos.includes.invoicePDF',['contrato'=>$contrato]);
+    //        PDF::loadView('admin.contratos.includes.invoicePDF',$contrato)->save($caminho);
 
+    Pdf::loadView('admin.contratos.includes.invoicePDF',['contrato'=>$contrato,'conf'=>$conf,'titulo'=>'Garantia'])->save($caminho);
+    $url        =   URL::to($url.$filename);
+    $user   =   auth()->user();
+    $retorno = \Illuminate\Support\Facades\Mail::to($contrato->cliente->email,$contrato->cliente->nome)->send(new \App\Mail\PedidoOrcamentoMail($contrato,$url));
+    if(\File::exists($caminho)){
+        \File::delete($caminho);
+    }
+
+    dd($retorno);
 });
 Route::get('/pdf',function (){
 

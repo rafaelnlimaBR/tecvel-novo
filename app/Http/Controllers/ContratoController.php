@@ -24,6 +24,7 @@ use Carbon\Carbon;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use function Symfony\Component\Mime\Header\all;
@@ -491,7 +492,7 @@ class ContratoController extends Controller
 
 
             $contrato   =   Contrato::find($id);
-            $filename   =   $contrato->id.".pdf";
+            $filename   =   $contrato->id."-Orçamento".".pdf";
             $url        =   URL::to('/').'/invoice/';
 
             $caminho = public_path('invoice/');
@@ -513,18 +514,45 @@ class ContratoController extends Controller
 
             //apagar essa linha
 
-            $resultado  =   [];
+            //Enviado por whatsapp
+            $resultado  =   0;
+            $alertas    =   [];
             foreach ($contrato->cliente->contatos as $key=>$contato){
                 if($contato->app->id == $this->conf->whatsapp_id){
-                    $resultado  =   array_merge($resultado,[$whatsapp->enivarMensagemMedia($url,$contato->numero,"Segue a garantia do servico realizado. Data da Garantia : ".Carbon::parse($contrato->garantia)->format('d/m/Y'),"Garantia.pdf",2,55,"document")]);
+                    $resultado  =   $whatsapp->enivarMensagemMedia($url,$contato->numero,"Segue a garantia do servico realizado. Data da Garantia : ".Carbon::parse($contrato->garantia)->format('d/m/Y'),"Garantia.pdf",2,55,"document");
+                    if($resultado == true){
+                        $alertas    =   array_merge($alertas,
+                            ['resposta' => 'true',
+                            'texto' => "Numero : ".$contato->numero." - Enviado com sucesso",
+                            'numero'=>$contato->numero,
+                            'status'=>'',
+                            'tipo'  =>'success']);
+                    }else{
+                        $alertas    =   array_merge($alertas,
+                            ['resposta' => 'false',
+                                'texto' => "Numero : ".$contato->numero." - Erro ao enviar a mensagem",
+                                'numero'=>$contato->numero,
+                                'status'=>'',
+                                'tipo'  =>'danger']);
+                    }
                 }
             }
+
+            //Enviando por email
+
+            Mail::to($contrato->cliente->email,$contrato->cliente->nome)->send(new \App\Mail\PedidoOrcamentoMail($contrato,$url));
+            $alertas[]    =   array_merge($alertas,
+                ['resposta' => 'true',
+                    'texto' => "Enviado com sucesso - Email : ".$contrato->cliente->email,
+                    'numero'=>'',
+                    'status'=>'',
+                    'tipo'  =>'success']);
 
             if(\File::exists($caminho)){
                 \File::delete($caminho);
             }
 
-            return redirect()->route('contrato.index')->with('alertas',$resultado);
+            return redirect()->route('contrato.index')->with('alertas',$alertas);
         }catch (\Exception $e){
             return redirect()->route('contrato.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage() ]);
         }
