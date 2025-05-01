@@ -34,6 +34,7 @@ class PedidoOrcamentoMail extends Mailable
     public function envelope()
     {
         return new Envelope(
+
             from:   new Address($this->contrato->cliente->email,$this->contrato->cliente->nome),
             subject: 'Seu pedido de orçamento foi recebido com sucesso! Em breve terá um retorno',
 

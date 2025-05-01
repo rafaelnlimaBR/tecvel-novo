@@ -222,7 +222,7 @@ View::composer(['admin.entradas.formulario'],function($view){
 Route::get('/teste',function () {
 $contrato   =   Contrato::find(1);
 
-    \Illuminate\Support\Facades\Mail::to('rafaelnlima@live.com','Rafael')->send(new \App\Mail\PedidoOrcamentoMail($contrato));
+    \Illuminate\Support\Facades\Mail::to('rafael@tecvelautomotiva.com.br','Rafael')->send(new \App\Mail\PedidoOrcamentoMail($contrato));
 
 });
 Route::get('/pdf',function (){
