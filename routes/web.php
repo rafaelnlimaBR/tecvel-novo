@@ -253,8 +253,7 @@ Route::get('/teste',function () {
 });
 
 Route::get('teste-api',function () {
-    $zap =  new Whatsapp();
-    $zap->enviarMensagem('teste','85987067785','+55');
+
     $curl = curl_init();
 
     curl_setopt_array($curl, [
