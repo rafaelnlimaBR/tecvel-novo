@@ -253,7 +253,7 @@ Route::get('/teste',function () {
 });
 
 Route::get('teste-api',function () {
-
+    return env('URL_EVOLUTIONAPI').' '.env('INSTANCE_EVOLUTIONAPI').' '.env('URL_EVOLUTIONAPI');
     $curl = curl_init();
 
     curl_setopt_array($curl, [
