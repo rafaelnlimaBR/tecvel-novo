@@ -46,6 +46,7 @@
                         <thead class="thead-light">
                             <tr>
                                 <th style="width: 5%; min-width: 40px;" scope="col">#</th>
+                                <th style="width: 5%; min-width: 40px;"  scope="col">Imagem</th>
                                 <th scope="col">Nome</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Grupo</th>
@@ -62,6 +63,13 @@
                             @foreach ($usuarios as $usuario)
                                 <tr>
                                     <th scope="row">{{$usuario->id}}</th>
+                                    <td>
+                                        @if($usuario->img==null)
+                                            <img style="height: 50px" src="{{URL::asset('images/users/avatar-1.jpg')}}" alt="" class="img-fluid rounded-circle">
+                                        @else
+                                            <img style="height: 50px" src="{{URL::asset('images/users/'.$usuario->img)}}" alt="" class="img-fluid rounded-circle">
+                                        @endif
+                                    </td>
                                     <td>{{$usuario->name}}</td>
                                     <td>{{$usuario->email}}</td>
                                     <td>{{$usuario->grupos->flatten()->pluck('nome')}}</td>
@@ -79,7 +87,7 @@
                                         <a href="{{route('usuario.editar',['user'=>$usuario])}}" class="btn btn-sm btn-warning" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-pencil-square"></i></a>
                                         @endcan
                                         @can('usuario-excluir')
-                                        <button class="btn btn-sm btn-danger" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-trash-o"></i></button>
+                                        <a href="{{route('usuario.excluir',['usuario'=>$usuario])}}" onclick="return confirm('Deseja excluir esse registro?')" class="btn btn-sm btn-danger" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-trash-o"></i></a>
                                         @endcan
 
                                     </td>

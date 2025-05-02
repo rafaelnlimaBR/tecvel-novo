@@ -9,7 +9,7 @@
     <div class="col-lg-10 col-sm-12 col-md-12">
         <div class="card ">
             <div class="card-body">
-                <form action="{{ isset($usuario)? route('usuario.atualizar'):route('usuario.cadastrar') }}" method="POST">
+                <form action="{{ isset($usuario)? route('usuario.atualizar',['usuario'=>$usuario]):route('usuario.cadastrar') }}" method="POST"  enctype="multipart/form-data">
                     {{ csrf_field() }}
                     @if(isset($usuario))
                         <input hidden type="text" class="form-control" id="id-usuario" placeholder="" name="id" value="{{$usuario->id}}">
@@ -17,14 +17,14 @@
                     <div class="form-row">
                           <div class="form-group col-md-4">
                             <label for="nome">Nome</label>
-                            <input type="text"  class="form-control caixa-alta {{$errors->has('nome')?'parsley-error':''}}" id="Nome" placeholder="Nome" name="nome" value="{{old('nome',isset($usuario)?$usuario->name:'')}}">
+                            <input type="text"  class="form-control caixa-alta {{$errors->has('nome')?'parsley-error':''}}" id="Nome" placeholder="Nome" name="nome" value="{{old('nome',isset($usuario)?$usuario->name:'adawdawdawd')}}">
                               @error('nome')
                               <ul class="parsley-errors-list filled"><li class="parsley-required">{{$message}}</li></ul>
                               @enderror
                           </div>
                           <div class="form-group col-md-4">
                             <label for="email">Email</label>
-                            <input type="text" class="form-control caixa-baixa {{$errors->has('email')?'parsley-error':''}}"  placeholder="Email" name="email" value="{{old('email',isset($usuario)?$usuario->email:'')}}">
+                            <input type="text" class="form-control caixa-baixa {{$errors->has('email')?'parsley-error':''}}"  placeholder="Email" name="email" value="{{old('email',isset($usuario)?$usuario->email:'raffaelnlima@live.com')}}">
                               @error('email')
                               <ul class="parsley-errors-list filled"><li class="parsley-required">{{$message}}</li></ul>
                               @enderror
@@ -58,6 +58,13 @@
                             </select>
 
                             @error('grupos')
+                            <ul class="parsley-errors-list filled"><li class="parsley-required">{{$message}}</li></ul>
+                            @enderror
+                        </div>
+                        <div class="col-lg-8">
+                            <label for="imagem">Imagem</label>
+                            <input type="file"  class="form-control  {{$errors->has('imagem')?'parsley-error':''}}" name="imagem" >
+                            @error('imagem')
                             <ul class="parsley-errors-list filled"><li class="parsley-required">{{$message}}</li></ul>
                             @enderror
                         </div>

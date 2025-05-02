@@ -10,7 +10,7 @@
                     @if(auth()->check())
                     <div class="user-box">
                         <div class="d-flex justify-content-center">
-                            <img src="{{URL::asset('images/users/avatar-1.jpg')}}" alt="" class="img-fluid rounded-circle">
+                            <img src="{{URL::asset('images/users/'.auth()->user()->img)}}" alt="" class="img-fluid rounded-circle">
                         </div>
                         <div class="text-center text-white mt-2">
                             <h6>{{auth()->user()->name}} - <a href="{{route('site.sair')}}">Sair</a></h6>
@@ -29,40 +29,56 @@
                         <li>
                             <a href="{{route('cliente.index')}}"><i class="fa fa-tachometer"></i> <span>Dashboard</span></a>
                         </li>
+                        @can('grupo-visualizar')
+                            <li>
+                                <a href="{{route('grupo.index')}}"><i class="fa fa-users"></i> <span>Grupos</span></a>
+                            </li>
+                        @endcan
                         @can('usuario-visualizar')
                         <li>
                             <a href="{{route('usuario.index')}}"><i class="fa fa-users"></i> <span>Usuarios</span></a>
                         </li>
                         @endcan
+                        @can('contrato-visualizar')
                         <li>
                             <a href="{{route('contrato.index')}}"><i class="fa fa-tachometer"></i> <span id="totalPedidosNovos">Contratos</span></a>
                         </li>
+                        @endcan
+                        @can('servico-visualizar')
                         <li>
                             <a href="{{route('servico.index')}}"><i class="fa fa-tachometer"></i> <span>Servicos</span></a>
                         </li>
+                        @endcan
                         @can('cliente-visualizar')
                         <li>
                             <a href="{{route('cliente.index')}}"><i class="fa fa-users"></i> <span>Clientes</span></a>
                         </li>
                         @endcan
+                        @can('fornecedor-visualizar')
                         <li>
                             <a href="{{route('fornecedor.index')}}"><i class="fa fa-users"></i> <span>Fornecedores</span></a>
                         </li>
+                        @endcan
+                        @can('montadora-visualizar')
                         <li>
                             <a href="{{route('montadora.index')}}"><i class="fa fa-users"></i> <span>Montadoras</span></a>
                         </li>
-
+                        @endcan
+                        @can('modelo-visualizar')
                         <li>
                             <a href="{{route('modelo.index')}}"><i class="fa fa-users"></i> <span>Modelos</span></a>
                         </li>
+                        @endcan
                         @can('veiculo-visualizar')
                         <li>
                             <a href="{{route('veiculo.index')}}"><i class="fa fa-users"></i> <span>Veículos</span></a>
                         </li>
                         @endcan
+                        @can('status-visualizar')
                         <li>
                             <a href="{{route('status.index')}}"><i class="fa fa-users"></i> <span>Status</span></a>
                         </li>
+                        @endcan
                         <li class="menu-list"><a href=""><i class="mdi mdi-buffer"></i> <span>UI Elements</span></a>
                             <ul class="child-list">
                                 <li><a href="ui-typography.html"> Typography</a></li>

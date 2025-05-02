@@ -96,11 +96,11 @@ Route::middleware('auth')->group(function () {
 
 //USUARIOS
     Route::get('/usuarios', [App\Http\Controllers\UsuarioController::class, 'index'])->name('usuario.index');
-    Route::get('/usuario/novo', [App\Http\Controllers\usuarioController::class, 'novo'])->name('usuario.novo');
-    Route::get('/usuario/editar/{user}', [App\Http\Controllers\usuarioController::class, 'editar'])->name('usuario.editar');
-    Route::post('/usuario/cadastrar', [App\Http\Controllers\usuarioController::class, 'cadastrar'])->name('usuario.cadastrar');
-    Route::post('/usuario/atualizar', [App\Http\Controllers\usuarioController::class, 'atualizar'])->name('usuario.atualizar');
-
+    Route::get('/usuario/novo', [App\Http\Controllers\UsuarioController::class, 'novo'])->name('usuario.novo');
+    Route::get('/usuario/editar/{user}', [App\Http\Controllers\UsuarioController::class, 'editar'])->name('usuario.editar');
+    Route::post('/usuario/cadastrar', [App\Http\Controllers\UsuarioController::class, 'cadastrar'])->name('usuario.cadastrar');
+    Route::post('/usuario/atualizar/{usuario}', [App\Http\Controllers\UsuarioController::class, 'atualizar'])->name('usuario.atualizar');
+    Route::get('/usuario/excluir/{usuario}', [App\Http\Controllers\UsuarioController::class, 'excluir'])->name('usuario.excluir');
 
 
 

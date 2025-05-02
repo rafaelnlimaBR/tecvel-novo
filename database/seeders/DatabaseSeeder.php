@@ -316,8 +316,8 @@ class DatabaseSeeder extends Seeder
 
         ]);
         DB::table('user_grupo')->insert([
-            ['user_id' => 1,'grupo_id' => 2],
-            ['user_id' => 2,'grupo_id' => 1],
+            ['user_id' => 1,'grupo_id' =>1],
+            ['user_id' => 2,'grupo_id' => 2],
         ]);
 
         // \App\Models\User::factory()->create([
