@@ -22,6 +22,27 @@ class Whatsapp extends Model
         $this->url    =   env('URL_EVOLUTIONAPI');
     }
 
+    public function checar($telefone,$codigoPais)
+    {
+        $resposta   =   Http::withHeaders([
+            'Content-Type'  =>  'application/json',
+            'apikey'       => $this->key,
+        ])->post($this->url.'chat/whatsappNumbers/'.$this->instance,[
+
+
+
+            'numbers'    =>  [$codigoPais.$telefone],
+
+
+        ]);
+
+        if( $resposta->json()[0]['exists']== true){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
     public function enviarMensagem(string $mensagem,$telefone,$codigoPais){
         $resultado  =   [];
         $resposta   =   Http::withHeaders([

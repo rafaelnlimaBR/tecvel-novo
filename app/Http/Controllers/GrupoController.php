@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Grupo;
 use App\Models\Permissao;
+use App\Models\Whatsapp;
 use Illuminate\Http\Request;
 
 class GrupoController extends Controller
@@ -14,6 +15,7 @@ class GrupoController extends Controller
             'titulo_tabela' => "Lista de Grupos"
         ];
         $grupos   =   Grupo::all();
+
         return view('admin.grupos.index',$dados)->with('grupos',$grupos);
     }
 

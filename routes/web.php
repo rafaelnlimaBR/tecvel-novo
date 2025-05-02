@@ -11,7 +11,9 @@ use App\Models\Servico;
 use App\Models\TipoPagamento;
 use \App\Models\Veiculo;
 use \App\Models\Montadora;
+use App\Models\Whatsapp;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Http;
@@ -222,28 +224,38 @@ View::composer(['admin.entradas.formulario'],function($view){
 
 Route::get('/teste',function () {
     $contrato   =   Contrato::find(1);
-    $filename   =   $contrato->id."-Orçamento".".pdf";
-    $url        =   URL::to('/').'/invoice/';
-    $conf       =   Configuracao::first();
-    $caminho = public_path('invoice/');
 
-    if (!file_exists($caminho)){
-        mkdir($caminho, 0777, true);
+    $whatsapp    =   new Whatsapp();
+    $conf       =   Configuracao::find(1);
+
+    $alertas =[];
+    foreach ($contrato->cliente->contatos as $key=>$contato){
+        if($contato->app->id == $conf->whatsapp_id){
+            if($whatsapp->checar($contato->numero,'+55')){
+                $resultado  =   $whatsapp->enviarMensagem('teste',$contato->numero,'+55');
+                if($resultado == true){
+                    $alertas[$key]  =   ['resultado'=>'true','numero'=>$contato->numero];
+
+
+                }else{
+                    $alertas[$key]  = ['resultado'=>'false','numero'=>$contato->numero];
+
+                }
+            }else{
+                $alertas[$key]  = ['resultado'=>'false','numero'=>$contato->numero.' nuemro nao existe'];
+
+            }
+
+        }
     }
-    $caminho    =   $caminho.$filename;
-    //        return $caminho;
-    //        PDF::view('admin.contratos.includes.invoicePDF',['contrato'=>$contrato]);
-    //        PDF::loadView('admin.contratos.includes.invoicePDF',$contrato)->save($caminho);
 
-    Pdf::loadView('admin.contratos.includes.invoicePDF',['contrato'=>$contrato,'conf'=>$conf,'titulo'=>'Garantia'])->save($caminho);
-    $url        =   URL::to($url.$filename);
-    $user   =   auth()->user();
-    $retorno = \Illuminate\Support\Facades\Mail::to($contrato->cliente->email,$contrato->cliente->nome)->send(new \App\Mail\PedidoOrcamentoMail($contrato,$url));
-    if(\File::exists($caminho)){
-        \File::delete($caminho);
-    }
+    return count($alertas);
+});
 
-    dd($retorno);
+Route::get('teste-api',function () {
+
+    $zap    =   new \App\Models\Whatsapp();
+    return $zap->checar('85987067785','55');
 });
 Route::get('/pdf',function (){
 

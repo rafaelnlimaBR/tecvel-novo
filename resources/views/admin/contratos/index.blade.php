@@ -94,7 +94,7 @@
 
                                     <td  style="width: 13%;">
 
-                                        <a class="btn-sm btn-success"  href="{{route('contrato.enviar.invoice.aplicativos',['id'=>$contrato->id])}}" style="padding-top: 0; padding-bottom: 0"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+                                        <a class="btn-sm btn-success"  href="{{route('contrato.enviar.invoice.aplicativos',['id'=>$contrato->id])}}" style="padding-top: 0; padding-bottom: 0"><i class="fa fa-share-square-o" aria-hidden="true"></i></a>
                                         <a class="btn btn-sm btn-primary" style="padding-top: 0; padding-bottom: 0" href="{{route('contrato.visualizacao',['contrato'=>$contrato])}}"><i class="fa fa-wpforms" aria-hidden="true"></i></a>
                                         @can('contrato-editar')
                                             <a href="{{route('contrato.editar',['id'=>$contrato->id,'historico_id'=>$contrato->historicos->last()->id,'pagina'=>'dados'])}}" class="btn btn-sm btn-warning" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-pencil-square"></i></a>

@@ -519,34 +519,41 @@ class ContratoController extends Controller
             $alertas    =   [];
             foreach ($contrato->cliente->contatos as $key=>$contato){
                 if($contato->app->id == $this->conf->whatsapp_id){
-                    $resultado  =   $whatsapp->enivarMensagemMedia($url,$contato->numero,"Segue a garantia do servico realizado. Data da Garantia : ".Carbon::parse($contrato->garantia)->format('d/m/Y'),"Garantia.pdf",2,55,"document");
-                    if($resultado == true){
-                        $alertas    =   array_merge($alertas,
-                            ['resposta' => 'true',
-                            'texto' => "Numero : ".$contato->numero." - Enviado com sucesso",
-                            'numero'=>$contato->numero,
-                            'status'=>'',
-                            'tipo'  =>'success']);
-                    }else{
-                        $alertas    =   array_merge($alertas,
-                            ['resposta' => 'false',
+                    if($whatsapp->checar($contato->numero,'+55')){
+                        $resultado  =   $whatsapp->enivarMensagemMedia($url,$contato->numero,"Segue a garantia do servico realizado. Data da Garantia : ".Carbon::parse($contrato->garantia)->format('d/m/Y'),"Garantia.pdf",2,'+55',"document");
+                        if($resultado == true){
+
+                            $alertas[$key]    = ['resposta' => 'true',
+                                'texto' => "Numero : ".$contato->numero." - Enviado com sucesso",
+                                'numero'=>$contato->numero,
+                                'status'=>'',
+                                'tipo'  =>'success'];
+                        }else{
+                            $alertas[$key]    = ['resposta' => 'false',
                                 'texto' => "Numero : ".$contato->numero." - Erro ao enviar a mensagem",
                                 'numero'=>$contato->numero,
                                 'status'=>'',
-                                'tipo'  =>'danger']);
+                                'tipo'  =>'danger'];
+                        }
+                    }else{
+                        $alertas[$key]    = ['resposta' => 'false',
+                            'texto' => "Numero : ".$contato->numero." - Não possui Whatsapp",
+                            'numero'=>$contato->numero,
+                            'status'=>'',
+                            'tipo'  =>'warning'];
                     }
+
                 }
             }
 
             //Enviando por email
 
             Mail::to($contrato->cliente->email,$contrato->cliente->nome)->send(new \App\Mail\PedidoOrcamentoMail($contrato,$url));
-            $alertas[]    =   array_merge($alertas,
-                ['resposta' => 'true',
-                    'texto' => "Enviado com sucesso - Email : ".$contrato->cliente->email,
-                    'numero'=>'',
-                    'status'=>'',
-                    'tipo'  =>'success']);
+            $alertas[count($alertas)+1]    =   ['resposta' => 'true',
+                'texto' => "Enviado com sucesso - Email : ".$contrato->cliente->email,
+                'numero'=>'',
+                'status'=>'',
+                'tipo'  =>'success'];
 
             if(\File::exists($caminho)){
                 \File::delete($caminho);

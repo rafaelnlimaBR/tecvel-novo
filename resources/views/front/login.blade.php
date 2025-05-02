@@ -12,8 +12,8 @@
                             <div class="card m-b-30">
                                 <div class="card-body">
                                     <div class="card-title text-center">
-                                        <img src="assets/images/logo_sm_2.png" alt="" class="">
-                                        <h5 class="mt-3"><b>Welcome to Syntra</b></h5>
+                                        <img src={{URL::asset('/images/logo.png')}} alt="" class="">
+
                                         @error('error')
                                             <h6 class="error">{{$message}}</h6>
                                         @enderror
@@ -21,7 +21,7 @@
                                     <form class="form mt-5 contact-form" action="{{route('logar')}}" method="post">
                                         <div class="form-group ">
                                             <div class="col-sm-12">
-                                                <input class="form-control form-control-line" type="text" placeholder="Email" name="email" value="{{old('email')}}">
+                                                <input autocomplete="false" class="form-control form-control-line" type="text" placeholder="Email" name="email" value="{{old('email')}}">
                                                 @csrf
                                                 @error('email')
                                                     <span class="error">{{$message}}</span>
