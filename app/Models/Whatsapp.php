@@ -45,7 +45,7 @@ class Whatsapp extends Model
 
     }
     public function enviarMensagem(string $mensagem,$telefone,$codigoPais){
-        $resultado  =   [];
+
         $resposta   =   Http::withHeaders([
             'Content-Type'  =>  'application/json',
             'apikey'       => $this->key,

@@ -259,7 +259,7 @@ Route::get('teste-api',function () {
 
     curl_setopt_array($curl, [
         CURLOPT_PORT => "8081",
-        CURLOPT_URL => "http://104.251.210.46:8081/chat/whatsappNumbers/tecvel",
+        CURLOPT_URL => env('URL_EVOLUTIONAPI')."chat/whatsappNumbers/".env('INSTANCE_EVOLUTIONAPI'),
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
         CURLOPT_MAXREDIRS => 10,
@@ -269,7 +269,7 @@ Route::get('teste-api',function () {
         CURLOPT_POSTFIELDS => "{\n  \"numbers\": [\n    \"+5585987067785\"\n  ]\n}",
         CURLOPT_HTTPHEADER => [
             "Content-Type: application/json",
-            "apikey: mmcVlmdaaGljY9s8NfH7wEde3HQMQtHg"
+            "apikey: ".env('KEY_EVOLUTIONAPI')
         ],
     ]);
 
