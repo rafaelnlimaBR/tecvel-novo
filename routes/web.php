@@ -254,8 +254,34 @@ Route::get('/teste',function () {
 
 Route::get('teste-api',function () {
 
-    $zap    =   new \App\Models\Whatsapp();
-    return $zap->checar('85987067785','55');
+    $curl = curl_init();
+
+    curl_setopt_array($curl, [
+        CURLOPT_PORT => "8081",
+        CURLOPT_URL => "http://104.251.210.46:8081/chat/whatsappNumbers/tecvel",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => "{\n  \"numbers\": [\n    \"+5585987067785\"\n  ]\n}",
+        CURLOPT_HTTPHEADER => [
+            "Content-Type: application/json",
+            "apikey: mmcVlmdaaGljY9s8NfH7wEde3HQMQtHg"
+        ],
+    ]);
+
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+
+    curl_close($curl);
+
+    if ($err) {
+        echo "cURL Error #:" . $err;
+    } else {
+        echo $response;
+    }
 });
 Route::get('/pdf',function (){
 
