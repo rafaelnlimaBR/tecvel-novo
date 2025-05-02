@@ -24,7 +24,7 @@ class Whatsapp extends Model
 
     public function checar($telefone,$codigoPais)
     {
-        var_dump($this->url.' '.$this->instance.' '.$this->key);
+
         $resposta   =   Http::withHeaders([
             'Content-Type'  =>  'application/json',
             'apikey'       => $this->key,
