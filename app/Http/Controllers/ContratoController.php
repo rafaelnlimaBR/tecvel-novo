@@ -524,20 +524,20 @@ class ContratoController extends Controller
                         if($resultado == true){
 
                             $alertas[$key]    = ['resposta' => 'true',
-                                'texto' => "Numero : ".$contato->numero." - Enviado com sucesso",
+                                'texto' => "Whatsapp : ".$contato->numero." - Enviado com sucesso",
                                 'numero'=>$contato->numero,
                                 'status'=>'',
                                 'tipo'  =>'success'];
                         }else{
                             $alertas[$key]    = ['resposta' => 'false',
-                                'texto' => "Numero : ".$contato->numero." - Erro ao enviar a mensagem",
+                                'texto' => "Whatsapp : ".$contato->numero." - Erro ao enviar a mensagem",
                                 'numero'=>$contato->numero,
                                 'status'=>'',
                                 'tipo'  =>'danger'];
                         }
                     }else{
                         $alertas[$key]    = ['resposta' => 'false',
-                            'texto' => "Numero : ".$contato->numero." - Não possui Whatsapp",
+                            'texto' => "Número : ".$contato->numero." - Não possui Whatsapp",
                             'numero'=>$contato->numero,
                             'status'=>'',
                             'tipo'  =>'warning'];
@@ -550,7 +550,7 @@ class ContratoController extends Controller
 
             Mail::to($contrato->cliente->email,$contrato->cliente->nome)->send(new \App\Mail\PedidoOrcamentoMail($contrato,$url));
             $alertas[count($alertas)+1]    =   ['resposta' => 'true',
-                'texto' => "Enviado com sucesso - Email : ".$contrato->cliente->email,
+                'texto' => "Email : ".$contrato->cliente->email.' - Enviado com sucesso',
                 'numero'=>'',
                 'status'=>'',
                 'tipo'  =>'success'];

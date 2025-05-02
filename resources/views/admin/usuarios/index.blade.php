@@ -48,6 +48,7 @@
                                 <th style="width: 5%; min-width: 40px;" scope="col">#</th>
                                 <th scope="col">Nome</th>
                                 <th scope="col">Email</th>
+                                <th scope="col">Grupo</th>
 
                                 <th scope="col">Criado</th>
                                 @if(auth()->user()->can('usuario-excluir') or auth()->user()->can('usuario-editar'))
@@ -63,6 +64,9 @@
                                     <th scope="row">{{$usuario->id}}</th>
                                     <td>{{$usuario->name}}</td>
                                     <td>{{$usuario->email}}</td>
+                                    <td>{{$usuario->grupos->flatten()->pluck('nome')}}</td>
+
+
 {{--                                    <td>{{$usuario->contatos()->count() == 0?"Sem numero":$usuario->contatos->first()->numero}}</td>--}}
                                     <td>{{\Carbon\Carbon::parse($usuario->created_at)->format('d/m/Y')}}</td>
 

@@ -22,6 +22,7 @@ return new class extends Migration
             $tabela->string('logo');
             $tabela->string('instagran');
             $tabela->string('whatsapp');
+            $tabela->string('email');
             $tabela->string('endereco');
             $tabela->string('cidade');
             $tabela->string('uf');

@@ -25,8 +25,21 @@
                         <div class="form-group col-md-4">
                             <label for="inputEmail4">É Admin?</label>
                             <select class="form-control" name="admin">
-                                <option value="0">Não</option>
-                                <option value="1">Sim</option>
+                                @if($grupo)
+                                    @if($grupo->admin == 1)
+                                        <option value="1" selected>Sim</option>
+                                        <option value="0" >Não</option>
+                                    @else
+                                        <option value="1" >Sim</option>
+                                        <option value="0" selected>Não</option>
+                                    @endif
+
+
+                                @else
+                                    <option value="0">Não</option>
+                                    <option value="1">Sim</option>
+                                @endif
+
                             </select>
                         </div>
 
@@ -40,7 +53,11 @@
 
                                 @foreach($permissoes as $permissao)
                              //fazer um selected com if
-                                    <option value="{{$permissao->id}}">{{$permissao->nome}}</option>
+
+                                        <option {{isset($grupo)?$grupo->permissoes->contains('id',$permissao->id)?'selected':'':''}} value="{{$permissao->id}}">{{$permissao->nome}}</option>
+
+
+
                                 @endforeach
                             </select>
                             <a class="btn btn-sm btn-primary " style="color: #eeeeee; margin: 5px"  id="selecionar-tudo-multi" onclick="">Selecionar Tudo</a>

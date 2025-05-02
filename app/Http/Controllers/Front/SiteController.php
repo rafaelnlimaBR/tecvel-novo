@@ -17,11 +17,18 @@ use App\Models\Whatsapp;
 use Carbon\Carbon;
 use \Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Intervention\Image\Laravel\Facades\Image;
 
 class SiteController extends Controller
 {
+    private $conf;
+
+    public function __construct()
+    {
+        $this->conf     =   Configuracao::find(1);
+    }
 
     public function teste($telefone,$mensagem){
 
@@ -144,6 +151,8 @@ class SiteController extends Controller
 
                     }
                 }
+
+                Mail::to($this->conf->email,$this->conf->nome_principal)->send(new \App\Mail\NovoOrcamentoMail($contrato));
 
             }
 

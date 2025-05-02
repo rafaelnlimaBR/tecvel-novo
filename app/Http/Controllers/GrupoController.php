@@ -72,11 +72,11 @@ class GrupoController extends Controller
         try {
             $Grupo          =   Grupo::find($r->get('id'));
             $Grupo->nome    =   $r->get('nome');
-            $Grupo->admin   =   $r->get('admin');
+            $Grupo->admin   =   ($r->get('admin')==1?true:false);
 
             if($Grupo->save()){
                 $Grupo->permissoes()->sync($r->get('permissoes'));
-                return redirect()->route('grupo.editar',['id'=>$Grupo->id])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Grupo atualizado com sucesso."]);
+                return redirect()->route('grupo.editar',['grupo'=>$Grupo])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Grupo atualizado com sucesso."]);
             }
 
 

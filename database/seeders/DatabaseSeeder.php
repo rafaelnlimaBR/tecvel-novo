@@ -207,6 +207,7 @@ class DatabaseSeeder extends Seeder
             'logo'                 =>  'logo.png',
             'instagran'            =>  'tecvel',
             'whatsapp'             =>  "85987067785",
+            'email'                 =>  "rafael@tecvelautomotiva.com.br",
             'endereco'             =>  "Rua Pinto Madeira, 750",
             'cidade'               =>  "Fortaleza",
             'uf'                   =>  "CE",
@@ -267,6 +268,31 @@ class DatabaseSeeder extends Seeder
             ['nome' => 'contrato-editar'],
             ['nome' => 'contrato-excluir'],
             ['nome' => 'contrato-visualizar'],
+
+            ['nome' => 'grupo-criar'],
+            ['nome' => 'grupo-editar'],
+            ['nome' => 'grupo-excluir'],
+            ['nome' => 'grupo-visualizar'],
+
+            ['nome' => 'montadora-criar'],
+            ['nome' => 'montadora-editar'],
+            ['nome' => 'montadora-excluir'],
+            ['nome' => 'montadora-visualizar'],
+
+            ['nome' => 'modelo-criar'],
+            ['nome' => 'modelo-editar'],
+            ['nome' => 'modelo-excluir'],
+            ['nome' => 'modelo-visualizar'],
+
+            ['nome' => 'servico-criar'],
+            ['nome' => 'servico-editar'],
+            ['nome' => 'servico-excluir'],
+            ['nome' => 'servico-visualizar'],
+
+            ['nome' => 'status-criar'],
+            ['nome' => 'status-editar'],
+            ['nome' => 'status-excluir'],
+            ['nome' => 'status-visualizar'],
         ]);
 
         DB::table('grupo_permissao')->insert([
