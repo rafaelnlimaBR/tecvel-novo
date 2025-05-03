@@ -1175,12 +1175,19 @@
             });
 
             $('#enviarLinkOrcamento').click(function (){
-               var telefone = $('#telefone').val();
+               var telefone = $('#telefone');
+
+               if(telefone.val() === ''){
+                   alert('Preencher o campo Telefone');
+                   telefone.empty();
+                   return false;
+               }
                var rota    =   "{{route('site.enviar.link.orcamento',['numero'=>':numero'])}}";
-                   rota = rota.replace(':numero',telefone);
+                   rota = rota.replace(':numero',telefone.val());
+
                 $.getJSON(rota, function(dados) {
 
-                    console.log(dados)
+
                     if(dados){
                         alert('Enviado com sucesso')
                     }else{
