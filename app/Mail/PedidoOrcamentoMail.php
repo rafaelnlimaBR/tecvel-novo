@@ -37,7 +37,7 @@ class PedidoOrcamentoMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-
+//            from: new Address(env('MAIL_FROM_ADDRESS'),env('MAIL_FROM_NAME')),
             subject: 'Pedido de Orcamento',
 
         );
@@ -63,8 +63,9 @@ class PedidoOrcamentoMail extends Mailable
      */
     public function attachments()
     {
+
         return [
-            Attachment::fromPath($this->pdf),
+//            Attachment::fromPath($this->pdf),
         ];
     }
 }

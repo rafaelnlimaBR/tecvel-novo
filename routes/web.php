@@ -227,9 +227,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/teste',function () {
-    $grupo  =   \App\Models\Grupo::find(2);
-    $usuario    =   auth()->user();
-    return $usuario->grupos->flatten()->pluck('nome');
+    $contrato       =   Contrato::find(1);
+
+    dd(\Illuminate\Support\Facades\Mail::to('rafaelnlima@live.com','Rafael')->send(new \App\Mail\NovoOrcamentoMail($contrato)));
 
 });
 
