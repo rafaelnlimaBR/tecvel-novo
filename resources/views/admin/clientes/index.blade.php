@@ -67,8 +67,8 @@
 
                                     <td>
                                         <button class="btn btn-sm btn-primary" style="padding-top: 0; padding-bottom: 0"><i class="fa   fa-sign-out"></i></button>
-                                        <a href="{{route('cliente.editar',['id'=>$cliente->id])}}" class="btn btn-sm btn-warning" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-pencil-square"></i></a>
-                                        <button class="btn btn-sm btn-danger" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-trash-o"></i></button>
+                                        <a href="{{route('cliente.editar',['cliente'=>$cliente])}}" class="btn btn-sm btn-warning" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-pencil-square"></i></a>
+                                        <a href="{{route('cliente.excluir',['cliente'=>$cliente])}}" onclick="return confirm('Deseja excluir esse registro?')" class="btn btn-sm btn-danger" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-trash-o"></i></a>
 
 
                                     </td>

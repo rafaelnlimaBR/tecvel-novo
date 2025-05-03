@@ -28,7 +28,13 @@
                       <div class="form-group col-md-1" style="float: right">
                         <label for="Pesquisar">Pesquisar</label>
                         <button type="submit" class="form-control form-control-sm btn btn-primary btn-sm"  ><i class="fa fa-search"></i></button>
+
                       </div>
+                        <div class="form-group col-md-1">
+                            <label for="Pesquisar">Enviar Link</label>
+                            <button type="button" class="form-control form-control-sm btn btn-success btn-sm"  id="enviarLinkOrcamento"><i class="fa fa-external-link" aria-hidden="true"></i></button>
+
+                        </div>
                     </div>
               </form>
             </div>

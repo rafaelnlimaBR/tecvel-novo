@@ -1174,6 +1174,23 @@
                 return false;
             });
 
+            $('#enviarLinkOrcamento').click(function (){
+               var telefone = $('#telefone').val();
+               var rota    =   "{{route('site.enviar.link.orcamento',['numero'=>':numero'])}}";
+                   rota = rota.replace(':numero',telefone);
+                $.getJSON(rota, function(dados) {
+
+                    console.log(dados)
+                    if(dados){
+                        alert('Enviado com sucesso')
+                    }else{
+                        alert('Erro ao enviar link')
+                    }
+                });
+
+
+            });
+
             $("#pesquisa-cliente").select2({
 
                 // placeholder: "Selecione um cliente",
@@ -1215,8 +1232,8 @@
                     return html;
                 },
                 templateSelection:function (data) {
-                    var rota    =   "{{route('cliente.editar',['id'=>':id'])}}";
-                    rota = rota.replace(':id',data.id);
+                    var rota    =   "{{route('cliente.editar',['cliente'=>':cliente'])}}";
+                    rota = rota.replace(':cliente',data.id);
                    $('#editar-cliente').html(' <a class="btn btn-sm btn-warning"  href="'+rota+'" target="_new">Editar</a>');
                     var html    =   $('<div class="select2-user-result"><b>Cliente: </b>'+data.text+'</div><br>'
                     );

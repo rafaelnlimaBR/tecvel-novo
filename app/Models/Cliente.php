@@ -32,11 +32,23 @@ class Cliente extends Model
 
     }
 
+    public function contratos()
+    {
+        return $this->hasMany(Contrato::class);
+    }
+
     public function contatos()
     {
         return $this->belongsToMany(Contato::class)->withPivot('responsavel')->withTimestamps();
     }
 
+    public function excluir()
+    {
+        foreach ($this->contratos as $contrato) {
+            $contrato->excluir();
+        }
+        return $this->delete();
+    }
 
 
 }

@@ -185,4 +185,12 @@ class Contrato extends Model
         return $totalContrato - $totalPago;
     }
 
+    public function excluir()
+    {
+        foreach ($this->entradas as $entrada){
+            $entrada->delete();
+        }
+        return $this->delete();
+    }
+
 }

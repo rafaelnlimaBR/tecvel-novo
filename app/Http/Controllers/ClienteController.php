@@ -93,8 +93,8 @@ class ClienteController extends Controller
         }
     }
 
-    public function editar($id){
-        $cliente    =   Cliente::find($id);
+    public function editar(Cliente $cliente){
+
         if($cliente == null){
             return redirect()->route('cliente.index')->with('alerta',['tipo'=>'warning','icon'=>'','texto'=>"não existe registro"]);;
         }
@@ -196,6 +196,19 @@ class ClienteController extends Controller
 
         }
         return response()->json($retorno);
+    }
+
+    public function excluir(Cliente $cliente)
+    {
+        try{
+
+            if($cliente->excluir()){
+                return redirect()->route('cliente.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Cliente excluido com sucesso."]);
+            }
+
+        }catch (\Throwable $th){
+            return redirect()->route('cliente.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Erro :".$th->getMessage()]);
+        }
     }
 
 }

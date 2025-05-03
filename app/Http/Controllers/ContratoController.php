@@ -191,11 +191,7 @@ class ContratoController extends Controller
                 return redirect()->back()->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>'Acesso Negado']);
             }
 
-            foreach ($contrato->entradas as $entrada){
-                $entrada->delete();
-            }
-
-            if($contrato->delete()){
+            if($contrato->excluir()){
                 return redirect()->route('contrato.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>'Excluido com sucesso']);
             }
 

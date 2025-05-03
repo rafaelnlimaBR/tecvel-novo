@@ -171,5 +171,22 @@ class SiteController extends Controller
         }
     }
 
+    public function enviarLinkOrcamento(Request $r ,$numero)
+    {
+        try{
+            $zap        =   new Whatsapp();
+            $mensagem   =   "Acesse o link para fazer o seu cadastro. ".route('site.cadastrar.orcamento',['whatsapp'=>$numero]);
+            $retorno    =   $zap->enviarMensagem($mensagem,$numero,'+55');
+            if($r->ajax()){
+                return $retorno;
+            }else{
+                return "Enviado com sucesso!";
+            }
+
+        }catch (\Exception $e){
+            return $e->getMessage();
+        }
+
+    }
 
 }

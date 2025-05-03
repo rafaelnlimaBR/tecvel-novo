@@ -109,9 +109,10 @@ Route::middleware('auth')->group(function () {
 //CLIENTES
     Route::get('/clientes', [App\Http\Controllers\ClienteController::class, 'index'])->name('cliente.index');
     Route::get('/cliente/novo', [App\Http\Controllers\ClienteController::class, 'novo'])->name('cliente.novo');
-    Route::get('/cliente/editar/{id}', [App\Http\Controllers\ClienteController::class, 'editar'])->name('cliente.editar');
+    Route::get('/cliente/editar/{cliente}', [App\Http\Controllers\ClienteController::class, 'editar'])->name('cliente.editar');
     Route::post('/cliente/cadastrar', [App\Http\Controllers\ClienteController::class, 'cadastrar'])->name('cliente.cadastrar');
     Route::post('/cliente/atualizar', [App\Http\Controllers\ClienteController::class, 'atualizar'])->name('cliente.atualizar');
+    Route::get('/cliente/excluir/{cliente}', [App\Http\Controllers\ClienteController::class, 'excluir'])->name('cliente.excluir');
     Route::post('/cliente/atualizar/contato', [App\Http\Controllers\ClienteController::class, 'atualizarContato'])->name('cliente.atualizar.contato');
     Route::post('/cliente/adicionar/contato', [App\Http\Controllers\ClienteController::class, 'adicionarContato'])->name('cliente.adicionar.contato');
     Route::post('/cliente/excluir/contato', [App\Http\Controllers\ClienteController::class, 'excluirContato'])->name('cliente.excluir.contato');
@@ -274,7 +275,7 @@ Route::get('/pdf',function (){
 //    Pdf::loadView('admin.contratos.includes.invoicePDF',['contrato'=>Contrato::find(1),'conf'=>$this->conf,'titulo'=>'Garantia'])->save($caminho);
 
 });
-
+Route::get('/link-orcamento/{numero}', [App\Http\Controllers\Front\SiteController::class, 'enviarLinkOrcamento'])->name('site.enviar.link.orcamento');
 Route::get('/fazer-orcamento', [App\Http\Controllers\Front\SiteController::class, 'orcamento'])->name('site.orcamento');
 Route::get('/login', [App\Http\Controllers\LoginController::class, 'index'])->name('site.login');
 Route::post('/logar', [App\Http\Controllers\LoginController::class, 'logar'])->name('logar');
