@@ -175,7 +175,7 @@ class SiteController extends Controller
     {
         try{
             $zap        =   new Whatsapp();
-            $mensagem   =   "Acesse o link para fazer o seu cadastro. ".route('site.cadastrar.orcamento',['whatsapp'=>$numero]);
+            $mensagem   =   "Acesse o link para fazer o seu cadastro. ".route('site.orcamento',['whatsapp'=>$numero]);
             $retorno    =   $zap->enviarMensagem($mensagem,$numero,'+55');
             if($r->ajax()){
                 return $retorno;
