@@ -228,8 +228,12 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/teste',function () {
     $contrato       =   Contrato::find(1);
+    try{
+        \Illuminate\Support\Facades\Mail::to('rafaelnlima@live.com','Rafael')->send(new \App\Mail\NovoOrcamentoMail($contrato));
+    }catch (\Exception $e){
+        return $e->getMessage();
+    }
 
-    dd(\Illuminate\Support\Facades\Mail::to('rafaelnlima@live.com','Rafael')->send(new \App\Mail\NovoOrcamentoMail($contrato)));
 
 });
 
