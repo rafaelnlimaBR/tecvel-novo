@@ -152,8 +152,8 @@ class SiteController extends Controller
                     }
                 }
 
-//                Mail::to($this->conf->email,$this->conf->nome_principal)->send(new \App\Mail\NovoOrcamentoMail($contrato));
-                Mail::send(new \App\Mail\NovoOrcamentoMail($contrato));
+                Mail::to($this->conf->email,$this->conf->nome_principal)->send(new \App\Mail\NovoOrcamentoMail($contrato));
+//                Mail::send(new \App\Mail\NovoOrcamentoMail($contrato));
             }
 
             $zap    =   new Whatsapp();
