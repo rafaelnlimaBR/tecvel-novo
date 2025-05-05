@@ -1,12 +1,13 @@
 
     {{ csrf_field() }}
-    @if(isset($veiculo))
-        <input hidden type="text" class="form-control" id="id-veiculo" placeholder="" name="id" value="{{$veiculo->id}}">
-    @endif
+
     <div class="form-row">
         <div class="form-group col-md-4">
             <label for="placa">Placa</label>
-            <input type="text" required class="form-control placa"  placeholder="Placa" name="placa" value="{{isset($veiculo)?$veiculo->placa:''}}">
+            <input type="text"  class="form-control placa {{$errors->has('placa')?'parsley-error':''}}"  placeholder="Placa" name="placa" value="{{old('placa',isset($veiculo)?$veiculo->placa:'')}}">
+            @error('placa')
+            <ul class="parsley-errors-list filled"><li class="parsley-required">{{$message}}</li></ul>
+            @enderror
             @if(isset($modal))
                 <input type="hidden"   name="modal" value="{{$modal}}">
             @endif
@@ -14,11 +15,14 @@
         </div>
         <div class="form-group col-md-5">
             <label for="ano">Ano</label>
-            <input type="text" required class="form-control"  placeholder="Ano" name="ano" value="{{isset($veiculo)?$veiculo->ano:''}}">
+            <input type="text"  class="form-control {{$errors->has('ano')?'parsley-error':''}}"  placeholder="Ano" name="ano" value="{{old('ano',isset($veiculo)?$veiculo->ano:'')}}">
+            @error('ano')
+            <ul class="parsley-errors-list filled"><li class="parsley-required">{{$message}}</li></ul>
+            @enderror
         </div>
         <div class="form-group col-md-3">
             <label for="cor">Cor</label>
-            <input list="cor" class="form-control" name="cor" required value="{{isset($veiculo)?$veiculo->cor:""}}" />
+            <input list="cor" class="form-control {{$errors->has('cor')?'parsley-error':''}}" name="cor"  value="{{old('cor',isset($veiculo)?$veiculo->cor:"")}}" />
             <datalist id="cor" >
                 @foreach($cores as $c)
 
@@ -27,6 +31,9 @@
                 @endforeach
 
             </datalist>
+            @error('cor')
+            <ul class="parsley-errors-list filled"><li class="parsley-required">{{$message}}</li></ul>
+            @enderror
         </div>
 
 
@@ -54,11 +61,14 @@
         </div>
         <div class="form-group col-md-6">
             <label for="modelos" >Modelos</label>
-            <input list="modelos" class="form-control caixa-alta" id="modelos-veiculos" name="modelo" value="{{isset($veiculo)?$veiculo->modelo->nome:""}}">
+            <input list="modelos" class="form-control caixa-alta {{$errors->has('modelo')?'parsley-error':''}}" id="modelos-veiculos" name="modelo" value="{{isset($veiculo)?$veiculo->modelo->nome:""}}">
 
             <datalist id="modelos">
 
             </datalist>
+            @error('modelo')
+            <ul class="parsley-errors-list filled"><li class="parsley-required">{{$message}}</li></ul>
+            @enderror
 
 
 

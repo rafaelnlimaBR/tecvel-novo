@@ -83,15 +83,12 @@
                                         <div class="tab-pane" id="about">
                                             <h4 class="info-text"> Seus Dados</h4>
                                             <div class="form-row">
-                                                <div class="form-group col-md-7">
+                                                <div class="form-group col-md-12">
                                                     <label class="control-label">Nome Completo (Obrigatório)</label>
                                                     <input  maxlength="100" type="text" class="form-control" required="required" placeholder="Seu Nome" name="nome" />
                                                     {{csrf_field()}}
                                                 </div>
-                                                <div class="form-group col-md-5">
-                                                    <label class="control-label">CPF/CNPJ (Obrigatório)</label>
-                                                    <input  maxlength="100" type="text" class="form-control cpfCnpj" required="required" placeholder="Somente Números" name="cpfcnpj" />
-                                                </div>
+
                                             </div>
 
                                             <div class="form-row">
@@ -280,13 +277,7 @@
             });
         }
 
-        $('.cpfcnpj').mask('000.000.000-00', {
-            onKeyPress : function(cpfcnpj, e, field, options) {
-                const masks = ['000.000.000-000', '00.000.000/0000-00'];
-                const mask = (cpfcnpj.length > 14) ? masks[1] : masks[0];
-                $('.cpfcnpj').mask(mask, options);
-            }
-        });
+
         $('.cep').mask('00000-000');
         $('.telefone').mask('(00)000000000')
         $('.placa').mask('AAA0U00', {

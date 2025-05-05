@@ -8,9 +8,11 @@ use App\Models\Cliente;
 use App\Models\AppContato;
 use App\Models\Contato;
 use Exception;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\ValidationException;
 
 
 class ClienteController extends Controller
@@ -46,26 +48,47 @@ class ClienteController extends Controller
     }
 
     public function cadastrar(Request $r){
+        if($r->user()->cannot('cliente-criar')){
+            return "Acesso negado.";
+
+        }
+
         $isModal    =   $r->has('modal');
+        if(!$isModal == true){
+            $validacao      =   $r->validate([
+                'nome'          =>  'required|min:3|max:100',
+                'email'         =>  'required|email|unique:App\Models\Cliente,email',
+                'contato'       =>  'required'
+            ]);
+        }
+
+
+
+
         try {
             $cliente  = new Cliente();
-            $cliente->nome  =   strtoupper($r->get('nome'));
-            $cliente->email =   strtolower($r->get('email'));
 
-            if($r->user()->cannot('cliente-criar')){
-                return "Acesso negado.";
+            $cliente          =   $cliente->gravar(
+                $r->input('nome'),
+                $r->input('email'),
+                $r->input('cep'),
+                $r->input('logradouro'),
+                $r->input('numero'),
+                $r->input('bairro'),
+                $r->input('cidade'),
+                $r->input('estado'),
+            );
 
-            }
-
-            if($cliente->save()){
+            if($cliente != null){
                 $contato = ContatoController::cadastrar($r->get('contato'),$r->get('app'));
                 $cliente->contatos()->attach($contato);
                 if($isModal == true){
                     return response()->json($cliente);
                 }
 
-                return redirect()->route('cliente.editar',['id'=>$cliente->id])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Cliente cadastrado com sucesso."]);
+                return redirect()->route('cliente.editar',['cliente'=>$cliente])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Cliente cadastrado com sucesso."]);
             }
+            return redirect()->route('cliente.editar', ['cliente' => $cliente])->with('alerta', ['tipo' => 'success', 'icon' => '', 'texto' => "Erro ao cadastrar o registro do cliente"]);
         } catch (\Exception $th) {
             if($isModal == true){
                 return response()->json(['erro'=>$th->getMessage()]);
@@ -74,20 +97,33 @@ class ClienteController extends Controller
         }
     }
 
-    public function atualizar(Request $r){
+    public function atualizar(Request $r,Cliente $cliente){
+
 
         try {
-            $cliente        = Cliente::find($r->get('id'));
+            $validacao = $r->validate([
+                'nome' => 'required|min:3|max:100',
+                'email' => 'required|email|unique:App\Models\Cliente,email,' . $cliente->id,
+            ]);
 
-            $cliente->nome  =   strtoupper($r->get('nome'));
-            $cliente->email =   strtolower($r->get('email'));
+            $cliente = $cliente->atualizar(
+                $r->input('nome'),
+                $r->input('email'),
+                $r->input('cep'),
+                $r->input('logradoudo'),
+                $r->input('numero'),
+                $r->input('bairro'),
+                $r->input('cidade'),
+                $r->input('estado'),
+            );
 
-            if($cliente->save()){
-                return redirect()->route('cliente.editar',['id'=>$cliente->id])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Cliente cadastrado com sucesso."]);
+            if ($cliente != null) {
+                return redirect()->route('cliente.editar', ['cliente' => $cliente])->with('alerta', ['tipo' => 'success', 'icon' => '', 'texto' => "Cliente atualizado com sucesso."]);
             }
+            return redirect()->route('cliente.editar', ['cliente' => $cliente])->with('alerta', ['tipo' => 'success', 'icon' => '', 'texto' => "Erro ao atualizar o registro do cliente"]);
 
-
-
+        }catch (ValidationException $e){
+            return redirect()->back()->withErrors($e->validator);
         } catch (\Exception $th) {
             return redirect()->route('cliente.novo')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);;
         }

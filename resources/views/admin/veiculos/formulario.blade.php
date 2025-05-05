@@ -9,7 +9,7 @@
     <div class="col-lg-5 col-sm-5 col-md-6">
         <div class="card ">
             <div class="card-body">
-                <form action="{{ isset($veiculo)? route('veiculo.atualizar'):route('veiculo.cadastrar') }}" method="POST" >
+                <form action="{{ isset($veiculo)? route('veiculo.atualizar',['veiculo'=>$veiculo]):route('veiculo.cadastrar') }}" method="POST" >
                 @include('admin.veiculos.form')
                     @if(isset($veiculo))
                         <button type="submit" class="btn btn-warning">Editar</button>

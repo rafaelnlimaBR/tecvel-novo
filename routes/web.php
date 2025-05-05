@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Front\SiteController;
 use App\Models\AppContato;
 use App\Models\Cliente;
 use App\Models\Configuracao;
@@ -32,7 +33,7 @@ use Illuminate\Support\Str;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::middleware('auth')->group(function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 
 
     Route::get('carregarDadosAjax', [App\Http\Controllers\Controller::class,'carregarDadosAjax'])->name('carregarDadosAjax');
@@ -111,7 +112,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/cliente/novo', [App\Http\Controllers\ClienteController::class, 'novo'])->name('cliente.novo');
     Route::get('/cliente/editar/{cliente}', [App\Http\Controllers\ClienteController::class, 'editar'])->name('cliente.editar');
     Route::post('/cliente/cadastrar', [App\Http\Controllers\ClienteController::class, 'cadastrar'])->name('cliente.cadastrar');
-    Route::post('/cliente/atualizar', [App\Http\Controllers\ClienteController::class, 'atualizar'])->name('cliente.atualizar');
+    Route::post('/cliente/atualizar/{cliente}', [App\Http\Controllers\ClienteController::class, 'atualizar'])->name('cliente.atualizar');
     Route::get('/cliente/excluir/{cliente}', [App\Http\Controllers\ClienteController::class, 'excluir'])->name('cliente.excluir');
     Route::post('/cliente/atualizar/contato', [App\Http\Controllers\ClienteController::class, 'atualizarContato'])->name('cliente.atualizar.contato');
     Route::post('/cliente/adicionar/contato', [App\Http\Controllers\ClienteController::class, 'adicionarContato'])->name('cliente.adicionar.contato');
@@ -148,10 +149,10 @@ Route::middleware('auth')->group(function () {
 //VEICULOS
     Route::get('/veiculos', [App\Http\Controllers\VeiculoController::class, 'index'])->name('veiculo.index');
     Route::get('/veiculo/novo', [App\Http\Controllers\VeiculoController::class, 'novo'])->name('veiculo.novo');
-    Route::get('/veiculo/editar/{id}', [App\Http\Controllers\VeiculoController::class, 'editar'])->name('veiculo.editar');
-    Route::post('/veiculo/atualizar', [App\Http\Controllers\VeiculoController::class, 'atualizar'])->name('veiculo.atualizar');
+    Route::get('/veiculo/editar/{veiculo}', [App\Http\Controllers\VeiculoController::class, 'editar'])->name('veiculo.editar');
+    Route::post('/veiculo/atualizar/{veiculo}', [App\Http\Controllers\VeiculoController::class, 'atualizar'])->name('veiculo.atualizar');
     Route::post('/veiculo/cadastrar', [App\Http\Controllers\VeiculoController::class, 'cadastrar'])->name('veiculo.cadastrar');
-    Route::post('/veiculo/excluir', [App\Http\Controllers\VeiculoController::class, 'excluir'])->name('veiculo.excluir');
+    Route::get('/veiculo/excluir/{veiculo}', [App\Http\Controllers\VeiculoController::class, 'excluir'])->name('veiculo.excluir');
     Route::Post('/veiculo/pesquisa/json', [App\Http\Controllers\VeiculoController::class, 'veiculosJson'])->name('veiculo.pesquisar.json');
 
 //STATUS
@@ -227,12 +228,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/teste',function () {
-    $contrato       =   Contrato::find(1);
-    try{
-        \Illuminate\Support\Facades\Mail::to('rafaelnlima@live.com','Rafael')->send(new \App\Mail\NovoOrcamentoMail($contrato));
-    }catch (\Exception $e){
-        return $e->getMessage();
-    }
+    $cliente    =   Cliente::find(1);
+    return $cliente->atualizar();
 
 
 });
@@ -279,6 +276,7 @@ Route::get('/pdf',function (){
 //    Pdf::loadView('admin.contratos.includes.invoicePDF',['contrato'=>Contrato::find(1),'conf'=>$this->conf,'titulo'=>'Garantia'])->save($caminho);
 
 });
+Route::get('/',[SiteController::class,'index','index'])->name('site.index');
 Route::get('/link-orcamento/{numero}', [App\Http\Controllers\Front\SiteController::class, 'enviarLinkOrcamento'])->name('site.enviar.link.orcamento');
 Route::get('/fazer-orcamento', [App\Http\Controllers\Front\SiteController::class, 'orcamento'])->name('site.orcamento');
 Route::get('/login', [App\Http\Controllers\LoginController::class, 'index'])->name('site.login');

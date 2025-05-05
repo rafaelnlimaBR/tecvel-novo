@@ -18,6 +18,7 @@ use Carbon\Carbon;
 use \Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Intervention\Image\Laravel\Facades\Image;
 
@@ -42,8 +43,8 @@ class SiteController extends Controller
 
 
     public function index(){
-
-
+        return \view('front.layout000');
+        return view('front.home')->with(['conf'=>$this->conf]);
     }
 
     public function home(){
@@ -64,21 +65,24 @@ class SiteController extends Controller
     public function cadastrarPedidoOrcamento(Request $request)
     {
         try{
-            $cpfCnpj                    =   str_replace(['.',',','/','-'],'',$request->input('cpfcnpj'));
+
             $telefone                   =   str_replace(['(',')'],'',$request->input('telefone'));
-            $cliente                    =   Cliente::where(['cpfcnpj'=>$cpfCnpj]);
+            $cliente                    =   Cliente::where(['email'=>$request->input('email'),]);
             if(!$cliente->exists()){
                 $cliente                    =   new Cliente();
-                $cliente->nome              =   $request->input('nome');
-                $cliente->email             =   $request->input('email');
-                $cliente->cpfcnpj           =   $cpfCnpj;
-                $cliente->cep               =   $request->input('cep');
-                $cliente->endereco          =   $request->input('endereco');
-                $cliente->numero             =   $request->input('numero');
-                $cliente->bairro             =   $request->input('bairro');
-                $cliente->cidade             =   $request->input('cidade');
-                $cliente->estado             =   $request->input('estado');
-                $cliente->save();
+                $cliente          =   $cliente->gravar(
+                    $request->input('nome'),
+                    $request->input('email'),
+                    $request->input('cep'),
+                    $request->input('endereco'),
+                    $request->input('numero'),
+                    $request->input('bairro'),
+                    $request->input('cidade'),
+                    $request->input('estado'),
+                );
+                if($cliente == null){
+                    return redirect()->route('site.orcamento')->with(['alerta'=>['texto_principal'=>'Erro ao cadastrar Cliente!','texto_segundario'=>'entrar em contato com o representante da empresa. Obrigado'],'formulario_off'=>false]);
+                }
             }else{
                 $cliente=$cliente->first();
             }
@@ -194,5 +198,7 @@ class SiteController extends Controller
         }
 
     }
+
+
 
 }

@@ -9,26 +9,33 @@
     <div class="col-lg-5 col-sm-12 col-md-12">
         <div class="card ">
             <div class="card-body">
-                <form action="{{ isset($cliente)? route('cliente.atualizar'):route('cliente.cadastrar') }}" method="POST">
+                <form action="{{ isset($cliente)? route('cliente.atualizar',['cliente'=>$cliente]):route('cliente.cadastrar') }}" method="POST">
                     {{ csrf_field() }}
-                    @if(isset($cliente))
-                        <input hidden type="text" class="form-control" id="id-cliente" placeholder="" name="id" value="{{$cliente->id}}">
-                    @endif
+
                     <div class="form-row">
                       <div class="form-group col-md-6">
                         <label for="nome">Nome</label>
-                        <input type="text" required class="form-control caixa-alta" id="Nome" placeholder="Nome" name="nome" value="{{isset($cliente)?$cliente->nome:''}}">
+                        <input type="text" class="form-control caixa-alta {{$errors->has('nome')?'parsley-error':''}}" id="Nome" placeholder="Nome" name="nome" value="{{old('nome',isset($cliente)?$cliente->nome:'')}}">
+                          @error('nome')
+                          <ul class="parsley-errors-list filled"><li class="parsley-required">{{$message}}</li></ul>
+                          @enderror
                       </div>
                       <div class="form-group col-md-6">
                         <label for="email">Email</label>
-                        <input type="Email" class="form-control caixa-baixa" id="Email" placeholder="Email" name="email" value="{{isset($cliente)?$cliente->email:''}}">
+                        <input type="Email" class="form-control caixa-baixa {{$errors->has('email')?'parsley-error':''}}" id="Email" placeholder="Email" name="email" value="{{old('email',isset($cliente)?$cliente->email:'')}}">
+                          @error('nome')
+                          <ul class="parsley-errors-list filled"><li class="parsley-required">{{$message}}</li></ul>
+                          @enderror
                       </div>
                     </div>
                     @if(!isset($cliente))
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="Telefone">Numero</label>
-                            <input type="text" required class="form-control "  placeholder="Numero" name="contato" >
+                            <input type="text"  class="form-control {{$errors->has('contato')?'parsley-error':''}}"  placeholder="Numero" name="contato" value="{{old('contato')}}">
+                            @error('contato')
+                            <ul class="parsley-errors-list filled"><li class="parsley-required">{{$message}}</li></ul>
+                            @enderror
                         </div>
                         <div class="form-group col-md-6">
                             <label for="app">Aplicativo de Mensagem</label>
@@ -43,25 +50,29 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                           <label for="cep">CEP</label>
-                          <input type="text" class="form-control cep"  placeholder="Cep" id="cep" name="cep" value="{{isset($cliente)?$cliente->cep:''}}">
+                          <input type="text" class="form-control cep"  placeholder="Cep" id="cep" name="cep" value="{{old('cep',isset($cliente)?$cliente->cep:'')}}">
                         </div>
                         <div class="form-group col-md-6">
                           <label for="logradouro">Logradoudo</label>
-                          <input type="text" class="form-control"  placeholder="Logradoudo" id="rua" name="logradoudo" value="{{isset($cliente)?$cliente->logradouro:''}}">
+                          <input type="text" class="form-control"  placeholder="Logradoudo" id="rua" name="logradouro" value="{{old('logradouro',isset($cliente)?$cliente->endereco:'')}}">
                         </div>
                         <div class="form-group col-md-2">
                           <label for="numero">Numero</label>
-                          <input type="text" class="form-control"  placeholder="Numero"  name="numero" value="{{isset($cliente)?$cliente->numero:''}}">
+                          <input type="text" class="form-control"  placeholder="Numero"  name="numero" value="{{old('numero',isset($cliente)?$cliente->numero:'')}}">
                         </div>
                       </div>
                       <div class="form-row">
-                        <div class="form-group col-md-3">
+                          <div class="form-group col-md-4">
+                              <label for="bairro">Bairro</label>
+                              <input type="text" class="form-control"  placeholder="Bairro" id="bairro" name="bairro" value="{{old('bairro',isset($cliente)?$cliente->bairro:'')}}">
+                          </div>
+                        <div class="form-group col-md-4">
                           <label for="cidade">Cidade</label>
-                          <input type="text" class="form-control"  placeholder="Cidade" id="cidade" name="cidade" value="{{isset($cliente)?$cliente->cidade:''}}">
+                          <input type="text" class="form-control"  placeholder="Cidade" id="cidade" name="cidade" value="{{old('cidade',isset($cliente)?$cliente->cidade:'')}}">
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-md-4">
                           <label for="estado">Estado</label>
-                          <input type="text" class="form-control"  placeholder="Estado" id="uf" name="estado" value="{{isset($cliente)?$cliente->estado:''}}">
+                          <input type="text" class="form-control"  placeholder="Estado" id="uf" name="estado" value="{{old('estado',isset($cliente)?$cliente->estado:'')}}">
                         </div>
 
                       </div>

@@ -1489,8 +1489,8 @@
                     return html;
                 },
                 templateSelection:function (data) {
-                    var rota    =   "{{route('veiculo.editar',['id'=>':id'])}}";
-                    rota = rota.replace(':id',data.id);
+                    var rota    =   "{{route('veiculo.editar',['veiculo'=>':id'])}}";
+                    rota = rota.replace(':id',data);
                     $('#editar-veiculo').html(' <a class="btn btn-sm btn-warning"  href="'+rota+'" target="_new">Editar</a>');
                     var html    =   $('<div class="select2-user-result"><b>Veículo: </b>'+data.text+'</div><br>');
                     return html;

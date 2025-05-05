@@ -12,6 +12,11 @@ class Cliente extends Model
     protected $table = 'clientes';
     protected $fillable = ['nome'];
 
+    public function __construct()
+    {
+
+    }
+
     public function scopePesquisarPorNome($query, $nome)
     {
         return $query->where('nome','like','%'.$nome.'%');
@@ -40,6 +45,39 @@ class Cliente extends Model
     public function contatos()
     {
         return $this->belongsToMany(Contato::class)->withPivot('responsavel')->withTimestamps();
+    }
+
+    public function gravar($nome, $email, $cep, $endereco, $numero, $bairro, $cidade, $estado)
+    {
+        $this->nome             = $nome;
+        $this->email             = $email;
+        $this->endereco         = $endereco;
+        $this->cep              = $cep;
+        $this->numero           = $numero;
+        $this->bairro            = $bairro;
+        $this->cidade       = $cidade;
+        $this->estado           = $estado;
+        if($this->save()){
+            return $this;
+        }
+        return null;
+    }
+
+    public function atualizar($nome, $email, $cep, $endereco, $numero, $bairro, $cidade, $estado)
+
+    {
+        $this->nome             = $nome;
+        $this->email             = $email;
+        $this->endereco         = $endereco;
+        $this->cep              = $cep;
+        $this->numero           = $numero;
+        $this->bairro            = $bairro;
+        $this->cidade       = $cidade;
+        $this->estado           = $estado;
+        if($this->save()){
+            return $this;
+        }
+        return null;
     }
 
     public function excluir()

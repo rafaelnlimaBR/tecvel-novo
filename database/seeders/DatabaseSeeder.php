@@ -29,8 +29,42 @@ class DatabaseSeeder extends Seeder
             ['nome' => 'Não possui App','link' => '..','img'   =>  '..']
         ]);
         $this->command->info("Insertindo dados clientes");
-        Cliente::factory(20)->has(Contato::factory(20)->count(2))
-        ->create();
+        DB::table('clientes')->insert([
+            'nome' => 'Rafael do Nascimento ',
+            'email' => 'rafael@gmail.com',
+            ]);
+
+        $this->command->info("Insertindo dados contatos");
+        DB::table('contatos')->insert([
+            ['numero' => '85987067785',
+                'app_id' => '1',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            ['numero' => '85986607785',
+                'app_id' => '1',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')]
+        ]);
+
+        $this->command->info("Insertindo dados relacionamentos Clientes Contatos");
+        DB::table('cliente_contato')->insert([
+            [
+                'responsavel' => 'Esposa',
+                'cliente_id' => '1',
+                'contato_id' => '1',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'responsavel' => '',
+                'cliente_id' => '1',
+                'contato_id' => '2',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ]
+        ]);
+
 
         $this->command->info("Insertindo dados de fornecedores");
         DB::table('fornecedores')->insert([
@@ -139,7 +173,7 @@ class DatabaseSeeder extends Seeder
 
         $this->command->info("Insertindo dados do contratos");
         DB::table("contratos")->insert([
-            ['cliente_id'=>10,"veiculo_id"=>1,"defeito"=>"teste","solucao"=>"teste","garantia"=>Carbon::now(),'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+            ['cliente_id'=>1,"veiculo_id"=>1,"defeito"=>"teste","solucao"=>"teste","garantia"=>Carbon::now(),'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
 
         ]);
         DB::table('historicos')->insert([

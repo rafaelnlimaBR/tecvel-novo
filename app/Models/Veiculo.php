@@ -33,5 +33,41 @@ class Veiculo extends Model
         return $this->belongsTo(Modelo::class);
     }
 
+    public function contratos()
+    {
+        return $this->hasMany(Contrato::class);
+    }
 
+
+    public function gravar($placa,Modelo $modelo,$ano,$cor)
+    {
+        $this->placa = $placa;
+        $this->modelo()->associate($modelo);
+        $this->ano  = $ano;
+        $this->cor   = $cor;
+        if($this->save()){
+            return $this;
+        }
+        return null;
+    }
+
+    public function atualizar($placa,Modelo $modelo,$ano,$cor)
+    {
+        $this->placa = $placa;
+        $this->modelo()->associate($modelo);
+        $this->ano  = $ano;
+        $this->cor   = $cor;
+        if($this->save()){
+            return $this;
+        }
+        return null;
+    }
+
+    public function excluir()
+    {
+        foreach ($this->contratos as $contrato) {
+            $contrato->excluir();
+        }
+        return $this->delete();
+    }
 }

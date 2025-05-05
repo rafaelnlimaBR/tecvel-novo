@@ -7,6 +7,7 @@ use App\Models\Montadora;
 use Illuminate\Http\Request;
 use App\Models\Veiculo;
 
+
 class VeiculoController extends Controller
 {
 
@@ -55,36 +56,50 @@ class VeiculoController extends Controller
         return view('admin.veiculos.formulario',$dados);
     }
 
-    public function cadastrar(Request $r){
+    public function cadastrar(Request $r)
+    {
+        $validacao = $r->validate([
+            'placa' => 'required|unique:veiculos,placa',
+            'modelo' => 'required',
+            'ano' => 'required',
+            'cor' => 'required',
+        ]);
         try {
 
-
-
-            $veiculo          =   new Veiculo();
-            $veiculo->placa    =   $r->get('placa');
-            $veiculo->ano    =   $r->get('ano');
-            $veiculo->cor    =   $r->get('cor');
-            $modelo             =   Modelo::PesquisarPorNome($r->get('modelo'))->first();
-            if($modelo == null){
-                $modelo         =   new Modelo();
-                $modelo->nome   =   $r->get('modelo');
-                $modelo->montadora_id   =   $r->get('montadora');
+//            return $r->all();
+            $modelo = Modelo::PesquisarPorNome($r->get('modelo'))->first();
+            if ($modelo == null) {
+                $modelo = new Modelo();
+                $modelo->nome = $r->get('modelo');
+                $modelo->montadora_id = $r->get('montadora');
                 $modelo->save();
             }
-            $veiculo->modelo_id     =   $modelo->id;
+            $veiculo = new Veiculo();
+            $veiculo = $veiculo->gravar(
+                $r->get('placa'),
+                $modelo,
+                $r->get('ano'),
+                $r->get('cor')
+            );
+            if ($veiculo == null) {
+                return redirect()->route('veiculo.index')->with('alerta', ['tipo' => 'danger', 'icon' => '', 'texto' => "Erro ao cadastrar veiculo."]);
+            }
 
 
-            if($veiculo->save()){
-                if($r->has('modal')){
+            $veiculo->modelo_id = $modelo->id;
+
+
+            if ($veiculo != null) {
+                if ($r->has('modal')) {
                     return response()->json($veiculo);
-                }else{
-                    return redirect()->route('veiculo.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Veiculo cadastrado com sucesso."]);
+                } else {
+                    return redirect()->route('veiculo.index')->with('alerta', ['tipo' => 'success', 'icon' => '', 'texto' => "Veiculo cadastrado com sucesso."]);
                 }
 
             }
 
 
-        } catch (\Throwable $th) {
+        }catch (\Exception $th) {
             if($r->has('modal')){
                 return response()->json(['erro'=>$th->getMessage()]);
             }else{
@@ -94,26 +109,38 @@ class VeiculoController extends Controller
         }
     }
 
-    public function atualizar(Request $r){
+    public function atualizar(Request $r,Veiculo $veiculo){
+        $validacao = $r->validate([
+            'placa' => 'required|unique:veiculos,placa,'.$veiculo->id,
+            'modelo' => 'required',
+            'ano' => 'required',
+            'cor' => 'required',
+        ]);
+
         try {
-            $veiculo                =   Veiculo::find($r->get('id'));
-            $veiculo->placa         =   $r->get('placa');
-            $veiculo->ano           =   $r->get('ano');
-            $veiculo->cor           =   $r->get('cor');
+
             $modelo                 =   Modelo::PesquisarPorNome($r->get('modelo'))->first();
+
             if($modelo == null){
                 $modelo         =   new Modelo();
                 $modelo->nome   =   $r->get('modelo');
                 $modelo->montadora_id   =   $r->get('montadora');
                 $modelo->save();
             }
-            $veiculo->modelo_id     =   $modelo->id;
 
 
+            $veiculo                =   $veiculo->atualizar(
+                $r->get('placa'),
+                $modelo,
+                $r->get('ano'),
+                $r->get('cor')
+            );
 
-            if($veiculo->save()){
-                return redirect()->route('veiculo.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Veiculo atualizado com sucesso."]);
+            if($veiculo == null){
+                return redirect()->route('veiculo.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>'Erro ao atualizar veiculo.']);
             }
+
+            return redirect()->route('veiculo.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Veiculo atualizado com sucesso."]);
 
 
         } catch (\Throwable $th) {
@@ -121,7 +148,15 @@ class VeiculoController extends Controller
         }
     }
 
-    public function excluir(){
+    public function excluir(Veiculo $veiculo){
+        try{
+            if($veiculo->excluir()){
+                return redirect()->route('veiculo.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Veiculo excluido com sucesso."]);
+            }
+        }catch (\Throwable $th) {
+            return redirect()->route('veiculo.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);
+        }
+
 
     }
 

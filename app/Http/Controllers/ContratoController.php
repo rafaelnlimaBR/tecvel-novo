@@ -50,7 +50,7 @@ class ContratoController extends Controller
         ];
 
         if($r->has('placa')){
-            $contratos   =   Contrato::pesquisarPorCliente($r->input('nome'))->PesquisarPorTelefone($r->input('telefone'))->
+            $contratos   =   Contrato::PesquisarPorTelefone($r->input('telefone'))->
             orderBy('created_at', 'desc')
                 ->paginate(10)->
                 withQueryString();
