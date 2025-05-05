@@ -6,6 +6,7 @@ use App\Models\Modelo;
 use App\Models\Montadora;
 use Illuminate\Http\Request;
 use App\Models\Veiculo;
+use Illuminate\Support\Facades\Validator;
 
 
 class VeiculoController extends Controller
@@ -58,14 +59,18 @@ class VeiculoController extends Controller
 
     public function cadastrar(Request $r)
     {
-        $validacao = $r->validate([
+
+        try {
+        $validacao = Validator::make($r->all(),[
             'placa' => 'required|unique:veiculos,placa',
             'modelo' => 'required',
             'ano' => 'required',
             'cor' => 'required',
         ]);
-        try {
 
+            if($validacao->fails()){
+                return redirect()->back()->withErrors($validacao)->withInput();
+            }
 //            return $r->all();
             $modelo = Modelo::PesquisarPorNome($r->get('modelo'))->first();
             if ($modelo == null) {
@@ -110,15 +115,19 @@ class VeiculoController extends Controller
     }
 
     public function atualizar(Request $r,Veiculo $veiculo){
-        $validacao = $r->validate([
-            'placa' => 'required|unique:veiculos,placa,'.$veiculo->id,
-            'modelo' => 'required',
-            'ano' => 'required',
-            'cor' => 'required',
-        ]);
+
 
         try {
+            $validacao = Validator::make($r->all(),[
+                'placa' => 'required|unique:veiculos,placa,'.$veiculo->id,
+                'modelo' => 'required',
+                'ano' => 'required',
+                'cor' => 'required',
+            ]);
 
+            if($validacao->fails()){
+                return redirect()->back()->withErrors($validacao)->withInput();
+            }
             $modelo                 =   Modelo::PesquisarPorNome($r->get('modelo'))->first();
 
             if($modelo == null){

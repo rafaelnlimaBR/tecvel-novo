@@ -1,4 +1,5 @@
 <div class="table-responsive-sm tabela-contatos">
+
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -15,7 +16,7 @@
 
             @foreach ($contatos as $contato)
                 <tr>
-                
+
                     <td><input class="form-control" value="{{$contato->numero}}" name="numero" id="numero-{{$contato->id}}"></td>
                     <td><input class="form-control"  value="{{$contato->pivot->responsavel}}" name="responsavel" id="responsavel-{{$contato->id}}"></td>
                     <td><select  class="form-control" name="app" id="app-{{$contato->id}}">

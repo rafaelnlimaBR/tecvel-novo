@@ -73,7 +73,7 @@
 <table class="w-full">
     <tr>
         <td class="w-half">
-            <img src="{{ public_path('images/logo.png') }}"height="70" />
+            <img src="{{ public_path('images/logo.png') }}" height="70" />
         </td>
         <td class="w-half">
             <h4></h4>

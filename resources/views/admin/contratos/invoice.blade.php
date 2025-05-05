@@ -8,6 +8,9 @@
     <div class="row botoes" style="margin: 10px">
         <div class="col-md-12">
             <a class="btn btn-default" style="background-color: #aeaeae; color: white" href="{{route('contrato.index')}}">Voltar</a>
+            <a class="btn btn-success" style="background-color: #aeaeae; color: white" href="{{route('contrato.enviar.invoice.aplicativos',['contrato'=>$contrato])}}">Enviar Whatsapp</a>
+            <a class="btn btn-success" style="background-color: #aeaeae; color: white" href="{{route('contrato.enviar.invoice.email',['contrato'=>$contrato])}}">Enviar Email</a>
+            <a class="btn btn-success" style="background-color: #aeaeae; color: white" href="{{route('contrato.baixar.pdf',['contrato'=>$contrato])}}">Baixar PDF</a>
         </div>
     </div>
     <div class="row">

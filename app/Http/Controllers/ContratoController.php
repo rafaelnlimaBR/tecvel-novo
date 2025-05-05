@@ -482,13 +482,13 @@ class ContratoController extends Controller
 
 
 
-    public function enviarInvoiceAplicativos(Request $r,$id)
+    public function enviarInvoiceAplicativos(Request $r,Contrato $contrato)
     {
         try{
 
 
-            $contrato   =   Contrato::find($id);
-            $filename   =   $contrato->id."-Orçamento".".pdf";
+
+            $filename   =   $contrato->id."-".$contrato->cliente->id."-orçamento".".pdf";
             $url        =   URL::to('/').'/invoice/';
 
             $caminho = public_path('invoice/');
@@ -544,22 +544,72 @@ class ContratoController extends Controller
 
             //Enviando por email
 
-            Mail::to($contrato->cliente->email,$contrato->cliente->nome)->send(new \App\Mail\PedidoOrcamentoMail($contrato,$url));
-            $alertas[count($alertas)+1]    =   ['resposta' => 'true',
-                'texto' => "Email : ".$contrato->cliente->email.' - Enviado com sucesso',
-                'numero'=>'',
-                'status'=>'',
-                'tipo'  =>'success'];
+
 
             if(\File::exists($caminho)){
                 \File::delete($caminho);
             }
 
-            return redirect()->route('contrato.index')->with('alertas',$alertas);
+            return redirect()->route('contrato.visualizacao',['contrato'=>$contrato])->with('alertas',$alertas);
         }catch (\Exception $e){
-            return redirect()->route('contrato.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage() ]);
+            return redirect()->route('contrato.visualizacao',['contrato'=>$contrato])->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage() ]);
         }
 
     }
 
+    public function enviarInvoiceEmail(Request $r,Contrato $contrato)
+    {
+        try{
+            $filename   =   $contrato->id."-".$contrato->cliente->id."-orçamento".".pdf";
+            $url        =   URL::to('/').'/invoice/';
+
+            $caminho = public_path('invoice/');
+
+            if (!file_exists($caminho)){
+                mkdir($caminho, 0777, true);
+            }
+            $caminho    =   $caminho.$filename;
+            //        return $caminho;
+            //        PDF::view('admin.contratos.includes.invoicePDF',['contrato'=>$contrato]);
+            //        PDF::loadView('admin.contratos.includes.invoicePDF',$contrato)->save($caminho);
+
+            Pdf::loadView('admin.contratos.includes.invoicePDF',['contrato'=>$contrato,'conf'=>$this->conf,'titulo'=>'Garantia'])->save($caminho);
+            $url        =   URL::to($url.$filename);
+
+            Mail::to($contrato->cliente->email,$contrato->cliente->nome)->send(new \App\Mail\PedidoOrcamentoMail($contrato,$url));
+
+            if(\File::exists($caminho)){
+                \File::delete($caminho);
+            }
+            return redirect()->route('contrato.visualizacao',['contrato'=>$contrato])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Email: ".$contrato->cliente->email." - Enviado com sucesso"]);
+        }catch (\Exception $exception){
+            return redirect()->route('contrato.visualizacao',['contrato'=>$contrato])->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$exception->getMessage()]);
+        }
+    }
+
+    public function baixarPDF(Request $r,Contrato $contrato)
+    {
+        try{
+            $filename   =   $contrato->id."-".$contrato->cliente->id."-orçamento".".pdf";
+            $url        =   URL::to('/').'/invoice/';
+
+            $caminho = public_path('invoice/');
+
+            if (!file_exists($caminho)){
+                mkdir($caminho, 0777, true);
+            }
+            $caminho    =   $caminho.$filename;
+            //        return $caminho;
+            //        PDF::view('admin.contratos.includes.invoicePDF',['contrato'=>$contrato]);
+            //        PDF::loadView('admin.contratos.includes.invoicePDF',$contrato)->save($caminho);
+
+            return  Pdf::loadView('admin.contratos.includes.invoicePDF',['contrato'=>$contrato,'conf'=>$this->conf,'titulo'=>'Garantia'])->download($filename);
+
+
+//            $url        =   URL::to($url.$filename);
+
+        }catch (\Exception $exception){
+            return redirect()->route('contrato.visualizacao',['contrato'=>$contrato])->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$exception->getMessage()]);
+        }
+    }
 }

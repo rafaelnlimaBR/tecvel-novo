@@ -65,7 +65,7 @@ class PedidoOrcamentoMail extends Mailable
     {
 
         return [
-//            Attachment::fromPath($this->pdf),
+            Attachment::fromPath($this->pdf),
         ];
     }
 }

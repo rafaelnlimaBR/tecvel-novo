@@ -17,4 +17,22 @@ class Modelo extends Model
     {
         return $this->belongsTo(Montadora::class);
     }
+
+    public function gravar($nome, Montadora $montadora)
+    {
+        $this->nome         =   $nome;
+        $this->montadora()->associate($montadora);
+
+        if($this->save()){
+            return $this;
+        }
+        return false;
+    }
+
+    public function excluir()
+    {
+
+            return $this->delete();
+
+    }
 }

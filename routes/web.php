@@ -53,13 +53,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::post('/contrato/adicionar/peca', [App\Http\Controllers\ContratoController::class, 'adicionarPeca'])->name('contrato.adicionar.peca');
     Route::post('/contrato/remover/peca', [App\Http\Controllers\ContratoController::class, 'removerPeca'])->name('contrato.remover.peca');
     Route::post('/contrato/atualizar/peca', [App\Http\Controllers\ContratoController::class, 'atualizarPeca'])->name('contrato.atualizar.peca');
-    Route::get('/contrato/visualizacao/{contrato}', [App\Http\Controllers\ContratoController::class, 'visualizacao'])->name('contrato.visualizacao');
+    Route::get('/contrato/detalhes/{contrato}', [App\Http\Controllers\ContratoController::class, 'visualizacao'])->name('contrato.visualizacao');
+    Route::get('/contrato/baixar/pdf/{contrato}', [App\Http\Controllers\ContratoController::class, 'baixarPDF'])->name('contrato.baixar.pdf');
     Route::get('/contrato/{id}/entrada', [App\Http\Controllers\ContratoController::class, 'entrada'])->name('contrato.entrada');
     Route::post('/contrato/faturar', [App\Http\Controllers\ContratoController::class, 'faturar'])->name('contrato.faturar');
     Route::post('/contrato//atualziar/entrada/', [App\Http\Controllers\ContratoController::class, 'atualizarEntrada'])->name('contrato.atualizar.faturar');
     Route::get('/contrato/{id}/entrada/editar/{entrada_id}', [App\Http\Controllers\ContratoController::class, 'editarEntrada'])->name('contrato.editar.entrada');
     Route::get('/contrato/{id}/entrada/excluir/{entrada_id}', [App\Http\Controllers\ContratoController::class, 'excluirEntrada'])->name('contrato.excluir.entrada');
-    Route::get('/contrato/{id}/enviar/invoice/aplicativos', [App\Http\Controllers\ContratoController::class, 'enviarInvoiceAplicativos'])->name('contrato.enviar.invoice.aplicativos');
+    Route::get('/contrato/{contrato}/enviar/invoice/aplicativos', [App\Http\Controllers\ContratoController::class, 'enviarInvoiceAplicativos'])->name('contrato.enviar.invoice.aplicativos');
+    Route::get('/contrato/{contrato}/enviar/invoice/email', [App\Http\Controllers\ContratoController::class, 'enviarInvoiceEmail'])->name('contrato.enviar.invoice.email');
     Route::get('/contrato/editar/{id}/historico/{historico_id}/nova/nota', [App\Http\Controllers\NotaController::class, 'novo'])->name('contrato.nova.nota');
     Route::get('/contrato/editar/{id}/historico/{historico_id}/editar/nota/{nota_id}', [App\Http\Controllers\NotaController::class, 'editar'])->name('contrato.editar.nota');
     Route::get('/contrato/editar/{id}/historico/{historico_id}/editar/nota/{nota_id}/enviar/imagens/whatsapp', [App\Http\Controllers\NotaController::class, 'enviarImagensAplicativos'])->name('contrato.enviar.imagens.aplicativo');
@@ -114,7 +116,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::post('/cliente/cadastrar', [App\Http\Controllers\ClienteController::class, 'cadastrar'])->name('cliente.cadastrar');
     Route::post('/cliente/atualizar/{cliente}', [App\Http\Controllers\ClienteController::class, 'atualizar'])->name('cliente.atualizar');
     Route::get('/cliente/excluir/{cliente}', [App\Http\Controllers\ClienteController::class, 'excluir'])->name('cliente.excluir');
-    Route::post('/cliente/atualizar/contato', [App\Http\Controllers\ClienteController::class, 'atualizarContato'])->name('cliente.atualizar.contato');
+    Route::get('/cliente/atualizar/contato', [App\Http\Controllers\ClienteController::class, 'atualizarContato'])->name('cliente.atualizar.contato');
     Route::post('/cliente/adicionar/contato', [App\Http\Controllers\ClienteController::class, 'adicionarContato'])->name('cliente.adicionar.contato');
     Route::post('/cliente/excluir/contato', [App\Http\Controllers\ClienteController::class, 'excluirContato'])->name('cliente.excluir.contato');
     Route::post('/cliente/pesquisa/json', [App\Http\Controllers\ClienteController::class, 'clientesJson'])->name('cliente.pesquisar.json');
@@ -140,11 +142,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 //MODELOS DE VEICULOS
     Route::get('/modelo', [App\Http\Controllers\ModeloController::class, 'index'])->name('modelo.index');
     Route::get('/modelo/novo', [App\Http\Controllers\ModeloController::class, 'novo'])->name('modelo.novo');
-    Route::get('/modelo/editar/{id}', [App\Http\Controllers\ModeloController::class, 'editar'])->name('modelo.editar');
+    Route::get('/modelo/editar/{modelo}', [App\Http\Controllers\ModeloController::class, 'editar'])->name('modelo.editar');
     Route::get('/{id}/marcaJson', [App\Http\Controllers\ModeloController::class, 'Json'])->name('modelo.Json');
-    Route::post('/modelo/atualizar', [App\Http\Controllers\ModeloController::class, 'atualizar'])->name('modelo.atualizar');
+    Route::post('/modelo/atualizar/{modelo}', [App\Http\Controllers\ModeloController::class, 'atualizar'])->name('modelo.atualizar');
     Route::post('/modelo/cadastrar', [App\Http\Controllers\ModeloController::class, 'cadastrar'])->name('modelo.cadastrar');
-    Route::post('/modelo/excluir', [App\Http\Controllers\ModeloController::class, 'excluir'])->name('modelo.excluir');
+    Route::get('/modelo/excluir/{modelo}', [App\Http\Controllers\ModeloController::class, 'excluir'])->name('modelo.excluir');
 
 //VEICULOS
     Route::get('/veiculos', [App\Http\Controllers\VeiculoController::class, 'index'])->name('veiculo.index');
@@ -186,8 +188,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::get('/contrato/abrir/{token}/{id}', [App\Http\Controllers\ContratoController::class, 'abrir'])->name('contrato.abrir');
 
 
-    View::composer(['admin.contatos.formulario','admin.contatos.tabela','admin.clientes.formulario-modal'],function($view){
+    View::composer(['admin.contatos.formulario','admin.contatos.tabela','admin.clientes.formulario-modal','admin.clientes.includes.form'],function($view){
         $view->with(['aplicativos'=>AppContato::all()]);
+
     });
     View::composer(['admin.veiculos.form','front.orcamento02'],function($view){
         $view->with(['montadoras'    =>  Montadora::all()]);
@@ -228,8 +231,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 });
 
 Route::get('/teste',function () {
-    $cliente    =   Cliente::find(1);
-    return $cliente->atualizar();
+    return request()->url()."?pagina=cliente";
 
 
 });

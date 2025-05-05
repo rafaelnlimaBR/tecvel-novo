@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;
+use \Illuminate\Support\Facades\Validator;
 
 
 class ClienteController extends Controller
@@ -38,7 +39,7 @@ class ClienteController extends Controller
     public function novo (Request $r){
         $dados = [
             'titulo' => "Novo Cliente",
-            'aplicativos'   => AppContato::all(),
+
         ];
 
         if($r->user()->cannot('cliente-criar')){
@@ -52,19 +53,26 @@ class ClienteController extends Controller
             return "Acesso negado.";
 
         }
-
+        $validacao      =   Validator::make($r->all(),[
+            'nome'          =>  'required|min:3|max:100',
+            'email'         =>  'required|email|unique:App\Models\Cliente,email',
+            'contato'       =>  'required'
+        ]) ;
+        ;
         $isModal    =   $r->has('modal');
-        if(!$isModal == true){
-            $validacao      =   $r->validate([
-                'nome'          =>  'required|min:3|max:100',
-                'email'         =>  'required|email|unique:App\Models\Cliente,email',
-                'contato'       =>  'required'
-            ]);
+        if($validacao->fails()){
+
+            if($isModal == true){
+                $hmtl       =   view('admin.clientes.includes.form')->withErrors($validacao)->with($r->all())->render();
+                return response()->json(['form_cliente'=>$hmtl]);
+            }else{
+                return redirect()->back()->withInput()->withErrors($validacao)->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>"Preencher os campos obrigatórios!."]);
+            }
         }
 
+        $validacao->validate();
 
-
-
+        return "deu";
         try {
             $cliente  = new Cliente();
 
@@ -83,17 +91,18 @@ class ClienteController extends Controller
                 $contato = ContatoController::cadastrar($r->get('contato'),$r->get('app'));
                 $cliente->contatos()->attach($contato);
                 if($isModal == true){
+
                     return response()->json($cliente);
                 }
 
-                return redirect()->route('cliente.editar',['cliente'=>$cliente])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Cliente cadastrado com sucesso."]);
+                return redirect()->route('cliente.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Cliente cadastrado com sucesso."]);
             }
             return redirect()->route('cliente.editar', ['cliente' => $cliente])->with('alerta', ['tipo' => 'success', 'icon' => '', 'texto' => "Erro ao cadastrar o registro do cliente"]);
         } catch (\Exception $th) {
             if($isModal == true){
                 return response()->json(['erro'=>$th->getMessage()]);
             }
-            return redirect()->route('cliente.novo')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);;
+            return redirect()->route('cliente.novo')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);
         }
     }
 
@@ -101,12 +110,15 @@ class ClienteController extends Controller
 
 
         try {
-            $validacao = $r->validate([
+            $validacao      =   Validator::make($r->all(),[
                 'nome' => 'required|min:3|max:100',
                 'email' => 'required|email|unique:App\Models\Cliente,email,' . $cliente->id,
-            ]);
+            ]) ;
+            if($validacao->fails()){
+                return redirect()->back()->withErrors($validacao)->withInput()->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>"Preencher os campos obrigatórios!."]);
+            }
 
-            $cliente = $cliente->atualizar(
+            $cliente = $cliente->gravar(
                 $r->input('nome'),
                 $r->input('email'),
                 $r->input('cep'),

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Montadora;
 use App\Models\Modelo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use PhpParser\Node\Expr\AssignOp\Mod;
 
 class ModeloController extends Controller
 {
@@ -20,9 +22,9 @@ class ModeloController extends Controller
         return view('admin.modelos.index',$dados)->with('modelos',$modelos);
     }
 
-    public function editar($id){
+    public function editar(Modelo $modelo){
         try {
-            $modelo          =   Modelo::find($id);
+
             if($modelo == null){
                 return redirect()->route('modelo.index')->with('alerta',['tipo'=>'warning','icon'=>'','texto'=>"Modelo não existe."]);
             }
@@ -53,14 +55,24 @@ class ModeloController extends Controller
 
     public function cadastrar(Request $r){
         try {
+            $validacao  =   Validator::make($r->all(),[
+                'nome'      =>  'required|min:3|max:100',
+                'montadora'    =>  'required',
+            ]);
+
+            if($validacao->fails()){
+                return redirect()->back()->withInput()->withErrors($validacao);
+            }
+
             $modelo                 =   new Modelo();
-            $modelo->nome           =   $r->get('nome');
-            $modelo->montadora_id   =   $r->get('montadora');
+            $modelo                 =   $modelo->gravar($r->get('nome'), Montadora::find($r->input('montadora')));
 
-
-            if($modelo->save()){
-                return redirect()->route('modelo.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Modelo cadastrado com sucesso."]);
+            if($modelo  == null){
+                return redirect()->back()->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>"Erro ao cadastrar Modelo."]);
             }
+            return redirect()->route('modelo.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Modelo cadastrado com sucesso."]);
+
+
 
 
         } catch (\Throwable $th) {
@@ -68,15 +80,26 @@ class ModeloController extends Controller
         }
     }
 
-    public function atualizar(Request $r){
+    public function atualizar(Request $r, Modelo $modelo){
         try {
-            $modelo          =   Modelo::find($r->get('id'));
-            $modelo->nome    =   $r->get('nome');
-            $modelo->montadora_id   =   $r->get('montadora');
 
-            if($modelo->save()){
-                return redirect()->route('modelo.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Modelo atualizado com sucesso."]);
+            $validacao  =   Validator::make($r->all(),[
+                'nome'      =>  'required',
+                'montadora'    =>  'required',
+            ]);
+
+            if($validacao->fails()){
+                return redirect()->back()->withInput()->withErrors($validacao);
             }
+
+            $modelo     =   $modelo->gravar($r->get('nome'), Montadora::find($r->input('montadora')));
+
+            if($modelo == null){
+                return redirect()->route('modelo.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>"Erro ao atualizar Modelo."]);
+            }
+
+            return redirect()->route('modelo.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Modelo atualizado com sucesso."]);
+
 
 
         } catch (\Throwable $th) {
@@ -84,8 +107,16 @@ class ModeloController extends Controller
         }
     }
 
-    public function excluir(){
+    public function excluir(Request $r, Modelo $modelo){
+        try{
+            if($modelo->delete()){
+                return redirect()->route('modelo.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>'Excluido com sucesso']);
+            }
+            return redirect()->route('modelo.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>'Erro ao excluir']);
 
+        }catch (\Throwable $th) {
+            return redirect()->route('modelo.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);
+        }
     }
 
     public function Json($id)

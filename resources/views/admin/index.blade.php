@@ -1155,18 +1155,22 @@
                     data: dados,
                     success: function( data )
                     {
-
+                        console.log(data);
                         if('erro' in data){
                             alert(data.erro);
 
                         }else{
+                            $('.form-atualizavel').html(data.form_cliente)
+
+                            /*
                             var html    =   '<option value='+data.id+'>'+data.nome+'</option>'
                             $("#pesquisa-cliente").html(html);
                             $('#formularioClienteModal').modal('hide');
-                            return false
+                            return false*/
                         }
                     },
                     error:function (data,e) {
+                        console.log(data)
                         alert(data);
                     }
                 });
@@ -1507,13 +1511,13 @@
                 var app         =   $('#app-'+id.toString()).val();
                 var foreignkey  =   $(this).attr("foreignkey");
                 var rota        =   $(this).attr("route-update");
-
+                console.log('id: '+id+" numero :"+numero+" responsavel: "+responsavel+" foreigkey: "+foreignkey+ "rota : "+rota);
                 $.ajax({
                     header:{
                         'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
                     },
                     url: rota,
-                    type: "post",
+                    type: "get",
                     data: {
 
                     'id'                :   id,

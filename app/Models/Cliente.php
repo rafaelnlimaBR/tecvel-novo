@@ -63,22 +63,7 @@ class Cliente extends Model
         return null;
     }
 
-    public function atualizar($nome, $email, $cep, $endereco, $numero, $bairro, $cidade, $estado)
 
-    {
-        $this->nome             = $nome;
-        $this->email             = $email;
-        $this->endereco         = $endereco;
-        $this->cep              = $cep;
-        $this->numero           = $numero;
-        $this->bairro            = $bairro;
-        $this->cidade       = $cidade;
-        $this->estado           = $estado;
-        if($this->save()){
-            return $this;
-        }
-        return null;
-    }
 
     public function excluir()
     {

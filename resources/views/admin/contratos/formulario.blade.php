@@ -22,6 +22,7 @@
                 <li class="nav-item">
                     <a class="nav-link {{request()->exists('pagina')?request()->get('pagina') == "dados"?'active':'':''}}" href="#home-2" data-toggle="tab" aria-expanded="false">Dados</a>
                 </li>
+
                 @if(isset($contrato))
                 <li class="nav-item">
                     <a class="nav-link {{request()->exists('pagina')?request()->get('pagina') == "notas"?'active':'':''}}" href="#notas" data-toggle="tab" aria-expanded="false">Notas</a>
@@ -51,6 +52,7 @@
                 <div class="tab-pane  p-4 {{request()->exists('pagina')?request()->get('pagina') == "dados"?'active':'':''}}" id="home-2">
                     @include('admin.contratos.includes.dados')
                 </div>
+
                 @if(isset($contrato))
                 <div class="tab-pane  p-4 {{request()->exists('pagina')?request()->get('pagina') == "notas"?'active':'':''}}" id="notas">
                     @include('admin.contratos.includes.tabela-notas')
@@ -114,11 +116,15 @@
 </div>
 
 
-@include('admin.clientes.formulario-modal')
-@include('admin.veiculos.formulario-modal',['modal'=>1])
-@if(isset($contrato))
-@include("admin.contratos.includes.modal-mudar-status")
-@endif
+    @include('admin.clientes.formulario-modal')
+    @include('admin.veiculos.formulario-modal',['modal'=>1])
+    @if(isset($contrato))
+        @include("admin.contratos.includes.modal-mudar-status")
+    @endif
+
+
+
+
 @stop
 {{--
 <div class="col-lg-12 col-sm-12 col-md-12">
