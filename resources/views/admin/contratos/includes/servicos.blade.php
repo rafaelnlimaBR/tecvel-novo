@@ -4,15 +4,15 @@
         <div class="form-row">
             <div class="form-group col-md-3">
                 <input type="hidden" name="historico_id" value="{{$historico->id}}">
-                <label for="servicos">Serviços</label>
-                <select required class="form-control" name="servico" id="servicos-select2">
 
-                </select>
+                <label for="servico">Serviços</label>
+                <select required type="text" class="form-control select2" id="servicos-select2" name="servico"></select>
 
             </div>
-            <div class="form-group col-md-2">
+
+            <div class="form-group col-md-3">
                 <label for="valor">Valor</label>
-                <input required type="text" class="form-control" id="valor-servico" placeholder="valor" name="valor">
+                <input required type="text" class="form-control select2" id="valor-servico" placeholder="valor" name="valor">
             </div>
             {{--<div class="form-group col-md-2">
                 <label for="cobrar">Cobrar</label>
