@@ -193,4 +193,7 @@ class Contrato extends Model
         return $this->delete();
     }
 
+
+
+
 }

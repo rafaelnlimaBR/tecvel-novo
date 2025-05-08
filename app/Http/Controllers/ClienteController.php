@@ -64,7 +64,7 @@ class ClienteController extends Controller
 
             if($isModal == true){
                 $hmtl       =   view('admin.clientes.includes.form')->withErrors($validacao)->with($r->all())->render();
-                return response()->json(['form_cliente'=>$hmtl]);
+                return response()->json(['form_cliente'=>$hmtl,'error'=>true]);
             }else{
                 return redirect()->back()->withInput()->withErrors($validacao)->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>"Preencher os campos obrigatórios!."]);
             }
@@ -72,7 +72,7 @@ class ClienteController extends Controller
 
         $validacao->validate();
 
-        return "deu";
+
         try {
             $cliente  = new Cliente();
 

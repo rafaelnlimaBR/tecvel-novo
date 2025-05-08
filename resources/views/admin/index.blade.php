@@ -766,10 +766,11 @@
                     success: function( data )
                     {
 
-                        if('erro' in data){
-                            alert(data.erro);
+                        if('error' in data){
+                            $('#form-atualizavel-veiculo').html(data.form_veiculo)
 
                         }else{
+
 
                             var html    =   '<option value='+data.id+'> '+ data.placa+'</option>';
                             // $('.select2-user-result').html('teste');
@@ -1067,7 +1068,7 @@
                             alert(data.erro);
 
                         }else{
-                            console.log(data);
+
                             $('#tabela-pecas-atualizavel').html(data.peca);
                             return false
                         }
@@ -1157,22 +1158,22 @@
                     data: dados,
                     success: function( data )
                     {
-                        console.log(data);
+
                         if('erro' in data){
-                            alert(data.erro);
+                            $('#form-atualizavel-cliente').html(data.form_cliente)
 
                         }else{
-                            $('.form-atualizavel').html(data.form_cliente)
 
-                            /*
+
+
                             var html    =   '<option value='+data.id+'>'+data.nome+'</option>'
                             $("#pesquisa-cliente").html(html);
                             $('#formularioClienteModal').modal('hide');
-                            return false*/
+
                         }
                     },
                     error:function (data,e) {
-                        console.log(data)
+
                         alert(data);
                     }
                 });
@@ -1496,7 +1497,7 @@
                 },
                 templateSelection:function (data) {
                     var rota    =   "{{route('veiculo.editar',['veiculo'=>':id'])}}";
-                    rota = rota.replace(':id',data);
+                    rota = rota.replace(':id',data.id);
                     $('#editar-veiculo').html(' <a class="btn btn-sm btn-warning"  href="'+rota+'" target="_new">Editar</a>');
                     var html    =   $('<div class="select2-user-result"><b>Veículo: </b>'+data.text+'</div><br>');
                     return html;
@@ -1792,7 +1793,7 @@
                     $('#valor-liquido-total-'+peca_id).val(parseFloat(valor_bruto_total*((100-desconto)/100)).toFixed(2));
                     $('#valor-liquido-'+peca_id).val(parseFloat(valor_bruto*((100-desconto)/100)).toFixed(2));
                 }else if($(this).attr("ativo") == 'valor-liquido-peca'){
-                    console.log('deu');
+
                     var desconto    =   parseFloat(100-((valor_liquido*100)/valor_bruto)).toFixed(2);
 
                     if(desconto < 0){
@@ -1842,7 +1843,7 @@
                 $.getJSON("{{route('carregarDadosAjax')}}", function(dados) {
 
                     if(dados.novoPedidosOrcamento > 0){
-                        console.log(dados)
+
                         $('#totalPedidosNovos').html('Contratos <span class="badge badge-primary noti-arrow pull-right">'+dados.novoPedidosOrcamento+'</span> ');
                         $('.notificacao-orcamento').html(dados.notificacao_orcamento);
                     }

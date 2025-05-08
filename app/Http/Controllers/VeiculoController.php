@@ -68,8 +68,16 @@ class VeiculoController extends Controller
             'cor' => 'required',
         ]);
 
+
             if($validacao->fails()){
-                return redirect()->back()->withErrors($validacao)->withInput();
+                if ($r->has('modal')) {
+                    $hmtl   =   view('admin.veiculos.includes.form')->withErrors($validacao)->with($r->all())->render();
+                    return response()->json(['form_veiculo'=>$hmtl,'error'=>true]);
+                }else{
+                    return redirect()->back()->withErrors($validacao)->withInput();
+                }
+
+
             }
 //            return $r->all();
             $modelo = Modelo::PesquisarPorNome($r->get('modelo'))->first();

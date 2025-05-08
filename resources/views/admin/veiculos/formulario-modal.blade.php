@@ -1,7 +1,5 @@
-
-
-
-<div class="modal fade formulario-veiculo" id="formularioVeiculoModal"  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade formulario-veiculo" id="formularioVeiculoModal" aria-labelledby="staticBackdropLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form method="post" id="cadastrarVeiculoModal">
@@ -11,8 +9,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    @include('admin.veiculos.form',['modal'=>1])
+                <div class="modal-body " id="form-atualizavel-veiculo">
+                    @include('admin.veiculos.includes.form',['modal'=>1])
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success">Cadastrar</button>
