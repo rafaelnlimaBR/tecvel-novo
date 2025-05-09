@@ -354,6 +354,11 @@ class DatabaseSeeder extends Seeder
             ['user_id' => 2,'grupo_id' => 2],
         ]);
 
+        DB::table('cliente_veiculo')->insert([
+           ['cliente_id'=>1,'veiculo_id'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+           ['cliente_id'=>1,'veiculo_id'=>2,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
+        ]);
+
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',

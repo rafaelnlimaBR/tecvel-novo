@@ -11,7 +11,6 @@
             <div class="modal-body">
                <div class="row">
                    <div class="col-lg-12">
-
                            {{ csrf_field() }}
 
                            <div class="form-row">
@@ -19,22 +18,9 @@
                                    <input type="hidden" id="id-modal-status" name="id_status">
                                    <input type="hidden" name="id_contrato" value="{{$contrato->id}}">
                                    <label for="obs">Observações</label>
-                                   <textarea type="text" required class="form-control " id="obs-modal-status" name="obs" ></textarea>
+                                   <textarea type="text"  class="form-control " id="obs-modal-status" name="obs" ></textarea>
                                </div>
-
-
-
                            </div>
-                           <div class="form-row">
-
-                           </div>
-                           <div class="form-row">
-
-
-                           </div>
-
-
-
                    </div>
                </div>
 

@@ -486,69 +486,7 @@ class ContratoController extends Controller
     {
         try{
 
-
-
-            $filename   =   $contrato->id."-".$contrato->cliente->id."-orçamento".".pdf";
-            $url        =   URL::to('/').'/invoice/';
-
-            $caminho = public_path('invoice/');
-
-            if (!file_exists($caminho)){
-                mkdir($caminho, 0777, true);
-            }
-            $caminho    =   $caminho.$filename;
-    //        return $caminho;
-    //        PDF::view('admin.contratos.includes.invoicePDF',['contrato'=>$contrato]);
-    //        PDF::loadView('admin.contratos.includes.invoicePDF',$contrato)->save($caminho);
-
-            Pdf::loadView('admin.contratos.includes.invoicePDF',['contrato'=>$contrato,'conf'=>$this->conf,'titulo'=>'Garantia'])->save($caminho);
-            $url        =   URL::to($url.$filename);
-
-
-            $whatsapp    =   new Whatsapp();
-
-
-            //apagar essa linha
-
-            //Enviado por whatsapp
-            $resultado  =   0;
-            $alertas    =   [];
-            foreach ($contrato->cliente->contatos as $key=>$contato){
-                if($contato->app->id == $this->conf->whatsapp_id){
-                    if($whatsapp->checar($contato->numero,'+55')){
-                        $resultado  =   $whatsapp->enivarMensagemMedia($url,$contato->numero,"Segue a garantia do servico realizado. Data da Garantia : ".Carbon::parse($contrato->garantia)->format('d/m/Y'),"Garantia.pdf",2,'+55',"document");
-                        if($resultado == true){
-
-                            $alertas[$key]    = ['resposta' => 'true',
-                                'texto' => "Whatsapp : ".$contato->numero." - Enviado com sucesso",
-                                'numero'=>$contato->numero,
-                                'status'=>'',
-                                'tipo'  =>'success'];
-                        }else{
-                            $alertas[$key]    = ['resposta' => 'false',
-                                'texto' => "Whatsapp : ".$contato->numero." - Erro ao enviar a mensagem",
-                                'numero'=>$contato->numero,
-                                'status'=>'',
-                                'tipo'  =>'danger'];
-                        }
-                    }else{
-                        $alertas[$key]    = ['resposta' => 'false',
-                            'texto' => "Número : ".$contato->numero." - Não possui Whatsapp",
-                            'numero'=>$contato->numero,
-                            'status'=>'',
-                            'tipo'  =>'warning'];
-                    }
-
-                }
-            }
-
-            //Enviando por email
-
-
-
-            if(\File::exists($caminho)){
-                \File::delete($caminho);
-            }
+            $alertas    =   $contrato->enviarInvoiceAplicativos();
 
             return redirect()->route('contrato.visualizacao',['contrato'=>$contrato])->with('alertas',$alertas);
         }catch (\Exception $e){
@@ -560,27 +498,9 @@ class ContratoController extends Controller
     public function enviarInvoiceEmail(Request $r,Contrato $contrato)
     {
         try{
-            $filename   =   $contrato->id."-".$contrato->cliente->id."-orçamento".".pdf";
-            $url        =   URL::to('/').'/invoice/';
 
-            $caminho = public_path('invoice/');
+            $contrato->enviarInvoiceEmail();
 
-            if (!file_exists($caminho)){
-                mkdir($caminho, 0777, true);
-            }
-            $caminho    =   $caminho.$filename;
-            //        return $caminho;
-            //        PDF::view('admin.contratos.includes.invoicePDF',['contrato'=>$contrato]);
-            //        PDF::loadView('admin.contratos.includes.invoicePDF',$contrato)->save($caminho);
-
-            Pdf::loadView('admin.contratos.includes.invoicePDF',['contrato'=>$contrato,'conf'=>$this->conf,'titulo'=>'Garantia'])->save($caminho);
-            $url        =   URL::to($url.$filename);
-
-            Mail::to($contrato->cliente->email,$contrato->cliente->nome)->send(new \App\Mail\PedidoOrcamentoMail($contrato,$url));
-
-            if(\File::exists($caminho)){
-                \File::delete($caminho);
-            }
             return redirect()->route('contrato.visualizacao',['contrato'=>$contrato])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Email: ".$contrato->cliente->email." - Enviado com sucesso"]);
         }catch (\Exception $exception){
             return redirect()->route('contrato.visualizacao',['contrato'=>$contrato])->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$exception->getMessage()]);
@@ -590,20 +510,7 @@ class ContratoController extends Controller
     public function baixarPDF(Request $r,Contrato $contrato)
     {
         try{
-            $filename   =   $contrato->id."-".$contrato->cliente->id."-orçamento".".pdf";
-            $url        =   URL::to('/').'/invoice/';
-
-            $caminho = public_path('invoice/');
-
-            if (!file_exists($caminho)){
-                mkdir($caminho, 0777, true);
-            }
-            $caminho    =   $caminho.$filename;
-            //        return $caminho;
-            //        PDF::view('admin.contratos.includes.invoicePDF',['contrato'=>$contrato]);
-            //        PDF::loadView('admin.contratos.includes.invoicePDF',$contrato)->save($caminho);
-
-            return  Pdf::loadView('admin.contratos.includes.invoicePDF',['contrato'=>$contrato,'conf'=>$this->conf,'titulo'=>'Garantia'])->download($filename);
+            return $contrato->baixarPDF();
 
 
 //            $url        =   URL::to($url.$filename);

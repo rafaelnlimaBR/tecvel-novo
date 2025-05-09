@@ -13,15 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('status', function (Blueprint $table) {
+        Schema::create('cliente_veiculo', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nome');
-            $table->string('cor_fundo');
-            $table->string('cor_letra');
-            $table->boolean('cobrar');
-
-            $table->boolean('habilitar_funcoes');
-
+            $table->foreignId('cliente_id')->constrained('clientes','id')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('veiculo_id')->constrained('veiculos','id')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -33,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('status');
+        Schema::dropIfExists('cliente_veiculo');
     }
 };

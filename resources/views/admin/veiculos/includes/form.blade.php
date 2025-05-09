@@ -2,9 +2,10 @@
     {{ csrf_field() }}
 
     <div class="form-row">
+
         <div class="form-group col-md-4">
             <label for="placa">Placa</label>
-            <input type="text"  class="form-control placa {{$errors->has('placa')?'parsley-error':''}}"  placeholder="Placa" name="placa" value="{{old('placa',isset($veiculo)?$veiculo->placa:'')}}">
+            <input type="text"  class="form-control placa {{$errors->has('placa')?'parsley-error':''}}"  placeholder="Placa" name="placa" value="{{isset($modal)?isset($placa)?$placa:'':old('placa',isset($veiculo)?$veiculo->placa:'')}}">
             @error('placa')
             <ul class="parsley-errors-list filled"><li class="parsley-required">{{$message}}</li></ul>
             @enderror
@@ -15,14 +16,14 @@
         </div>
         <div class="form-group col-md-5">
             <label for="ano">Ano</label>
-            <input type="text"  class="form-control {{$errors->has('ano')?'parsley-error':''}}"  placeholder="Ano" name="ano" value="{{old('ano',isset($veiculo)?$veiculo->ano:'')}}">
+            <input type="text"  class="form-control {{$errors->has('ano')?'parsley-error':''}}"  placeholder="Ano" name="ano" value="{{isset($modal)?isset($ano)?$ano:'':old('ano',isset($veiculo)?$veiculo->cor:'')}}">
             @error('ano')
             <ul class="parsley-errors-list filled"><li class="parsley-required">{{$message}}</li></ul>
             @enderror
         </div>
         <div class="form-group col-md-3">
             <label for="cor">Cor</label>
-            <input list="cor" class="form-control {{$errors->has('cor')?'parsley-error':''}}" name="cor"  value="{{old('cor',isset($veiculo)?$veiculo->cor:"")}}" />
+            <input list="cor" class="form-control {{$errors->has('cor')?'parsley-error':''}}" name="cor"  value="{{isset($modal)?isset($cor)?$cor:'':old('cor',isset($veiculo)?$veiculo->cor:'')}}" />
             <datalist id="cor" >
                 @foreach($cores as $c)
 
@@ -61,7 +62,7 @@
         </div>
         <div class="form-group col-md-6">
             <label for="modelos" >Modelos</label>
-            <input list="modelos" class="form-control caixa-alta {{$errors->has('modelo')?'parsley-error':''}}" id="modelos-veiculos" name="modelo" value="{{isset($veiculo)?$veiculo->modelo->nome:""}}">
+            <input list="modelos" class="form-control caixa-alta {{$errors->has('modelo')?'parsley-error':''}}" id="modelos-veiculos" name="modelo" value="{{isset($modal)?isset($modelo)?$modelo:'':old('modelo',isset($veiculo)?$veiculo->modelo->nome:'')}}">
 
             <datalist id="modelos">
 

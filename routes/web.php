@@ -218,6 +218,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 
         $view->with(['grupos'=>$grupos]);
     });
+
+    View::composer(['admin.contratos.includes.invoicePDF'],function($view){
+        $conf     =   Configuracao::find(1);
+
+        $view->with(['conf'=>$conf]);
+    });
+
     View::composer(['admin.entradas.formulario'],function($view){
         $conf       =   Configuracao::all()->last();
         $tipo       =   TipoPagamento::find(FormaPagamento::find($conf->forma_pagamento_preferido)->tipo_id);
@@ -231,7 +238,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 });
 
 Route::get('/teste',function () {
-    return request()->url()."?pagina=cliente";
+    return Configuracao::all()->last();
 
 
 });
