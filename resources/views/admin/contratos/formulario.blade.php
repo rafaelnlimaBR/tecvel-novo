@@ -39,12 +39,13 @@
                 <li class="nav-item">
                     <a class="nav-link  {{request()->exists('pagina')?request()->get('pagina') == "comissao"?'active':'':''}}" href="#comissao" data-toggle="tab" aria-expanded="false">Comissao</a>
                 </li>
-                    <li class="nav-item">
-                        <a class="nav-link  {{request()->exists('pagina')?request()->get('pagina') == "entradas"?'active':'':''}}" href="#entradas" data-toggle="tab" aria-expanded="false">Entradas</a>
-                    </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact-2" data-toggle="tab" aria-expanded="false">Contact</a>
-                </li>
+                @if($historico->status->cobrar == true)
+                        <li class="nav-item">
+                            <a class="nav-link  {{request()->exists('pagina')?request()->get('pagina') == "entradas"?'active':'':''}}" href="#entradas" data-toggle="tab" aria-expanded="false">Entradas</a>
+                        </li>
+                @endif
+
+
 
                 @endif
             </ul>
@@ -73,29 +74,7 @@
                     @include("admin.contratos.includes.tabela-entradas")
                 </div>
 
-                <div class="tab-pane p-4" id="contact-2">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="inputEmail4">Name</label>
-                                    <input type="email" class="form-control" id="inputname4" placeholder="Name">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="inputPassword4">Phone</label>
-                                    <input type="text" class="form-control" id="inputnom4" placeholder="Phone">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputAddress">Massege</label>
-                                <input type="text-area" class="form-control" id="inputMassege" placeholder="Massege">
-                            </div>
-                            <div class="col-auto p-0">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
                 @endif
             </div>
 

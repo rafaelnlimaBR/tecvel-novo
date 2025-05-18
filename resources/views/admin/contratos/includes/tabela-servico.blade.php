@@ -18,14 +18,20 @@
 
 
 
-        @foreach ($contrato->historicos as $historico)
-            @foreach($historico->servicos as $servico)
-                <tr>
-                    <td>{{$historico->id.'.'.$servico->pivot->id}}</td>
+        @foreach ($contrato->historicos as $h)
+            @foreach($h->servicos as $servico)
+                <tr class="{{$historico->status->id != $h->status->id? "table-warning":''}}">
+                    <td>{{$h->id.'.'.$servico->pivot->id}}</td>
                     <td>{{$servico->nome}}</td>
-                    <td><input class="form-control calcular-desconto numero" name="valor-servico-table" id="valor-servico-{{$servico->pivot->id}}" servico-id="{{$servico->pivot->id}}" ativo="valor-bruto"  value="{{$servico->pivot->valor}}"></td>
-                    <td><input class="form-control calcular-desconto numero" name="desconto-servico-table" id="desconto-servico-{{$servico->pivot->id}}" servico-id="{{$servico->pivot->id}}" ativo="desconto" value="{{$servico->pivot->desconto}}"></td>
-                    <td><input class="form-control calcular-desconto numero" name="valor-liquido-servico-table" id="valor-liquido-servico-{{$servico->pivot->id}}" servico-id="{{$servico->pivot->id}}" ativo="valor-liquido" value="{{$servico->pivot->valor_liquido}}"></td>
+                    @if($historico->status->id == $h->status->id)
+                        <td><input class="form-control calcular-desconto numero" name="valor-servico-table" id="valor-servico-{{$servico->pivot->id}}" servico-id="{{$servico->pivot->id}}" ativo="valor-bruto"  value="{{$servico->pivot->valor}}"></td>
+                        <td><input class="form-control calcular-desconto numero" name="desconto-servico-table" id="desconto-servico-{{$servico->pivot->id}}" servico-id="{{$servico->pivot->id}}" ativo="desconto" value="{{$servico->pivot->desconto}}"></td>
+                        <td><input class="form-control calcular-desconto numero" name="valor-liquido-servico-table" id="valor-liquido-servico-{{$servico->pivot->id}}" servico-id="{{$servico->pivot->id}}" ativo="valor-liquido" value="{{$servico->pivot->valor_liquido}}"></td>
+                    @else
+                        <td>{{$servico->pivot->valor}}</td>
+                        <td>{{$servico->pivot->desconto}}</td>
+                        <td>{{$servico->pivot->valor_liquido}}</td>
+                    @endif
                     {{--<td>
 
                         <select class="form-control" name="cobrar" id="cobrar-servico-{{$servico->pivot->id}}">
@@ -40,11 +46,13 @@
                     </td>--}}
 
 
-
-
                     <td>
-                        <a class="btn btn-sm btn-danger btn-remover-servico-historico" route_delete="{{route('contrato.remover.servico')}}" style="padding-top: 0; padding-bottom: 0" historico_id="{{$historico->id}}" servico_id="{{$servico->pivot->id}}" ><i class="fa  fa-trash-o"></i></a>
-                        <a class="btn btn-sm btn-warning btn-atualizar-servico-historico" route_update="{{route('contrato.atualizar.servico')}}" style="padding-top: 0; padding-bottom: 0" servico_id="{{$servico->pivot->id}}"  contrato_id="{{$contrato->id}}"><i class="fa  fa-trash-o"></i></a>
+                @if($historico->status->id == $h->status->id)
+
+                        <a class="btn btn-sm btn-danger btn-remover-servico-historico" route_delete="{{route('contrato.remover.servico')}}" style="padding-top: 0; padding-bottom: 0" historico_id="{{$h->id}}" servico_id="{{$servico->pivot->id}}" ><i class="fa  fa-trash-o"></i></a>
+                        <a class="btn btn-sm btn-warning btn-atualizar-servico-historico" route_update="{{route('contrato.atualizar.servico')}}" style="padding-top: 0; padding-bottom: 0" servico_id="{{$servico->pivot->id}}"  historico_id="{{$h->id}}"><i class="fa  fa-trash-o"></i></a>
+
+                @endif
                     </td>
                 </tr>
             @endforeach

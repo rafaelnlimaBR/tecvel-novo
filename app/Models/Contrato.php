@@ -112,13 +112,23 @@ class Contrato extends Model
         return $this->totalServicosLiquido()+$this->totalPecasAvulsasLiquido();
     }
 
-    public function somaTotalServicos()
+    public function valorTotalCobrado()
+    {
+        return $this->totalPecasLiquidoCobrados()+$this->totalServicosLiquidoCobrados();
+    }
+
+    public function valorTotalNaoCobrado()
+    {
+        return $this->totalServicosLiquidoNaoCobrados()+$this->totalPecasLiquidoNaoCobrados();
+    }
+
+    public function totalServicosLiquidoCobrados()
     {
         $total  =   0;
         foreach ($this->historicos as $historico){
             foreach ($historico->servicos as $servico){
                 if($servico->pivot->cobrar == true){
-                  $total += $servico->pivot->valor;
+                  $total += $servico->pivot->valor_liquido;
                 }
             }
 
@@ -126,6 +136,52 @@ class Contrato extends Model
 
         return $total;
     }
+
+    public function totalServicosLiquidoNaoCobrados()
+    {
+        $total  =   0;
+        foreach ($this->historicos as $historico){
+            foreach ($historico->servicos as $servico){
+                if($servico->pivot->cobrar == false){
+                    $total += $servico->pivot->valor_liquido;
+                }
+            }
+
+        }
+
+        return $total;
+    }
+
+    public function totalPecasLiquidoCobrados()
+    {
+        $total  =   0;
+        foreach ($this->historicos as $historico){
+            foreach ($historico->pecas as $peca){
+                if($peca->pivot->cobrar == true){
+                    $total += $peca->pivot->valor_liquido;
+                }
+            }
+
+        }
+
+        return $total;
+    }
+
+    public function totalPecasLiquidoNaoCobrados()
+    {
+        $total  =   0;
+        foreach ($this->historicos as $historico){
+            foreach ($historico->pecas as $peca){
+                if($peca->pivot->cobrar == false){
+                    $total += $peca->pivot->valor_liquido;
+                }
+            }
+
+        }
+
+        return $total;
+    }
+
 
     public function totalServicosLiquido()
     {
@@ -184,7 +240,7 @@ class Contrato extends Model
     public function restantePagamento()
     {
         $totalPago      =   $this->entradas->sum('valor');
-        $totalContrato  =   $this->valorTotal();
+        $totalContrato  =   $this->valorTotalCobrado();
 
         return $totalContrato - $totalPago;
     }

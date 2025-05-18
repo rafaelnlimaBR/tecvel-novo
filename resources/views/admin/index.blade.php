@@ -991,7 +991,7 @@
                var cobrar           =   $('#cobrar-servico-'+servico_id).val();
                var valor_liquido    =   $('#valor-liquido-servico-'+servico_id).val();
                var desconto         =   $('#desconto-servico-'+servico_id).val();
-               var  contrato_id     =   $(this).attr('contrato_id');
+               var  historico_id     =   $(this).attr('historico_id');
 
                 $.ajax({
                     header:{
@@ -1004,7 +1004,7 @@
                         'servico_id'                :   servico_id,
                         'valor'              :   valor,
                         'cobrar'            :   cobrar,
-                        'contrato_id'       :   contrato_id,
+                        'historico_id'       :   historico_id,
                         'desconto'          :   desconto,
                         'valor_liquido'     :   valor_liquido
 
@@ -1039,8 +1039,8 @@
                 var valor_liquido   =   $('#valor-liquido-'+peca_id).val();
                 var cobrar           =   $('#cobrar-peca-'+peca_id).val();
                 var marca           =   $('#marca-peca-'+peca_id).val();
-                var  contrato_id     =   $(this).attr('contrato_id');
-                console.log(valor_liquido_total+" " +valor_liquido);
+                var  historico_id     =   $(this).attr('historico_id');
+
 
                 $.ajax({
                     header:{
@@ -1050,16 +1050,16 @@
                     type: "post",
                     data: {
 
-                        'peca_id'                :   peca_id,
-                        'valor'              :   valor,
-                        'cobrar'            :   cobrar,
-                        'contrato_id'       :   contrato_id,
-                        'marca'             :   marca,
-                        'qnt'               :   qnt,
-                        'desconto'          :   desconto,
-                        'valor_bruto_total' :   valor_bruto_total,
-                        'valor_liquido_total':   valor_liquido_total,
-                        'valor_liquido'     :   valor_liquido
+                        'peca_id'                   :   peca_id,
+                        'valor'                     :   valor,
+                        'cobrar'                    :   cobrar,
+                        'historico_id'              :   historico_id,
+                        'marca'                     :   marca,
+                        'qnt'                       :   qnt,
+                        'desconto'                  :   desconto,
+                        'valor_bruto_total'         :   valor_bruto_total,
+                        'valor_liquido_total'       :   valor_liquido_total,
+                        'valor_liquido'             :   valor_liquido
 
                     },
                     success: function( data )
@@ -1159,13 +1159,13 @@
                     success: function( data )
                     {
 
-                        if('erro' in data){
+                        if('error' in data){
                             $('#form-atualizavel-cliente').html(data.form_cliente)
 
                         }else{
 
 
-
+                            console.log(data.form_cliente)
                             var html    =   '<option value='+data.id+'>'+data.nome+'</option>'
                             $("#pesquisa-cliente").html(html);
                             $('#formularioClienteModal').modal('hide');

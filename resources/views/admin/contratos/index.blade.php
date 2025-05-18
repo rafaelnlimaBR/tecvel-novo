@@ -71,7 +71,19 @@
                                 <td>{{$contrato->cliente->nome}}</td>
                                 <td >{{isset($contrato->veiculo)?$contrato->veiculo->placa." - ".$contrato->veiculo->modelo->nome:"ND"}}  </td>
                                 <td style="width: 7%;"><span style="background-color: {{$contrato->historicos->last()->status->cor_fundo}}; color: {{$contrato->historicos->last()->status->cor_letra}}; padding: 3px 5px 3px 5px;border-radius: 10px;">{{$contrato->historicos->last()->status->nome}}</span></td>
-                                <td style="width: 7%;">R$ {{$contrato->valorTotal()}}</td>
+                                <td style="width: 10%;"><span style="font-weight: bolder">
+                                        @if($contrato->historicos->last()->status->id    == $orcamento_id)
+                                            <span style="color: #0d9115; ">R$ {{$contrato->valorTotalNaoCobrado()}}</span>
+                                        @else
+                                            @if($contrato->valorTotalNaoCobrado() == 0)
+                                                <span style="color: #40c135; ">R$ {{$contrato->valorTotalCobrado()}}</span>
+                                            @else
+                                                <span style="color: #911630; text-decoration-line: line-through; ">R$ {{$contrato->valorTotalNaoCobrado() }}</span> <span style="color: #0d9115"> (R$ {{$contrato->valorTotalCobrado()}})</span>
+                                            @endif
+                                        @endif
+
+                                    </span>
+                                </td>
                                 <td style="width: 7%;">
                                     @if($contrato->historicos->last()->status->id    == $orcamento_id)
 
