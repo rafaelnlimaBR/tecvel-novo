@@ -49,13 +49,15 @@ class ContratoController extends Controller
             'orcamento_id'  => $this->conf->abertura    ,//id do status orçamento
         ];
 
-        if($r->has('placa')){
-            $contratos   =   Contrato::PesquisarPorTelefone($r->input('telefone'))->
+        if($r->get('placa') != ""){
+
+            $contratos   =   Contrato::pesquisarPorCliente($r->input('nome'))->PesquisarPorTelefone($r->input('telefone'))->PesquisarPorPlaca($r->input('placa'))->
             orderBy('created_at', 'desc')
                 ->paginate(10)->
                 withQueryString();
         }else{
-            $contratos   =   Contrato::pesquisarPorCliente($r->input('nome'))->PesquisarPorTelefone($r->input('telefone'))->PesquisarPorPlaca($r->input('placa'))->
+
+            $contratos   =   Contrato::pesquisarPorCliente($r->input('nome'))->PesquisarPorTelefone($r->input('telefone'))->
             orderBy('created_at', 'desc')
                 ->paginate(10)->
                 withQueryString();
