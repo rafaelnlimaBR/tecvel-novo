@@ -177,6 +177,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::post('/servico/cadastrar', [App\Http\Controllers\ServicoController::class, 'cadastrar'])->name('servico.cadastrar');
     Route::post('/servico/excluir', [App\Http\Controllers\ServicoController::class, 'excluir'])->name('servico.excluir');
 
+    Route::get('/categorias', [App\Http\Controllers\CategoriaController::class, 'index'])->name('categoria.index');
+    Route::get('/categoria/novo', [App\Http\Controllers\CategoriaController::class, 'novo'])->name('categoria.novo');
+    Route::get('/categoria/editar/{categoria}', [App\Http\Controllers\CategoriaController::class, 'editar'])->name('categoria.editar');
+    Route::post('/categoria/atualizar/{categoria}', [App\Http\Controllers\CategoriaController::class, 'atualizar'])->name('categoria.atualizar');
+    Route::post('/categoria/cadastrar', [App\Http\Controllers\CategoriaController::class, 'cadastrar'])->name('categoria.cadastrar');
+    Route::get('/categoria/excluir/{categoria}', [App\Http\Controllers\CategoriaController::class, 'excluir'])->name('categoria.excluir');
+
+
+
 //PEÇAS AVULSAS
     Route::get('/peca/json', [App\Http\Controllers\PecaAvulsaController::class, 'pecaJson'])->name('peca.json');
 

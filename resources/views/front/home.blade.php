@@ -1,144 +1,523 @@
 @extends('front.layout001')
 @section('conteudo')
-    <main>
+    <!-- Slider Section -->
+    <section id="slider" class="slider section dark-background">
 
-        <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="swiper init-swiper">
+
+                <script type="application/json" class="swiper-config">
+                    {
+                      "loop": true,
+                      "speed": 600,
+                      "autoplay": {
+                        "delay": 5000
+                      },
+                      "slidesPerView": "auto",
+                      "centeredSlides": true,
+                      "pagination": {
+                        "el": ".swiper-pagination",
+                        "type": "bullets",
+                        "clickable": true
+                      },
+                      "navigation": {
+                        "nextEl": ".swiper-button-next",
+                        "prevEl": ".swiper-button-prev"
+                      }
+                    }
+                </script>
+
+                <div class="swiper-wrapper">
+
+                    <div class="swiper-slide" style="background-image: url('assets/img/post-slide-1.jpg');">
+                        <div class="content">
+                            <h2><a href="single-post.html">The Best Homemade Masks for Face (keep the Pimples Away)</a></h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque est mollitia! Beatae minima assumenda repellat harum vero, officiis ipsam magnam obcaecati cumque maxime inventore repudiandae quidem necessitatibus rem atque.</p>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide" style="background-image: url('assets/img/post-slide-2.jpg');">
+                        <div class="content">
+                            <h2><a href="single-post.html">17 Pictures of Medium Length Hair in Layers That Will Inspire Your New Haircut</a></h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque est mollitia! Beatae minima assumenda repellat harum vero, officiis ipsam magnam obcaecati cumque maxime inventore repudiandae quidem necessitatibus rem atque.</p>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide" style="background-image: url('assets/img/post-slide-3.jpg');">
+                        <div class="content">
+                            <h2><a href="single-post.html">13 Amazing Poems from Shel Silverstein with Valuable Life Lessons</a></h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque est mollitia! Beatae minima assumenda repellat harum vero, officiis ipsam magnam obcaecati cumque maxime inventore repudiandae quidem necessitatibus rem atque.</p>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide" style="background-image: url('assets/img/post-slide-4.jpg');">
+                        <div class="content">
+                            <h2><a href="single-post.html">9 Half-up/half-down Hairstyles for Long and Medium Hair</a></h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque est mollitia! Beatae minima assumenda repellat harum vero, officiis ipsam magnam obcaecati cumque maxime inventore repudiandae quidem necessitatibus rem atque.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+
+                <div class="swiper-pagination"></div>
             </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
 
-                    <div class="container">
-                        <div class="carousel-caption text-start">
-                            <h1>Example headline.</h1>
-                            <p>Some representative placeholder content for the first slide of the carousel.</p>
-                            <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-
-                    <div class="container">
-                        <div class="carousel-caption">
-                            <h1>Another example headline.</h1>
-                            <p>Some representative placeholder content for the second slide of the carousel.</p>
-                            <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-
-                    <div class="container">
-                        <div class="carousel-caption text-end">
-                            <h1>One more for good measure.</h1>
-                            <p>Some representative placeholder content for the third slide of this carousel.</p>
-                            <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
         </div>
 
+    </section><!-- /Slider Section -->
 
-        <!-- Marketing messaging and featurettes
-        ================================================== -->
-        <!-- Wrap the rest of the page in another container to center all the content. -->
+    <!-- Trending Category Section -->
+    <section id="trending-category" class="trending-category section">
 
-        <div class="container marketing">
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-            <!-- Three columns of text below the carousel -->
+            <div class="container" data-aos="fade-up">
+                <div class="row g-5">
+                    <div class="col-lg-4">
+
+                        <div class="post-entry lg">
+                            <a href="blog-details.html"><img src="assets/img/post-landscape-1.jpg" alt="" class="img-fluid"></a>
+                            <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                            <h2><a href="blog-details.html">11 Work From Home Part-Time Jobs You Can Do Now</a></h2>
+                            <p class="mb-4 d-block">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero temporibus repudiandae, inventore pariatur numquam cumque possimus exercitationem? Nihil tempore odit ab minus eveniet praesentium, similique blanditiis molestiae ut saepe perspiciatis officia nemo, eos quae cumque. Accusamus fugiat architecto rerum animi atque eveniet, quo, praesentium dignissimos</p>
+
+                            <div class="d-flex align-items-center author">
+                                <div class="photo"><img src="assets/img/person-1.jpg" alt="" class="img-fluid"></div>
+                                <div class="name">
+                                    <h3 class="m-0 p-0">Cameron Williamson</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-8">
+                        <div class="row g-5">
+                            <div class="col-lg-4 border-start custom-border">
+                                <div class="post-entry">
+                                    <a href="blog-details.html"><img src="assets/img/post-landscape-2.jpg" alt="" class="img-fluid"></a>
+                                    <div class="post-meta"><span class="date">Sport</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                                    <h2><a href="blog-details.html">Let’s Get Back to Work, New York</a></h2>
+                                </div>
+                                <div class="post-entry">
+                                    <a href="blog-details.html"><img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>
+                                    <div class="post-meta"><span class="date">Food</span> <span class="mx-1">•</span> <span>Jul 17th '22</span></div>
+                                    <h2><a href="blog-details.html">How to Avoid Distraction and Stay Focused During Video Calls?</a></h2>
+                                </div>
+                                <div class="post-entry">
+                                    <a href="blog-details.html"><img src="assets/img/post-landscape-7.jpg" alt="" class="img-fluid"></a>
+                                    <div class="post-meta"><span class="date">Design</span> <span class="mx-1">•</span> <span>Mar 15th '22</span></div>
+                                    <h2><a href="blog-details.html">Why Craigslist Tampa Is One of The Most Interesting Places On the Web?</a></h2>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 border-start custom-border">
+                                <div class="post-entry">
+                                    <a href="blog-details.html"><img src="assets/img/post-landscape-3.jpg" alt="" class="img-fluid"></a>
+                                    <div class="post-meta"><span class="date">Business</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                                    <h2><a href="blog-details.html">6 Easy Steps To Create Your Own Cute Merch For Instagram</a></h2>
+                                </div>
+                                <div class="post-entry">
+                                    <a href="blog-details.html"><img src="assets/img/post-landscape-6.jpg" alt="" class="img-fluid"></a>
+                                    <div class="post-meta"><span class="date">Tech</span> <span class="mx-1">•</span> <span>Mar 1st '22</span></div>
+                                    <h2><a href="blog-details.html">10 Life-Changing Hacks Every Working Mom Should Know</a></h2>
+                                </div>
+                                <div class="post-entry">
+                                    <a href="blog-details.html"><img src="assets/img/post-landscape-8.jpg" alt="" class="img-fluid"></a>
+                                    <div class="post-meta"><span class="date">Travel</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                                    <h2><a href="blog-details.html">5 Great Startup Tips for Female Founders</a></h2>
+                                </div>
+                            </div>
+
+                            <!-- Trending Section -->
+                            <div class="col-lg-4">
+
+                                <div class="trending">
+                                    <h3>Trending</h3>
+                                    <ul class="trending-post">
+                                        <li>
+                                            <a href="blog-details.html">
+                                                <span class="number">1</span>
+                                                <h3>The Best Homemade Masks for Face (keep the Pimples Away)</h3>
+                                                <span class="author">Jane Cooper</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="blog-details.html">
+                                                <span class="number">2</span>
+                                                <h3>17 Pictures of Medium Length Hair in Layers That Will Inspire Your New Haircut</h3>
+                                                <span class="author">Wade Warren</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="blog-details.html">
+                                                <span class="number">3</span>
+                                                <h3>13 Amazing Poems from Shel Silverstein with Valuable Life Lessons</h3>
+                                                <span class="author">Esther Howard</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="blog-details.html">
+                                                <span class="number">4</span>
+                                                <h3>9 Half-up/half-down Hairstyles for Long and Medium Hair</h3>
+                                                <span class="author">Cameron Williamson</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="blog-details.html">
+                                                <span class="number">5</span>
+                                                <h3>Life Insurance And Pregnancy: A Working Mom’s Guide</h3>
+                                                <span class="author">Jenny Wilson</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div> <!-- End Trending Section -->
+                        </div>
+                    </div>
+
+                </div> <!-- End .row -->
+            </div>
+
+        </div>
+
+    </section><!-- /Trending Category Section -->
+
+    <!-- Culture Category Section -->
+    <section id="culture-category" class="culture-category section">
+
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+            <div class="section-title-container d-flex align-items-center justify-content-between">
+                <h2>Culture</h2>
+                <p><a href="categories.html">See All Culture</a></p>
+            </div>
+        </div><!-- End Section Title -->
+
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+
             <div class="row">
-                <div class="col-lg-4">
-                    <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+                <div class="col-md-9">
 
-                    <h2>Heading</h2>
-                    <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
-                    <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-                </div><!-- /.col-lg-4 -->
-                <div class="col-lg-4">
-                    <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+                    <div class="d-lg-flex post-entry">
+                        <a href="blog-details.html" class="me-4 thumbnail mb-4 mb-lg-0 d-inline-block">
+                            <img src="assets/img/post-landscape-6.jpg" alt="" class="img-fluid">
+                        </a>
+                        <div>
+                            <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                            <h3><a href="blog-details.html">What is the son of Football Coach John Gruden, Deuce Gruden doing Now?</a></h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio placeat exercitationem magni voluptates dolore. Tenetur fugiat voluptates quas, nobis error deserunt aliquam temporibus sapiente, laudantium dolorum itaque libero eos deleniti?</p>
+                            <div class="d-flex align-items-center author">
+                                <div class="photo"><img src="assets/img/person-2.jpg" alt="" class="img-fluid"></div>
+                                <div class="name">
+                                    <h3 class="m-0 p-0">Wade Warren</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <h2>Heading</h2>
-                    <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
-                    <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-                </div><!-- /.col-lg-4 -->
-                <div class="col-lg-4">
-                    <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="post-list border-bottom">
+                                <a href="blog-details.html"><img src="assets/img/post-landscape-1.jpg" alt="" class="img-fluid"></a>
+                                <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                                <h2 class="mb-2"><a href="blog-details.html">11 Work From Home Part-Time Jobs You Can Do Now</a></h2>
+                                <span class="author mb-3 d-block">Jenny Wilson</span>
+                                <p class="mb-4 d-block">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero temporibus repudiandae, inventore pariatur numquam cumque possimus</p>
+                            </div>
 
-                    <h2>Heading</h2>
-                    <p>And lastly this, the third column of representative placeholder content.</p>
-                    <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-                </div><!-- /.col-lg-4 -->
-            </div><!-- /.row -->
-
-
-            <!-- START THE FEATURETTES -->
-
-            <hr class="featurette-divider">
-
-            <div class="row featurette">
-                <div class="col-md-7">
-                    <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It’ll blow your mind.</span></h2>
-                    <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
+                            <div class="post-list">
+                                <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                                <h2 class="mb-2"><a href="blog-details.html">5 Great Startup Tips for Female Founders</a></h2>
+                                <span class="author mb-3 d-block">Jenny Wilson</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="post-list">
+                                <a href="blog-details.html"><img src="assets/img/post-landscape-2.jpg" alt="" class="img-fluid"></a>
+                                <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                                <h2 class="mb-2"><a href="blog-details.html">How to Avoid Distraction and Stay Focused During Video Calls?</a></h2>
+                                <span class="author mb-3 d-block">Jenny Wilson</span>
+                                <p class="mb-4 d-block">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero temporibus repudiandae, inventore pariatur numquam cumque possimus</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-5">
-                    <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
 
+                <div class="col-md-3">
+                    <div class="post-list border-bottom">
+                        <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                        <h2 class="mb-2"><a href="blog-details.html">How to Avoid Distraction and Stay Focused During Video Calls?</a></h2>
+                        <span class="author mb-3 d-block">Jenny Wilson</span>
+                    </div>
+
+                    <div class="post-list border-bottom">
+                        <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                        <h2 class="mb-2"><a href="blog-details.html">17 Pictures of Medium Length Hair in Layers That Will Inspire Your New Haircut</a></h2>
+                        <span class="author mb-3 d-block">Jenny Wilson</span>
+                    </div>
+
+                    <div class="post-list border-bottom">
+                        <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                        <h2 class="mb-2"><a href="blog-details.html">9 Half-up/half-down Hairstyles for Long and Medium Hair</a></h2>
+                        <span class="author mb-3 d-block">Jenny Wilson</span>
+                    </div>
+
+                    <div class="post-list border-bottom">
+                        <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                        <h2 class="mb-2"><a href="blog-details.html">Life Insurance And Pregnancy: A Working Mom’s Guide</a></h2>
+                        <span class="author mb-3 d-block">Jenny Wilson</span>
+                    </div>
+
+                    <div class="post-list border-bottom">
+                        <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                        <h2 class="mb-2"><a href="blog-details.html">The Best Homemade Masks for Face (keep the Pimples Away)</a></h2>
+                        <span class="author mb-3 d-block">Jenny Wilson</span>
+                    </div>
+
+                    <div class="post-list border-bottom">
+                        <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                        <h2 class="mb-2"><a href="blog-details.html">10 Life-Changing Hacks Every Working Mom Should Know</a></h2>
+                        <span class="author mb-3 d-block">Jenny Wilson</span>
+                    </div>
                 </div>
             </div>
 
-            <hr class="featurette-divider">
+        </div>
 
-            <div class="row featurette">
-                <div class="col-md-7 order-md-2">
-                    <h2 class="featurette-heading">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span></h2>
-                    <p class="lead">Another featurette? Of course. More placeholder content here to give you an idea of how this layout would work with some actual real-world content in place.</p>
+    </section><!-- /Culture Category Section -->
+
+    <!-- Business Category Section -->
+    <section id="business-category" class="business-category section">
+
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+            <div class="section-title-container d-flex align-items-center justify-content-between">
+                <h2>Business</h2>
+                <p><a href="categories.html">See All Business</a></p>
+            </div>
+        </div><!-- End Section Title -->
+
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="row">
+                <div class="col-md-9 order-md-2">
+
+                    <div class="d-lg-flex post-entry">
+                        <a href="blog-details.html" class="me-4 thumbnail d-inline-block mb-4 mb-lg-0">
+                            <img src="assets/img/post-landscape-3.jpg" alt="" class="img-fluid">
+                        </a>
+                        <div>
+                            <div class="post-meta"><span class="date">Business</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                            <h3><a href="blog-details.html">What is the son of Football Coach John Gruden, Deuce Gruden doing Now?</a></h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio placeat exercitationem magni voluptates dolore. Tenetur fugiat voluptates quas, nobis error deserunt aliquam temporibus sapiente, laudantium dolorum itaque libero eos deleniti?</p>
+                            <div class="d-flex align-items-center author">
+                                <div class="photo"><img src="assets/img/person-4.jpg" alt="" class="img-fluid"></div>
+                                <div class="name">
+                                    <h3 class="m-0 p-0">Wade Warren</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="post-list border-bottom">
+                                <a href="blog-details.html"><img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>
+                                <div class="post-meta"><span class="date">Business</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                                <h2 class="mb-2"><a href="blog-details.html">11 Work From Home Part-Time Jobs You Can Do Now</a></h2>
+                                <span class="author mb-3 d-block">Jenny Wilson</span>
+                                <p class="mb-4 d-block">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero temporibus repudiandae, inventore pariatur numquam cumque possimus</p>
+                            </div>
+
+                            <div class="post-list">
+                                <div class="post-meta"><span class="date">Business</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                                <h2 class="mb-2"><a href="blog-details.html">5 Great Startup Tips for Female Founders</a></h2>
+                                <span class="author mb-3 d-block">Jenny Wilson</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="post-list">
+                                <a href="blog-details.html"><img src="assets/img/post-landscape-7.jpg" alt="" class="img-fluid"></a>
+                                <div class="post-meta"><span class="date">Business</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                                <h2 class="mb-2"><a href="blog-details.html">How to Avoid Distraction and Stay Focused During Video Calls?</a></h2>
+                                <span class="author mb-3 d-block">Jenny Wilson</span>
+                                <p class="mb-4 d-block">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero temporibus repudiandae, inventore pariatur numquam cumque possimus</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-5 order-md-1">
-                    <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+                <div class="col-md-3">
+                    <div class="post-list border-bottom">
+                        <div class="post-meta"><span class="date">Business</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                        <h2 class="mb-2"><a href="blog-details.html">How to Avoid Distraction and Stay Focused During Video Calls?</a></h2>
+                        <span class="author mb-3 d-block">Jenny Wilson</span>
+                    </div>
 
+                    <div class="post-list border-bottom">
+                        <div class="post-meta"><span class="date">Business</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                        <h2 class="mb-2"><a href="blog-details.html">17 Pictures of Medium Length Hair in Layers That Will Inspire Your New Haircut</a></h2>
+                        <span class="author mb-3 d-block">Jenny Wilson</span>
+                    </div>
+
+                    <div class="post-list border-bottom">
+                        <div class="post-meta"><span class="date">Business</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                        <h2 class="mb-2"><a href="blog-details.html">9 Half-up/half-down Hairstyles for Long and Medium Hair</a></h2>
+                        <span class="author mb-3 d-block">Jenny Wilson</span>
+                    </div>
+
+                    <div class="post-list border-bottom">
+                        <div class="post-meta"><span class="date">Business</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                        <h2 class="mb-2"><a href="blog-details.html">Life Insurance And Pregnancy: A Working Mom’s Guide</a></h2>
+                        <span class="author mb-3 d-block">Jenny Wilson</span>
+                    </div>
+
+                    <div class="post-list border-bottom">
+                        <div class="post-meta"><span class="date">Business</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                        <h2 class="mb-2"><a href="blog-details.html">The Best Homemade Masks for Face (keep the Pimples Away)</a></h2>
+                        <span class="author mb-3 d-block">Jenny Wilson</span>
+                    </div>
+
+                    <div class="post-list border-bottom">
+                        <div class="post-meta"><span class="date">Business</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                        <h2 class="mb-2"><a href="blog-details.html">10 Life-Changing Hacks Every Working Mom Should Know</a></h2>
+                        <span class="author mb-3 d-block">Jenny Wilson</span>
+                    </div>
                 </div>
             </div>
 
-            <hr class="featurette-divider">
+        </div>
 
-            <div class="row featurette">
-                <div class="col-md-7">
-                    <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-                    <p class="lead">And yes, this is the last block of representative placeholder content. Again, not really intended to be actually read, simply here to give you a better view of what this would look like with some actual content. Your content.</p>
-                </div>
-                <div class="col-md-5">
-                    <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+    </section><!-- /Business Category Section -->
+
+    <!-- Lifestyle Category Section -->
+    <section id="lifestyle-category" class="lifestyle-category section">
+
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+            <div class="section-title-container d-flex align-items-center justify-content-between">
+                <h2>Lifestyle</h2>
+                <p><a href="categories.html">See All Lifestyle</a></p>
+            </div>
+        </div><!-- End Section Title -->
+
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <div class="post-list lg">
+                        <a href="blog-details.html"><img src="assets/img/post-landscape-8.jpg" alt="" class="img-fluid"></a>
+                        <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                        <h2><a href="blog-details.html">11 Work From Home Part-Time Jobs You Can Do Now</a></h2>
+                        <p class="mb-4 d-block">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero temporibus repudiandae, inventore pariatur numquam cumque possimus exercitationem? Nihil tempore odit ab minus eveniet praesentium, similique blanditiis molestiae ut saepe perspiciatis officia nemo, eos quae cumque. Accusamus fugiat architecto rerum animi atque eveniet, quo, praesentium dignissimos</p>
+
+                        <div class="d-flex align-items-center author">
+                            <div class="photo"><img src="assets/img/person-7.jpg" alt="" class="img-fluid"></div>
+                            <div class="name">
+                                <h3 class="m-0 p-0">Esther Howard</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="post-list border-bottom">
+                        <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                        <h2 class="mb-2"><a href="blog-details.html">The Best Homemade Masks for Face (keep the Pimples Away)</a></h2>
+                        <span class="author mb-3 d-block">Jenny Wilson</span>
+                    </div>
+
+                    <div class="post-list">
+                        <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                        <h2 class="mb-2"><a href="blog-details.html">10 Life-Changing Hacks Every Working Mom Should Know</a></h2>
+                        <span class="author mb-3 d-block">Jenny Wilson</span>
+                    </div>
 
                 </div>
+
+                <div class="col-lg-8">
+                    <div class="row g-5">
+                        <div class="col-lg-4 border-start custom-border">
+                            <div class="post-list">
+                                <a href="blog-details.html"><img src="assets/img/post-landscape-6.jpg" alt="" class="img-fluid"></a>
+                                <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                                <h2><a href="blog-details.html">Let’s Get Back to Work, New York</a></h2>
+                            </div>
+                            <div class="post-list">
+                                <a href="blog-details.html"><img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>
+                                <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">•</span> <span>Jul 17th '22</span></div>
+                                <h2><a href="blog-details.html">How to Avoid Distraction and Stay Focused During Video Calls?</a></h2>
+                            </div>
+                            <div class="post-list">
+                                <a href="blog-details.html"><img src="assets/img/post-landscape-4.jpg" alt="" class="img-fluid"></a>
+                                <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">•</span> <span>Mar 15th '22</span></div>
+                                <h2><a href="blog-details.html">Why Craigslist Tampa Is One of The Most Interesting Places On the Web?</a></h2>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 border-start custom-border">
+                            <div class="post-list">
+                                <a href="blog-details.html"><img src="assets/img/post-landscape-3.jpg" alt="" class="img-fluid"></a>
+                                <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                                <h2><a href="blog-details.html">6 Easy Steps To Create Your Own Cute Merch For Instagram</a></h2>
+                            </div>
+                            <div class="post-list">
+                                <a href="blog-details.html"><img src="assets/img/post-landscape-2.jpg" alt="" class="img-fluid"></a>
+                                <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">•</span> <span>Mar 1st '22</span></div>
+                                <h2><a href="blog-details.html">10 Life-Changing Hacks Every Working Mom Should Know</a></h2>
+                            </div>
+                            <div class="post-list">
+                                <a href="blog-details.html"><img src="assets/img/post-landscape-1.jpg" alt="" class="img-fluid"></a>
+                                <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                                <h2><a href="blog-details.html">5 Great Startup Tips for Female Founders</a></h2>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+
+                            <div class="post-list border-bottom">
+                                <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                                <h2 class="mb-2"><a href="blog-details.html">How to Avoid Distraction and Stay Focused During Video Calls?</a></h2>
+                                <span class="author mb-3 d-block">Jenny Wilson</span>
+                            </div>
+
+                            <div class="post-list border-bottom">
+                                <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                                <h2 class="mb-2"><a href="blog-details.html">17 Pictures of Medium Length Hair in Layers That Will Inspire Your New Haircut</a></h2>
+                                <span class="author mb-3 d-block">Jenny Wilson</span>
+                            </div>
+
+                            <div class="post-list border-bottom">
+                                <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                                <h2 class="mb-2"><a href="blog-details.html">9 Half-up/half-down Hairstyles for Long and Medium Hair</a></h2>
+                                <span class="author mb-3 d-block">Jenny Wilson</span>
+                            </div>
+
+                            <div class="post-list border-bottom">
+                                <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                                <h2 class="mb-2"><a href="blog-details.html">Life Insurance And Pregnancy: A Working Mom’s Guide</a></h2>
+                                <span class="author mb-3 d-block">Jenny Wilson</span>
+                            </div>
+
+                            <div class="post-list border-bottom">
+                                <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                                <h2 class="mb-2"><a href="blog-details.html">The Best Homemade Masks for Face (keep the Pimples Away)</a></h2>
+                                <span class="author mb-3 d-block">Jenny Wilson</span>
+                            </div>
+
+                            <div class="post-list border-bottom">
+                                <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                                <h2 class="mb-2"><a href="blog-details.html">10 Life-Changing Hacks Every Working Mom Should Know</a></h2>
+                                <span class="author mb-3 d-block">Jenny Wilson</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-            <hr class="featurette-divider">
+        </div>
 
-            <!-- /END THE FEATURETTES -->
-
-        </div><!-- /.container -->
-
-
-        <!-- FOOTER -->
-        <footer class="container">
-            <p class="float-end"><a href="#">Back to top</a></p>
-            <p>&copy; 2017–2021 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-        </footer>
-    </main>
+    </section><!-- /Lifestyle Category Section -->
 
 @endsection

@@ -43,7 +43,7 @@ class SiteController extends Controller
 
 
     public function index(){
-        return \view('front.layout000');
+//        return \view('front.layout001');
         return view('front.home')->with(['conf'=>$this->conf]);
     }
 

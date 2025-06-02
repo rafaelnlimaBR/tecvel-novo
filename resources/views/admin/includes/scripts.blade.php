@@ -7,7 +7,6 @@
 <script src="{{ URL::asset('/js/slidebars.min.js') }}"></script>
 <script src="{{ URL::asset('/plugins/colorpicker/jquery-asColor.js') }}"></script>
 <script src="{{ URL::asset('/plugins/summernote/summernote-bs4.js') }}"></script>
-<script src="{{ URL::asset('/plugins/webcam/webcam.js') }}"></script>
 <script src="{{ URL::asset('/plugins/jquery-multi-select/jquery.multi-select.js') }}"></script>
 <script src="{{ URL::asset('/plugins/jquery-multi-select/jquery.quicksearch.js') }}"></script>
 

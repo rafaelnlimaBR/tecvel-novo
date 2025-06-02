@@ -29,6 +29,14 @@
                         <li>
                             <a href="{{route('cliente.index')}}"><i class="fa fa-tachometer"></i> <span>Dashboard</span></a>
                         </li>
+
+
+                        <li>
+                            <a href="{{route('categoria.index')}}"><i class="fa fa-users"></i> <span>Categorias</span></a>
+                        </li>
+
+
+
                         @can('grupo-visualizar')
                             <li>
                                 <a href="{{route('grupo.index')}}"><i class="fa fa-users"></i> <span>Grupos</span></a>
