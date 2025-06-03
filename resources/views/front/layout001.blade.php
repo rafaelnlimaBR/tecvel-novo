@@ -22,6 +22,7 @@
     <link href="{{ URL::asset('front/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('front/vendor/aos/aos.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('front/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('/plugins/summernote/summernote-bs4.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Main CSS File -->
     <link href="{{ URL::asset('front/css/main.css') }}" rel="stylesheet">
@@ -197,10 +198,28 @@
 <script src="{{ URL::asset('front/vendor/php-email-form/validate.js') }}"></script>
 <script src="{{ URL::asset('front/vendor/aos/aos.js') }}"></script>
 <script src="{{ URL::asset('front/vendor/swiper/swiper-bundle.min.js') }}"></script>
+<script src="{{ URL::asset('/plugins/summernote/summernote-bs4.js') }}"></script>
 
 <!-- Main JS File -->
 <script src="{{ URL::asset('front/js/main.js') }}"></script>
 
+<script type="text/javascript">
+    $('.texto-notesummer').summernote({
+        height: 300,
+        minHeight: 200,
+        toolbar: [
+            // [groupName, [list of button]]
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']]
+        ]
+
+    });
+
+</script>
 </body>
 
 </html>

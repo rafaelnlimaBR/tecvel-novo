@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Front\SiteController;
 use App\Models\AppContato;
+use App\Models\Categoria;
 use App\Models\Cliente;
 use App\Models\Configuracao;
 use App\Models\Contato;
@@ -177,6 +178,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::post('/servico/cadastrar', [App\Http\Controllers\ServicoController::class, 'cadastrar'])->name('servico.cadastrar');
     Route::post('/servico/excluir', [App\Http\Controllers\ServicoController::class, 'excluir'])->name('servico.excluir');
 
+    //CATEGORIAS
     Route::get('/categorias', [App\Http\Controllers\CategoriaController::class, 'index'])->name('categoria.index');
     Route::get('/categoria/novo', [App\Http\Controllers\CategoriaController::class, 'novo'])->name('categoria.novo');
     Route::get('/categoria/editar/{categoria}', [App\Http\Controllers\CategoriaController::class, 'editar'])->name('categoria.editar');
@@ -184,6 +186,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::post('/categoria/cadastrar', [App\Http\Controllers\CategoriaController::class, 'cadastrar'])->name('categoria.cadastrar');
     Route::get('/categoria/excluir/{categoria}', [App\Http\Controllers\CategoriaController::class, 'excluir'])->name('categoria.excluir');
 
+    Route::get('/postagens', [App\Http\Controllers\PostagemController::class, 'index'])->name('postagem.index');
+    Route::get('/postagem/novo', [App\Http\Controllers\PostagemController::class, 'novo'])->name('postagem.novo');
+    Route::get('/postagem/editar/{postagem}', [App\Http\Controllers\PostagemController::class, 'editar'])->name('postagem.editar');
+    Route::post('/postagem/atualizar/{postagem}', [App\Http\Controllers\PostagemController::class, 'atualizar'])->name('postagem.atualizar');
+    Route::post('/postagem/cadastrar', [App\Http\Controllers\PostagemController::class, 'cadastrar'])->name('postagem.cadastrar');
+    Route::get('/postagem/excluir/{postagem}', [App\Http\Controllers\PostagemController::class, 'excluir'])->name('postagem.excluir');
 
 
 //PEÇAS AVULSAS
@@ -234,6 +242,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
         $view->with(['conf'=>$conf]);
     });
 
+    View::composer(['admin.postagens.formulario'],function($view){
+        $categorias     =   Categoria::all();
+
+
+        $view->with(['categorias'=>$categorias]);
+    });
+
     View::composer(['admin.entradas.formulario'],function($view){
         $conf       =   Configuracao::all()->last();
         $tipo       =   TipoPagamento::find(FormaPagamento::find($conf->forma_pagamento_preferido)->tipo_id);
@@ -247,7 +262,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 });
 
 Route::get('/teste',function () {
-    return Configuracao::all()->last();
+    $post   =   \App\Models\Postagem::find(1);
+
+    return $post->categorias()->find(1)?1:0;
 
 
 });

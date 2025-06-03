@@ -17,8 +17,11 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->boolean('ativo')->default(false);
             $table->string('titulo');
-            $table->string('descricao');
+            $table->text('descricao');
             $table->string('imagem');
+            $table->string('alt');
+            $table->text('tags');
+            $table->bigInteger('visitas')->default(0)->nullable();
             $table->foreignId('user_id')->constrained('users','id')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

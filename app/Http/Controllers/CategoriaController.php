@@ -33,6 +33,7 @@ class CategoriaController extends Controller
     public function cadastrar(Request $r)
     {
         try {
+
             $categoria          =   new Categoria();
 
 

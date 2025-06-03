@@ -34,10 +34,15 @@
                         <li>
                             <a href="{{route('categoria.index')}}"><i class="fa fa-users"></i> <span>Categorias</span></a>
                         </li>
+                        <li>
+                            <a href="{{route('postagem.index')}}"><i class="fa fa-users"></i> <span>Postagens</span></a>
+                        </li>
 
 
 
-                        @can('grupo-visualizar')
+
+
+                    @can('grupo-visualizar')
                             <li>
                                 <a href="{{route('grupo.index')}}"><i class="fa fa-users"></i> <span>Grupos</span></a>
                             </li>
