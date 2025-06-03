@@ -262,9 +262,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 });
 
 Route::get('/teste',function () {
-    $post   =   \App\Models\Postagem::find(1);
 
-    return $post->categorias()->find(1)?1:0;
+
+
 
 
 });
