@@ -186,6 +186,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::post('/categoria/cadastrar', [App\Http\Controllers\CategoriaController::class, 'cadastrar'])->name('categoria.cadastrar');
     Route::get('/categoria/excluir/{categoria}', [App\Http\Controllers\CategoriaController::class, 'excluir'])->name('categoria.excluir');
 
+    //POSTAGENS
     Route::get('/postagens', [App\Http\Controllers\PostagemController::class, 'index'])->name('postagem.index');
     Route::get('/postagem/novo', [App\Http\Controllers\PostagemController::class, 'novo'])->name('postagem.novo');
     Route::get('/postagem/editar/{postagem}', [App\Http\Controllers\PostagemController::class, 'editar'])->name('postagem.editar');
@@ -193,6 +194,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::post('/postagem/cadastrar', [App\Http\Controllers\PostagemController::class, 'cadastrar'])->name('postagem.cadastrar');
     Route::get('/postagem/excluir/{postagem}', [App\Http\Controllers\PostagemController::class, 'excluir'])->name('postagem.excluir');
 
+    //COMENTARIOS
+    Route::get('/postagem/{postagem}/comentario/editar/{comentario}', [App\Http\Controllers\ComentarioController::class, 'editar'])->name('comentario.editar');
+    Route::post('/comentario/responder/{comentario}', [App\Http\Controllers\ComentarioController::class, 'responder'])->name('comentario.responder');
+    Route::get('/postagem/{postagem}/comentario/excluir/{comentario}', [App\Http\Controllers\ComentarioController::class, 'excluir'])->name('comentario.excluir');
 
 //PEÇAS AVULSAS
     Route::get('/peca/json', [App\Http\Controllers\PecaAvulsaController::class, 'pecaJson'])->name('peca.json');

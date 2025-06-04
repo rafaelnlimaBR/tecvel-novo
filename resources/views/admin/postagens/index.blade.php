@@ -42,6 +42,7 @@
                                 <th scope="col">Titulo</th>
                                 <th style="width: 15%; " scope="col">Por</th>
                                 <th style="width: 8%; " scope="col">Visitas</th>
+                                <th style="width: 8%; " scope="col">Comentários</th>
                                 <th style="width: 7%; " scope="col">Status</th>
                                 <th style="width: 10%; min-width: 150px;"  scope="col">Criado </th>
                                 <th style="width: 7%; min-width: 150px;" scope="col">Ações</th>
@@ -57,6 +58,7 @@
                                     <td>{{substr($postagem->titulo,0,40)}}...</td>
                                     <td>{{$postagem->usuario->name}}</td>
                                     <td>{{$postagem->visitas}}</td>
+                                    <td>{{$postagem->comentarios()->count()}}</td>
                                     <td>{{$postagem->ativo==true?'Ativo':"Inativo"}}</td>
 
                                     <td>{{\Carbon\Carbon::parse($postagem->created_at)->format('d/m/Y')}}</td>
@@ -64,7 +66,7 @@
 
                                     <td>
                                         <button class="btn btn-sm btn-primary" style="padding-top: 0; padding-bottom: 0"><i class="fa   fa-sign-out"></i></button>
-                                        <a href="{{route('postagem.editar',['postagem'=>$postagem])}}" class="btn btn-sm btn-warning" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-pencil-square"></i></a>
+                                        <a href="{{route('postagem.editar',['postagem'=>$postagem,'pagina'=>'postagem'])}}" class="btn btn-sm btn-warning" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-pencil-square"></i></a>
                                         <a href="{{route('postagem.excluir',['postagem'=>$postagem])}}" class="btn btn-sm btn-danger" style="padding-top: 0; padding-bottom: 0" onclick="return confirm('Deseja excluir esse registro?')"><i class="fa  fa-trash-o"></i></a>
 
 

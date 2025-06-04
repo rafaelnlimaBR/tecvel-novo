@@ -16,6 +16,11 @@ class Postagem extends Model
         return $this->belongsTo(User::class,'user_id');
     }
 
+    public function comentarios()
+    {
+        return $this->belongsToMany(Comentario::class,'comentario_postagem','postagem_id','comentario_id');
+    }
+
     public function categorias()
     {
         return $this->belongsToMany(Categoria::class,'categoria_postagem','postagem_id','categoria_id');

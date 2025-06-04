@@ -11,10 +11,10 @@
         <div class="card-title tab-2">
             <ul class="nav nav-tabs nav-justified">
                 <li class="nav-item">
-                    <a class="nav-link" href="#dados" data-toggle="tab" aria-expanded="false"><i class="ti-user mr-2"></i>Postagem</a>
+                    <a class="nav-link {{request()->exists('pagina')?request()->get('pagina') == "postagem"?'active':'':''}}" href="#dados" data-toggle="tab" aria-expanded="false"><i class="ti-user mr-2"></i>Postagem</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#comentarios" data-toggle="tab" aria-expanded="false"><i class="ti-image mr-2"></i>Comentários</a>
+                    <a class="nav-link {{request()->exists('pagina')?request()->get('pagina') == "comentarios"?'active':'':''}}" href="#comentarios" data-toggle="tab" aria-expanded="false"><i class="ti-image mr-2"></i>Comentários</a>
                 </li>
             </ul>
             <div class="tab-content p-4 bg-white">
@@ -23,7 +23,7 @@
                     <h1>Syntra Admin Template</h1>
                     <h4 class="text-muted">Sociis natoque penatibus et magnis dis parturient montes.</h4>
                 </div>
-                <div class="tab-pane p-4" id="dados">
+                <div class="tab-pane p-4 {{request()->exists('pagina')?request()->get('pagina') == "postagem"?'active':'':''}}" id="dados">
 
 
                             <form action="{{ isset($postagem)? route('postagem.atualizar',['postagem'=>$postagem]):route('postagem.cadastrar') }}" method="POST" enctype="multipart/form-data">
@@ -136,9 +136,54 @@
 
 
                 </div>
-                <div class="tab-pane" id="comentarios">
+                @if(isset($postagem))
+                    <div class="tab-pane {{request()->exists('pagina')?request()->get('pagina') == "comentarios"?'active':'':''}}" id="comentarios">
+                        <div class="table-responsive-sm">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
 
-                </div>
+
+                                    <th scope="col">Titulo</th>
+                                    <th style="width: 25%; " scope="col">Por</th>
+
+
+                                    <th style="width: 10%; min-width: 150px;"  scope="col">Respostas </th>
+                                    <th style="width: 10%; min-width: 150px;"  scope="col">Criado </th>
+                                    <th style="width: 7%; min-width: 150px;" scope="col">Ações</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                @foreach ($postagem->comentarios as $comentario)
+                                    <tr>
+
+
+                                        <td>{{substr($comentario->descricao,0,60)}}...</td>
+                                        <td>{{$comentario->cliente!=null?$comentario->cliente->nome:"TECVEL"}}</td>
+                                        <td>{{$comentario->respostas()->count()}}</td>
+                                        <td>{{\Carbon\Carbon::parse($postagem->created_at)->format('d/m/Y H:i')}}</td>
+
+
+                                        <td>
+
+                                            <a href="{{route('comentario.editar',['postagem'=>$postagem,'comentario'=>$comentario])}}" class="btn btn-sm btn-warning" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-pencil-square"></i></a>
+                                            <a href="{{route('comentario.excluir',['postagem'=>$postagem,'comentario'=>$comentario])}}" class="btn btn-sm btn-danger" style="padding-top: 0; padding-bottom: 0" onclick="return confirm('Deseja excluir esse registro?')"><i class="fa  fa-trash-o"></i></a>
+
+
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    </div>
+                @endif
+
 
             </div>
         </div>

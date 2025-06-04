@@ -24,7 +24,7 @@ class Comentario extends Model
 
     public function cliente()
     {
-        $this->belongsTo(Cliente::class);
+        return $this->belongsTo(Cliente::class);
     }
 
     public function cadastrar(String $texto, Postagem $postagem = null,Cliente $cliente = null)
@@ -44,7 +44,7 @@ class Comentario extends Model
 
     public function resposta(Comentario $resposta)
     {
-        return $this->respostas()->sync($resposta);
+        return $this->respostas()->attach($resposta);
     }
 
 
