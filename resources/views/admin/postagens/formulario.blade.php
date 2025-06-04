@@ -13,9 +13,13 @@
                 <li class="nav-item">
                     <a class="nav-link {{request()->exists('pagina')?request()->get('pagina') == "postagem"?'active':'':''}}" href="#dados" data-toggle="tab" aria-expanded="false"><i class="ti-user mr-2"></i>Postagem</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{request()->exists('pagina')?request()->get('pagina') == "comentarios"?'active':'':''}}" href="#comentarios" data-toggle="tab" aria-expanded="false"><i class="ti-image mr-2"></i>Comentários</a>
-                </li>
+                @if(isset($postagem))
+                    <li class="nav-item">
+                        <a class="nav-link {{request()->exists('pagina')?request()->get('pagina') == "comentarios"?'active':'':''}}" href="#comentarios" data-toggle="tab" aria-expanded="false"><i class="ti-image mr-2"></i>Comentários</a>
+                    </li>
+
+                @endif
+
             </ul>
             <div class="tab-content p-4 bg-white">
                 <div class="tab-pane home-text p-4" id="home-6">

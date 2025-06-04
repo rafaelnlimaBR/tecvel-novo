@@ -61,7 +61,7 @@ class PostagemController extends Controller
 
             $ativo  =  $r->get('ativo') =="1"?1:0;
             if($postagem->cadastrar($r->get('titulo'),$r->get('texto'),$filename, $r->get('alt'),$ativo,auth()->user(),$r->get('categorias'),$r->get('tags'))){
-                return redirect()->route('postagem.editar',['postagem'=>$postagem])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Postagem cadastrado com sucesso."]);
+                return redirect()->route('postagem.editar',['postagem'=>$postagem,'pagina'=>'postagem'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Postagem cadastrado com sucesso."]);
             }
 
 
@@ -112,7 +112,7 @@ class PostagemController extends Controller
 
             $ativo  =  $r->get('ativo') =="1"?1:0;
             if($postagem->cadastrar($r->get('titulo'),$r->get('texto'),$filename, $r->get('alt'),$ativo,auth()->user(), $r->get('categorias'),$r->get('tags'))){
-                return redirect()->route('postagem.editar',['postagem'=>$postagem])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Postagem atualizado com sucesso."]);
+                return redirect()->route('postagem.editar',['postagem'=>$postagem,'pagina'=>'postagem'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Postagem atualizado com sucesso."]);
             }
 
 
