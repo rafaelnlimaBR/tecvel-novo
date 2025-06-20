@@ -574,7 +574,17 @@
                 }
             });
 
-
+                $('.titulo-campo').keyup(function (){
+                    var link  =   $(this).val();
+                    link        =   link.toLowerCase();
+                    link      =   link.replace(/\s+/g, '-');
+                    link        =   link.replace('ç','c',);
+                    link        =   link.replace('á','a',);
+                    link        =   link.replace('é','e',);
+                    link        =   link.replace('ã','a',);
+                    link        =   link.replace('ê','e',);
+                   $('.link-campo').val(link);
+                });
 
             $('.mult-select').multiSelect({
                     selectableHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='try \"12\"'>",

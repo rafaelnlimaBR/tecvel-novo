@@ -55,7 +55,7 @@
                                 <tr>
                                     <th scope="row">{{$postagem->id}}</th>
                                     <td> <img src="{{URL::asset('/images/postagens/'.$postagem->imagem)}}" alt="" height="30"></td>
-                                    <td>{{substr($postagem->titulo,0,40)}}...</td>
+                                    <td><a href="{{route('site.post',['post'=>$postagem->link])}}">{{substr($postagem->titulo,0,40)}}...</a></td>
                                     <td>{{$postagem->usuario->name}}</td>
                                     <td>{{$postagem->visitas}}</td>
                                     <td>{{$postagem->comentarios()->count()}}</td>

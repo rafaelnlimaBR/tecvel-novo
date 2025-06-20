@@ -10,11 +10,13 @@ use App\Models\Contato;
 use App\Models\Contrato;
 use App\Models\ImagensNota;
 use App\Models\Nota;
+use App\Models\Postagem;
 use App\Models\Status;
 use App\Models\Token;
 use App\Models\Veiculo;
 use App\Models\Whatsapp;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use \Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
@@ -36,11 +38,21 @@ class SiteController extends Controller
 
         $whatsapp       =   new Whatsapp();
         $whatsapp->enviarMensagem($mensagem,$telefone);
-
-
-
     }
 
+    public function postagem($postagem,Request $request)
+    {
+        try{
+
+            $postagem = Postagem::where('link',$postagem)->firstOrFail();
+            $postagem->adicionarVisita();
+            return \view('front.postagem')->with(['postagem'=>$postagem]);
+        }catch (ModelNotFoundException $th){
+            return \view('front.error.pagina-nao-encontrada');
+        }
+//
+
+    }
 
     public function index(){
 //        return \view('front.layout001');

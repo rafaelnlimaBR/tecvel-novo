@@ -29,7 +29,7 @@ class Postagem extends Model
         return $query->where('titulo','like','%'.$titulo.'%');
     }
 
-    public function cadastrar(String $titulo,String $texto, $imagem, String $alt, $ativo, User $usuario, $categorias,String $tags)
+    public function cadastrar(String $titulo,String $texto, $imagem, String $alt, $ativo, User $usuario, $categorias,String $tags,String $link)
     {
         $this->titulo     =   $titulo;
         $this->descricao     =   $texto;
@@ -38,6 +38,7 @@ class Postagem extends Model
         $this->ativo     =   $ativo;
         $this->user_id  =   $usuario->id;
         $this->tags     =   $tags;
+        $this->link     =   $link;
 
         $this->save();
         $this->categorias()->sync($categorias);
@@ -49,5 +50,11 @@ class Postagem extends Model
     public function excluir()
     {
         return $this->delete();
+    }
+
+    public function adicionarVisita()
+    {
+        $this->visitas   =   $this->visitas + 1;
+        $this->save();
     }
 }

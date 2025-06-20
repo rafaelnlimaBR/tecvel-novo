@@ -42,7 +42,8 @@ class PostagemController extends Controller
                 'imagem' => 'required|image|mimes:jpeg,png,jpg|max:2048',
                 'alt'   =>  'required',
                 'categorias'=> 'required',
-                'tags'  =>  'required'
+                'tags'  =>  'required',
+                'link'  =>  'required'
             ]);
             if($validacao->fails()){
                 return redirect()->back()->withErrors($validacao)->withInput();
@@ -60,7 +61,7 @@ class PostagemController extends Controller
             $resize->save(public_path('/images/postagens/').$filename);
 
             $ativo  =  $r->get('ativo') =="1"?1:0;
-            if($postagem->cadastrar($r->get('titulo'),$r->get('texto'),$filename, $r->get('alt'),$ativo,auth()->user(),$r->get('categorias'),$r->get('tags'))){
+            if($postagem->cadastrar($r->get('titulo'),$r->get('texto'),$filename, $r->get('alt'),$ativo,auth()->user(),$r->get('categorias'),$r->get('tags'),$r->get('link'))){
                 return redirect()->route('postagem.editar',['postagem'=>$postagem,'pagina'=>'postagem'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Postagem cadastrado com sucesso."]);
             }
 
@@ -111,7 +112,7 @@ class PostagemController extends Controller
             }
 
             $ativo  =  $r->get('ativo') =="1"?1:0;
-            if($postagem->cadastrar($r->get('titulo'),$r->get('texto'),$filename, $r->get('alt'),$ativo,auth()->user(), $r->get('categorias'),$r->get('tags'))){
+            if($postagem->cadastrar($r->get('titulo'),$r->get('texto'),$filename, $r->get('alt'),$ativo,auth()->user(), $r->get('categorias'),$r->get('tags'),$r->get('link'))){
                 return redirect()->route('postagem.editar',['postagem'=>$postagem,'pagina'=>'postagem'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Postagem atualizado com sucesso."]);
             }
 

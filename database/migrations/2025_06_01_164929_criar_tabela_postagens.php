@@ -17,6 +17,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->boolean('ativo')->default(false);
             $table->string('titulo');
+            $table->string('link');
             $table->text('descricao');
             $table->string('imagem');
             $table->string('alt');
@@ -34,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('postagens');
     }
 };

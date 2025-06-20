@@ -57,15 +57,22 @@
                                     </div>
                                     <div class="form-group col-md-10">
                                         <label for="titulo">Titulo</label>
-                                        <input type="text"  class="form-control {{$errors->has('titulo')?'parsley-error':''}}" id="titulo" placeholder="titulo" name="titulo" value="{{old('titulo',isset($postagem)?$postagem->titulo:"")}}">
+                                        <input type="text"  class="form-control {{$errors->has('titulo')?'parsley-error':''}} titulo-campo" id="titulo" placeholder="titulo" name="titulo" value="{{old('titulo',isset($postagem)?$postagem->titulo:"")}}">
                                         @error('titulo')
                                         <ul class="parsley-errors-list filled"><li class="parsley-required">{{$message}}</li></ul>
                                         @enderror
                                     </div>
-
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="titulo">Link</label>
+                                        <input type="text"  class="form-control {{$errors->has('link')?'parsley-error':''}} link-campo" id="link" placeholder="link" name="link" value="{{old('link',isset($postagem)?$postagem->link:"")}}">
+                                        @error('link')
+                                        <ul class="parsley-errors-list filled"><li class="parsley-required">{{$message}}</li></ul>
+                                        @enderror
+                                    </div>
 
                                 </div>
-
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="alt">Alt </label>
