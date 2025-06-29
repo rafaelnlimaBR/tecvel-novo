@@ -3,14 +3,14 @@
 <div class="form-row">
     <div class="form-group col-md-6">
         <label for="nome">Nome</label>
-        <input type="text" class="form-control caixa-alta {{$errors->has('nome')?'parsley-error':''}}" id="Nome" placeholder="Nome" name="nome" value="{{old('nome',isset($cliente)?$cliente->nome:'')}}">
+        <input type="text" class="form-control caixa-alta {{$errors->has('nome')?'parsley-error':''}}" id="Nome" placeholder="Nome" name="nome" value="{{isset($nome)?$nome:old('nome',isset($cliente)?$cliente->nome:'')}}">
         @error('nome')
         <ul class="parsley-errors-list filled"><li class="parsley-required">{{$message}}</li></ul>
         @enderror
     </div>
     <div class="form-group col-md-6">
         <label for="email">Email</label>
-        <input type="Email" class="form-control caixa-baixa {{$errors->has('email')?'parsley-error':''}}" id="Email" placeholder="Email" name="email" value="{{old('email',isset($cliente)?$cliente->email:'')}}">
+        <input type="Email" class="form-control caixa-baixa {{$errors->has('email')?'parsley-error':''}}" id="Email" placeholder="Email" name="email" value="{{isset($email)?$email:old('email',isset($cliente)?$cliente->email:'')}}">
         @error('email')
         <ul class="parsley-errors-list filled"><li class="parsley-required">{{$message}}</li></ul>
         @enderror
@@ -20,7 +20,7 @@
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="Telefone">Numero</label>
-            <input type="text"  class="form-control {{$errors->has('contato')?'parsley-error':''}}"  placeholder="Numero" name="contato" value="{{old('contato')}}">
+            <input type="text"  class="form-control {{$errors->has('contato')?'parsley-error':''}}"  placeholder="Numero" name="contato" value="{{isset($contato)?$contato:old('contato')}}">
             @error('contato')
             <ul class="parsley-errors-list filled"><li class="parsley-required">{{$message}}</li></ul>
             @enderror

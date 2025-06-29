@@ -142,6 +142,11 @@ h6 {
 /*--------------------------------------------------------------
 # Global Header
 --------------------------------------------------------------*/
+
+
+.input-error{
+    border:1px solid red;
+}
 .header {
   --background-color: #f2f2f2;
   color: var(--default-color);

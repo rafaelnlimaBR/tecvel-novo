@@ -4,11 +4,13 @@ use App\Http\Controllers\Front\SiteController;
 use App\Models\AppContato;
 use App\Models\Categoria;
 use App\Models\Cliente;
+use App\Models\Comentario;
 use App\Models\Configuracao;
 use App\Models\Contato;
 use App\Models\Contrato;
 use App\Models\FormaPagamento;
 use App\Models\Modelo;
+use App\Models\Postagem;
 use App\Models\Servico;
 use App\Models\TipoPagamento;
 use \App\Models\Veiculo;
@@ -269,6 +271,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 Route::get('/teste',function () {
 
 
+    $zap    =   new Whatsapp();
+    return $zap->enviarMensagem("teste",'85986607785','55');
+
+
+
 
 
 
@@ -324,7 +331,7 @@ Route::get('/login', [App\Http\Controllers\LoginController::class, 'index'])->na
 Route::post('/logar', [App\Http\Controllers\LoginController::class, 'logar'])->name('logar');
 Route::post('/cadastrar-pedido-orcamento', [App\Http\Controllers\Front\SiteController::class, 'cadastrarPedidoOrcamento'])->name('site.cadastrar.orcamento');
 Route::get('/sair', [App\Http\Controllers\LoginController::class, 'logout'])->name('site.sair');
-
+Route::post('/comentar', [App\Http\Controllers\Front\SiteController::class, 'cadastrarComentarioPost'])->name('site.post.comentar');
 
 
 

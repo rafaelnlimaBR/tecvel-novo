@@ -47,7 +47,7 @@ class Cliente extends Model
         return $this->belongsToMany(Contato::class)->withPivot('responsavel')->withTimestamps();
     }
 
-    public function gravar($nome, $email, $cep, $endereco, $numero, $bairro, $cidade, $estado)
+    public function gravar($nome, $email, $cep = "", $endereco = "", $numero ="", $bairro ="", $cidade = "", $estado = "")
     {
         $this->nome             = $nome;
         $this->email             = $email;

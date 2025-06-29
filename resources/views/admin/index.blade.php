@@ -690,19 +690,6 @@
                 dateFormat: "dd/mm/yy"
             });
 
-            Webcam.set({
-                constraints:{
-                    facingMode:"environment"
-                },
-                width: 490,
-
-                height: 390,
-
-                image_format: 'jpeg',
-
-                jpeg_quality: 90
-
-            });
 
 
 
@@ -1169,7 +1156,10 @@
                 return false;
             });
 
+            console.log('deu');
             $("#cadastrarClienteModal").submit(function () {
+
+
 
                 var dados   = $(this).serialize();
 

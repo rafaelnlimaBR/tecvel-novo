@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\Controller;
 use App\Models\Cliente;
+use App\Models\Comentario;
 use App\Models\Configuracao;
 use App\Models\Contato;
 use App\Models\Contrato;
@@ -16,10 +17,12 @@ use App\Models\Token;
 use App\Models\Veiculo;
 use App\Models\Whatsapp;
 use Carbon\Carbon;
+use FontLib\Table\Type\post;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use \Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Intervention\Image\Laravel\Facades\Image;
@@ -209,6 +212,56 @@ class SiteController extends Controller
             }
         }
 
+    }
+
+    public function cadastrarComentarioPost(Request $r)
+    {
+
+
+        try {
+            $validacao      =   Validator::make($r->all(),[
+                'nome' => ['required', 'min:3', 'max:255'],
+                'email' => ['required', 'email'],
+                'whatsapp'  => ['required'],
+                'comentario' => ['required', 'min:1'],
+            ]);
+            $post           =   Postagem::find($r->input('id_post'));
+            $formView       =   \view('front.includes.formulario-comentario',['postagem'=>$post]);
+            $whatsapp       =   $r->get('whatsapp');
+            $whatsapp       =   str_replace(['(',')','-',' '],'',$whatsapp);
+
+            $comentariosView =   \view('front.includes.todos-comentarios');
+            if($validacao->fails()){
+                $formView = $formView->withErrors($validacao)->with($r->all())->render();
+                return response()->json(['formulario'=>$formView]);
+            }
+
+            $cliente        =   Cliente::where('email',$r->input('email'))->first();
+            if($cliente == null){
+                $cliente        =   new Cliente();
+                $cliente    =   $cliente->gravar($r->get('nome'),$r->input('email'));
+            }
+
+            $contato       =   Contato::cadastrar($whatsapp,$this->conf->whatsapp_id);
+            $cliente->contatos()->attach($contato);
+            $comentario     =   new Comentario();
+            $comentario     =    $comentario->cadastrar($r->get('comentario'),$post,$cliente);
+
+            $formView = $formView->with('success','cadastrado com sucesso')->render();
+            $comentariosView =   $comentariosView->with('postagem',$post)->render();
+
+
+            Mail::to($this->conf->email,$this->conf->nome_principal)->send(new \App\Mail\NovoComentarioPostagem($comentario));
+
+            return response()->json([
+                'formulario'=>$formView,
+                'comentarios'=>$comentariosView,
+
+            ]);
+
+        }catch (\Exception $e){
+            return response()->json(['error'=>$e->getMessage()]);
+        }
     }
 
 

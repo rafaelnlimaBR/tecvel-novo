@@ -194,17 +194,23 @@
 <div id="preloader"></div>
 
 <!-- Vendor JS Files -->
+<script src="{{ URL::asset('/js/jquery-3.2.1.min.js') }}"></script>
+<script src="{{ URL::asset('/js/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ URL::asset('front/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ URL::asset('front/vendor/php-email-form/validate.js') }}"></script>
 <script src="{{ URL::asset('front/vendor/aos/aos.js') }}"></script>
-<script src="{{ URL::asset('front/vendor/swiper/swiper-bundle.min.js') }}"></script>
 <script src="{{ URL::asset('/plugins/summernote/summernote-bs4.js') }}"></script>
+<script src="{{ URL::asset('front/vendor/swiper/swiper-bundle.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
 
 <!-- Main JS File -->
 <script src="{{ URL::asset('front/js/main.js') }}"></script>
 
 <script type="text/javascript">
-    $('.texto-notesummer').summernote({
+    $(document).ready(function(){
+
+        $('.texto-notesummer').summernote({
         height: 300,
         minHeight: 200,
         toolbar: [
@@ -218,6 +224,55 @@
         ]
 
     });
+
+        $('.phone').mask('(00) 0000-00009');
+        $('.phone').blur(function(event) {
+            if($(this).val().length == 15){ // Celular com 9 dígitos + 2 dígitos DDD e 4 da máscara
+                $('#fone').mask('(00) 00000-0009');
+            } else {
+                $('#fone').mask('(00) 0000-00009');
+            }
+        });
+
+        $(".atualizar-formulario").on('submit','#formulario-comentario',function () {
+        // $("#formulario-comentario").submit(function () {
+
+            var dados   = $(this).serialize();
+
+            var rota    =   "{{route('site.post.comentar')}}";
+
+            $.ajax({
+                type: "POST",
+                url: rota,
+                data: dados,
+                success: function( data )
+                {
+                    console.log(data);
+                    if('error' in data){
+                        alert(data.error);
+
+                    }else{
+
+
+
+                        $(".atualizar-formulario").html(data.formulario);
+                        $(".todos-comentarios").html(data.comentarios);
+
+
+
+                        return false
+                    }
+                },
+                error:function (data,e) {
+                    alert(e);
+                }
+            });
+
+            return false;
+        });
+
+    })
+
 
 </script>
 </body>
