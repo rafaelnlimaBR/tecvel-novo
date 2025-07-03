@@ -328,6 +328,9 @@ Route::get('/postagem/{post}',[SiteController::class,'postagem'])->name('site.po
 Route::get('/link-orcamento/{numero}', [App\Http\Controllers\Front\SiteController::class, 'enviarLinkOrcamento'])->name('site.enviar.link.orcamento');
 Route::get('/fazer-orcamento', [App\Http\Controllers\Front\SiteController::class, 'orcamento'])->name('site.orcamento');
 Route::get('/login', [App\Http\Controllers\LoginController::class, 'index'])->name('site.login');
+Route::get('/sobre', [App\Http\Controllers\Front\SiteController::class, 'sobre'])->name('site.sobre');
+Route::get('/home', [App\Http\Controllers\Front\SiteController::class, 'home'])->name('site.home');
+Route::get('/contato', [App\Http\Controllers\Front\SiteController::class, 'contato'])->name('site.contato');
 Route::post('/logar', [App\Http\Controllers\LoginController::class, 'logar'])->name('logar');
 Route::post('/cadastrar-pedido-orcamento', [App\Http\Controllers\Front\SiteController::class, 'cadastrarPedidoOrcamento'])->name('site.cadastrar.orcamento');
 Route::get('/sair', [App\Http\Controllers\LoginController::class, 'logout'])->name('site.sair');

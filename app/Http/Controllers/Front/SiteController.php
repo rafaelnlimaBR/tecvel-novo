@@ -36,6 +36,20 @@ class SiteController extends Controller
         $this->conf     =   Configuracao::find(1);
     }
 
+    public function sobre()
+    {
+        return \view('front.sobre');
+    }
+
+    public function home()
+    {
+        return \view('front.home');
+    }
+
+    public function contato()
+    {
+        return \view('front.contato');
+    }
     public function teste($telefone,$mensagem){
 
 
@@ -62,9 +76,6 @@ class SiteController extends Controller
         return view('front.home')->with(['conf'=>$this->conf]);
     }
 
-    public function home(){
-
-    }
 
     public function orcamento()
     {
