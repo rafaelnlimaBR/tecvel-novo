@@ -1,7 +1,7 @@
 @extends('front.layout001')
 @section('conteudo')
 
-    <main class="main">
+
 
         <!-- Page Title -->
         <div class="page-title">
@@ -141,6 +141,6 @@
 
         </section><!-- /Team Section -->
 
-    </main>
+
 
 @endsection

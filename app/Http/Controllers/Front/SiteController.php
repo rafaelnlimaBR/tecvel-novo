@@ -48,7 +48,16 @@ class SiteController extends Controller
 
     public function contato()
     {
-        return \view('front.contato');
+        $dados  =  [
+          'endereco' =>  $this->conf->endereco,
+            'bairro'   =>  $this->conf->bairro,
+            'cidade'   =>  $this->conf->cidade,
+            'estado'    =>  $this->conf->uf,
+            'cep'    =>  $this->conf->cep,
+          'telefone'    => $this->conf->whatsapp,
+            'email'    =>  $this->conf->email,
+        ];
+        return \view('front.contato')->with($dados);
     }
     public function teste($telefone,$mensagem){
 
