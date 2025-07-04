@@ -28,7 +28,7 @@
                             <i class="bi bi-geo-alt flex-shrink-0"></i>
                             <div>
                                 <h3>Endereço</h3>
-                                <p>{{$endereco}} - {{$bairro}} - {{$cidade}} - CEP: {{$cep}}</p>
+                                <p>{{$endereco}} - {{$bairro}} - {{$cidade}} - CEP: {{$cep}} </p>
                             </div>
                         </div><!-- End Info Item -->
 
