@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\Controller;
+use App\Models\Carousel;
+use App\Models\Categoria;
 use App\Models\Cliente;
 use App\Models\Comentario;
 use App\Models\Configuracao;
 use App\Models\Contato;
 use App\Models\Contrato;
 use App\Models\ImagensNota;
+use App\Models\Montadora;
 use App\Models\Nota;
 use App\Models\Postagem;
 use App\Models\Status;
@@ -36,6 +39,13 @@ class SiteController extends Controller
         $this->conf     =   Configuracao::find(1);
     }
 
+
+    public function modelos($id)
+    {
+        $montadora      =   Montadora::find($id);
+        $modelos        =   $montadora->modelos;
+        return response()->json($modelos->map->only(['id','nome']));
+    }
     public function sobre()
     {
         return \view('front.sobre');
@@ -43,7 +53,14 @@ class SiteController extends Controller
 
     public function home()
     {
-        return \view('front.home');
+
+
+        $dados  =   [
+            'banners'       =>  Carousel::where('ativo',true)->orderBy('sequencia','asc')->get(),
+            'categorias'    =>  Categoria::all(),
+            'instragem'      => $this->conf->instragem,
+        ];
+        return \view('front.home',$dados);
     }
 
     public function contato()
@@ -56,6 +73,7 @@ class SiteController extends Controller
             'cep'    =>  $this->conf->cep,
           'telefone'    => $this->conf->whatsapp,
             'email'    =>  $this->conf->email,
+            'instragem'      => $this->conf->instragem,
         ];
         return \view('front.contato')->with($dados);
     }
@@ -70,6 +88,9 @@ class SiteController extends Controller
     {
         try{
 
+            $dados  =   [
+                'instragem'      => $this->conf->instragem,
+            ];
             $postagem = Postagem::where('link',$postagem)->firstOrFail();
             $postagem->adicionarVisita();
             return \view('front.postagem')->with(['postagem'=>$postagem]);
@@ -78,11 +99,6 @@ class SiteController extends Controller
         }
 //
 
-    }
-
-    public function index(){
-//        return \view('front.layout001');
-        return view('front.home')->with(['conf'=>$this->conf]);
     }
 
 

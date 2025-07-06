@@ -3,6 +3,7 @@
 /public/hot
 /public/images/notas
 /public/images/postagens
+/public/images/banners
 /public/images/users
 /public/storage
 /storage/*.key

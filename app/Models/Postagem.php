@@ -11,6 +11,9 @@ class Postagem extends Model
     protected $table = 'postagens';
     protected $primaryKey = 'id';
 
+
+
+
     public function usuario()
     {
         return $this->belongsTo(User::class,'user_id');

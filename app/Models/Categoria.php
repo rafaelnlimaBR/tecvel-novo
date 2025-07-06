@@ -17,6 +17,36 @@ class Categoria extends Model
     }
 
 
+    public function postagensMaisVistas()
+    {
+        return $this->belongsToMany(Postagem::class, 'categoria_postagem', 'categoria_id', 'postagem_id')->where('ativo','1')->orderBy('visitas','desc');
+    }
+
+    public function postagensMenosVistas()
+    {
+        return $this->belongsToMany(Postagem::class, 'categoria_postagem', 'categoria_id', 'postagem_id')->where('ativo','1')->orderBy('visitas','asc');
+    }
+
+    public function postagensMaisRecentes()
+    {
+        return $this->belongsToMany(Postagem::class, 'categoria_postagem', 'categoria_id', 'postagem_id')->where('ativo','1')->orderBy('updated_at','desc');
+    }
+
+    public function postagensMenosRecentes()
+    {
+        return $this->belongsToMany(Postagem::class, 'categoria_postagem', 'categoria_id', 'postagem_id')->where('ativo','1')->orderBy('updated_at','asc');
+    }
+
+    public function postagensAtivas(){
+        return $this->belongsToMany(Postagem::class, 'categoria_postagem', 'categoria_id', 'postagem_id')->where('ativo','1');
+    }
+
+    public function postagens()
+    {
+        return $this->belongsToMany(Postagem::class,'categoria_postagem','categoria_id','postagem_id');
+    }
+
+
     public function cadastrar(String $nome)
     {
         $this->nome     =   $nome;

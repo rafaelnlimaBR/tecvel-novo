@@ -218,7 +218,7 @@
 
     <div class="footer">
         <div class="container">
-
+            <a style="background-color: #28272a; color: #e0dbeb" class="btn btn-primary btn-lg" href="{{route('site.home')}}">Voltar para o site principal</a>
         </div>
     </div>
 
@@ -256,7 +256,7 @@
         function atualizarModelos (idMontadora){
             var id  =   idMontadora;
             $('#modelos-veiculos').val('');
-            var rota    =   "{{route('montadora.modelos',['id'=>':id'])}}";
+            var rota    =   "{{route('site.modelos.montadora',['id'=>':id'])}}";
             rota        =   rota.replace(':id',id);
             var lista   =   "";
 
@@ -265,6 +265,7 @@
                 url: rota,
                 success: function( data )
                 {
+                    console.log(data);
                     $('#modelos-veiculos').empty();
                     for(var i=0; i<data.length;i++){
                         $("#modelos-veiculos").append("<option value='" +

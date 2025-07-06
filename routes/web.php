@@ -133,6 +133,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::post('/montadora/cadastrar', [App\Http\Controllers\MontadoraController::class, 'cadastrar'])->name('montadora.cadastrar');
     Route::post('/montadora/excluir', [App\Http\Controllers\MontadoraController::class, 'excluir'])->name('montadora.excluir');
 
+//CAROUSEL
+    Route::get('/banners', [App\Http\Controllers\CarouselController::class, 'index'])->name('banner.index');
+    Route::get('/banner/novo', [App\Http\Controllers\CarouselController::class, 'novo'])->name('banner.novo');
+    Route::get('/banner/editar/{carousel}', [App\Http\Controllers\CarouselController::class, 'editar'])->name('banner.editar');
+    Route::post('/banner/cadastrar', [App\Http\Controllers\CarouselController::class, 'cadastrar'])->name('banner.cadastrar');
+    Route::post('/banner/cadastrar/{carousel}', [App\Http\Controllers\CarouselController::class, 'atualizar'])->name('banner.atualizar');
+    Route::get('/banner/excluir/{carousel}', [App\Http\Controllers\CarouselController::class, 'excluir'])->name('banner.excluir');
+
+
+
 //GRUPOS DE USUÁRIOS
     Route::get('/grupos', [App\Http\Controllers\GrupoController::class, 'index'])->name('grupo.index');
     Route::get('/grupo/novo', [App\Http\Controllers\GrupoController::class, 'novo'])->name('grupo.novo');
@@ -271,9 +281,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 Route::get('/teste',function () {
 
 
-    $zap    =   new Whatsapp();
-    return $zap->enviarMensagem("teste",'85986607785','55');
+    $categoria     =   Categoria::find(1);
 
+    return $categoria->postagens;
 
 
 
@@ -323,7 +333,8 @@ Route::get('/pdf',function (){
 //    Pdf::loadView('admin.contratos.includes.invoicePDF',['contrato'=>Contrato::find(1),'conf'=>$this->conf,'titulo'=>'Garantia'])->save($caminho);
 
 });
-Route::get('/',[SiteController::class,'index','index'])->name('site.index');
+
+Route::get('/',[SiteController::class,'home'])->name('site.index');
 Route::get('/postagem/{post}',[SiteController::class,'postagem'])->name('site.post');
 Route::get('/link-orcamento/{numero}', [App\Http\Controllers\Front\SiteController::class, 'enviarLinkOrcamento'])->name('site.enviar.link.orcamento');
 Route::get('/fazer-orcamento', [App\Http\Controllers\Front\SiteController::class, 'orcamento'])->name('site.orcamento');
@@ -335,6 +346,8 @@ Route::post('/logar', [App\Http\Controllers\LoginController::class, 'logar'])->n
 Route::post('/cadastrar-pedido-orcamento', [App\Http\Controllers\Front\SiteController::class, 'cadastrarPedidoOrcamento'])->name('site.cadastrar.orcamento');
 Route::get('/sair', [App\Http\Controllers\LoginController::class, 'logout'])->name('site.sair');
 Route::post('/comentar', [App\Http\Controllers\Front\SiteController::class, 'cadastrarComentarioPost'])->name('site.post.comentar');
+Route::get('/contato/{id}', [App\Http\Controllers\Front\SiteController::class, 'modelos'])->name('site.modelos.montadora');
+
 
 
 
