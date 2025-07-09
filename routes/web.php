@@ -336,6 +336,7 @@ Route::get('/pdf',function (){
 
 Route::get('/',[SiteController::class,'home'])->name('site.index');
 Route::get('/postagem/{post}',[SiteController::class,'postagem'])->name('site.post');
+Route::get('/categoria/{categoria_id}',[SiteController::class,'categoria'])->name('site.categoria');
 Route::get('/link-orcamento/{numero}', [App\Http\Controllers\Front\SiteController::class, 'enviarLinkOrcamento'])->name('site.enviar.link.orcamento');
 Route::get('/fazer-orcamento', [App\Http\Controllers\Front\SiteController::class, 'orcamento'])->name('site.orcamento');
 Route::get('/login', [App\Http\Controllers\LoginController::class, 'index'])->name('site.login');

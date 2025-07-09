@@ -64,7 +64,7 @@
                 <div class="container section-title" data-aos="fade-up">
                     <div class="section-title-container d-flex align-items-center justify-content-between">
                         <h2>{{$categoria->nome}}</h2>
-{{--                        <p><a href="categories.html">See All Lifestyle</a></p>--}}
+                     <p><a href="{{route('site.categoria',['categoria_id'=>$categoria->id])}}">Veja todas as postagens dessa categoria</a></p>
                     </div>
                 </div><!-- End Section Title -->
 
@@ -74,7 +74,7 @@
                         <div class="col-lg-4">
                             <h5>O mais visto dessa categoria</h5>
                             <div class="post-list lg">
-                                <a href="{{$categoria->postagensMaisVistas->first()->link}}"><img src="{{URL::asset('images/postagens/'.$categoria->postagensMaisVistas->first()->imagem)}}" alt="" class="img-fluid"></a>
+                                <a href="{{route('site.post',['post'=>$categoria->postagensMaisVistas->first()->link])}}"><img src="{{URL::asset('images/postagens/'.$categoria->postagensMaisVistas->first()->imagem)}}" alt="" class="img-fluid"></a>
                                 <div class="post-meta"><span class="date">{{$categoria->nome}}</span> <span class="mx-1">•</span> <span>{{\Carbon\Carbon::parse($categoria->postagensMaisVistas->first()->updated_at)->format('d/m/Y H:i')}}</span></div>
                                 <h2><a href="{{$categoria->postagensMaisVistas->first()->link}}">{{$categoria->postagensMaisVistas->first()->titulo}}</a></h2>
                                 <span class="mb-4 d-block">{{mb_strimwidth( strip_tags( $categoria->postagensMaisVistas->first()->descricao),0,300,"...")}}</span>

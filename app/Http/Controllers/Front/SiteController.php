@@ -29,16 +29,47 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Intervention\Image\Laravel\Facades\Image;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SiteController extends Controller
 {
     private $conf;
+    private $dados;
 
     public function __construct()
     {
         $this->conf     =   Configuracao::find(1);
+        $this->dados    =   [
+            'nome_principal'    =>  $this->conf->nome_principal,
+            'endereco' =>  $this->conf->endereco,
+            'bairro'   =>  $this->conf->bairro,
+            'cidade'   =>  $this->conf->cidade,
+            'estado'    =>  $this->conf->uf,
+            'cep'    =>  $this->conf->cep,
+            'telefone'    => $this->conf->whatsapp,
+            'email'    =>  $this->conf->email,
+            'instagram'      => $this->conf->instagran,
+            'categorias_menu'   => Categoria::all()
+
+        ];
     }
 
+    public function categoria( $categoria_id)
+    {
+        try {
+            $categoria  =   Categoria::where('id',$categoria_id)->firstOrFail();
+            $this->dados    +=  [
+                'postagens'     => $categoria->postagens()->paginate(3),
+                'titulo'        => $categoria->nome
+            ];
+
+            return \view('front.categoria',$this->dados);
+        }catch (ModelNotFoundException   $e){
+
+            return \view('front.error.pagina-nao-encontrada',$this->dados);
+        }
+
+    }
 
     public function modelos($id)
     {
@@ -48,34 +79,25 @@ class SiteController extends Controller
     }
     public function sobre()
     {
-        return \view('front.sobre');
+        return \view('front.sobre',$this->dados);
     }
 
     public function home()
     {
 
-
-        $dados  =   [
-            'banners'       =>  Carousel::where('ativo',true)->orderBy('sequencia','asc')->get(),
-            'categorias'    =>  Categoria::all(),
-            'instragem'      => $this->conf->instragem,
+        $this->dados    +=   [
+            'banners'       =>  Carousel::where('ativo',true)->orderBy('sequencia','desc')->get(),
+            'categorias'    =>  Categoria::all()
         ];
-        return \view('front.home',$dados);
+
+
+        return \view('front.home',$this->dados);
     }
 
     public function contato()
     {
-        $dados  =  [
-          'endereco' =>  $this->conf->endereco,
-            'bairro'   =>  $this->conf->bairro,
-            'cidade'   =>  $this->conf->cidade,
-            'estado'    =>  $this->conf->uf,
-            'cep'    =>  $this->conf->cep,
-          'telefone'    => $this->conf->whatsapp,
-            'email'    =>  $this->conf->email,
-            'instragem'      => $this->conf->instragem,
-        ];
-        return \view('front.contato')->with($dados);
+
+        return \view('front.contato')->with($this->dados);
     }
     public function teste($telefone,$mensagem){
 
@@ -84,18 +106,20 @@ class SiteController extends Controller
         $whatsapp->enviarMensagem($mensagem,$telefone);
     }
 
-    public function postagem($postagem,Request $request)
+    public function postagem($post,Request $request)
     {
         try{
 
-            $dados  =   [
-                'instragem'      => $this->conf->instragem,
+
+            $post = Postagem::where('link',$post)->firstOrFail();
+            $post->adicionarVisita();
+            $this->dados    +=[
+                'titulo' => $post->titulo,
+                'postagem' => $post,
             ];
-            $postagem = Postagem::where('link',$postagem)->firstOrFail();
-            $postagem->adicionarVisita();
-            return \view('front.postagem')->with(['postagem'=>$postagem]);
+            return \view('front.postagem',$this->dados);
         }catch (ModelNotFoundException $th){
-            return \view('front.error.pagina-nao-encontrada');
+            return \view('front.error.pagina-nao-encontrada',$this->dados);
         }
 //
 
