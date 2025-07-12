@@ -101,7 +101,7 @@ class StatusController extends Controller
             ]);
 
         } catch (Exception $e) {
-            return \response()->json(['erro'=>$e->getMessage()]);
+            return \response()->json(['errors'=>$e->getMessage()]);
         }
     }
 
@@ -119,7 +119,7 @@ class StatusController extends Controller
             ]);
 
         } catch (Exception $e) {
-            return \response()->json(['erro'=>$e->getMessage()]);
+            return \response()->json(['errors'=>$e->getMessage()]);
         }
     }
 

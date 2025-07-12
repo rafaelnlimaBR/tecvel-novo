@@ -23,6 +23,7 @@
     <link href="{{ URL::asset('front/vendor/aos/aos.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('front/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('/plugins/summernote/summernote-bs4.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ URL::asset('/plugins/upload-image/image-uploader.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Main CSS File -->
     <link href="{{ URL::asset('front/css/main.css') }}" rel="stylesheet">
@@ -57,11 +58,11 @@
 <body class="starter-page-page">
 
 <header id="header" class="header d-flex align-items-center sticky-top">
+    <script src="{{ URL::asset('/js/jquery-3.2.1.min.js') }}"></script>
     <div class="container position-relative d-flex align-items-center justify-content-between">
 
         <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
-            <!-- Uncomment the line below if you also wish to use an image logo -->
-            <img src="assets/img/logo.png" alt="">
+
             <img src="{{URL::asset('/images/logo.png')}}" alt="" height="80">
 {{--            <h1 class="sitename">ZenBlog</h1>--}}
         </a>
@@ -202,14 +203,15 @@
 <div id="preloader"></div>
 
 <!-- Vendor JS Files -->
-<script src="{{ URL::asset('/js/jquery-3.2.1.min.js') }}"></script>
+
 <script src="{{ URL::asset('/js/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ URL::asset('front/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ URL::asset('front/vendor/php-email-form/validate.js') }}"></script>
+
 <script src="{{ URL::asset('front/vendor/aos/aos.js') }}"></script>
 <script src="{{ URL::asset('/plugins/summernote/summernote-bs4.js') }}"></script>
 <script src="{{ URL::asset('front/vendor/swiper/swiper-bundle.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+<script type="text/javascript"  src="{{ URL::asset('/plugins/upload-image/dist/image-uploader.min.js') }}" rel="stylesheet" type="text/css"></script>
 
 
 <!-- Main JS File -->
@@ -217,6 +219,7 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
+
 
         $('.texto-notesummer').summernote({
         height: 300,
@@ -233,6 +236,34 @@
 
     });
 
+        $('.placa').mask('AAA0U00', {
+            translation: {
+                'A': {
+                    pattern: /[A-Za-z]/
+                },
+                'U': {
+                    pattern: /[A-Za-z0-9]/
+                },
+            },
+            onKeyPress: function (value, e, field, options) {
+                // Convert to uppercase
+                e.currentTarget.value = value.toUpperCase();
+
+                // Get only valid characters
+                let val = value.replace(/[^\w]/g, '');
+
+                // Detect plate format
+                let isNumeric = !isNaN(parseFloat(val[4])) && isFinite(val[4]);
+                let mask = 'AAA0U00';
+                if(val.length > 4 && isNumeric) {
+                    mask = 'AAA0000';
+                }
+                $(field).mask(mask, options);
+            }
+        });
+        $('.numero').mask('0000');
+
+
         $('.phone').mask('(00) 0000-00009');
         $('.phone').blur(function(event) {
             if($(this).val().length == 15){ // Celular com 9 dígitos + 2 dígitos DDD e 4 da máscara
@@ -241,6 +272,10 @@
                 $('#fone').mask('(00) 0000-00009');
             }
         });
+
+
+
+
 
         $(".atualizar-formulario").on('submit','#formulario-comentario',function () {
         // $("#formulario-comentario").submit(function () {

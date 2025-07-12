@@ -128,12 +128,11 @@ class SiteController extends Controller
 
     public function orcamento()
     {
-
-        $dados  =   [
-            'titulo'        =>  'Orçamento'
+        $this->dados    +=   [
+            'titulo' => 'Fazer Orçamento ',
         ];
 
-        return \view('front.orcamento02');
+        return \view('front.orcamento03',$this->dados);
 
     }
 
@@ -141,7 +140,24 @@ class SiteController extends Controller
     {
         try{
 
-            $telefone                   =   str_replace(['(',')'],'',$request->input('telefone'));
+            $validator = Validator::make($request->all(),[
+                'nome'          =>  'required',
+                'email'         =>  'required',
+                'whatsapp'      =>  'required',
+                'placa'        =>  'required',
+                'marca'        =>  'required',
+                'modelo'        =>  'required',
+                'ano'          =>  'required',
+                'cor'          =>  'required',
+               'descricao'     =>  'required',
+                'imagens[]'       =>  'mimes:jpeg,png,jpg',
+            ]);
+
+            if($validator->fails()){
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            $telefone                   =   str_replace(['(',')'],'',$request->input('whatsapp'));
             $cliente                    =   Cliente::where(['email'=>$request->input('email'),]);
             if(!$cliente->exists()){
                 $cliente                    =   new Cliente();
@@ -156,7 +172,7 @@ class SiteController extends Controller
                     $request->input('estado'),
                 );
                 if($cliente == null){
-                    return redirect()->route('site.orcamento')->with(['alerta'=>['texto_principal'=>'Erro ao cadastrar Cliente!','texto_segundario'=>'entrar em contato com o representante da empresa. Obrigado'],'formulario_off'=>false]);
+                    return redirect()->route('site.orcamento')->with(['alerta'=>['tipo'=>'danger','texto_principal'=>'Erro ao cadastrar Cliente!','texto_segundario'=>'entrar em contato com o representante da empresa. Obrigado'],'formulario_off'=>true]);
                 }
             }else{
                 $cliente=$cliente->first();
@@ -239,14 +255,14 @@ class SiteController extends Controller
             $zap->enviarMensagem('Solicitação de orçamento criado com sucesso. Em breve você receberá um retorno com seu orçamento. ',"85987067785",'55');
             $zap->enviarMensagem('*NÚMERO DO ORÇAMENTO: '.$contrato->id .'*',"85987067785",'55');
 
-            return redirect()->route('site.orcamento')->with(['alerta'=>['texto_principal'=>'Cadastro realizado com sucesso!','texto_segundario'=>'Em breve retornaremos com seu orçamento'],'formulario_off'=>false]);
+            return redirect()->route('site.orcamento')->with(['alerta'=>['tipo'=>'success','texto_principal'=>'Pedido de orçamento realizado com sucesso. Em breve retornaremos com seu orçamento','texto_segundario'=>'entrar em contato com o representante da empresa. Obrigado'],'formulario_off'=>true]);
 
 
 
 
         }catch (\Exception $e){
 
-            return \redirect()->route('site.orcamento')->with(['alerta'=>['texto_principal'=>'Houve um erro! ','texto_segundario'=>$e->getMessage()],'formulario_off'=>false]);
+            return \redirect()->route('site.orcamento')->with(['alerta'=>['tipo'=>'danger','texto_principal'=>$e->getMessage(),'texto_segundario'=>'entrar em contato com o representante da empresa. Obrigado'],'formulario_off'=>false]);
         }
     }
 

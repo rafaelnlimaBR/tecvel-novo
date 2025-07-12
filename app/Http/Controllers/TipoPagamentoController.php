@@ -15,7 +15,7 @@ class TipoPagamentoController extends Controller
             $tipos     =   TipoPagamento::find($r->get('id'));
             return response()->json($tipos->formas);
         }catch (\Exception $e){
-            return response()->json(['erro'=>$e->getMessage()]);
+            return response()->json(['errors'=>$e->getMessage()]);
         }
 
     }
@@ -27,7 +27,7 @@ class TipoPagamentoController extends Controller
             $forma     =   FormaPagamento::find($r->get('id'));
             return response()->json($forma);
         }catch (\Exception $e){
-            return response()->json(['erro'=>$e->getMessage()]);
+            return response()->json(['errors'=>$e->getMessage()]);
         }
     }
 }

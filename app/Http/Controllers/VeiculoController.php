@@ -114,7 +114,7 @@ class VeiculoController extends Controller
 
         }catch (\Exception $th) {
             if($r->has('modal')){
-                return response()->json(['erro'=>$th->getMessage()]);
+                return response()->json(['errors'=>$th->getMessage()]);
             }else{
                 return redirect()->route('veiculo.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);
             }

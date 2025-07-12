@@ -718,7 +718,7 @@
                     success: function( data )
                     {
 
-                        if('erro' in data){
+                        if('errors' in data){
                             alert(data.erro);
 
                         }else{
@@ -746,7 +746,7 @@
                     success: function( data )
                     {
 
-                        if('erro' in data){
+                        if('errors' in data){
                             alert(data.erro);
 
                         }else{
@@ -820,7 +820,7 @@
                         },
                         success: function( data )
                         {
-                            if('erro' in data){
+                            if('errors' in data){
                                 alert(data.erro);
 
                             }else{
@@ -858,7 +858,7 @@
                         },
                         success: function( data )
                         {
-                            if('erro' in data){
+                            if('errors' in data){
                                 alert(data.erro);
 
                             }else{
@@ -939,7 +939,7 @@
                     success: function( data )
                     {
 
-                        if('erro' in data){
+                        if('errors' in data){
                             alert(data.erro);
 
                         }else{
@@ -964,7 +964,7 @@
                     },
                     success: function( data )
                     {
-                        if('erro' in data){
+                        if('errors' in data){
                             alert(data.erro);
 
                         }else{
@@ -1021,7 +1021,7 @@
                     },
                     success: function( data )
                     {
-                        if('erro' in data){
+                        if('errors' in data){
                             alert(data.erro);
 
                         }else{
@@ -1074,7 +1074,7 @@
                     },
                     success: function( data )
                     {
-                        if('erro' in data){
+                        if('errors' in data){
                             alert(data.erro);
 
                         }else{
@@ -1102,7 +1102,7 @@
                     success: function( data )
                     {
 
-                        if('erro' in data){
+                        if('errors' in data){
                             alert(data.erro);
 
                         }else{
@@ -1134,7 +1134,7 @@
                     success: function( data )
                     {
 
-                        if('erro' in data){
+                        if('errors' in data){
                             alert(data.erro);
 
                         }else{
@@ -1545,7 +1545,7 @@
                     },
                     success: function( data )
                     {
-                        if('erro' in data){
+                        if('errors' in data){
                             alert(data.erro);
 
                         }else{
@@ -1580,7 +1580,7 @@
                     },
                     success: function( data )
                     {
-                        if('erro' in data){
+                        if('errors' in data){
                             alert(data.erro);
 
                         }else{
@@ -1614,7 +1614,7 @@
                     data: dados,
                     success: function( data )
                     {
-                        if('erro' in data){
+                        if('errors' in data){
                             alert(data.erro);
 
                         }else{
@@ -1639,7 +1639,7 @@
                     data: dados,
                     success: function( data )
                     {
-                        if('erro' in data){
+                        if('errors' in data){
                             alert(data.erro);
 
                         }else{
@@ -1666,7 +1666,7 @@
                     data: dados,
                     success: function( data )
                     {
-                        if('erro' in data){
+                        if('errors' in data){
                             alert(data.erro);
 
                         }else{
@@ -1756,7 +1756,7 @@
                         //Consulta o webservice viacep.com.br/
                         $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
 
-                            if (!("erro" in dados)) {
+                            if (!("errors" in dados)) {
                                 //Atualiza os campos com os valores da consulta.
                                 $("#rua").val(dados.logradouro);
                                 $("#bairro").val(dados.bairro);

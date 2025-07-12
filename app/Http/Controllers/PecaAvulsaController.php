@@ -71,7 +71,7 @@ class PecaAvulsaController extends Controller
 
         } catch (\Throwable $th) {
             if($r->ajax()){
-                return response()->json(['erro'=>$th->getMessage()]);
+                return response()->json(['errors'=>$th->getMessage()]);
             }else{
                 return redirect()->route('peca.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);
             }

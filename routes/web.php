@@ -226,7 +226,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
         $view->with(['aplicativos'=>AppContato::all()]);
 
     });
-    View::composer(['admin.veiculos.includes.form','front.orcamento02'],function($view){
+    View::composer(['admin.veiculos.includes.form','front.orcamento02','front.orcamento03'],function($view){
         $view->with(['montadoras'    =>  Montadora::all()]);
         $view->with(['cores'         =>  Veiculo::$cores]);
     });

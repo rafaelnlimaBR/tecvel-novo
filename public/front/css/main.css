@@ -23,6 +23,9 @@
     --bs-pagination-color: #050d18;
 }
 
+
+
+
 :root {
   --default-font: "EB Garamond",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --heading-font: "EB Garamond",  sans-serif;
@@ -109,6 +112,15 @@ h6 {
   padding: 15px;
   margin-bottom: 24px;
   font-weight: 600;
+}
+
+.parsley-required {
+    border-color: #dc3545;
+    padding-right: calc(1.5em + .75rem) !important;
+
+    background-repeat: no-repeat;
+    background-position: right calc(.375em + .1875rem) center;
+    background-size: calc(.75em + .375rem) calc(.75em + .375rem);
 }
 
 .php-email-form .sent-message {
@@ -1862,9 +1874,10 @@ section,
   height: 100%;
 }
 
-.contact .php-email-form input[type=text],
-.contact .php-email-form input[type=email],
-.contact .php-email-form textarea {
+
+.contact .php-email-form textarea,
+.contact .php-email-form input,
+.contact .php-email-form select{
   font-size: 14px;
   padding: 10px 15px;
   box-shadow: none;
@@ -1874,9 +1887,9 @@ section,
   border-color: color-mix(in srgb, var(--default-color), transparent 80%);
 }
 
-.contact .php-email-form input[type=text]:focus,
-.contact .php-email-form input[type=email]:focus,
-.contact .php-email-form textarea:focus {
+.contact .php-email-form input:focus,
+.contact .php-email-form textarea:focus,
+.contact .php-email-form select:focus{
   border-color: var(--accent-color);
 }
 

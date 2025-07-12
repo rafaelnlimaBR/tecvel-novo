@@ -188,7 +188,7 @@
                                             <div class="form-row">
                                                 <div class="form-group col-md-12">
                                                     <label class="control-label">Imagens</label>
-                                                    <div class="input-images"></div>
+                                                    <div class="form-control input-images"></div>
                                                 </div>
 
                                             </div>
@@ -202,7 +202,7 @@
                                         </div>
 
                                         <div class="pull-left">
-                                            <input type='button' class='btn btn-previous btn-fill btn-default btn-wd btn-sm' name='previous' value='Anterior' />
+                                            <input type='button'  class='btn btn-previous btn-fill btn-default btn-wd btn-sm' name='previous' value='Anterior' />
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
@@ -341,7 +341,7 @@
                     //Consulta o webservice viacep.com.br/
                     $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
 
-                        if (!("erro" in dados)) {
+                        if (!("errors" in dados)) {
                             //Atualiza os campos com os valores da consulta.
                             $("#rua").val(dados.logradouro);
                             $("#bairro").val(dados.bairro);

@@ -100,7 +100,7 @@ class ClienteController extends Controller
             return redirect()->route('cliente.editar', ['cliente' => $cliente])->with('alerta', ['tipo' => 'success', 'icon' => '', 'texto' => "Erro ao cadastrar o registro do cliente"]);
         } catch (\Exception $th) {
             if($isModal == true){
-                return response()->json(['erro'=>$th->getMessage()]);
+                return response()->json(['errors'=>$th->getMessage()]);
             }
             return redirect()->route('cliente.novo')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);
         }
@@ -168,7 +168,7 @@ class ClienteController extends Controller
             ]);
 
         } catch (Exception $th) {
-            return response()->json(['erro'=>$th->getMessage()]);
+            return response()->json(['errors'=>$th->getMessage()]);
 
         }
     }
@@ -193,7 +193,7 @@ class ClienteController extends Controller
             ]);
 
         } catch (Exception $e) {
-            return \response()->json(['erro'=>$e->getMessage()]);
+            return \response()->json(['errors'=>$e->getMessage()]);
         }
     }
 
@@ -203,7 +203,7 @@ class ClienteController extends Controller
 
             $cliente        =   Cliente::find($r->get('foreignkey'));
             if($cliente->contatos()->count() == 1){
-                return response()->json(['erro'=>"Não é possível remover o contato, cliente tem que ter ao menos um contato"]);
+                return response()->json(['errors'=>"Não é possível remover o contato, cliente tem que ter ao menos um contato"]);
             }else{
                 $cliente->contatos()->detach($r->get('id'));
             }
@@ -215,7 +215,7 @@ class ClienteController extends Controller
             ]);
 
         } catch (Exception $e) {
-            return \response()->json(['erro'=>$e->getMessage()]);
+            return \response()->json(['errors'=>$e->getMessage()]);
         }
     }
 

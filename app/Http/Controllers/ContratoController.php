@@ -239,7 +239,7 @@ class ContratoController extends Controller
             return response()->json(['servico'=>view("admin.contratos.includes.tabela-servico",['contrato'=>$contrato,'historico'=>$historico])->render()]);
 
         } catch (\Throwable $th) {
-            return response()->json(['erro'=>$th->getMessage()]);
+            return response()->json(['errors'=>$th->getMessage()]);
         }
     }
 
@@ -260,7 +260,7 @@ class ContratoController extends Controller
 
 
         } catch (\Throwable $th) {
-            return response()->json(['erro'=>$th->getMessage()]);
+            return response()->json(['errors'=>$th->getMessage()]);
         }
     }
 
@@ -284,7 +284,7 @@ class ContratoController extends Controller
 
 
         } catch (\Throwable $th) {
-            return response()->json(['erro'=>$th->getMessage()]);
+            return response()->json(['errors'=>$th->getMessage()]);
         }
 
     }
@@ -300,7 +300,7 @@ class ContratoController extends Controller
                 $peca->nome     =   $r->get('peca');
                 $peca->valor    =   $r->get('valor');
                 if(!$peca->save()){
-                    return response()->json(['erro'=>'Não foi possível cadastrar a peça nova.']);
+                    return response()->json(['errors'=>'Não foi possível cadastrar a peça nova.']);
                 }
             }
             $historico                      =   Historico::find( $r->get('historico_id'));
@@ -322,7 +322,7 @@ class ContratoController extends Controller
             return response()->json(['peca'=>view("admin.contratos.includes.tabela-pecas",['contrato'=>$contrato,'historico'=>$historico])->render()]);
 
         } catch (\Throwable $th) {
-            return response()->json(['erro'=>$th->getMessage()]);
+            return response()->json(['errors'=>$th->getMessage()]);
         }
     }
 
@@ -343,7 +343,7 @@ class ContratoController extends Controller
 
 
         } catch (\Throwable $th) {
-            return response()->json(['erro'=>$th->getMessage()]);
+            return response()->json(['errors'=>$th->getMessage()]);
         }
     }
     public function atualizarPeca(Request $r)
@@ -369,7 +369,7 @@ class ContratoController extends Controller
 
 
         } catch (\Throwable $th) {
-            return response()->json(['erro'=>$th->getMessage()]);
+            return response()->json(['errors'=>$th->getMessage()]);
         }
 
     }
