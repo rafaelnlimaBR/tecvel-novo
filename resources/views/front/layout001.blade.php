@@ -15,7 +15,8 @@
 
     <meta property="og:title" content="{{isset($titulo)?$titulo:"Tecvel - Eletrônica Automotiva"}}">
     <meta property="og:description" content="{{isset($descricao)?$descricao:"Tecvel - Eletrônica Automotiva"}}">
-    <meta property="og:image" content="{{isset($imagem)?$imagem:"https://novo.tecvelautomotiva.com.br/public/images/logo.png"}}">
+{{--    <meta property="og:image" content="{{isset($imagem)?$imagem:"https://novo.tecvelautomotiva.com.br/public/images/logo.png"}}">--}}
+    <meta property="og:image" content="https://instagram.ffor13-1.fna.fbcdn.net/v/t51.2885-15/44446154_350366992200929_2505749318630745969_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQuaW1hZ2VfdXJsZ2VuLjEwODB4NjU4LnNkci5mMjg4NS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.ffor13-1.fna.fbcdn.net&_nc_cat=105&_nc_oc=Q6cZ2QHa65U5jFrI2CnEu5zvzGhUWiKuJ8g-mMvjncZYgnHLHx8yMriil3yOA2U8pqYefIM&_nc_ohc=bAaDHNtludgQ7kNvwHOg1iy&_nc_gid=2P7G1cusr-4dHhKk60jj0Q&edm=APoiHPcBAAAA&ccb=7-5&ig_cache_key=MTkwNjg4NzkzNjg3NzI4NjUwMg%3D%3D.3-ccb7-5&oh=00_AfRF7vEfxv1fKPDEbJFC_1ma4ichzmLwDMETHSIv1eVXiQ&oe=6878127A&_nc_sid=22de04">
     <meta property="og:url" content="{{route('site.orcamento')}}">
     <meta property="og:type" content="website">  <!--  ou "article" se for um artigo -->
 
