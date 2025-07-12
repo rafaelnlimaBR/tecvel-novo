@@ -130,6 +130,8 @@ class SiteController extends Controller
     {
         $this->dados    +=   [
             'titulo' => 'Fazer Orçamento ',
+            'descricao' => 'Faça um orçamento rápido, fácil e gratis através desse link.',
+            'imagem'    =>   'https://novo.tecvelautomotiva.com.br/public/images/logo.png'
         ];
 
         return \view('front.orcamento03',$this->dados);

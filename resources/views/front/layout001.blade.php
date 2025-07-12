@@ -12,6 +12,13 @@
     <link href="assets/img/favicon.png" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
+
+    <meta property="og:title" content="{{isset($titulo)?$titulo:"Tecvel - Eletrônica Automotiva"}}">
+    <meta property="og:description" content="{{isset($descricao)?$descricao:"Tecvel - Eletrônica Automotiva"}}">
+    <meta property="og:image" content="{{isset($imagem)?$imagem:"https://novo.tecvelautomotiva.com.br/public/images/logo.png"}}">
+    <meta property="og:url" content="{{route('site.orcamento')}}">
+    <meta property="og:type" content="website">  <!--  ou "article" se for um artigo -->
+
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
