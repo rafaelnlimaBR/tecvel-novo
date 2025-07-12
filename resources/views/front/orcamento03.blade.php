@@ -17,6 +17,7 @@
 
                 <div class="row gy-4">
                 <div class="obs" style="margin: 20px">
+
                     <h4>Observações:</h4>
                     <ul>
                         <li>O orçamento depois que enviado terá uma validade de 3 dias.</li>
@@ -65,10 +66,11 @@
                                  </div>
                                 <div class="col-md-4">
                                     <label for="whatsapp">Whatsapp: * (ex: (85) 987067785)</label>
-                                    <input type="text" name="whatsapp" class="form-control" placeholder="Seu whatsapp com ddd" value="{{old('whatsapp')}}">
+                                    <input type="text" name="whatsapp" class="form-control phone" placeholder="Seu whatsapp com ddd" value="{{old('whatsapp',request()->get('whatsapp')?request()->get('whatsapp'):'')}}">
                                     @error('whatsapp')
                                     <ul class="parsley-errors-list filled"><li class="" style="font-size: 11px; color: red; ">{{$message}}</li></ul>
                                     @enderror
+
                                 </div>
                             </div>
                             <div class="row" style="padding-bottom: 20px">
