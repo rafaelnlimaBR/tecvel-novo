@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use \Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
@@ -116,6 +117,7 @@ class SiteController extends Controller
             $this->dados    +=[
                 'titulo' => $post->titulo,
                 'postagem' => $post,
+                'imagem'    => URL::asset('/images/postagens/'.$post->imagem)
             ];
             return \view('front.postagem',$this->dados);
         }catch (ModelNotFoundException $th){
