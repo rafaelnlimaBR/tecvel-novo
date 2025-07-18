@@ -57,7 +57,7 @@ class PostagemController extends Controller
             $image  =   $r->file('imagem');
             $filename="";
             $filename = Str::random(16).'.'.$image->getClientOriginalExtension();
-            $resize  =  Image::read($image)->resize(1024,768);
+            $resize  =  Image::read($image)->resize(905,905);
             $resize->save(public_path('/images/postagens/').$filename);
 
             $ativo  =  $r->get('ativo') =="1"?1:0;
