@@ -19,7 +19,7 @@
     @if(isset($imagem))
         <meta property="og:image" content="{{$imagem}}">
     @else
-        <meta property="og:image" content="https://instagram.ffor13-1.fna.fbcdn.net/v/t51.2885-15/44446154_350366992200929_2505749318630745969_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQuaW1hZ2VfdXJsZ2VuLjEwODB4NjU4LnNkci5mMjg4NS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.ffor13-1.fna.fbcdn.net&_nc_cat=105&_nc_oc=Q6cZ2QHa65U5jFrI2CnEu5zvzGhUWiKuJ8g-mMvjncZYgnHLHx8yMriil3yOA2U8pqYefIM&_nc_ohc=bAaDHNtludgQ7kNvwHOg1iy&_nc_gid=2P7G1cusr-4dHhKk60jj0Q&edm=APoiHPcBAAAA&ccb=7-5&ig_cache_key=MTkwNjg4NzkzNjg3NzI4NjUwMg%3D%3D.3-ccb7-5&oh=00_AfRF7vEfxv1fKPDEbJFC_1ma4ichzmLwDMETHSIv1eVXiQ&oe=6878127A&_nc_sid=22de04">
+        <meta property="og:image" content="https://instagram.ffor13-1.fna.fbcdn.net/v/t51.2885-15/44446154_350366992200929_2505749318630745969_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQuaW1hZ2VfdXJsZ2VuLjEwODB4NjU4LnNkci5mMjg4NS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.ffor13-1.fna.fbcdn.net&_nc_cat=105&_nc_oc=Q6cZ2QEDbRQ9JQMG6nmXA8mTHX4WrHWJirJziHEzI8brBelNLaIzoKsrfFutw_edBY0a2l4&_nc_ohc=C0BDSsbY0nYQ7kNvwHuhn0Q&_nc_gid=Gw9g5p2KTmtX_OQlCkk0sQ&edm=APoiHPcBAAAA&ccb=7-5&ig_cache_key=MTkwNjg4NzkzNjg3NzI4NjUwMg%3D%3D.3-ccb7-5&oh=00_AfTzaCtIfgIjZyPE8RaMkS1tOaqpUolBB6SUZLisEIqybw&oe=6880A43A&_nc_sid=22de04">
     @endif
 
     <meta property="og:url" content="{{route('site.orcamento')}}">
