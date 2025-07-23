@@ -6,7 +6,12 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title> {{isset($titulo)?$titulo:"Tecvel - Eletrônica Automotiva"}}</title>
     <meta name="description" content="">
-    <meta name="keywords" content="">
+    @if(isset($tags))
+        <meta name="keywords" content="{{implode(', ',$tags)}}">
+    @else
+        <meta name="keywords" content="reparo, painel de instrumentos, fortaleza, ceará, conserto de painel, reparo de airbag, reparo de modulo, reparo de abs, eletronica automotiva, pelicula polarizada, consero do painel da bros, ">
+    @endif
+
 
     <!-- Favicons -->
     <link href="assets/img/favicon.png" rel="icon">
@@ -74,7 +79,7 @@
     <script src="{{ URL::asset('/js/jquery-3.2.1.min.js') }}"></script>
     <div class="container position-relative d-flex align-items-center justify-content-between">
 
-        <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+        <a href="{{route('site.index')}}" class="logo d-flex align-items-center me-auto me-xl-0">
 
             <img src="{{URL::asset('/images/logo.png')}}" alt="" height="80">
 {{--            <h1 class="sitename">ZenBlog</h1>--}}
@@ -99,10 +104,10 @@
         </nav>
 
         <div class="header-social-links">
-            <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+
+
+            <a href="{{$instagram}}" class="instagram"><i class="bi bi-instagram"></i></a>
+
         </div>
 
     </div>
@@ -133,7 +138,7 @@
     <div class="container footer-top">
         <div class="row gy-4">
             <div class="col-lg-4 col-md-6 footer-about">
-                <a href="index.html" class="logo d-flex align-items-center">
+                <a href="{{route('site.index')}}" class="logo d-flex align-items-center">
                     <span class="sitename">{{$nome_principal}}</span>
                 </a>
                 <div class="footer-contact pt-3">

@@ -117,6 +117,8 @@ class SiteController extends Controller
             $this->dados    +=[
                 'titulo' => $post->titulo,
                 'postagem' => $post,
+                'postagens_recentes'    =>  Postagem::where('ativo',true)->orderBy('created_at','desc')->take(5)->get(),
+                'tags'                  =>  explode(',',$post->tags),
                 'imagem'    => URL::asset('/images/postagens/'.$post->imagem)
             ];
             return \view('front.postagem',$this->dados);
@@ -325,7 +327,7 @@ class SiteController extends Controller
             $contato       =   Contato::cadastrar($whatsapp,$this->conf->whatsapp_id);
             $cliente->contatos()->attach($contato);
             $comentario     =   new Comentario();
-            $comentario     =    $comentario->cadastrar($r->get('comentario'),$post,$cliente);
+            $comentario     =    $comentario->cadastrar($r->get('comentario'),true,$post,$cliente);
 
             $formView = $formView->with('success','cadastrado com sucesso')->render();
             $comentariosView =   $comentariosView->with('postagem',$post)->render();

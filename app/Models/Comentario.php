@@ -27,9 +27,10 @@ class Comentario extends Model
         return $this->belongsTo(Cliente::class);
     }
 
-    public function cadastrar(String $texto, Postagem $postagem = null,Cliente $cliente = null)
+    public function cadastrar(String $texto,bool $ativo, Postagem $postagem = null,Cliente $cliente = null,)
     {
         $this->descricao        =   $texto;
+        $this->ativo            =   $ativo;
 
         if($cliente != null){
             $this->cliente_id = $cliente->id;

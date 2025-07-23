@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('comentarios', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->boolean('ativo')->default(false);
             $table->text('descricao');
             $table->foreignId('cliente_id')->nullable()->constrained('clientes','id')->onDelete('cascade')->onUpdate('cascade')->null;
             $table->timestamps();

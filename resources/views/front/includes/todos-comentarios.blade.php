@@ -2,7 +2,7 @@
 
 
 
-@foreach($postagem->comentarios as $comentario)
+@foreach($postagem->comentarios->where('ativo',true) as $comentario)
 
     <div id="comment-1" class="comment">
         <div class="d-flex">

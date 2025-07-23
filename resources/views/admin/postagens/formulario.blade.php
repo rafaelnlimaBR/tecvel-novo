@@ -154,7 +154,7 @@
                                 <thead>
                                 <tr>
 
-
+                                    <th scope="col" style="width:7%; ">Ativo</th>
                                     <th scope="col">Titulo</th>
                                     <th style="width: 25%; " scope="col">Por</th>
 
@@ -170,7 +170,7 @@
                                 @foreach ($postagem->comentarios as $comentario)
                                     <tr>
 
-
+                                        <td>{{$comentario->ativo=1?"Sim":"Não"}}</td>
                                         <td>{{substr($comentario->descricao,0,60)}}...</td>
                                         <td>{{$comentario->cliente!=null?$comentario->cliente->nome:"TECVEL"}}</td>
                                         <td>{{$comentario->respostas()->count()}}</td>
