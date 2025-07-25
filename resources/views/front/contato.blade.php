@@ -50,24 +50,46 @@
 
                     </div>
 
-                    <div class="col-lg-8">
-                        <form action="forms/contact.php" method="post" class="php-email-form aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+                    <div class="col-lg-8 form-contato">
+                        @if(session()->has('alerta'))
+                            <div class="alert alert-{{session()->get('alerta')['tipo']}}">
+                                <h4>{{session()->get('alerta')['texto_primario']}}</h4>
+                                <h5>{{session()->get('alerta')['texto_secundario']}}</h5>
+
+                            </div>
+                        @else
+
+                        <form action="{{route('site.cadastrar.contato')}}" method="post" class="php-email-form aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
                             <div class="row gy-4">
+                                {{csrf_field()}}
 
-                                <div class="col-md-6">
-                                    <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
-                                </div>
+                                    <div class="col-md-4">
+                                        <input type="text" name="nome" class="form-control" placeholder="Seu Nome" value="rafael">
+                                        @error('nome')
+                                        <p style="color: red; margin: 0; padding: 0; font-size: 12px">{{$message}}</p>
+                                        @enderror
+                                    </div>
 
-                                <div class="col-md-6 ">
-                                    <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
-                                </div>
+                                    <div class="col-md-4 ">
+                                        <input type="email" class="form-control" name="email" placeholder="Seu Email" value="raffaelnlima@gmail.com">
+                                        @error('email')
+                                        <p style="color: red; margin: 0; padding: 0; font-size: 12px">{{$message}}</p>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4 ">
+                                        <input type="text" class="form-control phone" name="whatsapp" placeholder="Seu Whatsapp" value="(85) 9870-67785">
+                                        @error('whatsapp')
+                                        <p style="color: red; margin: 0; padding: 0; font-size: 12px">{{$message}}</p>
+                                        @enderror
+                                    </div>
+
+
 
                                 <div class="col-md-12">
-                                    <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-                                </div>
-
-                                <div class="col-md-12">
-                                    <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
+                                    <textarea class="form-control" name="texto" rows="6" placeholder="Texto">awd</textarea>
+                                    @error('texto')
+                                    <p style="color: red; margin: 0; padding: 0; font-size: 12px">{{$message}}</p>
+                                    @enderror
                                 </div>
 
                                 <div class="col-md-12 text-center">
@@ -75,11 +97,12 @@
                                     <div class="error-message"></div>
                                     <div class="sent-message">Your message has been sent. Thank you!</div>
 
-                                    <button type="submit">Send Message</button>
+                                    <button type="submit">Enviar</button>
                                 </div>
 
                             </div>
                         </form>
+                        @endif
                     </div><!-- End Contact Form -->
 
                 </div>

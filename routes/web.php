@@ -161,6 +161,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::post('/modelo/cadastrar', [App\Http\Controllers\ModeloController::class, 'cadastrar'])->name('modelo.cadastrar');
     Route::get('/modelo/excluir/{modelo}', [App\Http\Controllers\ModeloController::class, 'excluir'])->name('modelo.excluir');
 
+//MODELOS DE MENSAGENS
+    Route::get('/mensagens', [App\Http\Controllers\MensagemController::class, 'index'])->name('mensagem.index');
+    Route::get('/mensagem/visualizar/{mensagem}', [App\Http\Controllers\MensagemController::class, 'visualizar'])->name('mensagem.visualizar');
+    Route::get('/mensagem/excluir/{mensagem}', [App\Http\Controllers\MensagemController::class, 'excluir'])->name('mensagem.excluir');
+
 //VEICULOS
     Route::get('/veiculos', [App\Http\Controllers\VeiculoController::class, 'index'])->name('veiculo.index');
     Route::get('/veiculo/novo', [App\Http\Controllers\VeiculoController::class, 'novo'])->name('veiculo.novo');
@@ -345,6 +350,7 @@ Route::get('/home', [App\Http\Controllers\Front\SiteController::class, 'home'])-
 Route::get('/contato', [App\Http\Controllers\Front\SiteController::class, 'contato'])->name('site.contato');
 Route::post('/logar', [App\Http\Controllers\LoginController::class, 'logar'])->name('logar');
 Route::post('/cadastrar-pedido-orcamento', [App\Http\Controllers\Front\SiteController::class, 'cadastrarPedidoOrcamento'])->name('site.cadastrar.orcamento');
+Route::post('/cadastrar-contato', [App\Http\Controllers\Front\SiteController::class, 'cadastrarContato'])->name('site.cadastrar.contato');
 Route::get('/sair', [App\Http\Controllers\LoginController::class, 'logout'])->name('site.sair');
 Route::post('/comentar', [App\Http\Controllers\Front\SiteController::class, 'cadastrarComentarioPost'])->name('site.post.comentar');
 Route::get('/contato/{id}', [App\Http\Controllers\Front\SiteController::class, 'modelos'])->name('site.modelos.montadora');

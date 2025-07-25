@@ -12,6 +12,7 @@ use App\Models\Configuracao;
 use App\Models\Contato;
 use App\Models\Contrato;
 use App\Models\ImagensNota;
+use App\Models\Mensagem;
 use App\Models\Montadora;
 use App\Models\Nota;
 use App\Models\Postagem;
@@ -346,6 +347,42 @@ class SiteController extends Controller
         }
     }
 
+    public function cadastrarContato(Request $r)
+    {
+        try{
+            /*$validacao      =   Validator::make($r->all(),[
+                'nome' => ['required', 'min:5'],
+                'email' => ['required', 'email'],
+                'whatsapp'  => ['required'],
+                'texto' => ['required'],
+            ]);
 
+            if($validacao->fails()){
+                return redirect()->back()->withErrors($validacao)->with($r->all());
+            }*/
+
+            $cliente        =   Cliente::where('email',$r->input('email'))->first();
+            if($cliente == null){
+                $cliente        =   new Cliente();
+                $cliente    =   $cliente->gravar($r->get('nome'),$r->input('email'));
+            }
+            $whatsapp       =   str_replace(['(',')','-',' '],'',$r->get('whatsapp'));
+            $contato       =   Contato::cadastrar($whatsapp,$this->conf->whatsapp_id);
+            $cliente->contatos()->attach($contato);
+
+            $mensagem       =   new Mensagem();
+            $mensagem       =   $mensagem->cadastrar($cliente,$r->get('texto'));
+            $r->session()->flash('alerta',["tipo"=>"success","texto_primario"=>"Contato enviado com sucesso","texto_secundario"=>"em breve te retornaremos"]);
+            $zap    =   new Whatsapp();
+            $zap->enviarMensagem("Recebemos seu contato enviado pelo nosso site, em breve te retornarei.", $whatsapp,55);
+
+            return redirect()->route('site.contato');
+
+
+        }catch (\Exception $e){
+            $r->session()->flash('alerta',["tipo"=>"danger","texto_primario"=>"Houve um erro no envio do seu contato","texto_secundario"=>"Entrar em contato pelo nosso Whatsapp 85987067785"]);
+            return redirect()->route('site.contato');
+        }
+    }
 
 }
