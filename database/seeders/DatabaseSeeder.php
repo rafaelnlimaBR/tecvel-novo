@@ -23,10 +23,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->command->info("Insertindo dados de montadoras e modelos de veiculos");
-        $this->call([
-            MarcasEModelosSeeder::class
-            ]
-        );
+
 
         $this->command->info("Insertindo dados do app contados");
         DB::table('app_contatos')->insert([
