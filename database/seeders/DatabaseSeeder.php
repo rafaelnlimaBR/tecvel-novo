@@ -22,6 +22,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->command->info("Insertindo dados de montadoras e modelos de veiculos");
+        $this->call([
+            MarcasEModelosSeeder::class
+            ]
+        );
+
         $this->command->info("Insertindo dados do app contados");
         DB::table('app_contatos')->insert([
             ['nome' => 'Whatsapp','link' => '..','img'   =>  '..'],
@@ -76,21 +82,7 @@ class DatabaseSeeder extends Seeder
 
 
 
-        $this->command->info("Insertindo dados do montadoras");
-        DB::table('montadoras')->insert([
-            ['nome'          =>  "Fiat"],
-            ['nome'          =>  "Volkswagem"],
-            ['nome'          =>  "Chevrolet"],
-            ['nome'          =>  "Renault"],
-            ['nome'          =>  "Ford"],
-            ['nome'          =>  "Jeep"],
-            ['nome'          =>  "Mitsubishi"],
-            ['nome'          =>  "Honda"],
-            ['nome'          =>  "Toyota"],
-            ['nome'          =>  "BYD"],
-            ['nome'          =>  "Suzuki"],
-            ['nome'          =>  "Hyundai"],
-        ]);
+
 
         $this->command->info("Insertindo dados Tipos Pagamentos");
         DB::table('tipos_pagamentos')->insert([
@@ -152,16 +144,8 @@ class DatabaseSeeder extends Seeder
             ['status_atual_id'=>2,'status_proximo_id'=>4] ,
             ['status_atual_id'=>2,'status_proximo_id'=>5] ,
         ]);
-        $this->command->info("Insertindo dados modelos");
-        DB::table('modelos')->insert([
-            ["nome"=>"Gol","montadora_id"=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-            ["nome"=>"Celta","montadora_id"=>2,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-            ["nome"=>"Classic","montadora_id"=>2,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-            ["nome"=>"Ecosport","montadora_id"=>3,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-            ["nome"=>"TR4","montadora_id"=>4,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-            ["nome"=>"Palio","montadora_id"=>5,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-        ]);
-        $this->command->info("Insertindo dados do veiculos");
+
+       /* $this->command->info("Insertindo dados do veiculos");
         DB::table('veiculos')->insert([
             ["placa"=>"HUI3024","modelo_id"=>1,"ano"=>1994,"cor"=>"branco",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
             ["placa"=>"PCN8322","modelo_id"=>2,"ano"=>1994,"cor"=>"branco",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
@@ -169,32 +153,9 @@ class DatabaseSeeder extends Seeder
             ["placa"=>"OICOA40","modelo_id"=>4,"ano"=>1994,"cor"=>"branco",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
             ["placa"=>"POP1221","modelo_id"=>5,"ano"=>1994,"cor"=>"branco",'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
 
-        ]);
+        ]);*/
 
-        $this->command->info("Insertindo dados do contratos");
-        DB::table("contratos")->insert([
-            ['cliente_id'=>1,"veiculo_id"=>1,"defeito"=>"teste","solucao"=>"teste","garantia"=>Carbon::now(),'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
 
-        ]);
-        DB::table('historicos')->insert([
-            ['data'=>Carbon::now(),'obs'=>'awd','status_id'=>1,'contrato_id'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]
-        ]);
-        $this->command->info("Insertindo token de acesso para contratos");
-        DB::table("tokens")->insert([
-            ["token"=>Str::random(50),'dias_expirar'=>90,'data_vencimento'=>Carbon::now()->addDays(90),'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]
-        ]);
-
-        $this->command->info("Insertindo dados de Tipo de Notas");
-        DB::table("tipos_notas")->insert([
-            ['nome'=>"Observações do Serviço","cliente"=>0,'width_imagem'=>400,'height_imagem'=>300,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()] ,
-            ['nome'=>"Detalhes","cliente"=>1,'width_imagem'=>800,'height_imagem'=>600,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()] ,
-            ['nome'=>"Solicitação de Orçamento","cliente"=>1,'width_imagem'=>800,'height_imagem'=>600,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()] ,
-        ]);
-        $this->command->info("Insertindo dados de Notas");
-        DB::table("notas")->insert([
-            ['texto'=>"awd aw aad awd adklaw daklçwd lk dalkjçef klsf lkçs fkls dfnl lnsfglnkç sdfklmng lksdf","tipo_nota_id"=>1,'historico_id'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()] ,
-            ['texto'=>"dad wdawda dawda dawd ad adefgh h f kls dfnl lnsfglnkç sdfklmng lksdf","tipo_nota_id"=>2,'historico_id'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()] ,
-        ]);
 
 
 
@@ -205,12 +166,7 @@ class DatabaseSeeder extends Seeder
             ['nome'=>"servico teste 03","valor"=>110] ,
 
         ]);
-        $this->command->info("Insertindo dados de servicos historico");
-        DB::table("historico_servico")->insert([
-            ['historico_id'=>1,"servico_id"=>1,"valor"=>10,'desconto'=>10,'valor_liquido'=>9,"data"=>Carbon::now(),"cobrar"=>false] ,
-            ['historico_id'=>1,"servico_id"=>2,"valor"=>1000,'desconto'=>10,'valor_liquido'=>990,"data"=>Carbon::now(),"cobrar"=>false] ,
-            ['historico_id'=>1,"servico_id"=>3,"valor"=>100,'desconto'=>10,'valor_liquido'=>90,"data"=>Carbon::now(),"cobrar"=>false] ,
-        ]);
+
 
         $this->command->info("Insertindo dados peças avulsas");
         DB::table('pecas_avulsas')->insert([
@@ -261,15 +217,8 @@ class DatabaseSeeder extends Seeder
             ['valor' => '10.00','obs' => 'teste','data'=>Carbon::now()],
         ]);
 
-        $this->command->info("Insertindo dados de comissoes");
-        DB::table('comissoes')->insert([
-            ['fornecedor_id' => 1,'historico_id'=>1,'valor' => '100','obs'=>'teste','data'=>Carbon::now()],
-        ]);
 
-        $this->command->info("Insertindo dados de comissao saidas");
-        DB::table('saida_comissao')->insert([
-            ['comissao_id' => 1,'saida_id' => '1'],
-        ]);
+
         $this->command->info("Insertindo dados de usuário");
         DB::table('users')->insert([
             ['name' => 'Rafael Lima','email'=>'rafael@tecvelautomotiva.com.br','email_verified_at'=>Carbon::now(),'password'=>Hash::make('3024'),'remember_token' => Str::random(10),'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
@@ -354,10 +303,7 @@ class DatabaseSeeder extends Seeder
             ['user_id' => 2,'grupo_id' => 2],
         ]);
 
-        DB::table('cliente_veiculo')->insert([
-           ['cliente_id'=>1,'veiculo_id'=>1,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-           ['cliente_id'=>1,'veiculo_id'=>2,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-        ]);
+
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
