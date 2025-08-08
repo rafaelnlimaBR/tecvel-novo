@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -354,6 +355,9 @@ Route::post('/cadastrar-contato', [App\Http\Controllers\Front\SiteController::cl
 Route::get('/sair', [App\Http\Controllers\LoginController::class, 'logout'])->name('site.sair');
 Route::post('/comentar', [App\Http\Controllers\Front\SiteController::class, 'cadastrarComentarioPost'])->name('site.post.comentar');
 Route::get('/contato/{id}', [App\Http\Controllers\Front\SiteController::class, 'modelos'])->name('site.modelos.montadora');
+
+Route::get('/atualizarModelosVeiculos', [App\Http\Controllers\Front\SiteController::class, 'atualizarMarcaModelos'])->name('site.atualizar.marcas.modelos');
+
 
 
 
