@@ -41,19 +41,7 @@ class Veiculo extends Model
 
     public function gravar($placa,Modelo $modelo,$ano,$cor)
     {
-        $this->placa = $placa;
-        $this->modelo()->associate($modelo);
-        $this->ano  = $ano;
-        $this->cor   = $cor;
-        if($this->save()){
-            return $this;
-        }
-        return null;
-    }
-
-    public function atualizar($placa,Modelo $modelo,$ano,$cor)
-    {
-        $this->placa = $placa;
+        $this->placa = strtoupper($placa);
         $this->modelo()->associate($modelo);
         $this->ano  = $ano;
         $this->cor   = $cor;

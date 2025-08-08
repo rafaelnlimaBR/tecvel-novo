@@ -146,7 +146,7 @@ class VeiculoController extends Controller
             }
 
 
-            $veiculo                =   $veiculo->atualizar(
+            $veiculo                =   $veiculo->gravar(
                 $r->get('placa'),
                 $modelo,
                 $r->get('ano'),

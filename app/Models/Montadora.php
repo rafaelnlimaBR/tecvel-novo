@@ -18,7 +18,7 @@ class Montadora extends Model
 
     public function modelos()
     {
-        return $this->hasMany(Modelo::class);
+        return $this->hasMany(Modelo::class)->orderBy('nome','asc');
 
     }
 

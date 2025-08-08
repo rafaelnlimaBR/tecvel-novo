@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Front;
 
+
+
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\Controller;
 use App\Models\Carousel;
@@ -12,11 +14,8 @@ use App\Models\Configuracao;
 use App\Models\Contato;
 use App\Models\Contrato;
 use App\Models\ImagensNota;
-<<<<<<< HEAD
 use App\Models\Mensagem;
-=======
 use App\Models\Modelo;
->>>>>>> 3c08b7a50e05d12a9a158b3574f05ad5f6bce1a8
 use App\Models\Montadora;
 use App\Models\Nota;
 use App\Models\Postagem;
@@ -105,12 +104,7 @@ class SiteController extends Controller
 
         return \view('front.contato')->with($this->dados);
     }
-    public function teste($telefone,$mensagem){
 
-
-        $whatsapp       =   new Whatsapp();
-        $whatsapp->enviarMensagem($mensagem,$telefone);
-    }
 
     public function postagem($post,Request $request)
     {
@@ -232,7 +226,7 @@ class SiteController extends Controller
                 $nota                   =   new Nota();
                 $nota->texto            =   $request->input('descricao');
                 $nota->historico_id     =   $contrato->historicos->last()->id;
-                $nota->tipo_nota_id          =   Configuracao::first()->solicitação_orcamento;
+                $nota->tipo_nota_id          =   Configuracao::first()->solicitacao_orcamento;
                 $nota->save();
 
                 if($request->hasFile('imagens')){
@@ -353,7 +347,7 @@ class SiteController extends Controller
 
     public function cadastrarContato(Request $r)
     {
-        try{
+        try {
             /*$validacao      =   Validator::make($r->all(),[
                 'nome' => ['required', 'min:5'],
                 'email' => ['required', 'email'],
@@ -366,28 +360,29 @@ class SiteController extends Controller
                 return redirect()->back()->withErrors($validacao)->with($r->all());
             }*/
 
-            $cliente        =   Cliente::where('email',$r->input('email'))->first();
-            if($cliente == null){
-                $cliente        =   new Cliente();
-                $cliente    =   $cliente->gravar($r->get('nome'),$r->input('email'));
+            $cliente = Cliente::where('email', $r->input('email'))->first();
+            if ($cliente == null) {
+                $cliente = new Cliente();
+                $cliente = $cliente->gravar($r->get('nome'), $r->input('email'));
             }
-            $whatsapp       =   str_replace(['(',')','-',' '],'',$r->get('whatsapp'));
-            $contato       =   Contato::cadastrar($whatsapp,$this->conf->whatsapp_id);
+            $whatsapp = str_replace(['(', ')', '-', ' '], '', $r->get('whatsapp'));
+            $contato = Contato::cadastrar($whatsapp, $this->conf->whatsapp_id);
             $cliente->contatos()->attach($contato);
 
-            $mensagem       =   new Mensagem();
-            $mensagem       =   $mensagem->cadastrar($cliente,$r->get('texto'));
-            $r->session()->flash('alerta',["tipo"=>"success","texto_primario"=>"Contato enviado com sucesso","texto_secundario"=>"em breve te retornaremos"]);
-            $zap    =   new Whatsapp();
-            $zap->enviarMensagem("Recebemos seu contato enviado pelo nosso site, em breve te retornarei.", $whatsapp,55);
+            $mensagem = new Mensagem();
+            $mensagem = $mensagem->cadastrar($cliente, $r->get('texto'));
+            $r->session()->flash('alerta', ["tipo" => "success", "texto_primario" => "Contato enviado com sucesso", "texto_secundario" => "em breve te retornaremos"]);
+            $zap = new Whatsapp();
+            $zap->enviarMensagem("Recebemos seu contato enviado pelo nosso site, em breve te retornarei.", $whatsapp, 55);
 
             return redirect()->route('site.contato');
 
 
-        }catch (\Exception $e){
-            $r->session()->flash('alerta',["tipo"=>"danger","texto_primario"=>"Houve um erro no envio do seu contato","texto_secundario"=>"Entrar em contato pelo nosso Whatsapp 85987067785"]);
+        } catch (\Exception $e) {
+            $r->session()->flash('alerta', ["tipo" => "danger", "texto_primario" => "Houve um erro no envio do seu contato", "texto_secundario" => "Entrar em contato pelo nosso Whatsapp 85987067785"]);
             return redirect()->route('site.contato');
-=======
+        }
+    }
     public function atualizarMarcaModelos()
     {
         $montadoras     = '
@@ -13678,7 +13673,7 @@ class SiteController extends Controller
 
                 $mode->save();
             }
->>>>>>> 3c08b7a50e05d12a9a158b3574f05ad5f6bce1a8
+
         }
     }
 

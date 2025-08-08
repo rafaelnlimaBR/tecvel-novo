@@ -20,12 +20,10 @@ class MontadoraController extends Controller
         return view('admin.montadoras.index',$dados)->with('montadoras',$montadoras);
     }
 
-    public function editar($id){
+    public function editar(Montadora $montadora){
         try {
-            $montadora          =   Montadora::find($id);
-            if($montadora == null){
-                return redirect()->route('montadora.index')->with('alerta',['tipo'=>'warning','icon'=>'','texto'=>"Montadora não existe."]);
-            }
+
+
 
             $dados = [
                 'titulo' => "Editar Montadora",
@@ -81,8 +79,13 @@ class MontadoraController extends Controller
         }
     }
 
-    public function excluir(){
-
+    public function excluir(Montadora $montadora){
+        try{
+            $montadora->delete();
+            return redirect()->back()->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Montadora excluida com sucesso."]);
+        }catch (\Throwable $th){
+            return redirect()->route('montadora.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);
+        }
     }
 
     public function modelos($id)

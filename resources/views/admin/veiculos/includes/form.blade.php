@@ -16,7 +16,7 @@
         </div>
         <div class="form-group col-md-5">
             <label for="ano">Ano</label>
-            <input type="text"  class="form-control {{$errors->has('ano')?'parsley-error':''}}"  placeholder="Ano" name="ano" value="{{isset($modal)?isset($ano)?$ano:'':old('ano',isset($veiculo)?$veiculo->cor:'')}}">
+            <input type="text"  class="form-control {{$errors->has('ano')?'parsley-error':''}}"  placeholder="Ano" name="ano" value="{{isset($modal)?isset($ano)?$ano:'':old('ano',isset($veiculo)?$veiculo->ano:'')}}">
             @error('ano')
             <ul class="parsley-errors-list filled"><li class="parsley-required">{{$message}}</li></ul>
             @enderror

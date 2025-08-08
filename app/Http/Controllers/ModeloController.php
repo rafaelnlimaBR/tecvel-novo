@@ -110,9 +110,9 @@ class ModeloController extends Controller
     public function excluir(Request $r, Modelo $modelo){
         try{
             if($modelo->delete()){
-                return redirect()->route('modelo.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>'Excluido com sucesso']);
+                return redirect()->back()->with('alerta',['tipo'=>'success','icon'=>'','texto'=>'Excluido com sucesso']);
             }
-            return redirect()->route('modelo.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>'Erro ao excluir']);
+
 
         }catch (\Throwable $th) {
             return redirect()->route('modelo.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);

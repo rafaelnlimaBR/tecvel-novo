@@ -40,9 +40,6 @@ class ContratoController extends Controller
     }
 
     public function index(Request $r){
-
-
-
         $dados = [
             'titulo' => "Contratos",
             'titulo_tabela' => "Lista de Contratos",
@@ -50,13 +47,11 @@ class ContratoController extends Controller
         ];
 
         if($r->get('placa') != ""){
-
             $contratos   =   Contrato::pesquisarPorCliente($r->input('nome'))->PesquisarPorTelefone($r->input('telefone'))->PesquisarPorPlaca($r->input('placa'))->
             orderBy('created_at', 'desc')
                 ->paginate(10)->
                 withQueryString();
         }else{
-
             $contratos   =   Contrato::pesquisarPorCliente($r->input('nome'))->PesquisarPorTelefone($r->input('telefone'))->
             orderBy('created_at', 'desc')
                 ->paginate(10)->
