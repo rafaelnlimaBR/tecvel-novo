@@ -58,7 +58,6 @@
                             <th scope="col">Valor</th>
                             <th scope="col">Pagamento</th>
                             <th style="width: 10%; min-width: 150px;"  scope="col">Criado </th>
-                            <th style="width: 10%; min-width: 150px;"  scope="col">Garantia </th>
                             <th style="width: 7%; min-width: 150px;" scope="col">Ações</th>
 
                         </tr>
@@ -71,18 +70,9 @@
                                 <td>{{$contrato->cliente->nome}}</td>
                                 <td >{{isset($contrato->veiculo)?$contrato->veiculo->placa." - ".$contrato->veiculo->modelo->nome:"ND"}}  </td>
                                 <td style="width: 7%;"><span style="background-color: {{$contrato->historicos->last()->status->cor_fundo}}; color: {{$contrato->historicos->last()->status->cor_letra}}; padding: 3px 5px 3px 5px;border-radius: 10px;">{{$contrato->historicos->last()->status->nome}}</span></td>
-                                <td style="width: 10%;"><span style="font-weight: bolder">
-                                        @if($contrato->historicos->last()->status->id    == $orcamento_id)
-                                            <span style="color: #0d9115; ">R$ {{$contrato->valorTotalNaoCobrado()}}</span>
-                                        @else
-                                            @if($contrato->valorTotalNaoCobrado() == 0)
-                                                <span style="color: #40c135; ">R$ {{$contrato->valorTotalCobrado()}}</span>
-                                            @else
-                                                <span style="color: #911630; text-decoration-line: line-through; ">R$ {{$contrato->valorTotalNaoCobrado() }}</span> <span style="color: #0d9115"> (R$ {{$contrato->valorTotalCobrado()}})</span>
-                                            @endif
-                                        @endif
+                                <td style="width: 10%;">
+                                    <span style="color: #0d9115; ">R$ {{$contrato->totalLiquido()}}</span>
 
-                                    </span>
                                 </td>
                                 <td style="width: 7%;">
                                     @if($contrato->historicos->last()->status->id    == $orcamento_id)
@@ -101,12 +91,7 @@
 
                                 </td>
 
-                                <td style="width: 7%;">{{\Carbon\Carbon::parse($contrato->created_at)->format('d/m/Y')}}
-                                    @if($contrato->visualizado ==0)
-                                        <i class="fa fa-eye" aria-hidden="true"></i>
 
-                                    @endif
-                                </td>
                                 <td style="width: 7%;">{{\Carbon\Carbon::parse($contrato->garantia)->format('d/m/Y')}}</td>
 
 

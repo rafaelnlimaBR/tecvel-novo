@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('desconto',8,2)->default(0);
             $table->decimal('valor_liquido',8,2)->default(0);
             $table->date('data');
-            $table->boolean('cobrar');
+//            $table->boolean('cobrar');
             $table->foreignId('historico_id')->constrained('historicos','id')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('servico_id')->constrained('servicos','id')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

@@ -107,82 +107,6 @@ class Contrato extends Model
 
     }
 
-    public function valorTotal()
-    {
-        return $this->totalServicosLiquido()+$this->totalPecasAvulsasLiquido();
-    }
-
-    public function valorTotalCobrado()
-    {
-        return $this->totalPecasLiquidoCobrados()+$this->totalServicosLiquidoCobrados();
-    }
-
-    public function valorTotalNaoCobrado()
-    {
-        return $this->totalServicosLiquidoNaoCobrados()+$this->totalPecasLiquidoNaoCobrados();
-    }
-
-    public function totalServicosLiquidoCobrados()
-    {
-        $total  =   0;
-        foreach ($this->historicos as $historico){
-            foreach ($historico->servicos as $servico){
-                if($servico->pivot->cobrar == true){
-                  $total += $servico->pivot->valor_liquido;
-                }
-            }
-
-        }
-
-        return $total;
-    }
-
-    public function totalServicosLiquidoNaoCobrados()
-    {
-        $total  =   0;
-        foreach ($this->historicos as $historico){
-            foreach ($historico->servicos as $servico){
-                if($servico->pivot->cobrar == false){
-                    $total += $servico->pivot->valor_liquido;
-                }
-            }
-
-        }
-
-        return $total;
-    }
-
-    public function totalPecasLiquidoCobrados()
-    {
-        $total  =   0;
-        foreach ($this->historicos as $historico){
-            foreach ($historico->pecas as $peca){
-                if($peca->pivot->cobrar == true){
-                    $total += $peca->pivot->valor_liquido;
-                }
-            }
-
-        }
-
-        return $total;
-    }
-
-    public function totalPecasLiquidoNaoCobrados()
-    {
-        $total  =   0;
-        foreach ($this->historicos as $historico){
-            foreach ($historico->pecas as $peca){
-                if($peca->pivot->cobrar == false){
-                    $total += $peca->pivot->valor_liquido;
-                }
-            }
-
-        }
-
-        return $total;
-    }
-
-
     public function totalServicosLiquido()
     {
         $total  =   0;
@@ -194,39 +118,43 @@ class Contrato extends Model
         return $total;
     }
 
-    public function somaTotalPecasAvulsas()
+    public function totalServicosBruto()
     {
         $total  =   0;
         foreach ($this->historicos as $historico){
-            foreach ($historico->pecas as $peca){
-
-                    $total += $peca->pivot->valor;
-
+            foreach ($historico->servicos as $servico){
+                $total += $servico->pivot->valor;
             }
-
         }
         return $total;
     }
 
-    public function totalPecasAvulsasLiquido()
+    public function totalPecasLiquido()
     {
         $total  =   0;
         foreach ($this->historicos as $historico){
             foreach ($historico->pecas as $peca){
-
-                    $total += $peca->pivot->valor_liquido_total;
-
+                $total += $peca->pivot->valor_liquido*$peca->pivot->qnt;
             }
-
         }
+        return $total;
+    }
 
+    public function totalPecasBruto()
+    {
+        $total  =   0;
+        foreach ($this->historicos as $historico){
+            foreach ($historico->pecas as $peca){
+                $total += $peca->pivot->valor*$peca->pivot->qnt;
+            }
+        }
         return $total;
     }
 
     public function verificarPagamento()
     {
         $totalPago      =   $this->entradas->sum('valor');
-        $totalContrato  =   $this->valorTotal();
+        $totalContrato  =   $this->totalLiquido();
 
         if ($totalPago == $totalContrato){
             return 1;//pago
@@ -240,9 +168,19 @@ class Contrato extends Model
     public function restantePagamento()
     {
         $totalPago      =   $this->entradas->sum('valor');
-        $totalContrato  =   $this->valorTotalCobrado();
+        $totalContrato  =   $this->totalLiquido();
 
         return $totalContrato - $totalPago;
+    }
+
+    public function totalLiquido()
+    {
+        return $this->totalPecasLiquido()+$this->totalServicosLiquido();
+    }
+
+    public function totalBruto()
+    {
+        return $this->totalPecasBruto()+$this->totalServicosBruto();
     }
 
     public function excluir()

@@ -227,9 +227,8 @@ class ContratoController extends Controller
         try {
             $historico_atual                =   $r->get('historico_id');
             $historico                      =   Historico::find($historico_atual);
-            $cobrar                         =   $historico->status->cobrar;
             $contrato                       =    $historico->contrato;
-            $historico->servicos()->attach($r->get('servico'),['valor'=>$r->get('valor'),'data'=>Carbon::now(),'cobrar'=>$cobrar,'desconto'=>0,'valor_liquido'=>$r->get('valor')]);
+            $historico->servicos()->attach($r->get('servico'),['valor'=>$r->get('valor'),'data'=>Carbon::now(),'desconto'=>0,'valor_liquido'=>$r->get('valor')]);
 
             return response()->json(['servico'=>view("admin.contratos.includes.tabela-servico",['contrato'=>$contrato,'historico'=>$historico])->render()]);
 
@@ -265,8 +264,6 @@ class ContratoController extends Controller
 //            return response()->json($r->all());
             $servico                =       MaoObra::find($r->get('servico_id'))   ;
             $servico->valor         =      $r->get('valor');
-//            $servico->cobrar        =       ($r->get('cobrar')=="1"?true:false);
-            $servico->cobrar        =       $servico->historico->status->cobrar;
             $servico->desconto      =       $r->get('desconto');
             $servico->valor_liquido =       $r->get('valor_liquido');
             $servico->data          =   Carbon::now();
@@ -306,13 +303,8 @@ class ContratoController extends Controller
             $valor_total                    =   $qnt*$valor;
             $valor_liquido                  =   ((100-$desconto)/100)*$valor;
             $valor_liquido_total            =   $valor_liquido*$qnt;
-            $cobrar                         =   0;
-            if($r->has('cobrar')){
-                $cobrar     =   $r->get('cobrar');
-            }else{
-                $cobrar     =   $contrato->status->last()->cobrar;
-            }
-            $historico->pecas()->attach($peca->id,['valor'=>$valor,'cobrar'=>$cobrar,'marca'=>$r->get('marca-peca'),'qnt'=>$r->get('qnt'),'desconto'=>$desconto,'valor_total'=>$valor_total,'valor_liquido'=>$valor_liquido,'valor_liquido_total'=>$valor_liquido_total]);
+
+            $historico->pecas()->attach($peca->id,['valor'=>$valor,'marca'=>$r->get('marca-peca'),'qnt'=>$r->get('qnt'),'desconto'=>$desconto,'valor_total'=>$valor_total,'valor_liquido'=>$valor_liquido,'valor_liquido_total'=>$valor_liquido_total]);
 
             return response()->json(['peca'=>view("admin.contratos.includes.tabela-pecas",['contrato'=>$contrato,'historico'=>$historico])->render()]);
 
@@ -347,8 +339,6 @@ class ContratoController extends Controller
         try {
             $peca                       =       Avulsa::find($r->get('peca_id'))   ;
             $peca->valor                =      $r->get('valor');
-//            $peca->cobrar             =       ($r->get('cobrar')=="1"?true:false);
-            $peca->cobrar               =      $peca->historico->status->cobrar;
             $peca->marca                =      $r->get('marca');
             $peca->qnt                  =      $r->get('qnt');
             $peca->valor_total          =      $r->get('valor_bruto_total');

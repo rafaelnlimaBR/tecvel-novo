@@ -54,7 +54,7 @@ class MontadoraController extends Controller
 
 
             if($montadora->save()){
-                return redirect()->route('montadora.editar',['id'=>$montadora->id])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Montadora cadastrado com sucesso."]);
+                return redirect()->route('montadora.editar',['montadora'=>$montadora])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Montadora cadastrado com sucesso."]);
             }
 
 

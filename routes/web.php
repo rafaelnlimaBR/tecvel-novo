@@ -287,9 +287,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 Route::get('/teste',function () {
 
 
-    $categoria     =   Categoria::find(1);
+    $contrato   =   Contrato::find(1);
 
-    return $categoria->postagens;
+    echo "Valor Bruto : ". $contrato->totalPecasBruto()."\n";
+    echo "Valor Liquido : ". $contrato->totalPecasLiquido()."\n";
 
 
 

@@ -76,5 +76,5 @@
         </tbody>
 
     </table>
-    <h5><b>Valor Total </b> R$ {{$contrato->totalPecasAvulsasLiquido()}}</h5>
+    <h5><b>Valor Total </b> R$ {{$contrato->totalPecasLiquido()}}</h5>
 </div>

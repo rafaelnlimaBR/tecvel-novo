@@ -8,7 +8,6 @@
             <th style="width: 13%; " scope="col">Valor</th>
             <th style="width: 13%; " scope="col">D%</th>
             <th style="width: 13%; " scope="col">Valor Total</th>
-{{--            <th scope="col" style="width: 10%; " >Cobrar</th>--}}
 
             <th style="width: 5%; min-width: 100px;" scope="col">Ações</th>
 
@@ -32,18 +31,7 @@
                         <td>{{$servico->pivot->desconto}}</td>
                         <td>{{$servico->pivot->valor_liquido}}</td>
                     @endif
-                    {{--<td>
 
-                        <select class="form-control" name="cobrar" id="cobrar-servico-{{$servico->pivot->id}}">
-                            @if($servico->pivot->cobrar == true)
-                                <option value="1" selected>Sim</option>
-                                <option value="0" >Não</option>
-                            @else
-                                <option value="1" >Sim</option>
-                                <option value="0" selected>Não</option>
-                            @endif
-                        </select>
-                    </td>--}}
 
 
                     <td>
