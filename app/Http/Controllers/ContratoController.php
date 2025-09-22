@@ -151,7 +151,7 @@ class ContratoController extends Controller
 
             if($contrato->save()){
                 $status             =   Status::find(Configuracao::first()->abertura);
-                $contrato->status()->attach($status,['obs'=>$r->get('obs'),'data'=>Carbon::now()->format('Y-m-d')]);
+                $contrato->status()->attach($status,['obs'=>$r->get('obs'),'data'=>Carbon::now()->format('Y-m-d'),'tipo_id'=>$this->conf->orcamento]);
             return redirect()->route('contrato.editar',['id'=>$contrato->id,'historico_id'=>$contrato->status->last()->pivot->id,'pagina'=>'dados'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Contrato cadastrado com sucesso."]);
             }
 
@@ -200,6 +200,27 @@ class ContratoController extends Controller
     public function mudarStatus(Request $r)
     {
         try {
+
+            switch ($r->get('id_status')) {
+                case $this->conf->aprovado:
+                        return "aprovado";
+                    break;
+
+                case $this->conf->recusado:
+                    return "recusado";
+                    break;
+
+                case $this->conf->retorno:
+                    return "retorno";
+                    break;
+
+                case $this->conf->concluido:
+                    return "concluido";
+                    break;
+            }
+
+
+
             $contrato                       =   Contrato::find($r->get('id_contrato'));
             $contrato->status()->attach($r->get('id_status'),['obs'=>$r->get('obs'),'data'=>Carbon::now()->format('y-m-d')]);
 

@@ -13,17 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('status', function (Blueprint $table) {
+        Schema::create('tipos_contratos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nome');
-            $table->string('cor_fundo')->default('#303030');
-            $table->string('cor_letra')->default('#F5F5F5');
-            $table->boolean('cobrar')->default(false);
-
-            $table->boolean('editar_servicos')->default(false);
-            $table->boolean('editar_pecas')->default(false);
-
-            $table->timestamps();
+            $table->string('cor_fundo')->nullable();
+            $table->string('cor_letra')->nullable();
         });
     }
 
@@ -34,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('status');
+        Schema::dropIfExists('tipos_contratos');
     }
 };

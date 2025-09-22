@@ -24,6 +24,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->command->info("Insertindo dados de montadoras e modelos de veiculos");
 
+        $this->command->info("Insertindo dados de tipo de contratos");
+        DB::table('tipos_contratos')->insert([
+           ['nome' => 'Orçamento','cor_fundo'=>'2765F5','cor_letra'=>'E4E6F0'],
+           ['nome' => 'Ordem de Serviço','cor_fundo'=>'0B8700','cor_letra'=>'E4E6F0'],
+        ]);
 
         $this->command->info("Insertindo dados do app contados");
         DB::table('app_contatos')->insert([
@@ -127,19 +132,19 @@ class DatabaseSeeder extends Seeder
 
         $this->command->info("Insertindo dados status");
         DB::table('status')->insert([
-            ["nome"=>"Orçamento","cor_fundo"=>"..","cor_letra"=>"..","cobrar"=>false,"habilitar_funcoes"=>true],
-            ["nome"=>"Aprovado","cor_fundo"=>"..","cor_letra"=>"..","cobrar"=>true,"habilitar_funcoes"=>true],
-            ["nome"=>"Recusado","cor_fundo"=>"..","cor_letra"=>"..","cobrar"=>false,"habilitar_funcoes"=>false],
-            ["nome"=>"Retorno","cor_fundo"=>"..","cor_letra"=>"..","cobrar"=>true,"habilitar_funcoes"=>true],
-            ["nome"=>"Concluido","cor_fundo"=>"..","cor_letra"=>"..","cobrar"=>false,"habilitar_funcoes"=>false],
+            ["nome"=>"Abertura","cor_fundo"=>"..","cor_letra"=>"..","cobrar"=>false,"editar_servicos"=>true,"editar_pecas"=>true],
+            ["nome"=>"Aprovado","cor_fundo"=>"..","cor_letra"=>"..","cobrar"=>true,"editar_servicos"=>true,"editar_pecas"=>true],
+            ["nome"=>"Recusado","cor_fundo"=>"..","cor_letra"=>"..","cobrar"=>true,"editar_servicos"=>true,"editar_pecas"=>true],
+            ["nome"=>"Retorno","cor_fundo"=>"..","cor_letra"=>"..","cobrar"=>true,"editar_servicos"=>true,"editar_pecas"=>true],
+            ["nome"=>"Concluido","cor_fundo"=>"..","cor_letra"=>"..","cobrar"=>false,"editar_servicos"=>false,"editar_pecas"=>false],
         ]);
         $this->command->info("Insertindo dados relacionamento status");
         DB::table('status_status')->insert([
             ['status_atual_id'=>1,'status_proximo_id'=>2] ,
-            ['status_atual_id'=>1,'status_proximo_id'=>2] ,
-            ['status_atual_id'=>2,'status_proximo_id'=>3] ,
-            ['status_atual_id'=>2,'status_proximo_id'=>4] ,
+            ['status_atual_id'=>1,'status_proximo_id'=>3] ,
             ['status_atual_id'=>2,'status_proximo_id'=>5] ,
+            ['status_atual_id'=>4,'status_proximo_id'=>5] ,
+            ['status_atual_id'=>5,'status_proximo_id'=>4] ,
         ]);
 
        /* $this->command->info("Insertindo dados do veiculos");
@@ -200,14 +205,16 @@ class DatabaseSeeder extends Seeder
             'uf'                   =>  "CE",
             'bairro'               =>  "Centro",
             'cep'                  =>  "60150-000",
-            'abertura'             =>  DB::table('status')->where('nome','like','Orçamento')->first()->id,
+            'abertura'             =>  DB::table('status')->where('nome','like','Abertura')->first()->id,
             'aprovado'             =>  DB::table('status')->where('nome','like','Aprovado')->first()->id,
             'recusado'             =>  DB::table('status')->where('nome','like','Recusado')->first()->id,
             'retorno'              =>  DB::table('status')->where('nome','like','Retorno')->first()->id,
             'concluido'            =>  DB::table('status')->where('nome','like','Concluido')->first()->id,
             'solicitação_orcamento' =>  3,
             'forma_pagamento_preferido'=>'28',
-            'whatsapp_id'=>  1
+            'whatsapp_id'=>  1,
+            'orcamento' =>1,
+            'ordem_servico' =>2,
         ]);
         $this->command->info("Insertindo dados de saidas");
         DB::table('saidas')->insert([

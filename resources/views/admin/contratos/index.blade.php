@@ -52,6 +52,8 @@
                         <thead class="thead-light">
                         <tr>
                             <th style="width: 5%; min-width: 40px;" scope="col">#</th>
+
+                            <th style="width: 10%; " scope="col">Tipo</th>
                             <th scope="col">Cliente</th>
                             <th scope="col">Placa</th>
                             <th scope="col">Status</th>
@@ -67,6 +69,10 @@
                         @foreach ($contratos as $contrato)
                             <tr class=" {{$contrato->pedido_orcamento==1?'table-warning':''}}">
                                 <th scope="row">{{$contrato->id}}</th>
+                                <td>
+                              
+                                    <span style="background-color: {{'#'.$contrato->historicos->last()->tipo->cor_fundo}}; color: {{'#'.$contrato->historicos->last()->tipo->cor_letra}}; padding: 3px 5px 3px 5px;border-radius: 10px;">{{$contrato->historicos->last()->tipo->nome}}</span>
+                                </td>
                                 <td>{{$contrato->cliente->nome}}</td>
                                 <td >{{isset($contrato->veiculo)?$contrato->veiculo->placa." - ".$contrato->veiculo->modelo->nome:"ND"}}  </td>
                                 <td style="width: 7%;"><span style="background-color: {{$contrato->historicos->last()->status->cor_fundo}}; color: {{$contrato->historicos->last()->status->cor_letra}}; padding: 3px 5px 3px 5px;border-radius: 10px;">{{$contrato->historicos->last()->status->nome}}</span></td>
