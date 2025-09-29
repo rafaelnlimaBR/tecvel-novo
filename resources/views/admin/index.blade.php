@@ -1003,6 +1003,7 @@
                var desconto         =   $('#desconto-servico-'+servico_id).val();
                var  historico_id     =   $(this).attr('historico_id');
 
+
                 $.ajax({
                     header:{
                         'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
@@ -1070,7 +1071,6 @@
                         'valor_bruto_total'         :   valor_bruto_total,
                         'valor_liquido_total'       :   valor_liquido_total,
                         'valor_liquido'             :   valor_liquido
-
                     },
                     success: function( data )
                     {

@@ -8,6 +8,7 @@
             <th style="width: 13%; " scope="col">Valor</th>
             <th style="width: 13%; " scope="col">D%</th>
             <th style="width: 13%; " scope="col">Valor Total</th>
+            <th style="width: 7%; " scope="col">Cobrar</th>
 
             <th style="width: 5%; min-width: 100px;" scope="col">Ações</th>
 
@@ -19,17 +20,25 @@
 
         @foreach ($contrato->historicos as $h)
             @foreach($h->servicos as $servico)
-                <tr class="{{$historico->status->id != $h->status->id? "table-warning":''}}">
+                <tr class="{{$historico->status->id != $h->status->id? "":''}}">
                     <td>{{$h->id.'.'.$servico->pivot->id}}</td>
                     <td>{{$servico->nome}}</td>
                     @if($historico->status->id == $h->status->id)
                         <td><input class="form-control calcular-desconto numero" name="valor-servico-table" id="valor-servico-{{$servico->pivot->id}}" servico-id="{{$servico->pivot->id}}" ativo="valor-bruto"  value="{{$servico->pivot->valor}}"></td>
                         <td><input class="form-control calcular-desconto numero" name="desconto-servico-table" id="desconto-servico-{{$servico->pivot->id}}" servico-id="{{$servico->pivot->id}}" ativo="desconto" value="{{$servico->pivot->desconto}}"></td>
                         <td><input class="form-control calcular-desconto numero" name="valor-liquido-servico-table" id="valor-liquido-servico-{{$servico->pivot->id}}" servico-id="{{$servico->pivot->id}}" ativo="valor-liquido" value="{{$servico->pivot->valor_liquido}}"></td>
+                        <td>
+                            <select name="cobrar-servico-{{$servico->pivot->id}}" id="cobrar-servico-{{$servico->pivot->id}}" class="form-control">
+
+                                <option  value="0" {{$servico->pivot->cobrar == 0?'selected':''}} >Não</option>
+                                <option value="1" {{$servico->pivot->cobrar == 1?'selected':''}} >Sim</option>
+                            </select>
+                        </td>
                     @else
                         <td>{{$servico->pivot->valor}}</td>
                         <td>{{$servico->pivot->desconto}}</td>
                         <td>{{$servico->pivot->valor_liquido}}</td>
+                        <td>{{$servico->pivot->cobrar == 0?"Não":"Sim"}}</td>
                     @endif
 
 

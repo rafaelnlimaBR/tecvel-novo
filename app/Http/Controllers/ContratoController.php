@@ -197,32 +197,55 @@ class ContratoController extends Controller
         }
     }
 
-    public function mudarStatus(Request $r)
+    public function mudarStatus(Request $r, Contrato $contrato)
     {
         try {
-
+            $tipo   =       0;
             switch ($r->get('id_status')) {
                 case $this->conf->aprovado:
-                        return "aprovado";
-                    break;
 
+                    foreach ($contrato->historicos as $historico) {
+                        foreach ($historico->servicos as $servico) {
+                            $servico->pivot->cobrar = 1;
+                            $servico->pivot->save();
+                        }
+                        foreach ($historico->pecas as $peca) {
+                            $peca->pivot->cobrar = 1;
+                            $peca->pivot->save();
+                        }
+                    }
+                    $tipo = $this->conf->ordem_servico;
+                    break;
                 case $this->conf->recusado:
-                    return "recusado";
+                    foreach ($contrato->historicos as $historico) {
+                        foreach ($historico->servicos as $servico) {
+                            $servico->pivot->cobrar = 0;
+                            $servico->pivot->save();
+                        }
+                        foreach ($historico->pecas as $peca) {
+                            $peca->pivot->cobrar = 0;
+                            $peca->pivot->save();
+                        }
+                    }
+                    $tipo = $this->conf->orcamento;
+
                     break;
 
                 case $this->conf->retorno:
-                    return "retorno";
+
+                    $tipo = $this->conf->ordem_servico;
                     break;
 
                 case $this->conf->concluido:
-                    return "concluido";
+
+                    $tipo = $this->conf->ordem_servico;
                     break;
             }
 
 
 
-            $contrato                       =   Contrato::find($r->get('id_contrato'));
-            $contrato->status()->attach($r->get('id_status'),['obs'=>$r->get('obs'),'data'=>Carbon::now()->format('y-m-d')]);
+
+            $contrato->status()->attach($r->get('id_status'),['obs'=>$r->get('obs'),'tipo_id'=>$tipo,'data'=>Carbon::now()->format('y-m-d')]);
 
             return redirect()->route('contrato.editar',['id'=>$contrato->id,"historico_id"=>$contrato->historicos->last()->id,'pagina'=>'dados'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Contrato atualizado com sucesso."]);
 
@@ -249,7 +272,7 @@ class ContratoController extends Controller
             $historico_atual                =   $r->get('historico_id');
             $historico                      =   Historico::find($historico_atual);
             $contrato                       =    $historico->contrato;
-            $historico->servicos()->attach($r->get('servico'),['valor'=>$r->get('valor'),'data'=>Carbon::now(),'desconto'=>0,'valor_liquido'=>$r->get('valor')]);
+            $historico->servicos()->attach($r->get('servico'),['valor'=>$r->get('valor'),'data'=>Carbon::now(),'desconto'=>0,'valor_liquido'=>$r->get('valor'),'cobrar'=>$r->get('cobrar')]);
 
             return response()->json(['servico'=>view("admin.contratos.includes.tabela-servico",['contrato'=>$contrato,'historico'=>$historico])->render()]);
 
@@ -287,6 +310,7 @@ class ContratoController extends Controller
             $servico->valor         =      $r->get('valor');
             $servico->desconto      =       $r->get('desconto');
             $servico->valor_liquido =       $r->get('valor_liquido');
+            $servico->cobrar        =      $r->get('cobrar');
             $servico->data          =   Carbon::now();
             $historico              =   Historico::find($r->get('historico_id'));
             $contrato               =   $historico->contrato;
@@ -321,11 +345,12 @@ class ContratoController extends Controller
             $desconto                       =   $r->get('desconto');
             $qnt                            =   $r->get('qnt');
             $valor                          =   $r->get('valor');
+            $cobrar                         =    $r->get('cobrar');
             $valor_total                    =   $qnt*$valor;
             $valor_liquido                  =   ((100-$desconto)/100)*$valor;
             $valor_liquido_total            =   $valor_liquido*$qnt;
 
-            $historico->pecas()->attach($peca->id,['valor'=>$valor,'marca'=>$r->get('marca-peca'),'qnt'=>$r->get('qnt'),'desconto'=>$desconto,'valor_total'=>$valor_total,'valor_liquido'=>$valor_liquido,'valor_liquido_total'=>$valor_liquido_total]);
+            $historico->pecas()->attach($peca->id,['valor'=>$valor,'marca'=>$r->get('marca-peca'),'qnt'=>$r->get('qnt'),'desconto'=>$desconto,'valor_total'=>$valor_total,'valor_liquido'=>$valor_liquido,'valor_liquido_total'=>$valor_liquido_total,'cobrar'=>$cobrar]);
 
             return response()->json(['peca'=>view("admin.contratos.includes.tabela-pecas",['contrato'=>$contrato,'historico'=>$historico])->render()]);
 
@@ -364,8 +389,9 @@ class ContratoController extends Controller
             $peca->qnt                  =      $r->get('qnt');
             $peca->valor_total          =      $r->get('valor_bruto_total');
             $peca->desconto             =       $r->get('desconto');
-            $peca->valor_liquido        =      $r->get('valor_liquido');
-            $peca->valor_liquido_total  = $r->get('valor_liquido_total');
+            $peca->valor_liquido        =       $r->get('valor_liquido');
+            $peca->valor_liquido_total  =       $r->get('valor_liquido_total');
+            $peca->cobrar               =       $r->get('cobrar');
             $historico                  =   Historico::find($r->get('historico_id'));
             $contrato                   =   $historico->contrato;
 

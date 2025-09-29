@@ -50,7 +50,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::post('/contrato/atualizar', [App\Http\Controllers\ContratoController::class, 'atualizar'])->name('contrato.atualizar');
     Route::post('/contrato/cadastrar', [App\Http\Controllers\ContratoController::class, 'cadastrar'])->name('contrato.cadastrar');
     Route::get('/contrato/excluir/{contrato}', [App\Http\Controllers\ContratoController::class, 'excluir'])->name('contrato.excluir');
-    Route::post('/contrato/novo/status', [App\Http\Controllers\ContratoController::class, 'mudarStatus'])->name('contrato.novo.status');
+    Route::post('/contrato/novo/status/{contrato}', [App\Http\Controllers\ContratoController::class, 'mudarStatus'])->name('contrato.novo.status');
     Route::post('/contrato/adicionar/servico', [App\Http\Controllers\ContratoController::class, 'adicionarServico'])->name('contrato.adicionar.servico');
     Route::post('/contrato/remover/servico', [App\Http\Controllers\ContratoController::class, 'removerServico'])->name('contrato.remover.servico');
     Route::post('/contrato/atualizar/servico', [App\Http\Controllers\ContratoController::class, 'atualizarServico'])->name('contrato.atualizar.servico');

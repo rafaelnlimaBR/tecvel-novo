@@ -7,7 +7,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{route('contrato.novo.status')}}" method="POST">
+            <form action="{{route('contrato.novo.status',['contrato'=>$contrato])}}" method="POST">
             <div class="modal-body">
                <div class="row">
                    <div class="col-lg-12">
@@ -15,8 +15,7 @@
 
                            <div class="form-row">
                                <div class="form-group col-md-12">
-                                   <input type="hidden" id="id-modal-status" name="id_status">
-                                   <input type="hidden" name="id_contrato" value="{{$contrato->id}}">
+                                   <input  id="id-modal-status" name="id_status">
                                    <label for="obs">Observações</label>
                                    <textarea type="text"  class="form-control " id="obs-modal-status" name="obs" ></textarea>
                                </div>

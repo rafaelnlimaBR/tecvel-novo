@@ -13,7 +13,7 @@
             <th style="width: 10%; " scope="col">Valor Liquido</th>
             <th style="width: 10%; " scope="col">Valor Final</th>
             <th style="width: 10%; " scope="col">Marca</th>
-{{--            <th scope="col" style="width: 10%; " >Cobrar</th>--}}
+            <th scope="col" style="width: 10%; " >Cobrar</th>--
 
             <th style="width: 7%; min-width: 150px;" scope="col">Ações</th>
 
@@ -25,7 +25,7 @@
 
         @foreach ($contrato->historicos as $h)
             @foreach($h->pecas as $i=>$peca)
-                <tr class="{{$historico->status->id != $h->status->id? "table-warning":''}}">
+                <tr class="{{$historico->status->id != $h->status->id? "":''}}">
                     <td>{{$h->id.'.'.$peca->pivot->id}}</td>
                     <td>{{$peca->nome}}</td>
                     @if($historico->status->id != $h->status->id)
@@ -36,6 +36,9 @@
                         <td>{{$peca->pivot->valor_liquido}}</td>
                         <td>{{$peca->pivot->valor_liquido_total}}</td>
                         <td>{{$peca->pivot->marca}}</td>
+                        <td>
+                            {{$peca->pivot->cobrar==1?"Sim":"Não"}}
+                        </td>
                     @else
                         <td><input class="form-control calcular-valor-pecas dinheiro" name="valor-peca-table" id="valor-peca-{{$peca->pivot->id}}" peca_id="{{$peca->pivot->id}}" ativo="valor-peca"  value="{{$peca->pivot->valor}}"> </td>
                         <td><input class="form-control calcular-valor-pecas"  name="qnt-peca-table" id="qnt-peca-{{$peca->pivot->id}}"  peca_id="{{$peca->pivot->id}}" ativo="qnt-peca" value="{{$peca->pivot->qnt}}"> </td>
@@ -44,22 +47,14 @@
                         <td><input class="form-control calcular-valor-pecas dinheiro" name="valor-liquido-table" id="valor-liquido-{{$peca->pivot->id}}"  peca_id="{{$peca->pivot->id}}" ativo="valor-liquido-peca" value="{{$peca->pivot->valor_liquido}}"> </td>
                         <td><input class="form-control calcular-valor-pecas dinheiro" name="valor-liquido-total-table" id="valor-liquido-total-{{$peca->pivot->id}}"  peca_id="{{$peca->pivot->id}}" ativo="valor-liquido-total-peca" value="{{$peca->pivot->valor_liquido_total}}" disabled> </td>
                         <td><input class="form-control caixa-alta" name="marca-peca-table" id="marca-peca-{{$peca->pivot->id}}"  value="{{$peca->pivot->marca}}"></td>
+                        <td>
+                            <select name="cobrar-peca-{{$peca->pivot->id}}" id="cobrar-peca-{{$peca->pivot->id}}" class="form-control">
+
+                                <option  value="0" {{$peca->pivot->cobrar == 0?'selected':''}} >Não</option>
+                                <option value="1" {{$peca->pivot->cobrar == 1?'selected':''}} >Sim</option>
+                            </select>
+                        </td>
                     @endif
-
-                    {{--<td>
-
-                        <select class="form-control" name="cobrar" id="cobrar-peca-{{$peca->pivot->id}}">
-                            @if($peca->pivot->cobrar == true)
-                                <option value="1" selected>Sim</option>
-                                <option value="0" >Não</option>
-                            @else
-                                <option value="1" >Sim</option>
-                                <option value="0" selected>Não</option>
-                            @endif
-                        </select>
-                    </td>--}}
-
-
                     <td>
                         @if($historico->status->id == $h->status->id)
 
