@@ -68,7 +68,7 @@
                         <tbody>
 
                         @foreach ($contratos as $contrato)
-                            <tr class=" {{$contrato->pedido_orcamento==1?'table-warning':''}}">
+                            <tr >
                                 <th scope="row">{{$contrato->id}}</th>
 
                                 <td>{{$contrato->cliente->nome}}</td>

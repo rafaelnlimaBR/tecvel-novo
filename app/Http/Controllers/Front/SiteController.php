@@ -185,7 +185,7 @@ class SiteController extends Controller
 
             $contato            =   Contato::where('numero',$telefone);
             if(!$contato->exists()){
-                $contato = ContatoController::cadastrar($telefone,Configuracao::first()->whatsapp_id);
+                $contato = ContatoController::cadastrar($telefone,$this->conf->whatsapp_id);
             }else{
                 $contato=$contato->first();
             }
@@ -216,17 +216,18 @@ class SiteController extends Controller
             $contrato->veiculo_id           =   $veiculo->id;
             $contrato->defeito              =   "";
             $contrato->solucao              =   "";
-            $contrato->pedido_orcamento         =   true;
+
             $contrato->visualizado              =   false;
 
 
             if($contrato->save()) {
-                $status = Status::find(Configuracao::first()->abertura);
-                $contrato->status()->attach($status, ['obs' => 'Criado através de link para solicitação de orçamento', 'data' => Carbon::now()->format('Y-m-d')]);
+                $orcamento_online   =   $this->conf->orcamento_online;
+                $status = Status::find($this->conf->abertura);
+                $contrato->status()->attach($status, ['obs' => 'Criado através de link para solicitação de orçamento', 'data' => Carbon::now()->format('Y-m-d'),'tipo_id'=>$orcamento_online ]);
                 $nota                   =   new Nota();
                 $nota->texto            =   $request->input('descricao');
                 $nota->historico_id     =   $contrato->historicos->last()->id;
-                $nota->tipo_nota_id          =   Configuracao::first()->solicitacao_orcamento;
+                $nota->tipo_nota_id     =   $this->conf->solicitacao_orcamento;
                 $nota->save();
 
                 if($request->hasFile('imagens')){

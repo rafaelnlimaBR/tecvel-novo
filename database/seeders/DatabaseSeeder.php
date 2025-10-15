@@ -24,9 +24,16 @@ class DatabaseSeeder extends Seeder
     {
         $this->command->info("Insertindo dados de montadoras e modelos de veiculos");
 
+        $this->command->info("Insertindo dados de tipo de notas");
+        DB::table('tipos_notas')->insert([
+            ['nome' => 'Informações do orçamento','cliente'=>true,'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+
+        ]);
+
         $this->command->info("Insertindo dados de tipo de contratos");
         DB::table('tipos_contratos')->insert([
            ['nome' => 'Orçamento','cor_fundo'=>'2765F5','cor_letra'=>'E4E6F0'],
+           ['nome' => 'Orçamento Online','cor_fundo'=>'4959DE','cor_letra'=>'E4E6F0'],
            ['nome' => 'Ordem de Serviço','cor_fundo'=>'0B8700','cor_letra'=>'E4E6F0'],
         ]);
 
@@ -210,11 +217,12 @@ class DatabaseSeeder extends Seeder
             'recusado'             =>  DB::table('status')->where('nome','like','Recusado')->first()->id,
             'retorno'              =>  DB::table('status')->where('nome','like','Retorno')->first()->id,
             'concluido'            =>  DB::table('status')->where('nome','like','Concluido')->first()->id,
-            'solicitação_orcamento' =>  3,
+            'solicitacao_orcamento' =>  1,
             'forma_pagamento_preferido'=>'28',
             'whatsapp_id'=>  1,
             'orcamento' =>1,
-            'ordem_servico' =>2,
+            'orcamento_online' =>2,
+            'ordem_servico' =>3,
         ]);
         $this->command->info("Insertindo dados de saidas");
         DB::table('saidas')->insert([

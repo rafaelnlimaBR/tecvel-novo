@@ -33,11 +33,12 @@ return new class extends Migration
             $tabela->bigInteger('recusado');
             $tabela->bigInteger('retorno');
             $tabela->bigInteger('concluido');
-            $tabela->bigInteger('solicitação_orcamento');
+            $tabela->bigInteger('solicitacao_orcamento');
             $tabela->bigInteger('forma_pagamento_preferido');
             $tabela->integer('dias_expirar_token')->default(1);
             $tabela->bigInteger('whatsapp_id')->nullable();
             $tabela->bigInteger('orcamento');
+            $tabela->bigInteger('orcamento_online');
             $tabela->bigInteger('ordem_servico');
 
 
