@@ -216,6 +216,7 @@ class SiteController extends Controller
             $contrato->veiculo_id           =   $veiculo->id;
             $contrato->defeito              =   "";
             $contrato->solucao              =   "";
+            $contrato->descricao            =   $request->input('descricao');
 
             $contrato->visualizado              =   false;
 

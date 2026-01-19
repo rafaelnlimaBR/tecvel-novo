@@ -149,9 +149,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::get('/grupo/novo', [App\Http\Controllers\GrupoController::class, 'novo'])->name('grupo.novo');
     Route::get('/grupo/editar/{grupo}', [App\Http\Controllers\GrupoController::class, 'editar'])->name('grupo.editar');
     Route::get('/grupo/{id}/modelos', [App\Http\Controllers\GrupoController::class, 'modelos'])->name('grupo.modelos');
-    Route::post('/grupo/atualizar', [App\Http\Controllers\GrupoController::class, 'atualizar'])->name('grupo.atualizar');
+    Route::post('/grupo/atualizar/{grupo}', [App\Http\Controllers\GrupoController::class, 'atualizar'])->name('grupo.atualizar');
     Route::post('/grupo/cadastrar', [App\Http\Controllers\GrupoController::class, 'cadastrar'])->name('grupo.cadastrar');
-    Route::post('/grupo/excluir', [App\Http\Controllers\GrupoController::class, 'excluir'])->name('grupo.excluir');
+    Route::get('/grupo/excluir/{grupo}', [App\Http\Controllers\GrupoController::class, 'excluir'])->name('grupo.excluir');
 
 //MODELOS DE VEICULOS
     Route::get('/modelo', [App\Http\Controllers\ModeloController::class, 'index'])->name('modelo.index');
@@ -287,15 +287,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 Route::get('/teste',function () {
 
 
-    $contrato   =   Contrato::find(1);
+    $grupo   =   \App\Models\Grupo::where('tecnico',true)->first();
 
-    echo "Valor Bruto : ". $contrato->totalPecasBruto()."\n";
-    echo "Valor Liquido : ". $contrato->totalPecasLiquido()."\n";
-
-
-
-
-
+    return $grupo->usuarios;
 });
 
 Route::get('teste-api',function () {

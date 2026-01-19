@@ -9,11 +9,9 @@
     <div class="col-lg-4 col-sm-4 col-md-4">
         <div class="card ">
             <div class="card-body">
-                <form action="{{ isset($grupo)? route('grupo.atualizar'):route('grupo.cadastrar') }}" method="POST">
+                <form action="{{ isset($grupo)? route('grupo.atualizar',['grupo'=>$grupo]):route('grupo.cadastrar') }}" method="POST">
                     {{ csrf_field() }}
-                    @if(isset($grupo))
-                        <input hidden type="text" class="form-control" id="id-grupo" placeholder="" name="id" value="{{$grupo->id}}">
-                    @endif
+
                     <div class="form-row">
                       <div class="form-group col-md-8">
                         <label for="inputEmail4">Nome</label>
@@ -22,10 +20,14 @@
                           <ul class="parsley-errors-list filled"><li class="parsley-required">{{$message}}</li></ul>
                           @enderror
                       </div>
-                        <div class="form-group col-md-4">
+
+
+
+                    </div>
+                    <div class="form-row"><div class="form-group col-md-4">
                             <label for="inputEmail4">É Admin?</label>
                             <select class="form-control" name="admin">
-                                @if($grupo)
+                                @if(isset($grupo))
                                     @if($grupo->admin == 1)
                                         <option value="1" selected>Sim</option>
                                         <option value="0" >Não</option>
@@ -42,8 +44,26 @@
 
                             </select>
                         </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputEmail4">É Técnico?</label>
+                            <select class="form-control" name="tecnico">
+                                @if(isset($grupo))
+                                    @if($grupo->tecnico == 1)
+                                        <option value="1" selected>Sim</option>
+                                        <option value="0" >Não</option>
+                                    @else
+                                        <option value="1" >Sim</option>
+                                        <option value="0" selected>Não</option>
+                                    @endif
 
 
+                                @else
+                                    <option value="0">Não</option>
+                                    <option value="1">Sim</option>
+                                @endif
+
+                            </select>
+                        </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">

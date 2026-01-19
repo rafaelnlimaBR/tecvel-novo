@@ -54,39 +54,46 @@ class GrupoController extends Controller
                 'nome'  =>  ['required','min:3','max:100','unique:grupos,nome'],
             ]);
 
-            $Grupo          =   new Grupo();
-            $Grupo->nome    =   $r->get('nome');
-            $Grupo->admin   =   $r->get('admin');
+        $grupo          =   new Grupo();
+        $grupo->nome    =   $r->get('nome');
+        $grupo->admin   =   $r->get('admin');
+        $grupo->tecnico   =   ($r->get('tecnico')==1?true:false);
 
 
-            if($Grupo->save()){
-                $Grupo->permissoes()->sync($r->get('permissoes'));
-                return redirect()->route('Grupo.editar',['id'=>$Grupo->id])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Grupo cadastrado com sucesso."]);
+            if($grupo->save()){
+                $grupo->permissoes()->sync($r->get('permissoes'));
+                return redirect()->route('grupo.editar',['grupo'=>$grupo])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Grupo cadastrado com sucesso."]);
             }
 
 
 
     }
 
-    public function atualizar(Request $r){
+    public function atualizar(Grupo $grupo, Request $r){
         try {
-            $Grupo          =   Grupo::find($r->get('id'));
-            $Grupo->nome    =   $r->get('nome');
-            $Grupo->admin   =   ($r->get('admin')==1?true:false);
 
-            if($Grupo->save()){
-                $Grupo->permissoes()->sync($r->get('permissoes'));
-                return redirect()->route('grupo.editar',['grupo'=>$Grupo])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Grupo atualizado com sucesso."]);
+            $grupo->nome    =   $r->get('nome');
+            $grupo->admin   =   ($r->get('admin')==1?true:false);
+            $grupo->tecnico   =   ($r->get('tecnico')==1?true:false);
+
+            if($grupo->save()){
+                $grupo->permissoes()->sync($r->get('permissoes'));
+                return redirect()->route('grupo.editar',['grupo'=>$grupo])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Grupo atualizado com sucesso."]);
             }
-
 
         } catch (\Throwable $th) {
             return redirect()->route('grupo.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);
         }
     }
 
-    public function excluir(){
+    public function excluir(Grupo $grupo){
 
+        try{
+            $grupo->delete();
+            return redirect()->route('grupo.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Grupo excluido com sucesso."]);
+        } catch (\Throwable $th) {
+            return redirect()->route('grupo.index')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$th->getMessage()]);
+        }
     }
 
     public function modelos($id)

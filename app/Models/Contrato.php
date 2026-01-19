@@ -58,6 +58,18 @@ class Contrato extends Model
 
     }
 
+    public function criador()
+    {
+        return $this->belongsTo(User::class,'created_by');
+    }
+
+    public function tecnico()
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }
+
+
+
     public function scopePesquisarPorCliente($query, $nome)
     {
 
@@ -107,12 +119,66 @@ class Contrato extends Model
 
     }
 
+    public function totalServicosLiquidoAutorizado()
+    {
+        $total  =   0;
+        foreach ($this->historicos as $historico){
+            foreach ($historico->servicos as $servico){
+                if($servico->pivot->cobrar == true){
+                    $total += $servico->pivot->valor_liquido;
+                }
+
+            }
+        }
+        return $total;
+    }
+
+    public function totalServicosLiquidoNaoAutorizado()
+    {
+        $total  =   0;
+        foreach ($this->historicos as $historico){
+            foreach ($historico->servicos as $servico){
+                if($servico->pivot->cobrar == false){
+                    $total += $servico->pivot->valor_liquido;
+                }
+
+            }
+        }
+        return $total;
+    }
+
     public function totalServicosLiquido()
     {
         $total  =   0;
         foreach ($this->historicos as $historico){
             foreach ($historico->servicos as $servico){
                     $total += $servico->pivot->valor_liquido;
+            }
+        }
+        return $total;
+    }
+
+    public function totalServicosBrutoAutorizado()
+    {
+        $total  =   0;
+        foreach ($this->historicos as $historico){
+            foreach ($historico->servicos as $servico){
+                if($servico->pivot->cobrar == true){
+                    $total += $servico->pivot->valor;
+                }
+            }
+        }
+        return $total;
+    }
+
+    public function totalServicosBrutoNaoAutorizado()
+    {
+        $total  =   0;
+        foreach ($this->historicos as $historico){
+            foreach ($historico->servicos as $servico){
+                if($servico->pivot->cobrar == true){
+                    $total += $servico->pivot->valor;
+                }
             }
         }
         return $total;
@@ -129,6 +195,32 @@ class Contrato extends Model
         return $total;
     }
 
+
+    public function totalPecasLiquidoAutorizado()
+    {
+        $total  =   0;
+        foreach ($this->historicos as $historico){
+            foreach ($historico->pecas as $peca){
+                if($peca->pivot->cobrar == true){
+                    $total += $peca->pivot->valor_liquido*$peca->pivot->qnt;
+                }
+            }
+        }
+        return $total;
+    }
+
+    public function totalPecasLiquidoNaoAutorizado()
+    {
+        $total  =   0;
+        foreach ($this->historicos as $historico){
+            foreach ($historico->pecas as $peca){
+                if($peca->pivot->cobrar == true){
+                    $total += $peca->pivot->valor_liquido*$peca->pivot->qnt;
+                }
+            }
+        }
+        return $total;
+    }
     public function totalPecasLiquido()
     {
         $total  =   0;
@@ -140,6 +232,33 @@ class Contrato extends Model
         return $total;
     }
 
+    public function totalPecasBrutoAutorizado()
+    {
+        $total  =   0;
+        foreach ($this->historicos as $historico){
+            foreach ($historico->pecas as $peca){
+                if($peca->pivot->cobrar == true){
+                    $total += $peca->pivot->valor*$peca->pivot->qnt;
+                }
+
+            }
+        }
+        return $total;
+    }
+
+    public function totalPecasBrutoNaoAutorizado()
+    {
+        $total  =   0;
+        foreach ($this->historicos as $historico){
+            foreach ($historico->pecas as $peca){
+                if($peca->pivot->cobrar == true){
+                    $total += $peca->pivot->valor*$peca->pivot->qnt;
+                }
+
+            }
+        }
+        return $total;
+    }
     public function totalPecasBruto()
     {
         $total  =   0;
@@ -168,16 +287,35 @@ class Contrato extends Model
     public function restantePagamento()
     {
         $totalPago      =   $this->entradas->sum('valor');
-        $totalContrato  =   $this->totalLiquido();
+        $totalContrato  =   $this->totalLiquidoAutorizado();
 
         return $totalContrato - $totalPago;
     }
 
+
+    public function totalLiquidoAutorizado()
+    {
+        return $this->totalPecasLiquidoAutorizado()+$this->totalServicosLiquidoAutorizado();
+    }
+
+    public function totalLiquidoNaoAutorizado()
+    {
+        return $this->totalPecasLiquidoNaoAutorizado()+$this->totalServicosLiquidoNaoAutorizado();
+    }
     public function totalLiquido()
     {
         return $this->totalPecasLiquido()+$this->totalServicosLiquido();
     }
 
+    public function totalBrutoAutorizado()
+    {
+        return $this->totalPecasBrutoAutorizado()+$this->totalServicosBrutoAutorizado();
+    }
+
+    public function totalBrutoNaoAutorizado()
+    {
+        return $this->totalPecasBrutoNaoAutorizado()+$this->totalServicosBrutoNaoAutorizado();
+    }
     public function totalBruto()
     {
         return $this->totalPecasBruto()+$this->totalServicosBruto();

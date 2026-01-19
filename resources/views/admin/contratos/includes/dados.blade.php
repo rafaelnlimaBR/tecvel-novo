@@ -4,7 +4,7 @@
             <h4>ID : <b>{{$contrato->id}} </b></h4><br>
         </div>
         <div class="col-lg-2">
-            <p>  Criado em {{\Carbon\Carbon::parse($contrato->data)->format('d/m/Y')}}</p>
+            <p>  Criado em {{\Carbon\Carbon::parse($contrato->data)->format('d/m/Y')}} {{isset($contrato->criador)?"Por ".$contrato->criador->name:"Pelo Site"}} </p>
         </div>
     </div>
 @endif
@@ -39,6 +39,12 @@
 
             </div>
             <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="descricao">Descrição </label>
+                    <textarea style="min-height: 150px" class="form-control" name="descricao">{{isset($contrato)?$contrato->descricao:""}}</textarea>
+                </div>
+            </div>
+            <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="defeito">Defeito </label>
                     <textarea style="min-height: 150px" class="form-control texto-notesummer" name="defeito">{{isset($contrato)?$contrato->defeito:""}}</textarea>
@@ -54,6 +60,42 @@
                 <div class="form-group col-md-2">
                     <label for="garantia">Garantia </label>
                     <input class="form-control date-time " required name="garantia" value="{{isset($contrato)?\Carbon\Carbon::parse($contrato->garantia)->format('d/m/Y'):\Carbon\Carbon::now()->addDay(90)->format('d/m/Y')}}">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="garantia">Técnico </label>
+                    <select name="tecnico" class="form-control">
+                        @if(isset($contrato))
+                            @foreach($tecnicos as $tecnico)
+                                @if($contrato->user_id == $tecnico->id)
+                                    <option value="{{$tecnico->id}}"  selected>{{$tecnico->name}}</option>
+                                @else
+                                    <option value="{{$tecnico->id}}" >{{$tecnico->name}}</option>
+                                @endif
+
+                            @endforeach
+                        @else
+                            @if(auth()->user()->grupos->where('admin',true)->count() > 0)
+                                @foreach($tecnicos as $tecnico)
+                                    @if(auth()->user()->id == $tecnico->id)
+                                        <option value="{{$tecnico->id}}"  selected>{{$tecnico->name}}</option>
+                                    @else
+                                        <option value="{{$tecnico->id}}" >{{$tecnico->name}}</option>
+                                    @endif
+
+                                @endforeach
+
+                            @elseif(auth()->user()->grupos->where('tecnico',true)->count() > 0)
+                                <option value="{{$tecnico->id}}" >{{auth()->user()->name}}</option>
+                            @else
+                                @foreach($tecnicos as $tecnico)
+                                    <option value="{{$tecnico->id}}" >{{$tecnico->name}}</option>
+                                @endforeach
+
+                            @endif
+                        @endif
+
+                    </select>
+
                 </div>
 
 

@@ -24,21 +24,28 @@
                         </div>
                         <div class="col-md-3 borda-direita">
                             <h4>Cliente</h4>
-                            <b>Nome: </b>Teste<br>
-                            <b>Telefone: </b>85888888888<br>
-                            <b>Email: </b>rafafa@gmail.com<br>
+                            <b>Nome: </b>{{$contrato->cliente->nome}}<br>
+                            <b>Telefone: </b>{{$contrato->cliente->contatos->map->numero}}<br>
+                            <b>Email: </b>{{$contrato->cliente->email}}<br>
                         </div>
-                        <div class="col-md-3 borda-direita">
-                            <h4>Veículo</h4>
-                            <b>Modelo: </b>Gol<br>
-                            <b>Placa: </b>HUI3024<br>
-                            <b>Cor: </b>BRANCO<br>
-                            <b>Montadora: </b>ford<br>
-                        </div>
-                        <div class="col-md-3 ">
-                            <h3>OS : <b>1313</b></h3>
+                        @if(isset($veiculo))
+                            <div class="col-md-3 borda-direita">
+                                <h4>Veículo</h4>
+                                <b>Modelo: </b>{{$contrato->veiculo->modelo->nome}}<br>
+                                <b>Placa: </b>{{$contrato->veiculo->placa}}<br>
+                                <b>Cor: </b>{{$contrato->veiculo->cor}}<br>
+                                <b>Montadora: </b>{{$contrato->veiculo->modelo->montadora->nome}}<br>
 
-                            <h5><b>Garantia</b> : 25/05/2025</h5><br>
+                            </div>
+                            @endif
+
+                        <div class="col-md-3 ">
+                            <h3>OS : <b>{{$contrato->id}}</b></h3>
+
+                            <h6><b>Criado</b> : {{\Carbon\Carbon::parse($contrato->historicos->first()->created_at)->format('d/m/Y H:i')}}  {{isset($contrato->criador)?"Por ".$contrato->criador->nome:'Criado Online'}}</h6><br>
+                            <b>Técnico</b> : {{isset($contrato->tecnico)?$contrato->tecnico->nome:'Sem Técnico'}}
+{{--                            <h5><b>Garantia</b> : {{\Carbon\Carbon::parse($contrato->historicos->first()->created_at)->format('d/m/Y H:i')}}</h5><br>--}}
+
                         </div>
                     </div>
                     <div class="row historicos">
@@ -68,9 +75,7 @@
 
                         </div>
                         <div class="col-md-4">
-                            <p class="texto"><b>Defeito:  </b>da dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal kda dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal kda dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal k
-                                da dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal kda dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal kda dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal k
-                                da dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal kda dawdm aklda klçdnakwd klçawdkla nldwlkna dnkal k</p>
+                            <p class="texto"><b>Defeito:  </b>{!!  $contrato->defeito!!}</p>
                         </div>
                     </div>
                     @if($contrato->historicos->map->notas->flatten()->count() > 0)
@@ -106,6 +111,7 @@
 
                         </div>
                     @endif
+
                     <div class="row servicos">
 
                         <div class="col-md-12">

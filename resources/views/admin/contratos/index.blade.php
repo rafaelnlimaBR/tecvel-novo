@@ -79,8 +79,15 @@
                                 </td>
                                 <td style="width: 7%;"><span style="background-color: {{$contrato->historicos->last()->status->cor_fundo}}; color: {{$contrato->historicos->last()->status->cor_letra}}; padding: 3px 5px 3px 5px;border-radius: 10px;">{{$contrato->historicos->last()->status->nome}}</span></td>
                                 <td style="width: 10%;">
-                                    <span style="color: #0d9115; ">R$ {{$contrato->totalLiquido()}}</span>
+                                    @if($contrato->totalLiquidoAutorizado() > 0 & $contrato->totalLiquidoNaoAutorizado() == 0)
+                                        <span style="color: #0d9115; ">R$ {{$contrato->totalLiquidoAutorizado()}}</span>
+                                    @elseif($contrato->totalLiquidoAutorizado() > 0 & $contrato->totalLiquidoNaoAutorizado() > 0)
+                                        <span style="color: #0d9115; ">R$ {{$contrato->totalLiquidoAutorizado()}}</span>
+                                        <span style="color: #69161a; font-size: small; font-weight: bolder">(R$ {{$contrato->totalLiquidoNaoAutorizado()}})</span>
+                                    @elseif($contrato->totalLiquidoAutorizado() == 0 & $contrato->totalLiquidoNaoAutorizado() > 0)
+                                        <span style="color: #69161a; font-size: small; font-weight: bolder">R$ {{$contrato->totalLiquidoNaoAutorizado()}}</span>
 
+                                    @endif
                                 </td>
 
                                 <td style="width: 7%;">

@@ -16,9 +16,13 @@
 </div>
 
 <div class="row">
+
     <div class="col-lg-12 col-sm-12">
+
         <div class="tab-2 m-b-30">
+
             <ul class="nav nav-tabs">
+
                 <li class="nav-item">
                     <a class="nav-link {{request()->exists('pagina')?request()->get('pagina') == "dados"?'active':'':''}}" href="#home-2" data-toggle="tab" aria-expanded="false">Dados</a>
                 </li>
@@ -80,8 +84,11 @@
 
         </div>
         @if(isset($contrato))
+
         <div class="row" >
+
             <div class="col-lg-12"  style="padding: 20px; background-color: #e2e2e2">
+
                         @foreach($contrato->historicos->last()->status->proximosStatus as $proximo)
                             <a  class="btn btn-sm botao-mudar-status" style="background-color: {{$proximo->cor_fundo}}; color: {{$proximo->cor_letra}}" status="{{$proximo->id}}">{{$proximo->nome}}</a>
                         @endforeach

@@ -8,6 +8,7 @@ use App\Models\Comissao;
 use App\Models\Configuracao;
 use App\Models\Entrada;
 use App\Models\FormaPagamento;
+use App\Models\Grupo;
 use App\Models\HistoricoPeca;
 use App\Models\MaoObra;
 use App\Models\Montadora;
@@ -18,12 +19,14 @@ use App\Models\Servico;
 use App\Models\Status;
 use App\Models\TipoPagamento;
 
+use App\Models\User;
 use App\Models\Whatsapp;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
@@ -34,9 +37,11 @@ class ContratoController extends Controller
 {
     var $conf   =   "";
 
+
     public function __construct()
     {
         $this->conf     =   Configuracao::all()->last();
+
     }
 
     public function index(Request $r){
@@ -83,7 +88,8 @@ class ContratoController extends Controller
             $dados = [
                 'titulo'        => "Editar Contrato",
                 'contrato'        =>  $contrato,
-                'historico'         => $historico
+                'historico'         => $historico,
+                'tecnicos'      => Grupo::where('tecnico',true)->first()->usuarios,
             ];
 
 
@@ -102,7 +108,8 @@ class ContratoController extends Controller
         $dados = [
             'titulo'        => "Nova Contrato",
             'contratos'    =>  Montadora::all(),
-            'pagina'        => 'dados'
+            'pagina'        => 'dados',
+            'tecnicos'      => Grupo::where('tecnico',true)->first()->usuarios,
 
         ];
         return view('admin.contratos.formulario',$dados);
@@ -145,8 +152,12 @@ class ContratoController extends Controller
             $contrato->veiculo_id           =   $r->get('veiculo');
             $contrato->defeito              =   $r->get('defeito');
             $contrato->solucao              =   $r->get('solucao');
+            $contrato->descricao            =   $r->get('descricao');
             $contrato->garantia             =   Carbon::createFromFormat('d/m/Y',$r->get('garantia'));
             $contrato->visualizado          =   true;
+            $contrato->created_by           =   Auth::user()->id;
+            $contrato->user_id              =   $r->get('tecnico');
+
 
 
             if($contrato->save()){
@@ -168,7 +179,9 @@ class ContratoController extends Controller
             $contrato->veiculo_id           =   $r->get('veiculo');
             $contrato->defeito              =   $r->get('defeito');
             $contrato->solucao              =   $r->get('solucao');
+            $contrato->descricao            =   $r->get('descricao');
             $contrato->garantia             =   Carbon::createFromFormat('d/m/Y',$r->get('garantia'));
+            $contrato->user_id              =   $r->get('tecnico');
 
             if($contrato->save()){
                 return redirect()->route('contrato.editar',['id'=>$contrato->id,"historico_id"=>$r->get('id_historico'),'pagina'=>'dados'])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Contrato atualizado com sucesso."]);
