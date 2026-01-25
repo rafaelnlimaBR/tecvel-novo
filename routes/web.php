@@ -176,6 +176,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::get('/veiculo/excluir/{veiculo}', [App\Http\Controllers\VeiculoController::class, 'excluir'])->name('veiculo.excluir');
     Route::Post('/veiculo/pesquisa/json', [App\Http\Controllers\VeiculoController::class, 'veiculosJson'])->name('veiculo.pesquisar.json');
 
+    //CATEGORIA PRODUTOS
+    Route::get('/categoria/produtos', [App\Http\Controllers\CategoriaProdutoController::class, 'index'])->name('categoria.produto.index');
+    Route::get('/categoria/produto/novo', [App\Http\Controllers\CategoriaProdutoController::class, 'novo'])->name('categoria.produto.novo');
+    Route::get('/categoria/produto/editar/{categoria}', [App\Http\Controllers\CategoriaProdutoController::class, 'editar'])->name('categoria.produto.editar');
+    Route::post('/categoria/produto/atualizar/{categoria}', [App\Http\Controllers\CategoriaProdutoController::class, 'atualizar'])->name('categoria.produto.atualizar');
+    Route::post('/categoria/produto/cadastrar', [App\Http\Controllers\CategoriaProdutoController::class, 'cadastrar'])->name('categoria.produto.cadastrar');
+    Route::get('/categoria/produto/excluir/{categoria}', [App\Http\Controllers\CategoriaProdutoController::class, 'excluir'])->name('categoria.produto.excluir');
+
+
 //STATUS
     Route::get('/status', [App\Http\Controllers\StatusController::class, 'index'])->name('status.index');
     Route::get('/status/novo', [App\Http\Controllers\StatusController::class, 'novo'])->name('status.novo');

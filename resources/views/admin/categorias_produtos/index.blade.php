@@ -9,7 +9,7 @@
     <div class="col-lg-12">
         <div class="card m-b-30">
             <div class="card-body">
-                <form method="get" action="{{route('categoria.index')}}">
+                <form method="get" action="{{route('categoria.produto.index')}}">
                     <div class="form-row">
 
                       <div class="form-group col-md-2">
@@ -31,7 +31,7 @@
     <div class="col-lg-12 col-sm-12">
         <div class="card m-b-30">
             <div class="card-body">
-                <h5 class="header-title">{{$titulo_tabela}}<p style="float: right"><a href="{{ route('categoria.novo') }}" style="color: white; font-size: 13px; text-transform: none" class="btn btn-primary btn-sm">Novo <i class="fa fa-plus-square"></i></a></p></h5>
+                <h5 class="header-title">{{$titulo_tabela}}<p style="float: right"><a href="{{ route('categoria.produto.novo') }}" style="color: white; font-size: 13px; text-transform: none" class="btn btn-primary btn-sm">Novo <i class="fa fa-plus-square"></i></a></p></h5>
 
                 <div class="table-responsive-sm">
                     <table class="table table-bordered">
@@ -56,8 +56,8 @@
 
                                     <td>
                                         <button class="btn btn-sm btn-primary" style="padding-top: 0; padding-bottom: 0"><i class="fa   fa-sign-out"></i></button>
-                                        <a href="{{route('categoria.editar',['categoria'=>$categoria])}}" class="btn btn-sm btn-warning" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-pencil-square"></i></a>
-                                        <a href="{{route('categoria.excluir',['categoria'=>$categoria])}}" class="btn btn-sm btn-danger" style="padding-top: 0; padding-bottom: 0" onclick="return confirm('Deseja excluir esse registro?')"><i class="fa  fa-trash-o"></i></a>
+                                        <a href="{{route('categoria.produto.editar',['categoria'=>$categoria])}}" class="btn btn-sm btn-warning" style="padding-top: 0; padding-bottom: 0"><i class="fa  fa-pencil-square"></i></a>
+                                        <a href="{{route('categoria.produto.excluir',['categoria'=>$categoria])}}" class="btn btn-sm btn-danger" style="padding-top: 0; padding-bottom: 0" onclick="return confirm('Deseja excluir esse registro?')"><i class="fa  fa-trash-o"></i></a>
 
 
                                     </td>

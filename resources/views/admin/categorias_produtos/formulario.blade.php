@@ -9,11 +9,11 @@
     <div class="col-lg-4 col-sm-4 col-md-4">
         <div class="card ">
             <div class="card-body">
-                <form action="{{ isset($categoria)? route('categoria.atualizar',['categoria'=>$categoria]):route('categoria.cadastrar') }}" method="POST">
+                <form action="{{ isset($categoria)? route('categoria.produto.atualizar',['categoria'=>$categoria]):route('categoria.produto.cadastrar') }}" method="POST">
                     {{ csrf_field() }}
-                    @if(isset($categoria))
+                    {{--@if(isset($categoria))
                         <input hidden type="text" class="form-control" id="id-categoria" placeholder="" name="id" value="{{$categoria->id}}">
-                    @endif
+                    @endif--}}
                     <div class="form-row">
                       <div class="form-group col-md-12">
                         <label for="inputEmail4">Nome</label>
@@ -37,7 +37,7 @@
                     @else
                         <button type="submit" class="btn btn-success">Cadastrar</button>
                     @endif
-                    <a href="{{route('categoria.index')}}" class="btn btn-secondary">Voltar</a>
+                    <a href="{{route('categoria.produto.index')}}" class="btn btn-secondary">Voltar</a>
 
 
                   </form>

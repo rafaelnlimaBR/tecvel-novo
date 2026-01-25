@@ -37,6 +37,28 @@ class DatabaseSeeder extends Seeder
            ['nome' => 'Ordem de Serviço','cor_fundo'=>'0B8700','cor_letra'=>'E4E6F0'],
         ]);
 
+        $this->command->info("Insertindo dados categorias de produtos");
+        DB::table('categorias_produtos')->insert([
+            ['nome' => 'Painel de instrumentos'],
+            ['nome' => 'Módulo de injeção eletrônica'],
+            ['nome' => 'Módulo de abs'],
+        ]);
+
+       /* $table->bigIncrements('id');
+        $table->string('nome');
+        $table->decimal('preco',8,2);
+        $table->text('descricao')->nullable();
+        $table->string('marca')->nullable();
+        $table->integer('referencia');
+        $table->text('pesquisa');
+        $table->integer('estoque_atual')->default(0);
+        $table->foreignId('categoria_id')->constrained('catego*/
+
+        $this->command->info("Insertindo dados de produtos");
+        DB::table('produtos')->insert([
+            ['nome' => 'Painel de instrumentos Gol ','preco'=>890,'descricao'=>'painel de instrumentos','marca'=>'VDO','referencia'=>'5z09820z','pesquisa'=>'painel gol  ','estoque_atual'=>1,'categoria_id'=>1],
+        ]);
+
         $this->command->info("Insertindo dados do app contados");
         DB::table('app_contatos')->insert([
             ['nome' => 'Whatsapp','link' => '..','img'   =>  '..'],
