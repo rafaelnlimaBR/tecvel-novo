@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CategoriaProduto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CategoriaProdutoController extends Controller
 {
@@ -30,9 +31,26 @@ class CategoriaProdutoController extends Controller
         return view('admin.categorias_produtos.formulario',$dados);
     }
 
-    public function cadastrar(CategoriaProduto $categoriaProduto)
+    public function cadastrar(Request $r)
     {
+        try {
+            $validacao      =   Validator::make($r->all(),[
+                'nome' => 'required|min:2|max:100'
+            ]) ;;
 
+            if($validacao->fails()){
+                return redirect()->back()->withErrors($validacao)->withInput();
+            }
+
+            $categoria  =   new CategoriaProduto();
+            $status = $r->get('status')=='1'?1:0;
+            $categoria->gravar($r->get('nome'),$status);
+
+            return redirect()->route('categoria.produto.editar',['categoria'=>$categoria])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Registro atualizado com sucesso!."]);
+
+        }catch (\Exception $e){
+            return redirect()->route('categoria.produto.editar',['categoria'=>$categoria])->withInput()->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage()]);
+        }
     }
 
     public function editar(CategoriaProduto $categoria)
@@ -41,11 +59,39 @@ class CategoriaProdutoController extends Controller
             'titulo' => "Nova Categoria",
             'categoria' =>  $categoria
         ];
-        return view('admin.categorias.formulario',$dados);
+        return view('admin.categorias_produtos.formulario',$dados);
     }
 
-    public function atualizar(CategoriaProduto $categoriaProduto)
+    public function atualizar(Request $r,CategoriaProduto $categoria)
     {
 
+        try {
+            $validacao      =   Validator::make($r->all(),[
+                'nome' => 'required|min:2|max:100'
+            ]) ;
+            if($validacao->fails()){
+                return redirect()->back()->withErrors($validacao)->withInput()->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>"Preencher os campos obrigatórios!."]);
+            }
+            $status = $r->get('status')=='1'?1:0;
+            $categoria->gravar($r->get('nome'),$status);
+
+            return redirect()->route('categoria.produto.editar',['categoria'=>$categoria])->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Registro atualizado com sucesso!."]);
+
+        }catch (\Exception $e){
+            return redirect()->route('categoria.produto.editar',['categoria'=>$categoria])->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage()]);
+        }
+
+    }
+
+    public function excluir(CategoriaProduto $categoria)
+    {
+        try {
+
+            $categoria->delete();
+            return redirect()->route('categoria.produto.index')->with('alerta',['tipo'=>'success','icon'=>'','texto'=>"Excluido com sucesso!."]);
+
+        }catch (\Exception $e){
+            return  redirect()->route('categoria.produto.excluir')->with('alerta',['tipo'=>'danger','icon'=>'','texto'=>$e->getMessage()]);
+        }
     }
 }

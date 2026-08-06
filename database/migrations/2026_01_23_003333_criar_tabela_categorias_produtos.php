@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('categorias_produtos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nome');
+            $table->boolean('status')->default(true);
             $table->timestamps();
 
         });

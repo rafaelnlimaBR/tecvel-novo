@@ -40,9 +40,11 @@
 
 
 
+                        <li>
+                            <a href="{{route('categoria.produto.index')}}"><i class="fa fa-address-book"></i> <span>Categoria de produtos</span></a>
+                        </li>
 
-
-                    @can('grupo-visualizar')
+                        @can('grupo-visualizar')
                             <li>
                                 <a href="{{route('grupo.index')}}"><i class="fa fa-users"></i> <span>Grupos</span></a>
                             </li>

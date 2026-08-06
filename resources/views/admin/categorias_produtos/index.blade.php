@@ -39,6 +39,7 @@
                             <tr>
                                 <th style="width: 5%; min-width: 40px;" scope="col">#</th>
                                 <th scope="col">Nome</th>
+                                <th scope="col">Status</th>
                                 <th style="width: 10%; min-width: 150px;"  scope="col">Criado </th>
                                 <th style="width: 7%; min-width: 150px;" scope="col">Ações</th>
 
@@ -50,6 +51,14 @@
                                 <tr>
                                     <th scope="row">{{$categoria->id}}</th>
                                     <td>{{$categoria->nome}}</td>
+
+                                    <td>
+                                        @if($categoria->status == 0)
+                                            <span style="background-color: #69161a; color: #d9e1d9; padding: 3px 5px 3px 5px;border-radius: 10px;">Inativo</span>
+                                        @else
+                                            <span style="background-color: #257625; color: #e9eee4; padding: 3px 5px 3px 5px;border-radius: 10px;">Ativo</span>
+                                        @endif
+                                    </td>
 
                                     <td>{{\Carbon\Carbon::parse($categoria->created_at)->format('d/m/Y')}}</td>
 
